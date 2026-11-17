@@ -66,7 +66,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 
 /* ---------- ziarno druku (riso) ---------- */
-.grain{position:fixed;inset:-50%;z-index:90;pointer-events:none;opacity:.17;mix-blend-mode:multiply;
+.grain{position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.12;contain:strict; /* bez mix-blend-mode: stała nakładka blendowana na cały ekran zabijała płynność na PC */
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.04 0 0 0 0 0.04 0 0 0 0 0.12 0 0 0 1.6 -0.35'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 @keyframes grain{0%{transform:translate(0,0)}25%{transform:translate(-3%,2%)}50%{transform:translate(2%,-3%)}75%{transform:translate(-2%,-1%)}100%{transform:translate(0,0)}}
@@ -147,7 +147,7 @@ mark{background:none;color:var(--mag);font-weight:700}
    HERO
    ========================================================= */
 .hero{min-height:100svh;padding-top:120px;padding-bottom:90px}
-.rays{will-change:transform;position:absolute;left:50%;top:-30%;width:220%;height:160%;transform-origin:50% 0;translate:-40% 0;opacity:1;animation:rays 60s linear infinite alternate;pointer-events:none}
+.rays{position:absolute;left:50%;top:-30%;width:220%;height:160%;transform-origin:50% 0;translate:-40% 0;transform:rotate(-3deg);opacity:1;pointer-events:none}
 @keyframes rays{from{transform:rotate(-6deg)}to{transform:rotate(6deg)}}
 .bubbles,.fishes{position:absolute;inset:0;pointer-events:none;z-index:1}
 .bubble{position:absolute;bottom:-60px;border:2.5px solid rgba(255,255,255,.7);border-radius:50%;pointer-events:auto;cursor:pointer;animation:rise linear infinite}
