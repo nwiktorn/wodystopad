@@ -147,17 +147,20 @@ mark{background:none;color:var(--mag);font-weight:700}
 @keyframes pop{to{transform:scale(1.8);opacity:0}}
 .fish{position:absolute;width:var(--w,120px);height:auto;color:var(--c,#fff);transition:translate .6s cubic-bezier(.2,.9,.3,1.3)}
 .hero__grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,520px);gap:24px;align-items:center;position:relative;z-index:3}
-.hero__meta{color:#fff;margin-bottom:64px}
-.hero__title{font:400 clamp(104px,16.4vw,250px)/.86 var(--f-display);text-transform:uppercase;position:relative}
-.hero__title .line{display:block;white-space:nowrap}
+.hero__meta{color:#fff;margin-bottom:56px}
+.hero__title{font:400 clamp(84px,12.8vw,192px)/.9 var(--f-display);text-transform:uppercase;position:relative}
+.hero__title .line{display:table;white-space:nowrap}
 .l{display:inline-block;color:var(--lime);-webkit-text-stroke:.022em var(--ink);paint-order:stroke fill;
   text-shadow:calc(.048em + var(--drunk)*.09em) calc(.04em + var(--drunk)*.03em) 0 var(--pink);
   transform:translateY(calc(var(--dy)*1px)) rotate(calc(var(--rot)*1deg));
   animation:bob var(--dur,3.2s) ease-in-out calc(var(--i)*-.37s) infinite alternate;transition:scale .3s cubic-bezier(.2,2,.4,1)}
 .l:hover{scale:1.08 .92}
+.l{transition:scale .3s cubic-bezier(.2,2,.4,1),filter .7s ease}
+.l.blurry{filter:blur(.05em)}
+.l.swapped{color:var(--pink);text-shadow:calc(.048em + var(--drunk)*.09em) calc(.04em + var(--drunk)*.03em) 0 var(--lime)}
 @keyframes bob{from{transform:translateY(calc(var(--dy)*1px)) rotate(calc(var(--rot)*1deg))}
   to{transform:translateY(calc(var(--dy)*1px - 8px - var(--drunk)*22px)) rotate(calc(var(--rot)*-1deg - var(--drunk)*12deg))}}
-.hero .sticker--rave{text-transform:none;position:absolute;font-size:clamp(28px,4.4vw,64px);right:clamp(-20px,2vw,40px);top:clamp(-10px,1vw,20px);transform:rotate(-9deg);z-index:2;animation:wiggle 2.4s ease-in-out infinite}
+.hero .sticker--rave{text-transform:none;position:absolute;font-size:clamp(28px,4vw,58px);left:62%;top:44%;white-space:nowrap;transform:rotate(-9deg);z-index:2;animation:wiggle 2.4s ease-in-out infinite}
 @keyframes wiggle{50%{transform:rotate(-4deg) scale(1.05)}}
 .hero__tag{color:#fff;font-size:clamp(15px,1.6vw,22px);line-height:1.45;margin-top:30px;max-width:30em}
 .porthole{position:relative;width:min(520px,100%);aspect-ratio:1;margin-left:auto;border-radius:50%;background:var(--paper);border:5px solid var(--ink);box-shadow:10px 10px 0 var(--ink)}
@@ -169,7 +172,7 @@ mark{background:none;color:var(--mag);font-weight:700}
 .carafe .liquid{animation:slosh 2.25s ease-in-out infinite alternate;transform-origin:50% 60%;transform-box:fill-box}
 @keyframes slosh{from{transform:skewY(-5deg)}to{transform:skewY(5deg) translateY(2px)}}
 .porthole .stamp{position:absolute;left:-18%;bottom:12%;color:var(--pink);--rot:12deg;z-index:3}
-.date-sticker{position:absolute;right:-4%;bottom:-2%;width:30%;aspect-ratio:1;border-radius:50%;background:var(--lime);border:4px solid var(--ink);box-shadow:6px 6px 0 var(--ink);display:grid;place-items:center;text-align:center;font:400 clamp(16px,2.2vw,32px)/.95 var(--f-sticker);transform:rotate(10deg);z-index:4;animation:spinny 9s ease-in-out infinite}
+.date-sticker{position:absolute;right:-4%;bottom:-2%;width:30%;aspect-ratio:1;border-radius:50%;background:var(--lime);color:var(--ink);border:4px solid var(--ink);box-shadow:6px 6px 0 var(--ink);display:grid;place-items:center;text-align:center;font:400 clamp(16px,2.2vw,32px)/.95 var(--f-sticker);transform:rotate(10deg);z-index:4;animation:spinny 9s ease-in-out infinite}
 @keyframes spinny{50%{transform:rotate(-4deg) scale(1.04)}}
 
 /* odliczanie */
@@ -185,7 +188,7 @@ mark{background:none;color:var(--mag);font-weight:700}
 .cd__num.flip{animation:flip .45s ease}
 @keyframes flip{0%{transform:rotateX(0)}45%{transform:rotateX(88deg)}100%{transform:rotateX(0)}}
 .cd__unit{font:700 13px var(--f-type);letter-spacing:.2em}
-.cd.done .cd__label b::after{content:" KARAFKA OTWARTA!";color:var(--mag)}
+.cd.done .cd__label b::after{content:" PIJEMY!";color:var(--mag)}
 
 /* =========================================================
    MARQUEE
@@ -222,10 +225,6 @@ mark{background:none;color:var(--mag);font-weight:700}
 .sign small{font:700 13px var(--f-type);letter-spacing:.16em}
 .clip{position:absolute;top:-40px;left:60px;width:40px;height:110px}
 .sheet .stamp{position:absolute;right:8%;bottom:18%;color:var(--mag);--rot:-16deg}
-.reply{position:absolute;right:-26px;bottom:-34px;background:var(--pink);border:3px solid var(--ink);border-radius:22px;box-shadow:5px 5px 0 var(--ink);padding:12px 20px;transform:rotate(6deg) scale(0);transform-origin:0 100%;transition:transform .45s cubic-bezier(.2,1.6,.4,1)}
-.reply.show{transform:rotate(6deg) scale(1)}
-.reply b{display:block;font-size:20px}
-.reply small{font-size:11px;opacity:.7}
 
 /* =========================================================
    REGULAMIN
@@ -279,6 +278,7 @@ mark{background:none;color:var(--mag);font-weight:700}
 .poll button.mine .row span::before{content:"✓ "}
 .poll button.mine .bar i{background:var(--ink)}
 .poll-add{display:flex;gap:8px}
+.poll-empty{font-style:italic;font-size:15px;line-height:1.5;background:rgba(255,255,255,.45);border:2px dashed var(--ink);border-radius:12px;padding:16px}
 .poll-add input{flex:1;min-width:0;border:2px solid var(--ink);border-radius:12px;padding:12px 14px;font:14px var(--f-type);background:#fff}
 .poll-add button{border:2px solid var(--ink);border-radius:12px;background:var(--ink);color:var(--lime);padding:0 16px;font-weight:700}
 .stepper{display:flex;align-items:center;gap:20px}
@@ -302,6 +302,8 @@ mark{background:none;color:var(--mag);font-weight:700}
 .ledger{background:#fff;border:2px solid var(--ink);border-radius:12px;padding:14px 16px;font-size:14px;line-height:1.6}
 .ledger b{display:block}
 .ledger .warn{color:var(--mag);animation:warn 1.2s steps(2) infinite}
+.coinbar__tbd{position:absolute;inset:0;display:grid;place-items:center;font:italic 700 13px var(--f-type);color:var(--ink);opacity:.6;animation:warn 1.6s steps(2) infinite}
+.pay--tbd{background:transparent!important;color:var(--ink)!important;border-style:dashed!important}
 @keyframes warn{50%{opacity:.4}}
 .panel .btn-pill{justify-content:center;margin-top:auto}
 .zp__foot{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-top:70px;flex-wrap:wrap}
@@ -505,14 +507,15 @@ mark{background:none;color:var(--mag);font-weight:700}
   .hero__meta{font-size:9px;margin-bottom:34px}
   .stamp small{font-size:8px;letter-spacing:.1em}
   .stamp>span{padding:6px 12px}
-  .hero__title{font-size:min(118px,29vw);line-height:.92}
-  .hero .sticker--rave{font-size:28px;right:-6px;top:-14px;-webkit-text-stroke-width:2px;text-shadow:3px 3px 0 var(--ink)}
+  .hero__title{font-size:min(96px,24vw);line-height:.92}
+  .hero .sticker--rave{font-size:24px;left:auto;right:-10px;top:40%;-webkit-text-stroke-width:2px;text-shadow:3px 3px 0 var(--ink)}
   .hero__right{margin-top:22px}
-  .porthole{width:230px;margin:0 auto;box-shadow:6px 6px 0 var(--ink);border-width:4px}
+  .porthole{width:196px;margin:0 auto;box-shadow:6px 6px 0 var(--ink);border-width:4px}
   .porthole .stamp{left:-26%;bottom:4%;--ss:16px}
   .porthole .stamp>span{padding:6px 12px}
   .date-sticker{width:96px;right:-22%;bottom:10%;font-size:16px;border-width:3px;box-shadow:4px 4px 0 var(--ink)}
-  .hero__tag{font-size:14px;margin-top:26px}
+  .hero__tag{font-size:13.5px;margin-top:20px}
+  .hero__tag br{display:none}
   .cd{margin-top:16px;gap:10px;flex-wrap:nowrap}
   .cd__label{position:absolute;top:-22px;left:0;width:auto;padding:0;background:none;border:0;box-shadow:none;transform:none}
   .cd__label b{font-size:10px;color:var(--lime);letter-spacing:.1em}
@@ -532,8 +535,7 @@ mark{background:none;color:var(--mag);font-weight:700}
   .sheet h3{font-size:17px}
   .clip{width:26px;height:72px;top:-34px}
   .sheet .stamp{--ss:22px;right:4%;bottom:14%}
-  .reply{right:-6px;bottom:-30px;padding:10px 14px} .reply b{font-size:15px}
-  .attachments{order:3;margin-top:70px}
+     .attachments{order:3;margin-top:70px}
   .pismo__left{display:contents}
   .pismo__note{font-size:16px}
   /* regulamin */
@@ -720,7 +722,7 @@ mark{background:none;color:var(--mag);font-weight:700}
   <button class="btn-pill btn-lime" id="menu-close" style="position:absolute;top:22px;right:28px;padding:8px 14px;font-size:12px">ZAMKNIJ ✕</button>
   <p class="eyebrow" style="color:var(--lime);font-size:10px">Spis treści · Dok. nr 1/2026</p>
   <ol id="menu-list"></ol>
-  <div class="menu__cd"><span data-cd-text>DO OTWARCIA KARAFKI: —</span><small>SOBOTA 21.11.2026 · 19:00 · MIEJSCE ŚCIŚLE TAJNE</small></div>
+  <div class="menu__cd"><span data-cd-text>DO PIERWSZEGO ŁYCZKA: —</span><small>SOBOTA 21.11.2026 · 19:00 · MIEJSCE ŚCIŚLE TAJNE</small></div>
 </div>
 
 <div class="sticky" id="sticky">
@@ -739,8 +741,8 @@ mark{background:none;color:var(--mag);font-weight:700}
     <div class="hero__grid">
       <div class="hero__left">
         <p class="eyebrow hero__meta">Dokument nr 1/2026 · klauzula: ściśle tajne (§1) · edycja: wódna</p>
-        <h1 class="hero__title" aria-label="Wódystopad"><span class="line" data-split>WÓDY-</span><span class="line" data-split>STOPAD</span><span class="sticker sticker--rave" aria-hidden="true">wódny rave!</span></h1>
-        <p class="hero__tag">Jedyny miesiąc w roku, w którym pijemy wódkę.<br>A konkretnie — jeden wieczór.</p>
+        <h1 class="hero__title" aria-label="Wódystopad"><span class="line" data-split>WÓDY</span><span class="line" data-split>STOPAD</span><span class="sticker sticker--rave" aria-hidden="true">wódny rave!</span></h1>
+        <p class="hero__tag">Jedyny miesiąc w roku, w którym pijemy wódkę. <br>A konkretnie — jeden wieczór.</p>
       </div>
       <div class="hero__right">
         <div class="porthole" id="porthole">
@@ -752,7 +754,7 @@ mark{background:none;color:var(--mag);font-weight:700}
       </div>
     </div>
     <div class="cd" id="countdown" aria-live="off">
-      <div class="cd__label"><b>DO OTWARCIA KARAFKI POZOSTAŁO:</b><i>(odliczanie urzędowe, nie podlega negocjacjom)</i></div>
+      <div class="cd__label"><b>DO WYPICIA PIERWSZEGO ŁYCZKA WÓDECZKI POZOSTAŁO:</b><i>(odliczanie urzędowe, nie podlega negocjacjom)</i></div>
       <div class="cd__cell"><span class="cd__num" data-u="d">00</span><span class="cd__unit">DNI</span></div>
       <div class="cd__cell"><span class="cd__num" data-u="h">00</span><span class="cd__unit">GODZ.</span></div>
       <div class="cd__cell"><span class="cd__num" data-u="m">00</span><span class="cd__unit">MIN.</span></div>
@@ -791,7 +793,6 @@ mark{background:none;color:var(--mag);font-weight:700}
       <p class="hl" data-type>Pieczątkę odbycia kary podbiję.</p>
       <div class="sign"><b>Wiktorek</b><small>WÓDZIREJ NACZELNY</small></div>
       <div class="stamp" data-stamp id="sheet-stamp"><span><b>WÓDZIREJ</b><small>pieczęć urzędowa</small></span></div>
-      <div class="reply" id="reply"><b>ok szefie</b><small>przeczytano ✓✓</small></div>
     </article>
   </div>
 </section>
@@ -833,7 +834,7 @@ mark{background:none;color:var(--mag);font-weight:700}
     <nav class="tabs" id="tabs" aria-label="Panele zaopatrzenia"><a href="#p-marka" class="on">MARKA</a><a href="#p-butelki">BUTELKI</a><a href="#p-skladeczka">SKŁADECZKA</a></nav>
     <div class="panels">
       <div class="panel" id="p-marka" data-reveal>
-        <span class="panel__k">ANKIETA W-2 · JEDEN GŁOS NA WÓDOWICZA</span>
+        <span class="panel__k">ANKIETA W-2 · ZGŁOŚ MARKĘ I GŁOSUJ</span>
         <h3>Jaka wódeczka?</h3>
         <div class="poll" id="poll"></div>
         <form class="poll-add" id="poll-add"><input type="text" id="poll-input" maxlength="40" placeholder="+ zgłoś markę (bez żartów)" aria-label="Zgłoś markę"><button type="submit" aria-label="Dodaj">+</button></form>
@@ -934,7 +935,6 @@ mark{background:none;color:var(--mag);font-weight:700}
         <label class="f">IMIĘ I NAZWISKO<input type="text" name="imie" autocomplete="name" required></label>
         <label class="f">KSYWA WÓDCZANA (OPCJONALNIE)<input type="text" name="ksywa"></label>
         <label class="check"><input type="checkbox" name="regulamin" required>Zapoznałem(-am) się z regulaminem (lub ktoś mi go przeczytał).</label>
-        <label class="check"><input type="checkbox" name="pelnoletni" required>Jestem osobą pełnoletnią.</label>
         <label class="check"><input type="checkbox" name="skladeczka">Wpłaciłem(-am) na składeczkę i nie zostawiam „wyświetlone”.</label>
         <p class="err" id="oath-err" aria-live="polite"></p>
         <button class="btn-pill btn-ink" type="submit">Przysięgam uroczyście →</button>
@@ -1008,9 +1008,9 @@ const CONFIG = {
     ['19:00','Otwarcie butelki i kielonek powitalny','xl'], ['19:15','Toast inauguracyjny','l'], ['19:30','Odczyt regulaminu na głos','m'],
     ['21:00','Posiedzenie komisji','s'], ['23:00','Wolne wnioski (tryb §3)','xs'], ['??:??','+ Zamknięcie posiedzenia','xxs'],
   ],
-  poll: [ ['Klasyczna czysta (głos rozsądku)',4], ['Żytnia (dla koneserów)',2], ['Ta z trawką (komisja bada §6)',1], ['Najtańsza (veto Wódzireja)',0] ],
+  poll: [],   // propozycje startowe [nazwa, głosy] — pusta = Wódowicze zgłaszają sami
   bottles: 6, guests: 8, bottleMl: 700, glassMl: 30,
-  skladeczka: { zebrano:240, cel:400, wplacili:5, wyswietlone:2, blik:'+48 000 000 000', tytul:'Tytuł: „Wódystopad — składeczka”' },
+  skladeczka: { zebrano:0, cel:null, wplacili:0, wyswietlone:null, blik:'', tytul:'Tytuł: „Wódystopad — składeczka”' }, // cel:null / blik:'' = jeszcze nieustalone
   sworn: 5,                 // ile osób złożyło przysięgę (stan startowy)
   formEndpoint: '',         // np. 'https://formspree.io/f/xxxxxxx' — wtedy przysięgi lecą do Wódzireja mailem
   counterAlwaysOn: false,   // true = licznik rybek działa także przed 21.11 (do testów)
@@ -1081,6 +1081,17 @@ $$('[data-reveal],[data-stamp]').forEach(el => revealIO.observe(el));
 $$('[data-split]').forEach((line, li) => { const t = line.textContent; line.textContent='';
   [...t].forEach((ch,i) => { const s = document.createElement('span'); s.className='l'; s.textContent=ch; s.setAttribute('aria-hidden','true');
     s.style.cssText = `--i:${li*6+i};--dy:${((rnd()-.5)*18).toFixed(1)};--rot:${((rnd()-.5)*9).toFixed(1)};--dur:${(2.6+rnd()*1.4).toFixed(2)}s`; line.appendChild(s); }); });
+(() => { const [w1, w2] = $$('.hero__title .line'); // WÓDY = szerokość STOPAD
+  const fit = () => { w1.style.fontSize = '1em'; const r = w2.offsetWidth / w1.offsetWidth; w1.style.fontSize = r.toFixed(4) + 'em'; };
+  fit(); addEventListener('resize', fit); document.fonts && document.fonts.ready.then(fit); })();
+(() => { if (reduced) return; // pojedyncze litery: czasem się rozmyją, czasem dwie zamienią miejscami — rzadko i delikatnie
+  const lines = $$('.hero__title .line').map(l => $$('.l', l)); const all = lines.flat(); const r = (a,b) => a + Math.random()*(b-a);
+  const blur = () => { const el = all[Math.floor(Math.random()*all.length)]; el.classList.add('blurry'); setTimeout(() => el.classList.remove('blurry'), r(900,1500)); setTimeout(blur, r(2600,5200)); };
+  const swap = () => { const ln = lines[Math.floor(Math.random()*lines.length)]; const i = Math.floor(Math.random()*(ln.length-1)); const a = ln[i], b = ln[i+1];
+    [a.textContent, b.textContent] = [b.textContent, a.textContent]; a.classList.add('swapped'); b.classList.add('swapped');
+    setTimeout(() => { [a.textContent, b.textContent] = [b.textContent, a.textContent]; a.classList.remove('swapped'); b.classList.remove('swapped'); }, r(550,850));
+    setTimeout(swap, r(6000,11000)); };
+  setTimeout(blur, 1800); setTimeout(swap, 4500); })();
 (() => { let p=''; const ax=900, ay=-300, L=2200; for(let i=0;i<9;i++){ const a=(-48+i*12)*Math.PI/180, b=a+5.5*Math.PI/180;
   p+=`M${ax} ${ay} L${(ax+L*Math.sin(a)).toFixed(0)} ${(ay+L*Math.cos(a)).toFixed(0)} L${(ax+L*Math.sin(b)).toFixed(0)} ${(ay+L*Math.cos(b)).toFixed(0)} Z `; }
   $('#rays').innerHTML = `<path d="${p}" fill="#8FE8FF" fill-opacity=".16"/>`; })();
@@ -1123,7 +1134,7 @@ spawnFish($('#fishes2'), [[18,120,'#FF5FD2',.8],[30,100,'#fff',.6],[78,90,'#D9FF
   const tick = () => { let ms = Math.max(0, target - Date.now()); const d=Math.floor(ms/864e5), h=Math.floor(ms/36e5)%24, m=Math.floor(ms/6e4)%60, s=Math.floor(ms/1e3)%60;
     const v = {d:pad(d),h:pad(h),m:pad(m),s:pad(s)};
     for (const k in v) if (els[k].textContent !== v[k]) { els[k].textContent = v[k]; if(!reduced){ els[k].classList.remove('flip'); void els[k].offsetWidth; els[k].classList.add('flip'); } }
-    menuCd.textContent = `DO OTWARCIA KARAFKI: ${v.d} DNI ${v.h}:${v.m}:${v.s}`;
+    menuCd.textContent = `DO PIERWSZEGO ŁYCZKA: ${v.d} DNI ${v.h}:${v.m}:${v.s}`;
     if (ms === 0) $('#countdown').classList.add('done'); };
   tick(); setInterval(tick, 1000); })();
 
@@ -1138,10 +1149,10 @@ spawnFish($('#fishes2'), [[18,120,'#FF5FD2',.8],[30,100,'#fff',.6],[78,90,'#D9FF
    PISMO: maszyna do pisania
    ========================================================= */
 (() => { const ps = $$('[data-type]'); const texts = ps.map(p => p.textContent); let started = false;
-  if (reduced) { $('#reply').classList.add('show'); return; }
+  if (reduced) return;
   ps.forEach(p => p.style.minHeight = p.offsetHeight + 'px');
   const io = new IntersectionObserver(es => { if (!es[0].isIntersecting || started) return; started = true; io.disconnect(); ps.forEach(p => p.textContent='');
-    let i = 0; const next = () => { if (i >= ps.length) { $('#sheet-stamp').classList.add('in'); setTimeout(()=>$('#reply').classList.add('show'), 700); return; }
+    let i = 0; const next = () => { if (i >= ps.length) { $('#sheet-stamp').classList.add('in'); return; }
       const p = ps[i], t = texts[i]; let c = 0; p.classList.add('typing');
       const step = () => { c += 3; p.textContent = t.slice(0, c); if (c < t.length) setTimeout(step, 14); else { p.classList.remove('typing'); i++; setTimeout(next, 220); } }; step(); };
     next(); }, {threshold:.35});
@@ -1186,10 +1197,12 @@ spawnFish($('#fishes2'), [[18,120,'#FF5FD2',.8],[30,100,'#fff',.6],[78,90,'#D9FF
   let opts = store.get('poll-extra', []); const mine = () => store.get('poll-vote', null);
   const render = () => { const all = CONFIG.poll.concat(opts.map(o=>[o,0])); const v = mine();
     const votes = all.map(([n,c]) => c + (v===n?1:0)); const max = Math.max(4, ...votes);
+    if (!all.length) { $('#poll').innerHTML = '<p class="poll-empty">Brak propozycji. Komisja czeka na pierwszą markę — zgłoś ją poniżej (bez żartów).</p>'; return; }
     $('#poll').innerHTML = all.map(([n],i) => `<button type="button" class="${v===n?'mine':''}" data-n="${n.replace(/"/g,'&quot;')}"><div class="row"><span>${n}</span><em>${votes[i]}</em></div><div class="bar"><i style="width:${Math.max(3, votes[i]/max*100)}%"></i></div></button>`).join('');
     $$('#poll button').forEach(b => b.onclick = () => { store.set('poll-vote', b.dataset.n); render(); toast('Głos oddany. Komisja odnotowała.'); }); };
   $('#poll-add').onsubmit = e => { e.preventDefault(); const v = $('#poll-input').value.trim(); if (!v) return;
-    if (/żart|haha|xd/i.test(v)) { toast('Mówiłem: bez żartów.'); return; } opts.push(v); store.set('poll-extra', opts); store.set('poll-vote', v); $('#poll-input').value=''; render(); toast('Propozycja przyjęta (i od razu Twój głos).'); };
+    if (/żart|haha|xd/i.test(v)) { toast('Mówiłem: bez żartów.'); return; }
+    if (CONFIG.poll.concat(opts.map(o=>[o])).some(([n]) => n.toLowerCase() === v.toLowerCase())) { toast('Ta marka już jest na liście — zagłosuj na nią.'); return; } opts.push(v); store.set('poll-extra', opts); store.set('poll-vote', v); $('#poll-input').value=''; render(); toast('Propozycja przyjęta (i od razu Twój głos).'); };
   render();
 })();
 (() => { // butelki
@@ -1204,13 +1217,17 @@ spawnFish($('#fishes2'), [[18,120,'#FF5FD2',.8],[30,100,'#fff',.6],[78,90,'#D9FF
   render();
 })();
 (() => { // składeczka
-  const s = CONFIG.skladeczka, pct = Math.min(100, s.zebrano/s.cel*100);
-  $('#money').textContent = `${s.zebrano} / ${s.cel} ZŁ`;
-  const bar = $('#coinbar'); new IntersectionObserver((es,o)=>{ if(!es[0].isIntersecting) return; o.disconnect(); $('i',bar).style.width = pct+'%';
+  const s = CONFIG.skladeczka, set = !!s.cel, pct = set ? Math.min(100, s.zebrano/s.cel*100) : 0;
+  $('#money').innerHTML = set ? `${s.zebrano} / ${s.cel} ZŁ` : 'KWOTA: <span style="color:#fff;-webkit-text-stroke:2px var(--ink);paint-order:stroke fill">NIEUSTALONA</span>';
+  const bar = $('#coinbar'); if (set) new IntersectionObserver((es,o)=>{ if(!es[0].isIntersecting) return; o.disconnect(); $('i',bar).style.width = pct+'%';
     const n = Math.max(1, Math.floor(pct/12)); for(let i=0;i<n;i++){ const c=document.createElement('span'); c.className='coin'; c.style.left=(6+i*(pct/n))+'%'; c.style.animationDelay=(i*.12)+'s'; bar.appendChild(c);} }, {threshold:.6}).observe(bar);
-  $('#ledger').innerHTML = `<b>✓ Wpłacili: ${s.wplacili} z ${CONFIG.guests}</b><b class="warn">… Wyświetlone, nieodpisane: ${s.wyswietlone}</b><i style="opacity:.7">→ ryzyko utraty nóg (§7)</i>`;
-  const modal = $('#blik'); $('#blik-nr').textContent = s.blik; $('#blik-title').textContent = s.tytul;
-  $('#pay').onclick = () => { modal.hidden = false; };
+  else bar.insertAdjacentHTML('beforeend','<em class="coinbar__tbd">Wódzirej liczy…</em>');
+  $('#ledger').innerHTML = set
+    ? `<b>✓ Wpłacili: ${s.wplacili} z ${CONFIG.guests}</b>${s.wyswietlone?`<b class="warn">… Wyświetlone, nieodpisane: ${s.wyswietlone}</b><i style="opacity:.7">→ ryzyko utraty nóg (§7)</i>`:''}`
+    : `<b>Kwota i numer BLIK: do ustalenia.</b><b class="warn">Ale bilon szykujemy już teraz.</b><i style="opacity:.7">Kto zostawi „wyświetlone” → ryzyko utraty nóg (§7)</i>`;
+  const modal = $('#blik'), pay = $('#pay');
+  if (!s.blik) { pay.textContent = 'BLIK wkrótce — trzymaj bilon'; pay.classList.add('pay--tbd'); pay.onclick = () => toast('Numer BLIK jeszcze nieustalony. Wódzirej da znać na grupie.'); }
+  else { $('#blik-nr').textContent = s.blik; $('#blik-title').textContent = s.tytul; pay.onclick = () => { modal.hidden = false; }; }
   $('#blik-close').onclick = () => modal.hidden = true; modal.onclick = e => { if (e.target===modal) modal.hidden = true; };
   $('#blik-copy').onclick = async () => { try { await navigator.clipboard.writeText(s.blik.replace(/\s/g,'')); toast('Skopiowano. Bilon czeka.'); } catch(e){ toast(s.blik); } };
   // zakładki (mobile)
@@ -1301,7 +1318,7 @@ carouselDots($('#kary-track'), $('#kary-dots'), 'przesuń →');
   if (store.get('sworn', false)) $('#oath-stamp').classList.add('in');
   form.onsubmit = async e => { e.preventDefault(); const fd = new FormData(form);
     if (!fd.get('imie').trim()) { $('#oath-err').textContent = 'Imię i nazwisko — obowiązkowo. Komisja musi wiedzieć, kogo karać.'; return; }
-    if (!fd.get('regulamin') || !fd.get('pelnoletni')) { $('#oath-err').textContent = 'Zaznacz regulamin i pełnoletność. Bez tego ani rusz.'; return; }
+    if (!fd.get('regulamin')) { $('#oath-err').textContent = 'Zaznacz regulamin. Bez tego ani rusz.'; return; }
     $('#oath-err').textContent = '';
     if (CONFIG.formEndpoint) { try { await fetch(CONFIG.formEndpoint, {method:'POST', headers:{'Accept':'application/json'}, body: fd}); } catch(err) {} }
     const st = $('#oath-stamp'); st.classList.remove('in'); void st.offsetWidth; st.classList.add('in');
