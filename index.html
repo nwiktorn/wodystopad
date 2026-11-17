@@ -410,6 +410,9 @@ mark{background:none;color:var(--mag);font-weight:700}
 .idc__in{position:relative;transition:transform .7s cubic-bezier(.3,1.4,.5,1);transform-style:preserve-3d;height:100%;
   transform:rotateX(var(--rx,0deg)) rotateY(calc(var(--ry,0deg) + var(--flip,0deg)))}
 .idc.flipped{--flip:180deg}
+/* backface-visibility nie działa z filtrami/blendem na zdjęciu → chowamy niewidoczną stronę w połowie obrotu */
+.idc__f{transition:visibility 0s .16s}.idc__b{visibility:hidden;transition:visibility 0s .16s}
+.idc.flipped .idc__f{visibility:hidden}.idc.flipped .idc__b{visibility:visible}
 .idc.tilt .idc__in{transition:transform .15s ease-out}
 .idc__f{position:relative;overflow:visible}
 .idc__f::after{content:"";position:absolute;inset:0;border-radius:18px;pointer-events:none;opacity:0;transition:opacity .35s;z-index:3;mix-blend-mode:soft-light;
@@ -446,6 +449,7 @@ mark{background:none;color:var(--mag);font-weight:700}
 .stat i::after{content:"";position:absolute;inset:0 auto 0 0;width:var(--v);background:var(--pink);border-radius:99px}
 .idc__valid{font-size:10px;opacity:.6;padding:0 4px}
 .idc.unconfirmed{opacity:.8}
+.idc.unconfirmed .idc__art .ministamp{border-color:var(--pink);color:var(--pink);font-size:13px}
 .idc.unconfirmed .idc__photo{filter:grayscale(1) contrast(1.05) drop-shadow(4px 0 0 var(--ink)) drop-shadow(-1px -2px 0 var(--ink))}
 .idc.unconfirmed.tilt .idc__photo{filter:grayscale(0) drop-shadow(4px 0 0 var(--ink)) drop-shadow(-1px -2px 0 var(--ink))}
 .idc__b h4{font:400 30px/1 var(--f-display)}
@@ -1409,7 +1413,7 @@ carouselDots($('#kary-track'), $('#kary-dots'), 'przesuń →');
   $('#cards').innerHTML = CONFIG.people.map((p,i) => { const bub = Array.from({length:7},(_,k)=>{ const s=6+rnd()*16; return `<i style="--k:${k};width:${s}px;height:${s}px;left:${rnd()*92}%;top:${rnd()*85}%"></i>`; }).join('');
     return `<div class="idc${p.confirmed?'':' unconfirmed'}" tabindex="0" role="button" aria-label="Legitymacja: ${p.name}. Kliknij, by odwrócić."><div class="idc__in">
       <div class="idc__f" style="--c:${bgs[i%4]}">
-        <div class="idc__art${p.photo?' has-photo':''}" style="--art:${arts[i%2]};--fc:${fc[i%4]}"><div class="idc__bg">${bub}${p.photo?'':'<svg class="fish" viewBox="0 0 180 80"><use href="#i-fish"/></svg>'}</div>${p.photo?`<img class="idc__photo" src="${p.photo}" alt="${p.name}" loading="lazy" decoding="async">`:''}<span class="ministamp">ZATWIERDZONO</span></div>
+        <div class="idc__art${p.photo?' has-photo':''}" style="--art:${arts[i%2]};--fc:${fc[i%4]}"><div class="idc__bg">${bub}${p.photo?'':'<svg class="fish" viewBox="0 0 180 80"><use href="#i-fish"/></svg>'}</div>${p.photo?`<img class="idc__photo" src="${p.photo}" alt="${p.name}" loading="lazy" decoding="async">`:''}<span class="ministamp">${p.confirmed===false?'NIEPOTWIERDZONE':'ZATWIERDZONO'}</span></div>
         <div class="idc__top"><b>${p.name}</b><small>NR ${pad(i+1,3)}</small></div>
         <div class="idc__role">${p.role}</div><div class="idc__atk"><small>ATAK SPECJALNY</small><b>${p.attack}</b></div>
         ${['TOASTY','WYTRZYMAŁOŚĆ','ŚPIEW'].map(s=>`<div class="stat">${s}<i style="--v:${stat(p.name,s)}%"></i></div>`).join('')}
