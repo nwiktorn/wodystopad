@@ -299,6 +299,24 @@ mark{background:none;color:var(--mag);font-weight:700}
 .scale span{opacity:.45;transition:opacity .2s}
 .scale span.on{opacity:1;text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:4px}
 .panel__note{font-style:italic;font-size:14px;line-height:1.45}
+.dk{display:flex;flex-direction:column;gap:10px;border-top:2px dashed rgba(11,11,30,.35);padding-top:14px}
+.dk__q{font:700 14px var(--f-type)}
+.dk__q b{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--ink);color:var(--aqua);font-size:12px;margin-right:6px}
+.stepper--sm output{font-size:96px}
+.stepper--sm button{width:48px;height:48px;font-size:26px}
+.glasses{display:flex;flex-wrap:wrap;gap:4px;min-height:28px}
+.glasses svg{width:18px;height:24px;color:var(--pink);animation:pourIn .35s cubic-bezier(.2,1.6,.4,1) both}
+.dk__lvl{font:700 13px var(--f-type);background:#fff;border:2px solid var(--ink);border-radius:999px;padding:6px 12px;align-self:flex-start}
+.seg{display:flex;border:2.5px solid var(--ink);border-radius:999px;background:#fff;padding:3px;gap:3px}
+.seg button{flex:1;border-radius:999px;padding:10px 4px;font:700 14px var(--f-type);transition:background .2s}
+.seg button[aria-checked=true]{background:var(--ink);color:var(--aqua)}
+.calc{background:#fff;border:2.5px solid var(--ink);border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:8px;font-size:14px;line-height:1.4}
+.calc__k{font:700 11px var(--f-type);letter-spacing:.1em;opacity:.6}
+.calc__big{font:400 30px/1.05 var(--f-display)}
+.calc__row{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.calc__row b{font:400 22px var(--f-display);white-space:nowrap}
+.calc__row.rec{background:var(--lime);border:2px solid var(--ink);border-radius:10px;padding:6px 10px;margin:0 -6px}
+.calc small{opacity:.65}
 .money{font:400 64px/1 var(--f-display)}
 .coinbar{height:26px;border:3px solid var(--ink);border-radius:99px;background:#fff;position:relative;overflow:hidden}
 .coinbar i{position:absolute;inset:0 auto 0 0;background:var(--lime);width:0;transition:width 1.2s cubic-bezier(.2,.9,.3,1)}
@@ -864,7 +882,7 @@ mark{background:none;color:var(--mag);font-weight:700}
       <h2 class="h-title zp__title">Co pijemy.<br>Ile pijemy.</h2>
       <p class="zp__lead">Wiadomo, że wódeczkę. Już widzę, jak jakiś cwaniaczek wypala z jakimś głupim żartem — przestańcie, to jest poważna sprawa.<strong>Zaopatrzeniem zajmuje się Wódzirej. Robimy składeczkę i elegancko.</strong></p>
     </div>
-    <nav class="tabs" id="tabs" aria-label="Panele zaopatrzenia"><a href="#p-marka" class="on">MARKA</a><a href="#p-butelki">BUTELKI</a><a href="#p-skladeczka">SKŁADECZKA</a></nav>
+    <nav class="tabs" id="tabs" aria-label="Panele zaopatrzenia"><a href="#p-marka" class="on">MARKA</a><a href="#p-butelki">ILOŚĆ</a><a href="#p-skladeczka">SKŁADECZKA</a></nav>
     <div class="panels">
       <div class="panel" id="p-marka" data-reveal>
         <span class="panel__k">ANKIETA W-2 · ZGŁOŚ MARKĘ I GŁOSUJ</span>
@@ -873,12 +891,23 @@ mark{background:none;color:var(--mag);font-weight:700}
         <form class="poll-add" id="poll-add"><input type="text" id="poll-input" maxlength="40" placeholder="+ zgłoś markę (bez żartów)" aria-label="Zgłoś markę"><button type="submit" aria-label="Dodaj">+</button></form>
       </div>
       <div class="panel" id="p-butelki" data-reveal>
-        <span class="panel__k">KALKULATOR ZAOPATRZENIOWY</span>
-        <h3>Ile butelek?</h3>
-        <div class="stepper"><button type="button" id="b-minus" aria-label="Mniej">−</button><output id="b-count" aria-live="polite">6</output><button type="button" id="b-plus" aria-label="Więcej">+</button></div>
-        <div class="bottles" id="bottles" aria-hidden="true"></div>
-        <div class="scale" id="b-scale"><span>na styk</span><span>wystarczy</span><span>Wódzirej<br>spokojny</span></div>
-        <p class="panel__note" id="b-note"></p>
+        <span class="panel__k">DEKLARACJA SPOŻYCIA D-3 · ANONIMOWA*</span>
+        <h3>Ile wódeczki?</h3>
+        <div class="dk">
+          <p class="dk__q"><b>1.</b> Ile rybek planujesz wypić?</p>
+          <div class="stepper stepper--sm"><button type="button" id="d-minus" aria-label="Mniej">−</button><output id="d-count" aria-live="polite">6</output><button type="button" id="d-plus" aria-label="Więcej">+</button></div>
+          <div class="glasses" id="d-glasses" aria-hidden="true"></div>
+          <p class="dk__lvl" id="d-lvl"></p>
+        </div>
+        <div class="dk">
+          <p class="dk__q"><b>2.</b> Jakie butelki?</p>
+          <div class="seg" id="d-fmt" role="radiogroup" aria-label="Format butelki">
+            <button type="button" role="radio" data-v="500">0,5 l</button><button type="button" role="radio" data-v="700">0,7 l</button><button type="button" role="radio" data-v="0">obojętnie</button>
+          </div>
+        </div>
+        <div class="calc" id="d-calc"></div>
+        <button class="btn-pill btn-ink" id="d-send" type="button">Składam deklarację →</button>
+        <p class="panel__note" id="d-note"></p>
       </div>
       <div class="panel" id="p-skladeczka" data-reveal>
         <span class="panel__k">ZRZUTKA NA ZAOPATRZENIE</span>
@@ -1042,7 +1071,10 @@ const CONFIG = {
     ['21:00','Posiedzenie komisji','s'], ['23:00','Wolne wnioski (tryb §3)','xs'], ['??:??','+ Zamknięcie posiedzenia','xxs'],
   ],
   poll: [],   // propozycje startowe [nazwa, głosy] — pusta = Wódowicze zgłaszają sami
-  bottles: 6, guests: 8, bottleMl: 700, glassMl: 30,
+  guests: 8,            // liczba Wódowiczów do przeliczeń
+  shotMl: 40,           // pojemność jednej rybki (kieliszka) w ml
+  reserve: 0.15,        // zapas Wódzireja (+15%)
+  declarations: [],     // deklaracje grupy: [{rybki:6, fmt:700}, …] — wpisz ręcznie z grupy albo podłączymy wspólną bazę
   skladeczka: { zebrano:0, cel:null, wplacili:0, wyswietlone:null, blik:'', tytul:'Tytuł: „Wódystopad — składeczka”' }, // cel:null / blik:'' = jeszcze nieustalone
   sworn: 5,                 // ile osób złożyło przysięgę (stan startowy)
   formEndpoint: '',         // np. 'https://formspree.io/f/xxxxxxx' — wtedy przysięgi lecą do Wódzireja mailem
@@ -1244,15 +1276,40 @@ spawnFish($('#fishes2'), [[18,120,'#FF5FD2',.8],[30,100,'#fff',.6],[78,90,'#D9FF
     if (CONFIG.poll.concat(opts.map(o=>[o])).some(([n]) => n.toLowerCase() === v.toLowerCase())) { toast('Ta marka już jest na liście — zagłosuj na nią.'); return; } opts.push(v); store.set('poll-extra', opts); store.set('poll-vote', v); $('#poll-input').value=''; render(); toast('Propozycja przyjęta (i od razu Twój głos).'); };
   render();
 })();
-(() => { // butelki
-  let n = store.get('bottles', CONFIG.bottles); const out = $('#b-count');
-  const render = () => { out.textContent = n; $('#bottles').innerHTML = Array.from({length:n},()=>'<svg viewBox="0 0 40 110"><use href="#i-bottle"/></svg>').join('');
-    const sc = $$('#b-scale span'); sc.forEach(s=>s.classList.remove('on')); sc[n<=4?0:n<=7?1:2].classList.add('on');
-    const per = Math.floor(n*CONFIG.bottleMl/CONFIG.glassMl/CONFIG.guests);
-    const ryb = per===1?'rybka':(per%10>=2&&per%10<=4&&(per%100<12||per%100>14))?'rybki':'rybek';
-    $('#b-note').textContent = `${n} × 0,7 l na ${CONFIG.guests} Wódowiczów = ok. ${per} ${ryb} na głowę. Wódzirej zaleca zapas — lepiej, żeby zostało, niż żeby zabrakło.`; store.set('bottles', n); };
-  $('#b-minus').onclick = () => { if (n>1) { n--; render(); } else toast('Zero butelek? To nie jest Wódystopad.'); };
-  $('#b-plus').onclick = () => { if (n<24) { n++; render(); } else toast('Komisja zatrzymuje kalkulator. Rozsądek!'); };
+(() => { // deklaracja spożycia (ile wódeczki)
+  const shot = CONFIG.shotMl, G = CONFIG.guests;
+  let me = store.get('decl', { rybki: 6, fmt: 0, sent: false });
+  const lvl = n => n === 0 ? 'Abstynent z wyboru — §5 to dopuszcza.' : n <= 3 ? 'Kulturalnie. Wódzirej szanuje.' : n <= 7 ? 'Towarzysko. Klasyka gatunku.' : n <= 12 ? 'Pełnoprawny Wódowicz.' : n <= 16 ? 'Komisja ma Cię na oku.' : 'Zgłoś się po imprezie do komisji.';
+  const plural = (n, a, b, c) => n === 1 ? a : (n%10>=2 && n%10<=4 && (n%100<12 || n%100>14)) ? b : c;
+  const bottlesFor = (ml, size) => Math.ceil(ml / size);
+  const L = ml => (ml/1000).toFixed(1).replace('.', ',') + ' l';
+  const render = () => {
+    $('#d-count').textContent = me.rybki;
+    $('#d-glasses').innerHTML = Array.from({length: Math.min(me.rybki, 24)}, () => '<svg viewBox="0 0 120 160"><path d="M40 18 L42 8 Q60 2 78 8 L80 18 C100 35 108 70 104 100 C100 118 85 128 72 132 L78 142 C88 146 96 150 98 156 L22 156 C24 150 32 146 42 142 L48 132 C35 128 20 118 16 100 C12 70 20 35 40 18 Z" fill="currentColor" stroke="#0B0B1E" stroke-width="9"/></svg>').join('') + (me.rybki > 24 ? '<b style="align-self:center">+' + (me.rybki-24) + '</b>' : '');
+    $('#d-lvl').textContent = lvl(me.rybki);
+    $$('#d-fmt button').forEach(b => b.setAttribute('aria-checked', String(+b.dataset.v === me.fmt)));
+    // przeliczenie: deklaracje grupy (jeśli są) albo „wszyscy piją jak Ty”
+    const decl = CONFIG.declarations.concat(me.sent ? [me] : []);
+    const group = decl.length >= 2;
+    const ml = group ? decl.reduce((a, d) => a + d.rybki*shot, 0) / decl.length * G : me.rybki * shot * G;
+    const total = ml * (1 + CONFIG.reserve);
+    const b5 = bottlesFor(total, 500), b7 = bottlesFor(total, 700);
+    const votes = decl.length ? decl : [me]; const v5 = votes.filter(d => d.fmt === 500).length, v7 = votes.filter(d => d.fmt === 700).length;
+    const pick = v5 > v7 ? 500 : v7 > v5 ? 700 : (b7*700 - total <= b5*500 - total ? 700 : 500);
+    $('#d-calc').innerHTML = `<span class="calc__k">${group ? `WYNIK GRUPY · ${decl.length} Z ${G} DEKLARACJI` : `GDYBY WSZYSCY (${G}) PILI JAK TY`}</span>
+      <span class="calc__big">${L(ml)} <small style="font:400 14px var(--f-type)">+ ${Math.round(CONFIG.reserve*100)}% zapasu = ${L(total)}</small></span>
+      <div class="calc__row${pick===700?' rec':''}"><span>${pick===700?'✓ ':''}butelki 0,7 l</span><b>${b7} ${plural(b7,'butelka','butelki','butelek')}</b></div>
+      <div class="calc__row${pick===500?' rec':''}"><span>${pick===500?'✓ ':''}butelki 0,5 l</span><b>${b5} ${plural(b5,'butelka','butelki','butelek')}</b></div>
+      <small>${pick===700?'0,7 l':'0,5 l'} — ${v5===v7 ? 'mniej resztek przy tej ilości' : 'wybór większości'}. Rybka = ${shot} ml.</small>`;
+    $('#d-send').textContent = me.sent ? 'Deklaracja złożona ✓ (możesz zmienić)' : 'Składam deklarację →';
+    $('#d-note').textContent = me.sent ? 'Wódzirej odnotował. Zmiana zdania dozwolona do 21.11, 18:59.' : '* Anonimowa wobec wszystkich poza Wódzirejem.';
+    store.set('decl', me); };
+  const change = n => { me.rybki = Math.max(0, Math.min(30, n)); if (me.rybki === 30) toast('Komisja zatrzymuje licznik na 30. Rozsądek!'); render(); };
+  $('#d-minus').onclick = () => change(me.rybki - 1); $('#d-plus').onclick = () => change(me.rybki + 1);
+  $$('#d-fmt button').forEach(b => b.onclick = () => { me.fmt = +b.dataset.v; render(); });
+  $('#d-send').onclick = async () => { me.sent = true; render();
+    if (CONFIG.formEndpoint) { try { const fd = new FormData(); fd.append('typ','deklaracja'); fd.append('rybki', me.rybki); fd.append('format', me.fmt || 'obojętnie'); await fetch(CONFIG.formEndpoint, {method:'POST', headers:{Accept:'application/json'}, body: fd}); } catch(e){} }
+    toast(`Deklaracja: ${me.rybki} ${plural(me.rybki,'rybka','rybki','rybek')}, ${me.fmt ? (me.fmt===500?'0,5 l':'0,7 l') : 'butelki obojętnie'}. Przyjęto.`); };
   render();
 })();
 (() => { // składeczka
