@@ -643,7 +643,7 @@ mark{background:none;color:var(--mag);font-weight:700}
   .rules{display:flex;flex-direction:column;gap:22px;margin-top:30px;position:relative}
   .rules .rule{padding:22px;box-shadow:6px 6px 0 var(--blue);border-width:2.5px;border-radius:18px;will-change:transform}
   .rules .rule p{font-size:15px}
-  .rules .rule>*{transition:opacity .25s}
+  .rules .rule>*{transition:opacity .35s var(--pd,0ms)}
   .rules .rule.piled>*{opacity:0}
   .rules .rule__n{font-size:48px}
   .rules .rule--ban .stamp{right:16px;top:-26px;--ss:22px}
@@ -910,7 +910,7 @@ mark{background:none;color:var(--mag);font-weight:700}
       <h3>Nie mówimy nikomu o Wódystopadzie.</h3>
       <div class="stamp" data-stamp><span><b>ŚCIŚLE TAJNE</b><small>klauzula §1 · nie kopiować</small></span></div>
     </div>
-    <span class="deck-label">§2 – §7 · PRZEWIJAJ — KARTY SAME SIĘ ROZŁOŻĄ ↓</span>
+    <span class="deck-label">§2 – §7 · SZEŚĆ PUNKTÓW — CZYTAJ PO KOLEI ↓</span>
     <div class="rules" id="rules"></div>
     <div class="reg__foot" data-reveal><b>*</b><p id="footnote"></p></div>
     <div class="reg-accept" id="reg-accept">
@@ -1283,26 +1283,25 @@ spawnFish($('#fishes2'), [[18,120,'#FF5FD2',.8],[30,100,'#fff',.6],[78,90,'#D9FF
     return `<article class="rule${ban?' rule--ban':''}" style="--c:${colors[i%6]}" data-reveal><div class="rule__top"><span class="rule__n">§${n}</span><span class="rule__tag">${ban?'':`ART. ${n} · ZATWIERDZONO`}</span><span class="rule__tag deck-count" hidden>${n} / 7</span></div><p>${hl(r)}</p>${ban?'<div class="stamp" data-stamp><span><b>ZAKAZ!</b><small>innych trunków</small></span></div>':''}</article>`; }).join('');
   $('#footnote').innerHTML = hl(CONFIG.footnote);
   $$('#rules [data-reveal], #rules [data-stamp]').forEach(el => revealIO.observe(el));
-  /* mobile: karty leżą w stosie i „rozdają się” w pionową listę w miarę przewijania.
-     Stos przykleja się na wysokości P ekranu; karta schodzi ze stosu, gdy jej miejsce w liście dojedzie do P. */
+  /* mobile: karty leżą w stosie; gdy lista wjedzie na ekran, cały stos JEDNYM ruchem rozkłada się w pionową listę
+     (bez sterowania przewijaniem — od razu widać, że punktów jest sześć) */
   const cards = $$('.rule', box), PR = [-6,5,-4,7,-5,4], PX = [-12,14,-8,10,-14,8];
-  let offs = [], active = false, raf = 0, on = false;
-  const measure = () => { offs = cards.map(c => c.offsetTop); };
-  const frame = () => { raf = 0; if (!active) return;
-    const bt = box.getBoundingClientRect().top, P = Math.max(130, innerHeight * .24); let first = -1;
-    cards.forEach((c,i) => { const slot = bt + offs[i], y = Math.max(bt, Math.min(slot, P)), d = slot - y, t = Math.min(1, d / 170);
-      let k = 0, deep = false; if (d > .5) { if (first < 0) first = i; deep = i - first > 3; k = Math.min(3, i - first); }
-      c.style.visibility = deep ? 'hidden' : ''; c.classList.toggle('piled', k > 0);
-      const rl = i % 2 ? 1.4 : -1.4, rot = rl + (PR[i % 6] * (k ? 1 : .35) - rl) * t;
-      c.style.transform = `translate(${(PX[i % 6] * t * (k ? 1 : .3)).toFixed(1)}px,${(-d + k * 9 * t).toFixed(1)}px) rotate(${rot.toFixed(2)}deg) scale(${(1 - .03 * k * t).toFixed(3)})`; }); };
-  const req = () => { if (!raf) raf = requestAnimationFrame(frame); };
-  const io = new IntersectionObserver(es => { on = es[0].isIntersecting; if (on && active) req(); }, {rootMargin:'100% 0px'});
+  let dealt = false, active = false;
+  const stack = () => { cards.forEach((c,i) => { const k = Math.min(3, i), off = c.offsetTop;
+      c.style.transition = 'none'; c.style.visibility = i > 3 ? 'hidden' : '';
+      c.style.transform = `translate(${PX[i % 6] * (i ? 1 : .3)}px,${-off + k * 9}px) rotate(${i ? PR[i % 6] : -2}deg) scale(${1 - .03 * k})`;
+      c.classList.toggle('piled', i > 0); }); };
+  const deal = () => { if (dealt) return; dealt = true;
+    cards.forEach((c,i) => { c.style.visibility = '';
+      c.style.transition = `transform .8s cubic-bezier(.2,1.15,.3,1) ${i * 120}ms`;
+      c.style.setProperty('--pd', (i * 120 + 250) + 'ms');
+      requestAnimationFrame(() => requestAnimationFrame(() => { c.style.transform = `rotate(${i % 2 ? 1.4 : -1.4}deg)`; c.classList.remove('piled'); })); });
+    setTimeout(() => cards.forEach(c => { c.style.transition = ''; c.style.transform = ''; }), 120 * cards.length + 1000); };
+  const io = new IntersectionObserver(es => { if (active && es[0].isIntersecting) { deal(); io.disconnect(); } }, {rootMargin:'0px 0px -30% 0px'});
   const setMode = () => { const m = isMobile() && !reduced;
-    cards.forEach((c,i) => { c.style.zIndex = cards.length - i; if (isMobile()) { c.classList.add('in'); c.style.transition = 'none'; } });
-    if (m) { measure(); active = true; req(); }
-    else if (active) { active = false; cards.forEach(c => { c.style.transform = ''; c.style.transition = ''; }); } };
-  addEventListener('scroll', () => { if (on && active) req(); }, {passive:true});
-  io.observe(box);
+    cards.forEach((c,i) => { c.style.zIndex = cards.length - i; if (isMobile()) c.classList.add('in'); });
+    if (m && !dealt && !active) { active = true; stack(); io.observe(box); }
+    else if (!m && active && !dealt) { active = false; io.disconnect(); dealt = true; cards.forEach(c => { c.style.transform = ''; c.style.transition = ''; c.style.visibility = ''; c.classList.remove('piled'); }); } };
 
   /* akceptacja — bez niej na mobile wszystko poniżej regulaminu jest ukryte */
   const root = document.documentElement, acc = $('#reg-accept');
@@ -1327,7 +1326,7 @@ spawnFish($('#fishes2'), [[18,120,'#FF5FD2',.8],[30,100,'#fff',.6],[78,90,'#D9FF
     const t = document.getElementById(a.getAttribute('href').slice(1)); if (t && !t.getClientRects().length) { e.preventDefault(); setTimeout(nudge, 80); } }, true);
   if (accepted()) { const cb = $('#oath input[name="regulamin"]'); if (cb) cb.checked = true; }
 
-  setMode(); addEventListener('resize', setMode); addEventListener('load', () => { measure(); req(); }); document.fonts && document.fonts.ready.then(() => { measure(); req(); }); })();
+  setMode(); addEventListener('resize', setMode); const restack = () => { if (active && !dealt) stack(); }; addEventListener('load', restack); document.fonts && document.fonts.ready.then(restack); })();
 
 /* =========================================================
    ZAOPATRZENIE: ankieta, butelki, składeczka
