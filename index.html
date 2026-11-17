@@ -663,6 +663,10 @@ mark{background:none;color:var(--mag);font-weight:700}
   html.rules-ok .reg-accept>:not(.reg-accept__done){display:none}
   html.rules-ok .reg-accept__done{display:flex}
   html.rules-ok .reg-accept__done .stamp{opacity:1;transform:rotate(var(--rot)) scale(1)}
+  .reg-hola{position:fixed;z-index:60;left:16px;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));background:var(--pink);color:var(--ink);border:2.5px solid var(--ink);border-radius:18px;box-shadow:5px 5px 0 var(--lime);padding:14px 16px 15px;font:700 13px/1.45 var(--f-type);text-align:left;opacity:0;transform:translateY(130%) rotate(-2deg);transition:transform .45s cubic-bezier(.2,1.5,.4,1),opacity .2s;pointer-events:none}
+  .reg-hola b{display:block;font:400 26px/1.1 var(--f-display);letter-spacing:.01em;margin-bottom:4px}
+  .reg-hola.show{opacity:1;transform:translateY(0) rotate(-2deg)}
+  html.rules-ok .reg-hola{display:none}
   @keyframes accPulse{50%{box-shadow:5px 5px 0 var(--pink),0 0 0 8px rgba(217,255,61,.18)}}
   .reg__foot{padding:18px;flex-direction:column;gap:6px;border-width:2px;margin-top:40px}
   .reg__foot b{font-size:36px} .reg__foot p{font-size:13px}
@@ -914,6 +918,7 @@ mark{background:none;color:var(--mag);font-weight:700}
       <button class="reg-accept__yes" id="rules-yes">✓ AKCEPTUJĘ REGULAMIN</button>
       <button class="reg-accept__no" id="rules-no">✕ Nie akceptuję<small>opcja niedostępna (§7)</small></button>
       <p class="reg-lock">🔒 Za tą linią: Wódowicze · co pijemy · kary · promile · program · przysięga</p>
+      <div class="reg-hola" id="reg-hola" role="status" aria-live="polite"><b>Eee, hola hola!</b>Najpierw akceptujemy regulamin, potem oglądamy dalej — jeszcze dużo przed tobą!</div>
       <div class="reg-accept__done"><div class="stamp" id="rules-stamp" style="--rot:-6deg;--ss:34px;color:var(--lime)"><span><b>PRZYJĘTO</b><small>do wiadomości · komisja</small></span></div><p>Regulamin zaakceptowany. Jedziemy dalej ↓</p></div>
     </div>
   </div>
@@ -1303,6 +1308,16 @@ spawnFish($('#fishes2'), [[18,120,'#FF5FD2',.8],[30,100,'#fff',.6],[78,90,'#D9FF
   const root = document.documentElement, acc = $('#reg-accept');
   const accepted = () => root.classList.contains('rules-ok');
   const nudge = () => { acc.scrollIntoView({behavior: reduced ? 'auto' : 'smooth', block:'center'}); const b = $('#rules-yes'); b.classList.remove('shake'); void b.offsetWidth; b.classList.add('shake'); toast('Najpierw regulamin. Bez akceptacji ani rusz.'); };
+  /* próba przewinięcia dalej bez akceptacji → „Eee, hola hola!” */
+  const hola = $('#reg-hola'); let holaT = 0, holaLast = 0, ty = 0;
+  const atBottom = () => scrollY + innerHeight >= document.documentElement.scrollHeight - 8;
+  const holaShow = () => { if (accepted() || !isMobile()) return; const now = Date.now(); if (now - holaLast < 1200) return; holaLast = now;
+    hola.classList.add('show'); clearTimeout(holaT); holaT = setTimeout(() => hola.classList.remove('show'), 3200);
+    const b = $('#rules-yes'); b.classList.remove('shake'); void b.offsetWidth; b.classList.add('shake'); try { navigator.vibrate && navigator.vibrate(60); } catch(e){} };
+  addEventListener('touchstart', e => { ty = e.touches[0].clientY; }, {passive:true});
+  addEventListener('touchmove', e => { if (atBottom() && ty - e.touches[0].clientY > 30) holaShow(); }, {passive:true});
+  addEventListener('wheel', e => { if (e.deltaY > 0 && atBottom()) holaShow(); }, {passive:true});
+  addEventListener('keydown', e => { if (['ArrowDown','PageDown',' ','End'].includes(e.key) && atBottom()) holaShow(); });
   $('#rules-yes').onclick = () => { try { localStorage.setItem('wody:rules-ok','1'); } catch(e){}
     root.classList.add('rules-ok'); const st = $('#rules-stamp'); st.classList.remove('in'); void st.offsetWidth; st.classList.add('in');
     const cb = $('#oath input[name="regulamin"]'); if (cb) cb.checked = true;
