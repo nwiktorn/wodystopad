@@ -795,10 +795,10 @@ mark{background:none;color:var(--mag);font-weight:700}
   <ul class="nav__links">
     <li><a href="#pismo">Pismo</a></li>
     <li><a href="#regulamin">Regulamin</a></li>
+    <li><a href="#wodowicze">Wódowicze</a></li>
     <li><a href="#zaopatrzenie">Co pijemy</a></li>
     <li><a href="#kary">Kary</a></li>
     <li><a href="#promile">Promil-meter</a></li>
-    <li><a href="#wodowicze">Wódowicze</a></li>
     <li><a href="#program">Program</a></li>
   </ul>
   <a class="btn-pill btn-pink" href="#przysiega">Złóż przysięgę →</a>
@@ -907,14 +907,29 @@ mark{background:none;color:var(--mag);font-weight:700}
       <p class="reg-accept__q"><b>Przeczytane?</b>Bez akceptacji regulaminu komisja nie wpuszcza dalej.</p>
       <button class="reg-accept__yes" id="rules-yes">✓ AKCEPTUJĘ REGULAMIN</button>
       <button class="reg-accept__no" id="rules-no">✕ Nie akceptuję<small>opcja niedostępna (§7)</small></button>
-      <p class="reg-lock">🔒 Za tą linią: co pijemy · kary · promile · Wódowicze · program · przysięga</p>
+      <p class="reg-lock">🔒 Za tą linią: Wódowicze · co pijemy · kary · promile · program · przysięga</p>
       <div class="reg-accept__done"><div class="stamp" id="rules-stamp" style="--rot:-6deg;--ss:34px;color:var(--lime)"><span><b>PRZYJĘTO</b><small>do wiadomości · komisja</small></span></div><p>Regulamin zaakceptowany. Jedziemy dalej ↓</p></div>
     </div>
   </div>
 </section>
 
-<!-- ================== 05 ZAOPATRZENIE ================== -->
-<section class="s bg-paper" id="zaopatrzenie" data-page="04" data-prev="#0B0B1E">
+<!-- ================== 05 WÓDOWICZE ================== -->
+<section class="s bg-pink" id="wodowicze" data-page="04" data-prev="#0B0B1E">
+  <div class="halftone" style="color:#fff;opacity:.35;right:0;bottom:0;width:600px;height:480px;--hx:100%;--hy:100%" aria-hidden="true"></div>
+  <div class="container">
+    <div class="wd__head">
+      <div><p class="eyebrow">Rozdział II · edycja limitowana · 8 sztuk</p><h2 class="h-title wd__title">Legitymacje<br>Wódowiczów</h2></div>
+      <span class="sticker">Zbierz wszystkie 8.<br>Wymieniaj się przy karafce.</span>
+    </div>
+    <div class="cards" id="cards"></div>
+    <div class="dots" id="cards-dots"></div>
+    <span class="chips-label">SKŁAD:</span>
+    <div class="chips" id="chips"></div>
+  </div>
+</section>
+
+<!-- ================== 06 ZAOPATRZENIE ================== -->
+<section class="s bg-paper" id="zaopatrzenie" data-page="05" data-prev="#FF5FD2">
   <div class="halftone" style="color:var(--pink);opacity:.55;left:0;bottom:0;width:520px;height:420px;--hx:0%;--hy:100%" aria-hidden="true"></div>
   <div class="container">
     <p class="eyebrow" style="color:var(--mag)">Sprawa formalna nr 2 · pilne</p>
@@ -965,10 +980,10 @@ mark{background:none;color:var(--mag);font-weight:700}
   </div>
 </section>
 
-<!-- ================== 06 KARY ================== -->
-<section class="s bg-blue" id="kary" data-page="05" data-prev="#EFE6D2">
+<!-- ================== 07 KARY ================== -->
+<section class="s bg-blue" id="kary" data-page="06" data-prev="#EFE6D2">
   <div class="container">
-    <p class="eyebrow" style="color:var(--lime)">Rozdział II</p>
+    <p class="eyebrow" style="color:var(--lime)">Rozdział III</p>
     <h2 class="h-title" style="color:#fff">Taryfikator kar</h2>
     <p class="kary__sub">Łamanie regulaminu prowadzi do kar, kary prowadzą do oczyszczenia, oczyszczenie najlepiej przyjmować po wódeczce.</p>
     <div class="track" id="kary-track">
@@ -981,8 +996,8 @@ mark{background:none;color:var(--mag);font-weight:700}
   </div>
 </section>
 
-<!-- ================== 07 PROMILE ================== -->
-<section class="s bg-ink" id="promile" data-page="06" data-prev="#2B2BFF">
+<!-- ================== 08 PROMILE ================== -->
+<section class="s bg-ink" id="promile" data-page="07" data-prev="#2B2BFF">
   <div class="container">
     <div class="prom__head">
       <p class="eyebrow" style="color:var(--pink)">Formularz P-2 · pomiar urzędowy, niewiążący</p>
@@ -999,23 +1014,8 @@ mark{background:none;color:var(--mag);font-weight:700}
   </div>
 </section>
 
-<!-- ================== 08 WÓDOWICZE ================== -->
-<section class="s bg-pink" id="wodowicze" data-page="07" data-prev="#0B0B1E">
-  <div class="halftone" style="color:#fff;opacity:.35;right:0;bottom:0;width:600px;height:480px;--hx:100%;--hy:100%" aria-hidden="true"></div>
-  <div class="container">
-    <div class="wd__head">
-      <div><p class="eyebrow">Rozdział III · edycja limitowana · 8 sztuk</p><h2 class="h-title wd__title">Legitymacje<br>Wódowiczów</h2></div>
-      <span class="sticker">Zbierz wszystkie 8.<br>Wymieniaj się przy karafce.</span>
-    </div>
-    <div class="cards" id="cards"></div>
-    <div class="dots" id="cards-dots"></div>
-    <span class="chips-label">SKŁAD:</span>
-    <div class="chips" id="chips"></div>
-  </div>
-</section>
-
 <!-- ================== 09 PROGRAM ================== -->
-<section class="s bg-blue prog" id="program" data-page="08" data-prev="#FF5FD2">
+<section class="s bg-blue prog" id="program" data-page="08" data-prev="#0B0B1E">
   <div class="container">
     <div class="lineup" id="lineup">
       <p class="eyebrow">Rozdział IV · porządek obrad · sobota 21.11 · miejsce ściśle tajne, ale wiecie jakie</p>
@@ -1087,12 +1087,12 @@ mark{background:none;color:var(--mag);font-weight:700}
 const CONFIG = {
   eventDate: '2026-11-21T19:00:00+01:00',          // start imprezy (czas polski)
   people: [                                          // confirmed:false = karta wyszarzona
-    { name:'Wiktorek', photo:'img/wiktorek.webp', role:'WÓDZIREJ NACZELNY',            attack:'Pieczątka ostateczna', confirmed:true },
+    { name:'Wiktorek', photo:'img/wiktorek.webp', role:'WÓDZIREJ NACZELNY',            attack:'Osąd, nie ocena', confirmed:true },
     { name:'Klaudia', photo:'img/klaudia.webp',  role:'„MARIUSZ WÓDZIANOWSKI”',       attack:'Spacer farmera po kielichu',   confirmed:true },
     { name:'Kasia', photo:'img/kasia.webp',    role:'„WÓDNA NIMFA”',                attack:'Kula wódy',           confirmed:true },
     { name:'Łucja', photo:'img/lucja.webp',    role:'„WÓDONNA Z EDINBRA”',          attack:'Picie w kratkę',       confirmed:true },
     { name:'Ola', photo:'img/ola.webp',      role:'„WÓDŹMINKA”',                  attack:'Próba pszenic',          confirmed:true },
-    { name:'Arek', photo:'img/arek.webp',     role:'„MOCNY ZAWÓDNIK”',             attack:'Laga na Wódnego',          confirmed:true },
+    { name:'Arek', photo:'img/arek.webp',     role:'„MOCNY ZAWÓDNIK”',             attack:'Kolana ze stali',          confirmed:true },
     { name:'Magda', photo:'img/magda.webp',    role:'„WÓDNA, NIE WINNA”',           attack:'Uniewinnienie',        confirmed:false },
     { name:'Konrad', photo:'img/konrad.webp',   role:'„KONRAD WÓDENROD”',            attack:'Wielka Improwizacja',  confirmed:false },
   ],
@@ -1162,7 +1162,7 @@ $$('[data-page]').forEach(s => { if(s.id==='start') return; const dark = s.class
     nav.classList.toggle('hidden', down && isMobile()); sticky.classList.toggle('hide', blockers.size > 0 || y > document.body.scrollHeight - innerHeight - 260); last = y; }, {passive:true});
   const blockers = new Set(); const bio = new IntersectionObserver(es => { es.forEach(e => e.isIntersecting ? blockers.add(e.target) : blockers.delete(e.target)); sticky.classList.toggle('hide', blockers.size > 0); }, {rootMargin:'0px 0px -60px 0px'});
   ['#reg-accept','#oath','#licznik','.panels'].forEach(s => bio.observe($(s)));
-  const sections = [['pismo','Pismo okólne'],['regulamin','Regulamin'],['zaopatrzenie','Co pijemy, ile pijemy'],['kary','Taryfikator kar'],['promile','Promil-meter'],['wodowicze','Legitymacje'],['program','Porządek obrad'],['przysiega','Przysięga']];
+  const sections = [['pismo','Pismo okólne'],['regulamin','Regulamin'],['wodowicze','Legitymacje'],['zaopatrzenie','Co pijemy, ile pijemy'],['kary','Taryfikator kar'],['promile','Promil-meter'],['program','Porządek obrad'],['przysiega','Przysięga']];
   $('#menu-list').innerHTML = sections.map(([id,t],i)=>`<li style="--i:${i}"><a href="#${id}" data-id="${id}"><span>${pad(i+1)}</span><b>${t}</b></a></li>`).join('');
   const menu = $('#menu'), open = (v) => { menu.classList.toggle('open', v); menu.setAttribute('aria-hidden', !v); $('#menu-open').setAttribute('aria-expanded', v); document.body.classList.toggle('locked', v); };
   $('#menu-open').onclick = () => open(true); $('#menu-close').onclick = () => open(false);
