@@ -1,0 +1,34 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:Anton;src:url(http://localhost:8765/fonts/anton-latin-ext-400-normal.woff2)}@font-face{font-family:Anton;src:url(http://localhost:8765/fonts/anton-latin-400-normal.woff2);unicode-range:U+0000-00FF}
+@font-face{font-family:CP;font-weight:700;src:url(http://localhost:8765/fonts/courier-prime-latin-ext-700-normal.woff2)}@font-face{font-family:CP;font-weight:700;src:url(http://localhost:8765/fonts/courier-prime-latin-700-normal.woff2);unicode-range:U+0000-00FF}
+@font-face{font-family:Shr;src:url(http://localhost:8765/fonts/shrikhand-latin-ext-400-normal.woff2)}@font-face{font-family:Shr;src:url(http://localhost:8765/fonts/shrikhand-latin-400-normal.woff2);unicode-range:U+0000-00FF}
+*{margin:0;box-sizing:border-box}body{width:1200px;height:630px;background:#2B2BFF;overflow:hidden;position:relative;font-family:CP}
+.rays{position:absolute;inset:0}
+.meta{position:absolute;left:52px;top:22px;color:#fff;font-weight:700;font-size:16px;letter-spacing:.14em}
+h1{position:absolute;left:48px;top:78px;font:400 146px/.9 Anton;color:#D9FF3D;-webkit-text-stroke:4px #0B0B1E;paint-order:stroke fill;text-shadow:9px 7px 0 #FF5FD2}
+.st{position:absolute;left:330px;top:236px;z-index:5;font:42px Shr;color:#FF5FD2;-webkit-text-stroke:3px #0B0B1E;paint-order:stroke fill;transform:rotate(-9deg);text-shadow:4px 4px 0 #0B0B1E}
+.info{position:absolute;left:640px;top:96px;width:520px;color:#fff}
+.info .k{font:700 15px CP;letter-spacing:.16em;color:#D9FF3D}
+.info .big{font:400 64px/1 Anton;letter-spacing:.01em;margin-top:6px;text-shadow:5px 4px 0 #0B0B1E}
+.info .sm{font:700 19px/1.35 CP;margin-top:10px;letter-spacing:.03em}
+.stamp{position:absolute;right:56px;top:28px;border:4px solid #D9FF3D;padding:4px;transform:rotate(8deg);color:#D9FF3D;border-radius:6px;background:rgba(11,11,30,.25)}
+.stamp span{display:block;border:2px solid #D9FF3D;padding:6px 14px;font:400 22px Anton;letter-spacing:.06em;text-align:center;border-radius:4px}
+.stamp small{display:block;font:700 10px CP;letter-spacing:.14em}
+.stage{position:absolute;left:-20px;right:-20px;bottom:-40px;height:130px;background:#FF5FD2;border-top:5px solid #0B0B1E;transform:rotate(-1.5deg)}
+.crew{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:center;align-items:flex-end;height:330px}
+.crew img{height:200px;width:auto;margin-left:-56px;filter:drop-shadow(4px 0 0 #0B0B1E) drop-shadow(-3px -2px 0 #0B0B1E) drop-shadow(6px 6px 0 rgba(11,11,30,.55));position:relative}
+.crew img:first-child{margin-left:0}
+.crew img.boss{height:248px}
+.crew img:nth-child(odd){transform:rotate(-2deg)} .crew img:nth-child(even){transform:rotate(2deg)}
+.info .url{display:inline-block;margin-top:14px;background:#0B0B1E;color:#D9FF3D;font:700 20px CP;letter-spacing:.06em;padding:8px 16px;border-radius:999px;box-shadow:4px 4px 0 #FF5FD2;transform:rotate(-2deg)}
+.tag{position:absolute;left:52px;bottom:22px;z-index:9;background:#0B0B1E;color:#fff;font:700 15px CP;letter-spacing:.1em;padding:8px 14px;border-radius:999px;transform:rotate(-2deg);box-shadow:3px 3px 0 #D9FF3D}
+</style></head><body><svg class="rays" viewBox="0 0 1200 630"><path d="M700 -250 L120 900 L240 900 Z M700 -250 L420 900 L540 900 Z M700 -250 L760 900 L880 900 Z M700 -250 L1100 900 L1220 900 Z" fill="#8FE8FF" fill-opacity=".16"/></svg>
+<div class="meta">DOKUMENT NR 1/2026 · ŚCIŚLE TAJNE (§1)</div>
+<h1><span id="a" style="display:table">WÓDY</span><span id="b" style="display:table">STOPAD</span></h1><div class="st">wódny rave!</div>
+<script>document.fonts.ready.then(()=>{const a=document.getElementById("a"),b=document.getElementById("b");a.style.fontSize=(b.offsetWidth/a.offsetWidth)+"em";Promise.all([...document.images].map(i=>i.decode())).then(()=>document.body.dataset.ok=1)})</script>
+<div class="info"><div class="k">WEZWANIE DO STAWIENIA SIĘ</div><div class="big">SOBOTA 21.11<br>GODZ. 19:00</div><div class="sm">Miejsce ściśle tajne, ale wiecie jakie.<br>Regulamin, ankiety i przysięga:</div><div class="url">wodystopad.pl →</div></div>
+<div class="stamp"><span>PILNE<small>ZAZNACZYĆ NA STRONIE</small></span></div>
+<div class="stage"></div>
+<div class="crew"><img src="http://localhost:8765/img/kasia.webp" style="z-index:5"><img src="http://localhost:8765/img/ola.webp" style="z-index:6"><img src="http://localhost:8765/img/klaudia.webp" style="z-index:7"><img src="http://localhost:8765/img/wiktorek.webp" class=boss style="z-index:8"><img src="http://localhost:8765/img/lucja.webp" style="z-index:7"><img src="http://localhost:8765/img/arek.webp" style="z-index:6"><img src="http://localhost:8765/img/magda.webp" style="z-index:5"><img src="http://localhost:8765/img/konrad.webp" style="z-index:4"></div>
+
+</body></html>

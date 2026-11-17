@@ -11,7 +11,8 @@ Strona to **jeden plik `index.html`** (HTML + CSS + JS), bez frameworków i bez 
 | `index.html` | cała strona; treści edytujesz w obiekcie `CONFIG` na początku `<script>` |
 | `fonts/` | fonty hostowane lokalnie (Anton, Courier Prime, Shrikhand, Big Shoulders Display, Instrument Serif — licencja OFL, z @fontsource) |
 | `favicon.svg` | ikonka-rybka w karcie przeglądarki |
-| `og.png` | obrazek podglądu linku (Messenger, WhatsApp itd.), 1200×630 |
+| `og.jpg` | baner podglądu linku (Messenger, WhatsApp itd.), 1200×630 — po podmianie zmień `?v=` w meta `og:image`, żeby Messenger pobrał nowy |
+| `apple-touch-icon.png` | ikona po dodaniu strony do ekranu głównego |
 | `CNAME` | domena `wodystopad.pl` dla GitHub Pages |
 
 ## Edycja treści (`CONFIG` w `index.html`)
