@@ -397,18 +397,36 @@ mark{background:none;color:var(--mag);font-weight:700}
 .wd__head .sticker{font-size:clamp(22px,2.6vw,36px);color:var(--lime);transform:rotate(-4deg);margin-top:40px;text-shadow:none}
 .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:80px;row-gap:44px}
 .idc{perspective:1200px;cursor:pointer}
-.idc__in{position:relative;transition:transform .7s cubic-bezier(.3,1.4,.5,1);transform-style:preserve-3d;height:100%}
-.idc.flipped .idc__in{transform:rotateY(180deg)}
+.idc__in{position:relative;transition:transform .7s cubic-bezier(.3,1.4,.5,1);transform-style:preserve-3d;height:100%;
+  transform:rotateX(var(--rx,0deg)) rotateY(calc(var(--ry,0deg) + var(--flip,0deg)))}
+.idc.flipped{--flip:180deg}
+.idc.tilt .idc__in{transition:transform .15s ease-out}
+.idc__f{position:relative;overflow:visible}
+.idc__f::after{content:"";position:absolute;inset:0;border-radius:18px;pointer-events:none;opacity:0;transition:opacity .35s;z-index:3;mix-blend-mode:soft-light;
+  background:radial-gradient(circle at var(--mx,50%) var(--my,30%),rgba(255,255,255,.95),transparent 42%),
+    linear-gradient(115deg,transparent 20%,rgba(255,95,210,.55) 38%,rgba(143,232,255,.55) 50%,rgba(217,255,61,.55) 62%,transparent 80%);
+  background-size:100% 100%,240% 100%;background-position:0 0,var(--hx,50%) 0}
+.idc.tilt .idc__f::after{opacity:1}
+.idc.tilt .idc__photo{transform:translate(calc(var(--ry,0deg) / 1deg * -.9px),-16px) scale(1.09)}
+.idc.tilt .idc__bg i{animation:idcBub 1.6s ease-in infinite;animation-delay:calc(var(--k,0) * -.23s)}
+@keyframes idcBub{0%{transform:translateY(0);opacity:1}100%{transform:translateY(-140px);opacity:0}}
+.idc.tilt .ministamp{animation:miniSlam .45s cubic-bezier(.2,1.6,.4,1)}
+@keyframes miniSlam{0%{transform:rotate(8deg) scale(1.9);opacity:0}100%{transform:rotate(8deg) scale(1);opacity:1}}
 .idc__f,.idc__b{background:var(--c);border:3px solid var(--ink);border-radius:20px;box-shadow:7px 7px 0 var(--ink);padding:14px;display:flex;flex-direction:column;gap:10px;backface-visibility:hidden;-webkit-backface-visibility:hidden;height:100%}
 .idc__b{position:absolute;inset:0;transform:rotateY(180deg);background:var(--sheet);gap:12px;padding:22px}
 .idc:nth-child(odd){transform:rotate(-2deg)} .idc:nth-child(even){transform:rotate(1.6deg)}
 .idc__top{display:flex;justify-content:space-between;align-items:center;padding:0 4px}
 .idc__top b{font:400 26px/1.1 var(--f-display)}
 .idc__top small{font:700 12px var(--f-type);color:var(--mag);letter-spacing:.08em}
-.idc__art{position:relative;height:160px;border-radius:12px;border:2.5px solid var(--ink);background:var(--art);overflow:hidden}
+.idc__art{position:relative;height:160px;border-radius:12px;border:2.5px solid var(--ink);background:var(--art)}
+.idc__bg{position:absolute;inset:0;border-radius:10px;overflow:hidden}
+.idc__art.has-photo{margin-top:34px}
+.idc__photo{position:absolute;left:50%;bottom:0;height:calc(100% + 46px);width:auto;max-width:none;translate:-50% 0;
+  clip-path:inset(-80px -40px 0 -40px round 0 0 10px 10px);filter:drop-shadow(4px 0 0 var(--ink)) drop-shadow(-1px -2px 0 var(--ink));transition:transform .45s cubic-bezier(.2,1.6,.4,1);transform-origin:50% 100%;z-index:1}
+.idc__art .ministamp{z-index:2}
 .idc__art .fish{left:22%;top:28%;width:56%;color:var(--fc)}
 .idc__art i{position:absolute;border:2px solid rgba(255,255,255,.7);border-radius:50%}
-.idc__art .ministamp{position:absolute;right:8px;bottom:10px;border:2px solid var(--lime);color:var(--lime);font:900 14px var(--f-stamp);letter-spacing:.06em;padding:3px 8px;border-radius:4px;transform:rotate(8deg)}
+.idc__art .ministamp{position:absolute;right:8px;bottom:10px;background:rgba(11,11,30,.55);border:2px solid var(--lime);color:var(--lime);font:900 14px var(--f-stamp);letter-spacing:.06em;padding:3px 8px;border-radius:4px;transform:rotate(8deg)}
 .idc__role{font:700 13px/1.3 var(--f-type);letter-spacing:.06em;min-height:2.6em;padding:0 4px}
 .idc__atk{background:#fff;border:2px solid var(--ink);border-radius:10px;padding:10px 12px}
 .idc__atk small{display:block;font:700 10px var(--f-type);letter-spacing:.1em;opacity:.55}
@@ -417,7 +435,9 @@ mark{background:none;color:var(--mag);font-weight:700}
 .stat i{height:12px;border:2px solid var(--ink);border-radius:99px;background:#fff;position:relative;overflow:hidden}
 .stat i::after{content:"";position:absolute;inset:0 auto 0 0;width:var(--v);background:var(--pink);border-radius:99px}
 .idc__valid{font-size:10px;opacity:.6;padding:0 4px}
-.idc.unconfirmed{opacity:.55}
+.idc.unconfirmed{opacity:.8}
+.idc.unconfirmed .idc__photo{filter:grayscale(1) contrast(1.05) drop-shadow(4px 0 0 var(--ink)) drop-shadow(-1px -2px 0 var(--ink))}
+.idc.unconfirmed.tilt .idc__photo{filter:grayscale(0) drop-shadow(4px 0 0 var(--ink)) drop-shadow(-1px -2px 0 var(--ink))}
 .idc__b h4{font:400 30px/1 var(--f-display)}
 .idc__b ul{list-style:none;font-size:14px;line-height:1.8;border-top:2px dashed var(--ink);padding-top:10px}
 .idc__b .stamp{opacity:.9;transform:rotate(-8deg);color:var(--mag);align-self:center;margin-top:auto}
@@ -1050,14 +1070,14 @@ mark{background:none;color:var(--mag);font-weight:700}
 const CONFIG = {
   eventDate: '2026-11-21T19:00:00+01:00',          // start imprezy (czas polski)
   people: [                                          // confirmed:false = karta wyszarzona
-    { name:'Wiktorek', role:'WÓDZIREJ NACZELNY',            attack:'Pieczątka ostateczna', confirmed:true },
-    { name:'Klaudia',  role:'„MARIUSZ WÓDZIANOWSKI”',       attack:'Podwójna tożsamość',   confirmed:true },
-    { name:'Kasia',    role:'„WÓDNA NIMFA”',                attack:'Zew głębin',           confirmed:true },
-    { name:'Łucja',    role:'KSYWKA DO NADANIA PRZEZ KOMISJĘ', attack:'Tajemnica (na razie)', confirmed:true },
-    { name:'Ola',      role:'KSYWKA DO NADANIA PRZEZ KOMISJĘ', attack:'Tajemnica (na razie)', confirmed:true },
-    { name:'Arek',     role:'„MOCNY ZAWÓDNIK”',             attack:'Mocna głowa',          confirmed:true },
-    { name:'Magda',    role:'UDZIAŁ NIEPOTWIERDZONY',       attack:'Może przyjdzie',       confirmed:false },
-    { name:'Konrad',   role:'UDZIAŁ NIEPOTWIERDZONY',       attack:'Może przyjdzie',       confirmed:false },
+    { name:'Wiktorek', photo:'img/wiktorek.webp', role:'WÓDZIREJ NACZELNY',            attack:'Pieczątka ostateczna', confirmed:true },
+    { name:'Klaudia', photo:'img/klaudia.webp',  role:'„MARIUSZ WÓDZIANOWSKI”',       attack:'Podwójna tożsamość',   confirmed:true },
+    { name:'Kasia', photo:'img/kasia.webp',    role:'„WÓDNA NIMFA”',                attack:'Zew głębin',           confirmed:true },
+    { name:'Łucja', photo:'img/lucja.webp',    role:'KSYWKA DO NADANIA PRZEZ KOMISJĘ', attack:'Tajemnica (na razie)', confirmed:true },
+    { name:'Ola', photo:'img/ola.webp',      role:'KSYWKA DO NADANIA PRZEZ KOMISJĘ', attack:'Tajemnica (na razie)', confirmed:true },
+    { name:'Arek', photo:'img/arek.webp',     role:'„MOCNY ZAWÓDNIK”',             attack:'Mocna głowa',          confirmed:true },
+    { name:'Magda', photo:'img/magda.webp',    role:'UDZIAŁ NIEPOTWIERDZONY',       attack:'Może przyjdzie',       confirmed:false },
+    { name:'Konrad', photo:'img/konrad.webp',   role:'UDZIAŁ NIEPOTWIERDZONY',       attack:'Może przyjdzie',       confirmed:false },
   ],
   rules: [ // §2–§7 (§1 jest stałym banerem)
     'Nie mówimy nikomu o Wódystopadzie, chyba że komuś, komu akurat chcemy powiedzieć, lub jesteśmy po wypiciu znaczących ilości wódeczki.',
@@ -1382,10 +1402,11 @@ carouselDots($('#kary-track'), $('#kary-dots'), 'przesuń →');
    ========================================================= */
 (() => { const bgs = ['var(--paper)','var(--lime)','var(--aqua)','#fff']; const arts = ['var(--blue)','var(--ink)']; const fc = ['#FF5FD2','#D9FF3D','#FF5FD2','#8FE8FF'];
   const stat = (name, k) => { let h = 0; for (const c of name+k) h = (h*31 + c.charCodeAt(0)) % 997; return 25 + h % 70; };
-  $('#cards').innerHTML = CONFIG.people.map((p,i) => { const bub = Array.from({length:7},()=>{ const s=6+rnd()*16; return `<i style="width:${s}px;height:${s}px;left:${rnd()*92}%;top:${rnd()*85}%"></i>`; }).join('');
+  $('#cards').innerHTML = CONFIG.people.map((p,i) => { const bub = Array.from({length:7},(_,k)=>{ const s=6+rnd()*16; return `<i style="--k:${k};width:${s}px;height:${s}px;left:${rnd()*92}%;top:${rnd()*85}%"></i>`; }).join('');
     return `<div class="idc${p.confirmed?'':' unconfirmed'}" tabindex="0" role="button" aria-label="Legitymacja: ${p.name}. Kliknij, by odwrócić."><div class="idc__in">
-      <div class="idc__f" style="--c:${bgs[i%4]}"><div class="idc__top"><b>${p.name}</b><small>NR ${pad(i+1,3)}</small></div>
-        <div class="idc__art" style="--art:${arts[i%2]};--fc:${fc[i%4]}">${bub}<svg class="fish" viewBox="0 0 180 80"><use href="#i-fish"/></svg><span class="ministamp">ZATWIERDZONO</span></div>
+      <div class="idc__f" style="--c:${bgs[i%4]}">
+        <div class="idc__art${p.photo?' has-photo':''}" style="--art:${arts[i%2]};--fc:${fc[i%4]}"><div class="idc__bg">${bub}${p.photo?'':'<svg class="fish" viewBox="0 0 180 80"><use href="#i-fish"/></svg>'}</div>${p.photo?`<img class="idc__photo" src="${p.photo}" alt="${p.name}" loading="lazy" decoding="async">`:''}<span class="ministamp">ZATWIERDZONO</span></div>
+        <div class="idc__top"><b>${p.name}</b><small>NR ${pad(i+1,3)}</small></div>
         <div class="idc__role">${p.role}</div><div class="idc__atk"><small>ATAK SPECJALNY</small><b>${p.attack}</b></div>
         ${['TOASTY','WYTRZYMAŁOŚĆ','ŚPIEW'].map(s=>`<div class="stat">${s}<i style="--v:${stat(p.name,s)}%"></i></div>`).join('')}
         <div class="idc__valid">ważna do odwołania przez komisję</div></div>
@@ -1394,6 +1415,12 @@ carouselDots($('#kary-track'), $('#kary-dots'), 'przesuń →');
         <div class="stamp"><span><b>${p.confirmed?'W REJESTRZE':'DO WYJAŚNIENIA'}</b><small>Urząd ds. Wódystopadu</small></span></div></div>
     </div></div>`; }).join('');
   $$('#cards .idc').forEach(c => { const f = () => c.classList.toggle('flipped'); c.onclick = f; c.onkeydown = e => { if(e.key==='Enter'||e.key===' '){ e.preventDefault(); f(); } }; });
+  if (matchMedia('(hover:hover) and (pointer:fine)').matches && !reduced) $$('#cards .idc').forEach(c => { let raf = 0;
+    c.addEventListener('pointerenter', () => c.classList.add('tilt'));
+    c.addEventListener('pointermove', e => { if (raf) return; raf = requestAnimationFrame(() => { raf = 0; const r = c.getBoundingClientRect(); const x = (e.clientX - r.left)/r.width, y = (e.clientY - r.top)/r.height;
+      c.style.setProperty('--ry', ((x-.5)*18).toFixed(1)+'deg'); c.style.setProperty('--rx', ((.5-y)*14).toFixed(1)+'deg');
+      c.style.setProperty('--mx', (x*100).toFixed(0)+'%'); c.style.setProperty('--my', (y*100).toFixed(0)+'%'); c.style.setProperty('--hx', (100-x*100).toFixed(0)+'%'); }); });
+    c.addEventListener('pointerleave', () => { c.classList.remove('tilt'); ['--rx','--ry'].forEach(p => c.style.setProperty(p,'0deg')); }); });
   $('#chips').innerHTML = CONFIG.people.map(p => `<span class="${p.confirmed?'':'q'}">${p.name}${p.confirmed?'':' ?'}</span>`).join('');
   carouselDots($('#cards'), $('#cards-dots'), 'przesuń →');
 })();
