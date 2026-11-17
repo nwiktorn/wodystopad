@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
+<script>try{if(localStorage.getItem('wody:rules-ok'))document.documentElement.classList.add('rules-ok')}catch(e){}</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>WÓDYSTOPAD 2026 — Wódny Rave · 21.11</title>
@@ -253,7 +254,7 @@ mark{background:none;color:var(--mag);font-weight:700}
 .reg__foot{margin-top:48px;border:3px dashed var(--lime);border-radius:22px;padding:32px 36px;display:flex;gap:30px;align-items:flex-start}
 .reg__foot b{font:400 64px/1 var(--f-display);color:var(--lime)}
 .reg__foot p{font-style:italic;font-size:19px;line-height:1.5}
-.deck-ui{display:none}
+.deck-ui,.reg-accept{display:none}
 
 /* =========================================================
    ZAOPATRZENIE (sprawa formalna nr 2)
@@ -633,30 +634,30 @@ mark{background:none;color:var(--mag);font-weight:700}
   .r1 h3{font-size:40px}
   .r1 .stamp{--ss:18px}
   .r1 .stamp>span{padding:6px 12px}
-  .rules.deck-mode{display:block;position:relative;height:var(--deck-h,300px);margin-top:34px}
-  .rules.deck-mode .rule{position:absolute;left:16px;right:16px;top:0;padding:22px;box-shadow:6px 6px 0 var(--blue);border-width:2.5px;border-radius:18px;
-    transform:translate(calc(var(--dx,0)*1px),var(--ty,0px)) rotate(calc(var(--r) + var(--dx,0)*.05deg)) scale(var(--sc,1));transition:transform .35s cubic-bezier(.2,1.2,.3,1),opacity .35s}
-  .rules.deck-mode .rule.dragging{transition:none}
-  .rules.deck-mode .rule.gone{opacity:0;pointer-events:none}
-  .rules.deck-mode .rule p{font-size:15px}
-  .rules.deck-mode .rule__tag:not(.deck-count){display:none}
-  .rules.deck-mode .rule__n{font-size:48px}
-  .rules.deck-mode .rule--ban .stamp{right:16px;top:-26px;--ss:22px}
+  .rules{display:flex;flex-direction:column;gap:22px;margin-top:30px;position:relative}
+  .rules .rule{padding:22px;box-shadow:6px 6px 0 var(--blue);border-width:2.5px;border-radius:18px;will-change:transform}
+  .rules .rule p{font-size:15px}
+  .rules .rule>*{transition:opacity .25s}
+  .rules .rule.piled>*{opacity:0}
+  .rules .rule__n{font-size:48px}
+  .rules .rule--ban .stamp{right:16px;top:-26px;--ss:22px}
   .deck-label{display:block;color:var(--lime);font:700 10px var(--f-type);letter-spacing:.08em;margin-top:50px}
-  .deck-ui{display:flex;flex-direction:column;align-items:center;gap:22px;margin-top:10px}
-  .deck-ui .btns{display:flex;gap:12px;width:100%}
-  .deck-ui button{flex:1;border-radius:999px;padding:12px 10px;text-align:center}
-  .deck-ui .no{border:1.5px solid var(--paper);opacity:.45;font:700 12px var(--f-type);color:var(--paper)}
-  .deck-ui .no small{display:block;font-style:italic;font-weight:400;font-size:9px}
-  .deck-ui .yes{background:var(--lime);color:var(--ink);border:2px solid var(--ink);box-shadow:4px 4px 0 var(--pink);font:700 13px var(--f-type);letter-spacing:.06em}
-  .deck-dots{display:flex;gap:8px}
-  .deck-dots i{width:8px;height:8px;border-radius:99px;background:rgba(239,230,210,.35);transition:.3s}
-  .deck-dots i.on{width:22px;background:var(--lime)}
-  .rules.listed{display:flex;flex-direction:column;gap:22px;height:auto}
-  .rules.listed .rule{position:relative;left:auto;right:auto;transform:rotate(var(--r));padding:22px}
-  .rules.listed .rule p{font-size:15px}
-  .rules.listed .rule__n{font-size:48px}
-  .rules:not(.deck-mode)+.deck-ui{display:none}
+  /* akceptacja regulaminu — bez niej reszta strony nie istnieje */
+  html:not(.rules-ok) #regulamin ~ *{display:none!important}
+  .reg-accept{display:flex;flex-direction:column;align-items:stretch;gap:14px;margin-top:46px;padding:26px 20px 22px;border:2.5px dashed var(--lime);border-radius:20px;text-align:center}
+  .reg-accept__q{font:700 12px/1.5 var(--f-type);letter-spacing:.04em;color:var(--paper)}
+  .reg-accept__q b{display:block;font:400 34px/1.12 var(--f-display);color:var(--lime);letter-spacing:.01em;margin-bottom:6px}
+  .reg-accept__yes{background:var(--lime);color:var(--ink);border:2.5px solid var(--ink);border-radius:999px;padding:18px 12px;font:400 21px/1.1 var(--f-display);letter-spacing:.04em;box-shadow:5px 5px 0 var(--pink);animation:accPulse 1.8s ease-in-out infinite}
+  .reg-accept__yes:active{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--pink)}
+  .reg-accept__no{color:var(--paper);opacity:.45;font:700 11px var(--f-type);letter-spacing:.06em;padding:6px}
+  .reg-accept__no small{display:block;font-style:italic;font-weight:400;font-size:9px;margin-top:2px}
+  .reg-lock{margin-top:6px;padding-top:14px;border-top:1.5px solid rgba(239,230,210,.2);font:700 10px/1.6 var(--f-type);letter-spacing:.06em;color:var(--paper);opacity:.55}
+  .reg-accept__done{display:none;flex-direction:column;align-items:center;gap:14px;color:var(--paper);font:700 12px var(--f-type);letter-spacing:.04em}
+  html.rules-ok .reg-accept{border-style:solid}
+  html.rules-ok .reg-accept>:not(.reg-accept__done){display:none}
+  html.rules-ok .reg-accept__done{display:flex}
+  html.rules-ok .reg-accept__done .stamp{opacity:1;transform:rotate(var(--rot)) scale(1)}
+  @keyframes accPulse{50%{box-shadow:5px 5px 0 var(--pink),0 0 0 8px rgba(217,255,61,.18)}}
   .reg__foot{padding:18px;flex-direction:column;gap:6px;border-width:2px;margin-top:40px}
   .reg__foot b{font-size:36px} .reg__foot p{font-size:13px}
   /* zaopatrzenie */
@@ -899,13 +900,16 @@ mark{background:none;color:var(--mag);font-weight:700}
       <h3>Nie mówimy nikomu o Wódystopadzie.</h3>
       <div class="stamp" data-stamp><span><b>ŚCIŚLE TAJNE</b><small>klauzula §1 · nie kopiować</small></span></div>
     </div>
-    <span class="deck-label">§2 – §7 · PRZESUŃ W PRAWO, ŻEBY PRZYJĄĆ DO WIADOMOŚCI →</span>
+    <span class="deck-label">§2 – §7 · PRZEWIJAJ — KARTY SAME SIĘ ROZŁOŻĄ ↓</span>
     <div class="rules" id="rules"></div>
-    <div class="deck-ui" id="deck-ui">
-      <div class="btns"><button class="no" id="deck-no">✕ NIE ZGADZAM SIĘ<small>opcja niedostępna (§7)</small></button><button class="yes" id="deck-yes">✓ PRZYJMUJĘ</button></div>
-      <div class="deck-dots" id="deck-dots"></div>
-    </div>
     <div class="reg__foot" data-reveal><b>*</b><p id="footnote"></p></div>
+    <div class="reg-accept" id="reg-accept">
+      <p class="reg-accept__q"><b>Przeczytane?</b>Bez akceptacji regulaminu komisja nie wpuszcza dalej.</p>
+      <button class="reg-accept__yes" id="rules-yes">✓ AKCEPTUJĘ REGULAMIN</button>
+      <button class="reg-accept__no" id="rules-no">✕ Nie akceptuję<small>opcja niedostępna (§7)</small></button>
+      <p class="reg-lock">🔒 Za tą linią: co pijemy · kary · promile · Wódowicze · program · przysięga</p>
+      <div class="reg-accept__done"><div class="stamp" id="rules-stamp" style="--rot:-6deg;--ss:34px;color:var(--lime)"><span><b>PRZYJĘTO</b><small>do wiadomości · komisja</small></span></div><p>Regulamin zaakceptowany. Jedziemy dalej ↓</p></div>
+    </div>
   </div>
 </section>
 
@@ -1157,7 +1161,7 @@ $$('[data-page]').forEach(s => { if(s.id==='start') return; const dark = s.class
   addEventListener('scroll', () => { const y = scrollY, down = y > last && y > 200;
     nav.classList.toggle('hidden', down && isMobile()); sticky.classList.toggle('hide', blockers.size > 0 || y > document.body.scrollHeight - innerHeight - 260); last = y; }, {passive:true});
   const blockers = new Set(); const bio = new IntersectionObserver(es => { es.forEach(e => e.isIntersecting ? blockers.add(e.target) : blockers.delete(e.target)); sticky.classList.toggle('hide', blockers.size > 0); }, {rootMargin:'0px 0px -60px 0px'});
-  ['#deck-ui','#oath','#licznik','.panels'].forEach(s => bio.observe($(s)));
+  ['#reg-accept','#oath','#licznik','.panels'].forEach(s => bio.observe($(s)));
   const sections = [['pismo','Pismo okólne'],['regulamin','Regulamin'],['zaopatrzenie','Co pijemy, ile pijemy'],['kary','Taryfikator kar'],['promile','Promil-meter'],['wodowicze','Legitymacje'],['program','Porządek obrad'],['przysiega','Przysięga']];
   $('#menu-list').innerHTML = sections.map(([id,t],i)=>`<li style="--i:${i}"><a href="#${id}" data-id="${id}"><span>${pad(i+1)}</span><b>${t}</b></a></li>`).join('');
   const menu = $('#menu'), open = (v) => { menu.classList.toggle('open', v); menu.setAttribute('aria-hidden', !v); $('#menu-open').setAttribute('aria-expanded', v); document.body.classList.toggle('locked', v); };
@@ -1268,29 +1272,41 @@ spawnFish($('#fishes2'), [[18,120,'#FF5FD2',.8],[30,100,'#fff',.6],[78,90,'#D9FF
     return `<article class="rule${ban?' rule--ban':''}" style="--c:${colors[i%6]}" data-reveal><div class="rule__top"><span class="rule__n">§${n}</span><span class="rule__tag">${ban?'':`ART. ${n} · ZATWIERDZONO`}</span><span class="rule__tag deck-count" hidden>${n} / 7</span></div><p>${hl(r)}</p>${ban?'<div class="stamp" data-stamp><span><b>ZAKAZ!</b><small>innych trunków</small></span></div>':''}</article>`; }).join('');
   $('#footnote').innerHTML = hl(CONFIG.footnote);
   $$('#rules [data-reveal], #rules [data-stamp]').forEach(el => revealIO.observe(el));
-  const cards = $$('.rule', box), dots = $('#deck-dots'); let idx = 0, deck = false;
-  dots.innerHTML = cards.map(()=>'<i></i>').join('');
-  const layout = () => { if (!deck) return; let h = 0;
-    cards.forEach((c,i) => { const pos = i - idx; c.classList.toggle('gone', pos < 0); c.style.zIndex = 50 - i;
-      if (pos >= 0) { c.style.setProperty('--ty', (pos*10)+'px'); c.style.setProperty('--sc', 1 - pos*.04); c.style.setProperty('--r', (pos===0?-1:(pos%2?4:-5))+'deg'); c.style.opacity = pos > 2 ? 0 : 1; }
-      c.style.pointerEvents = pos === 0 ? 'auto' : 'none'; c.style.visibility = (pos < 0 || pos > 2) ? 'hidden' : 'visible';
-      if (pos >= 0 && pos <= 2) h = Math.max(h, c.offsetHeight + pos*10);
-      $('.deck-count', c).hidden = false; });
-    box.style.setProperty('--deck-h', (h + 46) + 'px'); $$('i', dots).forEach((d,i)=>d.classList.toggle('on', i===idx)); };
-  const setMode = () => { const m = isMobile() && !box.classList.contains('listed'); if (m === deck) return; deck = m; box.classList.toggle('deck-mode', m);
-    cards.forEach(c => { c.classList.add('in'); if(!m){ c.removeAttribute('style'); c.style.setProperty('--c', c.style.getPropertyValue('--c')); } });
-    if (!m) cards.forEach((c,i)=>c.style.setProperty('--c', colors[i%6])); layout(); };
-  const accept = () => { const c = cards[idx]; if (!c) return; c.style.setProperty('--dx', '480'); idx++; toast(`§${idx+1} przyjęty do wiadomości ✓`);
-    if (idx >= cards.length) { setTimeout(() => { box.classList.remove('deck-mode'); box.classList.add('listed'); deck=false; cards.forEach((c,i)=>{ c.removeAttribute('style'); c.style.setProperty('--c', colors[i%6]); c.classList.remove('gone'); $('.deck-count',c).hidden=true; }); $('#deck-ui').style.display='none'; toast('Regulamin przyjęty w całości. Komisja dziękuje.'); }, 400); return; }
-    layout(); };
-  const refuse = () => { const c = cards[idx]; if(!c) return; c.style.setProperty('--dx','0'); c.classList.remove('shake'); void c.offsetWidth; c.classList.add('shake'); toast('Opcja niedostępna (§7). Karta wraca.'); };
-  $('#deck-yes').onclick = accept; $('#deck-no').onclick = refuse;
-  cards.forEach((c,i) => { let sx=0, dx=0, on=false;
-    c.addEventListener('pointerdown', e => { if(!deck || i!==idx) return; on=true; sx=e.clientX; c.classList.add('dragging'); c.setPointerCapture(e.pointerId); });
-    c.addEventListener('pointermove', e => { if(!on) return; dx = e.clientX - sx; c.style.setProperty('--dx', dx); });
-    const end = () => { if(!on) return; on=false; c.classList.remove('dragging'); if (dx > 90) accept(); else if (dx < -90) refuse(); else c.style.setProperty('--dx','0'); dx=0; };
-    c.addEventListener('pointerup', end); c.addEventListener('pointercancel', end); });
-  setMode(); addEventListener('resize', setMode); addEventListener('load', layout); document.fonts && document.fonts.ready.then(layout); })();
+  /* mobile: karty leżą w stosie i „rozdają się” w pionową listę w miarę przewijania.
+     Stos przykleja się na wysokości P ekranu; karta schodzi ze stosu, gdy jej miejsce w liście dojedzie do P. */
+  const cards = $$('.rule', box), PR = [-6,5,-4,7,-5,4], PX = [-12,14,-8,10,-14,8];
+  let offs = [], active = false, raf = 0, on = false;
+  const measure = () => { offs = cards.map(c => c.offsetTop); };
+  const frame = () => { raf = 0; if (!active) return;
+    const bt = box.getBoundingClientRect().top, P = Math.max(130, innerHeight * .24); let first = -1;
+    cards.forEach((c,i) => { const slot = bt + offs[i], y = Math.max(bt, Math.min(slot, P)), d = slot - y, t = Math.min(1, d / 170);
+      let k = 0, deep = false; if (d > .5) { if (first < 0) first = i; deep = i - first > 3; k = Math.min(3, i - first); }
+      c.style.visibility = deep ? 'hidden' : ''; c.classList.toggle('piled', k > 0);
+      const rl = i % 2 ? 1.4 : -1.4, rot = rl + (PR[i % 6] * (k ? 1 : .35) - rl) * t;
+      c.style.transform = `translate(${(PX[i % 6] * t * (k ? 1 : .3)).toFixed(1)}px,${(-d + k * 9 * t).toFixed(1)}px) rotate(${rot.toFixed(2)}deg) scale(${(1 - .03 * k * t).toFixed(3)})`; }); };
+  const req = () => { if (!raf) raf = requestAnimationFrame(frame); };
+  const io = new IntersectionObserver(es => { on = es[0].isIntersecting; if (on && active) req(); }, {rootMargin:'100% 0px'});
+  const setMode = () => { const m = isMobile() && !reduced;
+    cards.forEach((c,i) => { c.style.zIndex = cards.length - i; if (isMobile()) { c.classList.add('in'); c.style.transition = 'none'; } });
+    if (m) { measure(); active = true; req(); }
+    else if (active) { active = false; cards.forEach(c => { c.style.transform = ''; c.style.transition = ''; }); } };
+  addEventListener('scroll', () => { if (on && active) req(); }, {passive:true});
+  io.observe(box);
+
+  /* akceptacja — bez niej na mobile wszystko poniżej regulaminu jest ukryte */
+  const root = document.documentElement, acc = $('#reg-accept');
+  const accepted = () => root.classList.contains('rules-ok');
+  const nudge = () => { acc.scrollIntoView({behavior: reduced ? 'auto' : 'smooth', block:'center'}); const b = $('#rules-yes'); b.classList.remove('shake'); void b.offsetWidth; b.classList.add('shake'); toast('Najpierw regulamin. Bez akceptacji ani rusz.'); };
+  $('#rules-yes').onclick = () => { try { localStorage.setItem('wody:rules-ok','1'); } catch(e){}
+    root.classList.add('rules-ok'); const st = $('#rules-stamp'); st.classList.remove('in'); void st.offsetWidth; st.classList.add('in');
+    const cb = $('#oath input[name="regulamin"]'); if (cb) cb.checked = true;
+    toast('Regulamin przyjęty w całości. Komisja dziękuje.'); dispatchEvent(new Event('resize')); };
+  $('#rules-no').onclick = () => { const b = $('#rules-no'); b.classList.remove('shake'); void b.offsetWidth; b.classList.add('shake'); toast('Opcja niedostępna (§7). Spróbuj przycisku powyżej.'); };
+  document.addEventListener('click', e => { if (accepted() || !isMobile()) return; const a = e.target.closest('a[href^="#"]'); if (!a) return;
+    const t = document.getElementById(a.getAttribute('href').slice(1)); if (t && !t.getClientRects().length) { e.preventDefault(); setTimeout(nudge, 80); } }, true);
+  if (accepted()) { const cb = $('#oath input[name="regulamin"]'); if (cb) cb.checked = true; }
+
+  setMode(); addEventListener('resize', setMode); addEventListener('load', () => { measure(); req(); }); document.fonts && document.fonts.ready.then(() => { measure(); req(); }); })();
 
 /* =========================================================
    ZAOPATRZENIE: ankieta, butelki, składeczka
