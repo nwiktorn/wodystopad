@@ -643,9 +643,11 @@ mark{background:none;color:var(--mag);font-weight:700}
   .zp__foot .stamp{align-self:flex-end;--ss:20px}
   /* kary */
   .kary__sub{font-size:14px}
-  .track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:16px;margin:60px calc(var(--pad)*-1) 0;padding:40px var(--pad) 20px;scrollbar-width:none}
+  .track{display:flex;flex-direction:column;gap:34px;margin-top:56px;padding:0 6px}
   .track::-webkit-scrollbar,.cards::-webkit-scrollbar{display:none}
-  .kara{flex:0 0 280px;scroll-snap-align:start;padding:24px 22px;box-shadow:6px 6px 0 var(--ink);border-width:2.5px}
+  .kara{padding:22px 22px 20px;box-shadow:6px 6px 0 var(--ink);border-width:2.5px;gap:10px}
+  .kara dl{margin-top:4px;padding-top:10px}
+  #kary-dots{display:none}
   .kara h3{font-size:40px} .kara p{font-size:14px}
   .kara .icon{width:64px;height:64px;top:-26px;right:-6px}
   .dots{display:flex;gap:8px;align-items:center;margin-top:20px;font:700 10px var(--f-type);letter-spacing:.06em}
@@ -666,7 +668,7 @@ mark{background:none;color:var(--mag);font-weight:700}
   .shake-btn{justify-content:center}
   /* wódowicze */
   .wd__head .sticker{margin-top:6px;font-size:22px}
-  .cards{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:16px;margin:30px calc(var(--pad)*-1) 0;padding:20px var(--pad) 24px;scrollbar-width:none}
+  .cards{display:flex;overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;touch-action:pan-x pan-y;scroll-snap-type:x mandatory;gap:16px;margin:30px calc(var(--pad)*-1) 0;padding:24px var(--pad) 30px;scrollbar-width:none}
   .idc{flex:0 0 286px;scroll-snap-align:center}
   .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
   .chips span{border:2px solid var(--ink);background:var(--paper);border-radius:99px;padding:7px 12px;font:700 12px var(--f-type)}
