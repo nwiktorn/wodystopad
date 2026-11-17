@@ -529,17 +529,24 @@ mark{background:none;color:var(--mag);font-weight:700}
   .r1 h3{line-height:1.12}
   .lu b{line-height:1.12}
   .hero{min-height:auto;padding-top:80px;padding-bottom:110px}
-  .hero__grid{grid-template-columns:1fr;gap:0}
+  .hero__grid{grid-template-columns:1fr 132px;gap:0 14px;align-items:center}
+  .hero__left{display:contents}
+  .hero__meta,.hero__title{grid-column:1/-1}
+  .hero__tag{grid-column:1;align-self:center}
+  .hero__right{grid-column:2;margin-top:20px!important}
   .hero__meta{font-size:9px;margin-bottom:34px}
   .stamp small{font-size:8px;letter-spacing:.1em}
   .stamp>span{padding:6px 12px}
   .hero__title{font-size:min(96px,24vw);line-height:.92}
-  .hero .sticker--rave{font-size:24px;left:auto;right:-10px;top:40%;-webkit-text-stroke-width:2px;text-shadow:3px 3px 0 var(--ink)}
+  .hero__title .line{margin:0 auto}
+  .hero .sticker--rave{font-size:30px;left:50%;right:auto;top:50%;translate:-50% -50%;-webkit-text-stroke-width:2px;text-shadow:3px 3px 0 var(--ink)}
   .hero__right{margin-top:22px}
-  .porthole{width:196px;margin:0 auto;box-shadow:6px 6px 0 var(--ink);border-width:4px}
-  .porthole .stamp{left:-26%;bottom:4%;--ss:16px}
+  .porthole{width:132px;margin:0;box-shadow:6px 6px 0 var(--ink);border-width:4px}
+  .porthole .stamp{display:none}
+  .porthole .stamp small{font-size:6px}
+  .porthole .stamp>span{padding:4px 8px}
   .porthole .stamp>span{padding:6px 12px}
-  .date-sticker{width:96px;right:-22%;bottom:10%;font-size:16px;border-width:3px;box-shadow:4px 4px 0 var(--ink)}
+  .date-sticker{width:70px;right:-14%;bottom:-12%;font-size:12px;border-width:3px;box-shadow:4px 4px 0 var(--ink)}
   .hero__tag{font-size:13.5px;margin-top:20px}
   .hero__tag br{display:none}
   .cd{margin-top:16px;gap:10px;flex-wrap:nowrap}
@@ -1108,7 +1115,10 @@ $$('[data-split]').forEach((line, li) => { const t = line.textContent; line.text
   [...t].forEach((ch,i) => { const s = document.createElement('span'); s.className='l'; s.dataset.ch=ch; s.textContent=ch; s.setAttribute('aria-hidden','true');
     s.style.cssText = `--i:${li*6+i};--dy:${((rnd()-.5)*18).toFixed(1)};--rot:${((rnd()-.5)*9).toFixed(1)};--dur:${(2.6+rnd()*1.4).toFixed(2)}s`; line.appendChild(s); }); });
 (() => { const [w1, w2] = $$('.hero__title .line'); // WÓDY = szerokość STOPAD
-  const fit = () => { w1.style.fontSize = '1em'; const r = w2.offsetWidth / w1.offsetWidth; w1.style.fontSize = r.toFixed(4) + 'em'; };
+  const title = $('.hero__title');
+  const fit = () => { title.style.fontSize = ''; w1.style.fontSize = '1em';
+    if (isMobile()) { const avail = title.clientWidth; const base = parseFloat(getComputedStyle(title).fontSize); title.style.fontSize = (base * avail / w2.offsetWidth * .995).toFixed(2) + 'px'; } // mobile: STOPAD na całą szerokość
+    const r = w2.offsetWidth / w1.offsetWidth; w1.style.fontSize = r.toFixed(4) + 'em'; };
   let lw = innerWidth; fit(); addEventListener('resize', () => { if (innerWidth !== lw) { lw = innerWidth; fit(); } }); document.fonts && document.fonts.ready.then(fit); })();
 (() => { if (reduced) return; // pojedyncze litery: czasem się rozmyją, czasem dwie zamienią miejscami — rzadko i delikatnie
   const lines = $$('.hero__title .line').map(l => $$('.l', l)); const all = lines.flat(); const r = (a,b) => a + Math.random()*(b-a);
