@@ -728,7 +728,7 @@ mark{background:none;color:var(--mag);font-weight:700}
     <h2 id="gate-h">CZY MASZ UKOŃCZONE 18 LAT?</h2>
     <p>Strona zawiera treści o wódeczce. Wstęp wyłącznie dla pełnoletnich Wódowiczów.</p>
     <button class="btn-pill btn-lime" id="gate-yes">TAK, WCHODZĘ →</button>
-    <button class="btn-pill btn-pink gate__fish" id="gate-no">Jestem rybą</button>
+    <button class="btn-pill btn-pink gate__fish" id="gate-no">Nie wiem</button>
     <p class="gate__no" id="gate-msg" aria-live="polite"></p>
     <div class="stamp" id="gate-stamp"><span><b>DOPUSZCZONO</b><small>PRZEZ WÓDZIREJA</small></span></div>
   </div>
@@ -1078,9 +1078,10 @@ $$('[data-page]').forEach(s => { if(s.id==='start') return; const dark = s.class
   const gate = $('#gate');
   if (store.get('adult', false)) return;
   gate.hidden = false; document.body.classList.add('locked');
-  $('#gate-yes').onclick = () => { store.set('adult', true); $('#gate-stamp').classList.add('in');
-    setTimeout(()=>{ gate.hidden = true; document.body.classList.remove('locked'); }, 750); };
-  $('#gate-no').onclick = () => { $('#gate-msg').textContent = 'Rybom wstęp wzbroniony. Wróć, jak dorośniesz.'; gate.querySelector('.gate__card').classList.remove('shake'); void gate.offsetWidth; gate.querySelector('.gate__card').classList.add('shake'); };
+  const enter = (msg) => { store.set('adult', true); if (msg) $('#gate-msg').textContent = msg; $('#gate-stamp').classList.add('in');
+    setTimeout(()=>{ gate.hidden = true; document.body.classList.remove('locked'); }, msg ? 1300 : 750); };
+  $('#gate-yes').onclick = () => enter();
+  $('#gate-no').onclick = () => enter('Komisja uznała, że raczej tak. Zapraszamy.');
 })();
 
 /* =========================================================
