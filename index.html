@@ -3684,13 +3684,25 @@ const GFX = {}; // rysunki współdzielone przez gry i okładki w Game Store
     $('#wdz-board-note').textContent = sh ? 'Jeden wpis = jeden turniej. Komisja nie sprawdza, kto grał po wódeczce.' : 'Na razie rekordy z tego urządzenia.'; }
   function myBest() { const b = store.get('wdz-best', 0); $('#wdz-mybest').textContent = b ? `Twój rekord: ${b} pkt` : ''; }
   API.on(board); board(); myBest();
-  // okładka w Game Store: dwie postaci naprzeciw siebie
+  // okładka w Game Store: Arek i Klaudia w walce — te same postacie (głowa ze zdjęcia + ciało) co w grze
   function art() { const c = $('.cart__art[data-art="wodzitsu"]'); if (!c) return; const r = c.getBoundingClientRect(); if (!r.width) return;
     const d = Math.min(2, devicePixelRatio || 1); c.width = Math.round(r.width * d); c.height = Math.round(r.height * d); const x = c.getContext('2d'), s = c.width / 150; x.setTransform(s, 0, 0, s, 0, 0);
-    x.fillStyle = '#3a2a6e'; x.fillRect(0, 0, 150, 150); x.fillStyle = '#b8743a'; x.fillRect(0, 118, 150, 32); x.fillStyle = K.ink; x.fillRect(0, 116, 150, 3);
-    const a = PEOPLE.find(P => P.name === 'Arek') || PEOPLE[0], b = PEOPLE.find(P => P.name === 'Klaudia') || PEOPLE[1];
-    [[a, 42, 1], [b, 108, -1]].forEach(([P, cx, s2]) => { if (!P.img) return; const ih = 78, iw = ih * P.img.naturalWidth / P.img.naturalHeight; x.save(); x.translate(cx, 120); if (s2 < 0) x.scale(-1, 1); x.drawImage(P.img, -iw / 2, -ih, iw, ih); x.restore(); });
-    x.font = '400 34px Shrikhand, cursive'; x.textAlign = 'center'; x.lineJoin = 'round'; x.lineWidth = 6; x.strokeStyle = K.ink; x.fillStyle = K.gold; x.strokeText('vs', 75, 52); x.fillText('vs', 75, 52); }
+    // remiza: ściana w pasy, girlanda, reflektor, parkiet
+    x.fillStyle = '#3a2a6e'; x.fillRect(0, 0, 150, 150);
+    x.fillStyle = 'rgba(255,255,255,.06)'; for (let i = 0; i < 150; i += 18) x.fillRect(i, 0, 9, 128);
+    const g = x.createRadialGradient(75, 70, 4, 75, 70, 80); g.addColorStop(0, 'rgba(245,197,66,.45)'); g.addColorStop(1, 'rgba(245,197,66,0)'); x.fillStyle = g; x.fillRect(0, 0, 150, 128);
+    x.strokeStyle = K.ink; x.lineWidth = 1.5; x.beginPath(); for (let i = 0; i <= 150; i += 5) x.lineTo(i, 14 + Math.sin(i / 24) * 4); x.stroke();
+    for (let i = 8, j = 0; i < 150; i += 16, j++) { const y = 14 + Math.sin(i / 24) * 4; x.fillStyle = [K.pink, K.lime, K.aqua, K.gold][j % 4]; x.beginPath(); x.moveTo(i - 5, y); x.lineTo(i + 5, y); x.lineTo(i, y + 10); x.closePath(); x.fill(); x.lineWidth = 1; x.stroke(); }
+    x.fillStyle = '#b8743a'; x.fillRect(0, 128, 150, 22); x.strokeStyle = 'rgba(0,0,0,.25)'; x.lineWidth = 1; for (let y = 134; y < 150; y += 6) { x.beginPath(); x.moveTo(0, y); x.lineTo(150, y); x.stroke(); }
+    x.fillStyle = K.ink; x.fillRect(0, 127, 150, 2.5);
+    // postacie (gdy zdjęcia jeszcze się ładują — sama sylwetka z okrągłą głową; po załadowaniu okładka rysuje się ponownie)
+    const a = PEOPLE.find(P => P.name === 'Arek') || PEOPLE[0], b = PEOPLE.find(P => P.name === 'Klaudia') || PEOPLE[1] || PEOPLE[0], k = .7;
+    x.save(); x.translate(0, 128); x.scale(k, k); x.translate(0, -GROUND);
+    [[a, 40, 1, 'punch'], [b, 112, -1, 'kick']].forEach(([P, cx, face, pose]) => {
+      const f = fighter(P, false, cam + cx / k, face); f.pose = Object.assign({}, POSE[pose]); f.ph = 0; drawFighter(x, f, 0); });
+    x.restore();
+    // iskra trafienia między postaciami
+    x.fillStyle = K.gold; star(x, 62, 84, 7); }
   new ResizeObserver(art).observe($('.store'));
   (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => { art(); resize(); });
   resize();
@@ -3711,7 +3723,8 @@ const GFX = {}; // rysunki współdzielone przez gry i okładki w Game Store
   carts.forEach(c => c.addEventListener("click", () => choose(c.dataset.game, false))); // bez przewijania — gra jest tuż pod kartami
   const saved = store.get('game-pick', 'wodzitsu'); choose(games.some(gm => gm.dataset.game === saved) ? saved : 'polanie', false);
   // okładki
-  function art() { $$('.cart__art').forEach(cv => { const r = cv.getBoundingClientRect(); if (!r.width) return;
+  function art() { $$('.cart__art').forEach(cv => { if (cv.dataset.art === 'wodzitsu') return; // okładkę Wódżitsu rysuje moduł gry
+    const r = cv.getBoundingClientRect(); if (!r.width) return;
     const d = Math.min(2, devicePixelRatio || 1); cv.width = Math.round(r.width * d); cv.height = Math.round(r.height * d);
     const c = cv.getContext('2d'), s = cv.width / 150; c.setTransform(s, 0, 0, s, 0, 0);
     if (cv.dataset.art === 'polanie' && GFX.polanie) { const P = GFX.polanie;
