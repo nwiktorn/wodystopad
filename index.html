@@ -1077,11 +1077,11 @@ html:not(.sz-page) #sz-count{display:none}
     <li><a href="#regulamin">Regulamin</a></li>
     <li><a href="#wodowicze">Wódowicze</a></li>
     <li><a href="#zaopatrzenie">Co pijemy</a></li>
+    <li><a href="#szafa">Muzyka</a></li>
     <li><a href="#kary">Kary</a></li>
     <li><a href="#promile">Promil-meter</a></li>
     <li><a href="#program">Program</a></li>
     <li><a href="#gra">Gry</a></li>
-    <li><a href="#szafa">Muzyka</a></li>
   </ul>
   <a class="btn-pill btn-pink" href="#przysiega">Złóż przysięgę →</a>
   <button class="btn-pill btn-pink nav__menu" id="menu-open" aria-expanded="false" aria-controls="menu">MENU
@@ -1266,10 +1266,42 @@ html:not(.sz-page) #sz-count{display:none}
   </div>
 </section>
 
-<!-- ================== 07 KARY ================== -->
-<section class="s bg-blue" id="kary" data-page="06" data-prev="#EFE6D2">
+<!-- ================== 07 SZAFA GRAJĄCA (playlista YouTube) ================== -->
+<section class="s bg-pink szafa" id="szafa" data-page="06" data-prev="#EFE6D2">
+  <div class="halftone" style="color:var(--ink);opacity:.14;left:0;bottom:0;width:560px;height:460px;--hx:0%;--hy:100%" aria-hidden="true"></div>
   <div class="container">
-    <p class="eyebrow" style="color:var(--lime)">Rozdział III</p>
+    <div class="sz__head">
+      <a class="btn-pill btn-paper sz__back" href="/">← Cała strona Wódystopadu</a>
+      <p class="eyebrow">Rozdział III · Formularz M-1 · zamówienia muzyczne u Wódzireja</p>
+      <h2 class="h-title sz__title">Szafa<br>grająca <span class="sz__the">na życzenie</span></h2>
+      <div class="stamp" data-stamp><span><b>GRAMY</b><small>zamówienie przyjęte</small></span></div>
+      <p class="sz__lead">Oficjalna Wódystopadowa Playlista! Dodaj coś od siebie, bo nie będzie do czego pić.<br>T.Ok.I oczywiście mile widziany.</p>
+      <p class="sz__fine">Google mnie ogranicza, nie szalejcie za bardzo jednorazowo, bo mnie dojadą.</p>
+    </div>
+    <div class="sz__grid">
+      <div class="sz__panel sz__find">
+        <p class="sz__as">ZAMAWIA: <b id="sz-me">—</b><button type="button" id="sz-change">zmień</button></p>
+        <form class="sz__form" id="sz-form" role="search">
+          <input id="sz-q" type="search" placeholder="Tytuł, wykonawca albo link z YouTube" aria-label="Tytuł, wykonawca albo link z YouTube" autocomplete="off" enterkeyhint="search" maxlength="200">
+          <button class="btn-pill btn-ink" type="submit">Szukaj</button>
+        </form>
+        <p class="sz__msg" id="sz-msg" aria-live="polite">Wpisz, co ma polecieć. Możesz też wkleić link z YouTube.</p>
+        <ol class="sz__res" id="sz-res"></ol>
+      </div>
+      <div class="sz__panel sz__list">
+        <div class="sz__lhead"><h3><span id="sz-lt">Ostatnio dodane</span> <em id="sz-count">—</em></h3><a class="sz__open" id="sz-open" href="#" target="_blank" rel="noopener">Otwórz na YouTube ↗</a></div>
+        <p class="live" id="sz-live"></p>
+        <ol class="sz__pl" id="sz-pl"></ol>
+        <a class="btn-pill btn-lime sz__all" id="sz-all" href="/szafa">Wszystkie piosenki →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================== 07 KARY ================== -->
+<section class="s bg-blue" id="kary" data-page="07" data-prev="#FF5FD2">
+  <div class="container">
+    <p class="eyebrow" style="color:var(--lime)">Rozdział IV</p>
     <h2 class="h-title" style="color:#fff">Taryfikator kar</h2>
     <p class="kary__sub">Łamanie regulaminu prowadzi do kar, kary prowadzą do oczyszczenia, oczyszczenie najlepiej przyjmować po wódeczce.</p>
     <div class="track" id="kary-track">
@@ -1283,7 +1315,7 @@ html:not(.sz-page) #sz-count{display:none}
 </section>
 
 <!-- ================== 08 PROMILE ================== -->
-<section class="s bg-ink" id="promile" data-page="07" data-prev="#2B2BFF">
+<section class="s bg-ink" id="promile" data-page="08" data-prev="#2B2BFF">
   <div class="container">
     <div class="prom__head">
       <p class="eyebrow" style="color:var(--pink)">Formularz P-2 · pomiar urzędowy, niewiążący</p>
@@ -1301,17 +1333,17 @@ html:not(.sz-page) #sz-count{display:none}
 </section>
 
 <!-- ================== 09 PROGRAM ================== -->
-<section class="s bg-blue prog" id="program" data-page="08" data-prev="#0B0B1E">
+<section class="s bg-blue prog" id="program" data-page="09" data-prev="#0B0B1E">
   <div class="container">
     <div class="lineup" id="lineup">
-      <p class="eyebrow">Rozdział IV · porządek obrad · sobota 21.11 · miejsce ściśle tajne, ale wiecie jakie</p>
+      <p class="eyebrow">Rozdział V · porządek obrad · sobota 21.11 · miejsce ściśle tajne, ale wiecie jakie</p>
     </div>
     <div class="stamp" data-stamp><span><b>ZATWIERDZONO</b><small>program · Wódzirej</small></span></div>
   </div>
 </section>
 
 <!-- ================== 10 PRZYSIĘGA ================== -->
-<section class="s bg-lime" id="przysiega" data-page="09" data-prev="#2B2BFF">
+<section class="s bg-lime" id="przysiega" data-page="10" data-prev="#2B2BFF">
   <div class="halftone" style="color:var(--ink);opacity:.12;right:0;top:0;width:520px;height:440px" aria-hidden="true"></div>
   <div class="container">
     <p class="eyebrow">Formularz W-1 · ewidencja</p>
@@ -1340,10 +1372,10 @@ html:not(.sz-page) #sz-count{display:none}
 </section>
 
 <!-- ================== 11 WÓDYSTOPAD GAME STORE ================== -->
-<section class="s bg-blue gra" id="gra" data-page="10" data-prev="#D9FF3D">
+<section class="s bg-blue gra" id="gra" data-page="11" data-prev="#D9FF3D">
   <div class="container">
     <div class="gra__head">
-      <p class="eyebrow" style="color:var(--lime)">Rozdział V · Formularz S-1 · salon gier komisji</p>
+      <p class="eyebrow" style="color:var(--lime)">Rozdział VI · Formularz S-1 · salon gier komisji</p>
       <h2 class="h-title gra__title">Wódystopad<br><span class="gra__the">Game Store</span></h2>
       <div class="stamp" data-stamp><span><b>SPRAWDZIAN</b><small>komisja patrzy</small></span></div>
       <p class="gra__lead">Wybierz ulubioną grę, bij rekordy, a kto wie, może na najlepszych graczy będzie czekać specjalna nagroda!</p>
@@ -1487,40 +1519,8 @@ html:not(.sz-page) #sz-count{display:none}
   </div>
 </section>
 
-<!-- ================== 12 SZAFA GRAJĄCA (playlista YouTube) ================== -->
-<section class="s bg-pink szafa" id="szafa" data-page="11" data-prev="#2B2BFF">
-  <div class="halftone" style="color:var(--ink);opacity:.14;left:0;bottom:0;width:560px;height:460px;--hx:0%;--hy:100%" aria-hidden="true"></div>
-  <div class="container">
-    <div class="sz__head">
-      <a class="btn-pill btn-paper sz__back" href="/">← Cała strona Wódystopadu</a>
-      <p class="eyebrow">Rozdział VI · Formularz M-1 · zamówienia muzyczne u Wódzireja</p>
-      <h2 class="h-title sz__title">Szafa<br>grająca <span class="sz__the">na życzenie</span></h2>
-      <div class="stamp" data-stamp><span><b>GRAMY</b><small>zamówienie przyjęte</small></span></div>
-      <p class="sz__lead">Oficjalna Wódystopadowa Playlista! Dodaj coś od siebie, bo nie będzie do czego pić.<br>T.Ok.I oczywiście mile widziany.</p>
-      <p class="sz__fine">Google mnie ogranicza, nie szalejcie za bardzo jednorazowo, bo mnie dojadą.</p>
-    </div>
-    <div class="sz__grid">
-      <div class="sz__panel sz__find">
-        <p class="sz__as">ZAMAWIA: <b id="sz-me">—</b><button type="button" id="sz-change">zmień</button></p>
-        <form class="sz__form" id="sz-form" role="search">
-          <input id="sz-q" type="search" placeholder="Tytuł, wykonawca albo link z YouTube" aria-label="Tytuł, wykonawca albo link z YouTube" autocomplete="off" enterkeyhint="search" maxlength="200">
-          <button class="btn-pill btn-ink" type="submit">Szukaj</button>
-        </form>
-        <p class="sz__msg" id="sz-msg" aria-live="polite">Wpisz, co ma polecieć. Możesz też wkleić link z YouTube.</p>
-        <ol class="sz__res" id="sz-res"></ol>
-      </div>
-      <div class="sz__panel sz__list">
-        <div class="sz__lhead"><h3><span id="sz-lt">Ostatnio dodane</span> <em id="sz-count">—</em></h3><a class="sz__open" id="sz-open" href="#" target="_blank" rel="noopener">Otwórz na YouTube ↗</a></div>
-        <p class="live" id="sz-live"></p>
-        <ol class="sz__pl" id="sz-pl"></ol>
-        <a class="btn-pill btn-lime sz__all" id="sz-all" href="/szafa">Wszystkie piosenki →</a>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ================== 13 STOPKA ================== -->
-<footer class="s bg-ink foot" data-prev="#FF5FD2">
+<footer class="s bg-ink foot" data-prev="#2B2BFF">
   <div class="fishes" id="fishes2" aria-hidden="true"></div>
   <div class="container">
     <p class="h-title foot__big">Do zobaczenia<br>21.11</p>
@@ -1632,7 +1632,7 @@ $$('[data-page]').forEach(s => { if(s.id==='start') return; const dark = s.class
     nav.classList.toggle('hidden', down && isMobile()); sticky.classList.toggle('hide', blockers.size > 0 || y > document.body.scrollHeight - innerHeight - 260); last = y; }, {passive:true});
   const blockers = new Set(); const bio = new IntersectionObserver(es => { es.forEach(e => e.isIntersecting ? blockers.add(e.target) : blockers.delete(e.target)); sticky.classList.toggle('hide', blockers.size > 0); }, {rootMargin:'0px 0px -60px 0px'});
   ['#reg-accept','#oath','#licznik','.panels','#gra-stage','#pol-stage','.store','.sz__grid'].forEach(s => bio.observe($(s)));
-  const sections = [['pismo','Pismo okólne'],['regulamin','Regulamin'],['wodowicze','Legitymacje'],['zaopatrzenie','Co pijemy, ile pijemy'],['kary','Taryfikator kar'],['promile','Promil-meter'],['program','Porządek obrad'],['przysiega','Przysięga'],['gra','Wódystopad Game Store'],['szafa','Szafa grająca']];
+  const sections = [['pismo','Pismo okólne'],['regulamin','Regulamin'],['wodowicze','Legitymacje'],['zaopatrzenie','Co pijemy, ile pijemy'],['szafa','Szafa grająca'],['kary','Taryfikator kar'],['promile','Promil-meter'],['program','Porządek obrad'],['przysiega','Przysięga'],['gra','Wódystopad Game Store']];
   $('#menu-list').innerHTML = sections.map(([id,t],i)=>`<li style="--i:${i}"><a href="#${id}" data-id="${id}"><span>${pad(i+1)}</span><b>${t}</b></a></li>`).join('');
   const menu = $('#menu'), open = (v) => { menu.classList.toggle('open', v); menu.setAttribute('aria-hidden', !v); $('#menu-open').setAttribute('aria-expanded', v); document.body.classList.toggle('locked', v); };
   $('#menu-open').onclick = () => open(true); $('#menu-close').onclick = () => open(false);
