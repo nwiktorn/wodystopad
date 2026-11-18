@@ -836,8 +836,8 @@ mark{background:none;color:var(--mag);font-weight:700}
 }
 /* ---- Wódystopad Game Store: biblioteka gier ---- */
 .gra__fine{font:700 12px/1.45 var(--f-type);letter-spacing:.04em;margin-top:10px;max-width:46em;opacity:.75}
-.store{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px;margin-top:52px}
-.cart{all:unset;box-sizing:border-box;cursor:pointer;position:relative;display:grid;grid-template-columns:150px minmax(0,1fr);gap:20px;align-items:center;background:var(--paper);color:var(--ink);border:3px solid var(--ink);border-radius:22px;box-shadow:8px 8px 0 var(--ink);padding:16px 20px 16px 16px;transition:transform .15s,box-shadow .15s,background .2s;-webkit-tap-highlight-color:transparent}
+.store{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-top:52px}
+.cart{all:unset;box-sizing:border-box;cursor:pointer;position:relative;display:grid;grid-template-columns:110px minmax(0,1fr);gap:20px;align-items:center;background:var(--paper);color:var(--ink);border:3px solid var(--ink);border-radius:22px;box-shadow:8px 8px 0 var(--ink);padding:16px 20px 16px 16px;transition:transform .15s,box-shadow .15s,background .2s;-webkit-tap-highlight-color:transparent}
 .cart:hover{transform:translate(-2px,-2px);box-shadow:10px 10px 0 var(--ink)}
 .cart:active{transform:translate(3px,3px);box-shadow:4px 4px 0 var(--ink)}
 .cart:focus-visible{outline:3px solid var(--lime);outline-offset:5px}
@@ -846,7 +846,7 @@ mark{background:none;color:var(--mag);font-weight:700}
 .cart__body{display:flex;flex-direction:column;min-width:0}
 .cart__meta{font:700 10.5px/1.3 var(--f-type);letter-spacing:.1em;text-transform:uppercase;color:var(--mag)}
 .cart__meta i{font-style:normal}
-.cart__t{font:400 clamp(30px,2.9vw,40px)/1.04 var(--f-display);text-transform:uppercase;margin:6px 0 6px;padding-top:.08em}
+.cart__t{font:400 clamp(26px,2.3vw,34px)/1.04 var(--f-display);text-transform:uppercase;margin:6px 0 6px;padding-top:.08em}
 .cart__d{font-size:14px;line-height:1.4}
 .cart__foot{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;margin-top:12px;font:700 11px/1.2 var(--f-type);letter-spacing:.06em;text-transform:uppercase}
 .cart__price s{opacity:.55;margin-right:4px}
@@ -986,7 +986,17 @@ mark{background:none;color:var(--mag);font-weight:700}
   .wt b{font-size:16px;margin-top:4px}
   .wt small{display:none}
   .wt i{font-size:8px}
+  .wt--guest{grid-template-columns:40px minmax(0,1fr);text-align:left;justify-items:start;align-items:center}
+  .wt--guest .wt__ph{width:40px;height:40px;aspect-ratio:auto}
+  .wt--guest small{display:block}
 }
+/* profil Gość */
+.wt--guest{grid-column:1/-1;grid-template-columns:44px minmax(0,1fr);grid-template-rows:auto auto;background:var(--paper);border-style:dashed}
+.wt--guest .wt__ph{grid-row:1/3;width:44px;height:44px;background:var(--paper);display:grid;place-items:center}
+.wt__g{font:400 30px/1 var(--f-display)}
+.guest-note{display:none}
+html.is-guest .guest-note{display:block;font:700 11px/1.4 var(--f-type);letter-spacing:.06em;text-transform:uppercase;background:var(--ink);color:var(--lime);border-radius:8px;padding:6px 10px;margin:6px 0 10px;width:max-content;max-width:100%}
+html.is-guest :is(#poll .poll__vote, #poll .poll__del, #poll-add, #b-send, #sz-res .sz__add, #oath button){opacity:.45;cursor:not-allowed}
 /* Szafa: kto zamawia + podstrona /szafa */
 .sz__as{font:700 12px var(--f-type);letter-spacing:.08em;margin:0 0 14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .sz__as b{font:400 22px var(--f-display);letter-spacing:.02em;color:var(--mag)}
@@ -1005,6 +1015,56 @@ html.sz-page .sz__head .stamp{display:none}
 html.sz-page .sz__grid{margin-top:28px}
 @media (max-width:760px){ html.sz-page #szafa{padding-top:96px} html.sz-page .sz__lead{margin-top:10px} }
 html:not(.sz-page) #sz-count{display:none}
+/* ---- Wódżitsu ---- */
+.gra__stage--wdz{aspect-ratio:16/9;display:flex;flex-direction:column;background:var(--ink)}
+.wdz__screen{position:relative;flex:1;min-height:0}
+.gra__stage .wdz__screen canvas{position:absolute;inset:0;width:100%;height:100%}
+.wdz__pad{display:none;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px 12px;background:var(--ink);border-top:3px solid var(--ink);touch-action:none;user-select:none;-webkit-user-select:none}
+.wdz__pad button{all:unset;box-sizing:border-box;display:grid;place-items:center;border:2.5px solid var(--paper);border-radius:14px;color:var(--paper);font:400 18px/1 var(--f-display);background:rgba(255,255,255,.08);-webkit-tap-highlight-color:transparent;touch-action:none}
+.wdz__pad button.on{background:var(--lime);color:var(--ink);border-color:var(--lime)}
+.wdz__dir{display:grid;grid-template-columns:repeat(3,48px);grid-template-rows:42px 48px;gap:6px}
+.wdz__dir [data-k=u]{grid-column:2;grid-row:1}
+.wdz__dir [data-k=l]{grid-column:1;grid-row:2}
+.wdz__dir [data-k=d]{grid-column:2;grid-row:2;font-size:12px;letter-spacing:.04em}
+.wdz__dir [data-k=r]{grid-column:3;grid-row:2}
+.wdz__act{display:grid;grid-template-columns:repeat(2,62px);grid-template-rows:42px 48px;gap:6px}
+.wdz__act [data-k=pq]{grid-column:1;grid-row:2;font-size:15px}
+.wdz__act [data-k=kq]{grid-column:2;grid-row:2;font-size:15px}
+.wdz__act .wdz__sp{grid-column:1/3;grid-row:1;border-color:var(--pink);color:var(--pink);font-size:22px}
+.wdz__act .wdz__sp.on{background:var(--pink);color:var(--ink)}
+.wdz__ov{overflow:auto;align-items:flex-start;padding:14px}
+.wdz__card{max-width:620px;gap:8px;margin:auto}
+.wdz__lead{font-size:13px!important}
+.wdz__grid{display:grid;grid-template-columns:repeat(9,minmax(0,1fr));gap:6px;width:100%}
+.wdz__p{all:unset;box-sizing:border-box;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;-webkit-tap-highlight-color:transparent}
+.wdz__p span{display:block;width:100%;aspect-ratio:1;border:2.5px solid var(--ink);border-radius:10px;background:var(--c);overflow:hidden;position:relative;transition:transform .12s,box-shadow .12s}
+.wdz__p img{position:absolute;left:50%;bottom:0;height:112%;width:auto;max-width:none;translate:-50% 0}
+.wdz__p b{font:400 12px/1 var(--f-display);text-transform:uppercase}
+.wdz__p:hover span{transform:translateY(-2px)}
+.wdz__p.on span{box-shadow:0 0 0 3px var(--paper),0 0 0 6px var(--mag);transform:translateY(-2px)}
+.wdz__p:focus-visible span{outline:3px solid var(--blue);outline-offset:2px}
+.wdz__info{width:100%;text-align:left;background:#fff;border:2.5px solid var(--ink);border-radius:12px;padding:8px 12px;font-size:12.5px;line-height:1.35;min-height:84px}
+.wdz__info b{font:400 22px/1 var(--f-display);text-transform:uppercase}
+.wdz__info span{font:700 10px var(--f-type);letter-spacing:.06em;color:var(--mag)}
+.wdz__info em{display:block;font-style:normal;margin:4px 0 6px}
+.wdz__info .wdz__st{display:flex;gap:10px;color:var(--ink)}
+.wdz__st i{flex:1;font:700 9px var(--f-type);font-style:normal;letter-spacing:.06em}
+.wdz__st u{display:block;height:7px;border:1.5px solid var(--ink);border-radius:4px;margin-top:2px;background:linear-gradient(90deg,var(--lime) var(--v),#fff var(--v))}
+.gra__res b#wdz-who{font-size:22px}
+@media (pointer:coarse){
+  .gra__stage--wdz{aspect-ratio:auto}
+  .gra__stage--wdz .wdz__screen{flex:none;aspect-ratio:16/9}
+  .wdz__pad{display:flex}
+}
+@media (max-width:760px){
+  .gra__stage--wdz{aspect-ratio:auto;height:auto}
+  .gra__stage--wdz .wdz__screen{flex:none;aspect-ratio:4/3}
+  .wdz__pad{display:flex}
+  .wdz__grid{grid-template-columns:repeat(5,minmax(0,1fr))}
+  .wdz__card h3{font-size:28px}
+  .wdz__lead{display:none}
+  .wdz__info{font-size:11.5px;min-height:0}
+}
 </style>
 </head>
 <body>
@@ -1064,7 +1124,7 @@ html:not(.sz-page) #sz-count{display:none}
     <div class="whoami__grid" id="whoami-grid" role="radiogroup" aria-label="Legitymacje Wódowiczów"></div>
     <button class="btn-pill btn-ink" id="whoami-ok" disabled>Najpierw wybierz legitymację</button>
     <button class="btn-pill btn-paper" id="whoami-cancel" hidden>Jednak zostaję sobą</button>
-    <p class="whoami__fine">Pomyłka? Zmienisz to później: „To nie ja” na swojej legitymacji albo w menu.</p>
+    <p class="whoami__fine">Nie bierzesz udziału, ktoś tylko podesłał Ci stronę? Wybierz „Gość”. Pomyłka? Zmienisz to później: „To nie ja” na swojej legitymacji albo w menu.</p>
     <div class="stamp" id="whoami-stamp"><span><b>ZAMELDOWANO</b><small id="whoami-stamp-n">—</small></span></div>
   </div>
 </div>
@@ -1226,6 +1286,7 @@ html:not(.sz-page) #sz-count{display:none}
       <div class="panel" id="p-marka" data-reveal>
         <span class="panel__k">ANKIETA W-2 · ZGŁOŚ MARKĘ I GŁOSUJ</span>
         <h3>Jaka wódeczka?</h3>
+        <p class="guest-note">Tryb gościa — podglądasz, głosują Wódowicze.</p>
         <div class="poll" id="poll"></div>
         <p class="live" data-live></p>
         <form class="poll-add" id="poll-add"><input type="text" id="poll-input" maxlength="40" placeholder="+ zgłoś markę (bez żartów)" aria-label="Zgłoś markę"><button type="submit" aria-label="Dodaj">+</button></form>
@@ -1233,6 +1294,7 @@ html:not(.sz-page) #sz-count{display:none}
       <div class="panel" id="p-butelki" data-reveal>
         <span class="panel__k">ANKIETA W-3 · ZAPROPONUJ ILOŚĆ</span>
         <h3>Ile butelek?</h3>
+        <p class="guest-note">Tryb gościa — podglądasz, propozycje zgłaszają Wódowicze.</p>
         <div class="dk">
           <p class="dk__q"><b>1.</b> Jakie butelki?</p>
           <div class="seg" id="b-fmt" role="radiogroup" aria-label="Pojemność butelki">
@@ -1281,6 +1343,7 @@ html:not(.sz-page) #sz-count{display:none}
     <div class="sz__grid">
       <div class="sz__panel sz__find">
         <p class="sz__as">ZAMAWIA: <b id="sz-me">—</b><button type="button" id="sz-change">zmień</button></p>
+        <p class="guest-note">Tryb gościa — słuchasz, piosenki zamawiają Wódowicze.</p>
         <form class="sz__form" id="sz-form" role="search">
           <input id="sz-q" type="search" placeholder="Tytuł, wykonawca albo link z YouTube" aria-label="Tytuł, wykonawca albo link z YouTube" autocomplete="off" enterkeyhint="search" maxlength="200">
           <button class="btn-pill btn-ink" type="submit">Szukaj</button>
@@ -1349,6 +1412,7 @@ html:not(.sz-page) #sz-count{display:none}
     <p class="eyebrow">Formularz W-1 · ewidencja</p>
     <h2 class="h-title">Przysięga i ewidencja</h2>
     <div class="pz__grid">
+      <p class="guest-note">Tryb gościa — przysięgę składają tylko Wódowicze.</p>
       <form class="form" id="oath" novalidate>
         <span class="k">WYPEŁNIĆ DRUKOWANYMI LITERAMI LUB PO WÓDECZCE</span>
         <label class="f">IMIĘ I NAZWISKO<input type="text" name="imie" autocomplete="name" required></label>
@@ -1383,8 +1447,17 @@ html:not(.sz-page) #sz-count{display:none}
     </div>
 
     <div class="store" role="tablist" aria-label="Biblioteka gier">
-      <button class="cart on" type="button" role="tab" aria-selected="true" aria-controls="game-polanie" data-game="polanie">
+      <button class="cart" type="button" role="tab" aria-selected="false" aria-controls="game-wodzitsu" data-game="wodzitsu">
         <span class="cart__new">Nowość!</span>
+        <canvas class="cart__art" data-art="wodzitsu" aria-hidden="true"></canvas>
+        <span class="cart__body">
+          <span class="cart__meta">Gra nr 3<i> · bijatyka · klawiatura / dotyk</i></span>
+          <span class="cart__t">Wódżitsu</span>
+          <span class="cart__d">Turniej Wódowiczów. Wybierz postać z legitymacji, pokonaj całą ekipę ciosem, kopniakiem i atakiem specjalnym.</span>
+          <span class="cart__foot"><span class="cart__price"><s>59,99 zł</s> 0,00 zł</span><span>★★★★★ komisji</span><span class="cart__cta">Graj →</span></span>
+        </span>
+      </button>
+      <button class="cart on" type="button" role="tab" aria-selected="true" aria-controls="game-polanie" data-game="polanie">
         <canvas class="cart__art" data-art="polanie" aria-hidden="true"></canvas>
         <span class="cart__body">
           <span class="cart__meta">Gra nr 2<i> · zręcznościowa · mysz / dotyk</i></span>
@@ -1402,6 +1475,65 @@ html:not(.sz-page) #sz-count{display:none}
           <span class="cart__foot"><span class="cart__price"><s>39,99 zł</s> 0,00 zł</span><span>★★★★★ komisji</span><span class="cart__cta">Graj →</span></span>
         </span>
       </button>
+    </div>
+
+    <!-- GRA 3: WÓDŻITSU -->
+    <div class="gra__game" id="game-wodzitsu" role="tabpanel" data-game="wodzitsu" hidden>
+      <div class="gra__grid">
+        <div class="gra__stage gra__stage--wdz" id="wdz-stage" tabindex="0" aria-label="Gra Wódżitsu. Bijatyka Wódowiczów: strzałki — ruch, J cios, K kopniak, L atak specjalny, strzałka w dół — blok.">
+          <div class="wdz__screen" id="wdz-screen"><canvas id="wdz-cv" aria-hidden="true"></canvas></div>
+          <div class="wdz__pad" id="wdz-pad" aria-hidden="true">
+            <div class="wdz__dir"><button type="button" data-k="u">▲</button><button type="button" data-k="l">◀</button><button type="button" data-k="d" class="wdz__blk">BLOK</button><button type="button" data-k="r">▶</button></div>
+            <div class="wdz__act"><button type="button" data-k="pq">CIOS</button><button type="button" data-k="kq">KOP</button><button type="button" data-k="sq" class="wdz__sp">★</button></div>
+          </div>
+          <div class="gra__ov wdz__ov" id="wdz-start">
+            <div class="gra__card wdz__card">
+              <small>Wódystopad · gra nr 3 · turniej 8 walk</small>
+              <h3>Wódżitsu</h3>
+              <p class="wdz__lead">Wybierz Wódowicza i przejdź całą drabinkę. Każdy ma cios, kopniak i swój atak specjalny z legitymacji.</p>
+              <div class="wdz__grid" id="wdz-grid" role="radiogroup" aria-label="Wybór postaci"></div>
+              <div class="wdz__info" id="wdz-info" aria-live="polite"></div>
+              <button class="btn-pill btn-lime" id="wdz-go" type="button">Do walki →</button>
+              <p class="gra__note" id="wdz-mybest"></p>
+            </div>
+          </div>
+          <div class="gra__ov" id="wdz-pause" hidden>
+            <div class="gra__card gra__card--sm">
+              <h3>Pauza</h3>
+              <p>Sędzia nalewa. Walka poczeka.</p>
+              <button class="btn-pill btn-lime" id="wdz-resume" type="button">Wracam →</button>
+            </div>
+          </div>
+          <div class="gra__ov" id="wdz-over" hidden>
+            <div class="gra__card">
+              <small id="wdz-why">—</small>
+              <h3 id="wdz-over-h">Pod stołem!</h3>
+              <div class="gra__res">
+                <div><b id="wdz-pts">0</b><span>punktów</span></div>
+                <div><b id="wdz-won">0</b><span>wygranych</span></div>
+                <div><b id="wdz-who">—</b><span>postać</span></div>
+              </div>
+              <form class="gra__save" id="wdz-save" autocomplete="off">
+                <label for="wdz-ini">Inicjały do rejestru — 3 litery</label>
+                <div class="gra__row">
+                  <div class="gra__ini"><input id="wdz-ini" maxlength="3" inputmode="text" autocapitalize="characters" spellcheck="false" enterkeyhint="done" aria-label="Trzy litery"><i></i><i></i><i></i></div>
+                  <button class="btn-pill btn-ink" type="submit">Zapisz →</button>
+                </div>
+              </form>
+              <p class="gra__saved" id="wdz-saved" aria-live="polite"></p>
+              <button class="btn-pill btn-pink" id="wdz-again" type="button">Nowy turniej ↻</button>
+            </div>
+          </div>
+        </div>
+        <aside class="gra__board" aria-labelledby="wdz-board-h">
+          <small class="gra__boardgame">Wódżitsu</small>
+          <h3 id="wdz-board-h">Rejestr rekordów</h3>
+          <p class="live" id="wdz-live"></p>
+          <ol class="gra__top" id="wdz-top"></ol>
+          <p class="gra__note" id="wdz-board-note"></p>
+        </aside>
+      </div>
+      <p class="gra__keys"><b>← →</b> ruch · <b>↑</b> skok · <b>↓</b> blok · <b>J</b> cios · <b>K</b> kopniak · <b>L</b> atak specjalny ★ (gdy wódometr pełny) · <b>P</b> pauza · na telefonie przyciski pod areną · po wygranej walce: „Dolej mu!” — ★ z bliska</p>
     </div>
 
     <!-- GRA 2: OSTATNIE POLANIE -->
@@ -1631,7 +1763,7 @@ $$('[data-page]').forEach(s => { if(s.id==='start') return; const dark = s.class
   addEventListener('scroll', () => { const y = scrollY, down = y > last && y > 200;
     nav.classList.toggle('hidden', down && isMobile()); sticky.classList.toggle('hide', blockers.size > 0 || y > document.body.scrollHeight - innerHeight - 260); last = y; }, {passive:true});
   const blockers = new Set(); const bio = new IntersectionObserver(es => { es.forEach(e => e.isIntersecting ? blockers.add(e.target) : blockers.delete(e.target)); sticky.classList.toggle('hide', blockers.size > 0); }, {rootMargin:'0px 0px -60px 0px'});
-  ['#reg-accept','#oath','#licznik','.panels','#gra-stage','#pol-stage','.store','.sz__grid'].forEach(s => bio.observe($(s)));
+  ['#reg-accept','#oath','#licznik','.panels','#gra-stage','#pol-stage','#wdz-stage','.store','.sz__grid'].forEach(s => bio.observe($(s)));
   const sections = [['pismo','Pismo okólne'],['regulamin','Regulamin'],['wodowicze','Legitymacje'],['zaopatrzenie','Co pijemy, ile pijemy'],['szafa','Szafa grająca'],['kary','Taryfikator kar'],['promile','Promil-meter'],['program','Porządek obrad'],['przysiega','Przysięga'],['gra','Wódystopad Game Store']];
   $('#menu-list').innerHTML = sections.map(([id,t],i)=>`<li style="--i:${i}"><a href="#${id}" data-id="${id}"><span>${pad(i+1)}</span><b>${t}</b></a></li>`).join('');
   const menu = $('#menu'), open = (v) => { menu.classList.toggle('open', v); menu.setAttribute('aria-hidden', !v); $('#menu-open').setAttribute('aria-expanded', v); document.body.classList.toggle('locked', v); };
@@ -1803,7 +1935,7 @@ const API = (() => { const url = CONFIG.api;
   const load = async () => { if (!url) return; try { const r = await fetch(url, {cache:'no-store'}); apply(await r.json()); } catch (e) { ok = false; live(); } };
   const flush = async () => { if (!url || busy) return; const q = store.get('outbox', []); if (!q.length) return; busy = true;
     try { const r = await fetch(url, {method:'POST', body: JSON.stringify({who: me, events: q})}); const s = await r.json();
-      if (s.ok) { const keep = q.filter(e => (e.type === 'score' && !Array.isArray(s.scores)) || (e.type === 'score-g' && !s.boards) || (e.type === 'whoami' && !s.people)); // stary skrypt nie zna wyników gier ani legitymacji — czekają w kolejce
+      if (s.ok) { const keep = q.filter(e => (e.type === 'score' && !Array.isArray(s.scores)) || (e.type === 'score-g' && !(s.boards && e.d && s.boards[e.d.g])) || (e.type === 'whoami' && !s.people)); // stary skrypt nie zna wyników gier ani legitymacji — czekają w kolejce
         store.set('outbox', keep.concat(store.get('outbox', []).slice(q.length))); apply(s); if (keep.length) { busy = false; return; } } else throw 0; }
     catch (e) { ok = false; live(); } busy = false; if (store.get('outbox', []).length && ok) flush(); };
   const send = (...events) => { if (!url) return; store.set('outbox', store.get('outbox', []).concat(events)); flush(); };
@@ -1826,14 +1958,16 @@ const API = (() => { const url = CONFIG.api;
    KIM JESTEŚ — wybór legitymacji (raz na urządzenie, zmiana: „To nie ja”)
    zdarzenie 'whoami' przypisuje telefon do osoby; statystyki osób przychodzą w API.state.people
    ========================================================= */
-const WHO = (() => { const subs = []; const valid = n => CONFIG.people.some(p => p.name === n);
+const WHO = (() => { const subs = []; const GUEST = 'Gość'; // gość: ogląda stronę i gra, ale nie głosuje, nie zamawia piosenek, nie składa przysięgi
+  const valid = n => n === GUEST || CONFIG.people.some(p => p.name === n);
   let name = store.get('whoami', ''); if (name && !valid(name)) name = '';
   const ov = $('#whoami'), bgs = ['var(--blue)','var(--ink)','var(--blue)','var(--ink)']; let pick = '';
   const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
-  const okBtn = () => { const b = $('#whoami-ok'); b.disabled = !pick; b.textContent = pick ? `To ja — ${pick} →` : 'Najpierw wybierz legitymację'; };
+  const okBtn = () => { const b = $('#whoami-ok'); b.disabled = !pick; b.textContent = pick === GUEST ? 'Wchodzę jako gość →' : pick ? `To ja — ${pick} →` : 'Najpierw wybierz legitymację'; };
   const tiles = () => { const ppl = (API.state && API.state.people) || {};
     $('#whoami-grid').innerHTML = CONFIG.people.map((p, i) => `<button type="button" class="wt${p.name === pick ? ' on' : ''}${p.confirmed === false ? ' q' : ''}" role="radio" aria-checked="${p.name === pick}" data-n="${esc(p.name)}" style="--c:${bgs[i % 4]}">` +
-      `<span class="wt__ph">${p.photo ? `<img src="${p.photo}" alt="" decoding="async">` : ''}</span><b>${esc(p.name)}</b><small>${p.role}</small>${ppl[p.name] && ppl[p.name].in && p.name !== name ? '<i>już zameldowany(-a)</i>' : ''}</button>`).join('');
+      `<span class="wt__ph">${p.photo ? `<img src="${p.photo}" alt="" decoding="async">` : ''}</span><b>${esc(p.name)}</b><small>${p.role}</small>${ppl[p.name] && ppl[p.name].in && p.name !== name ? '<i>już zameldowany(-a)</i>' : ''}</button>`).join('') +
+      `<button type="button" class="wt wt--guest${pick === GUEST ? ' on' : ''}" role="radio" aria-checked="${pick === GUEST}" data-n="${GUEST}"><span class="wt__ph"><span class="wt__g">?</span></span><b>Gość</b><small>NIE BIORĘ UDZIAŁU · TYLKO PODGLĄDAM</small></button>`;
     $$('#whoami-grid .wt').forEach(b => b.onclick = () => { pick = b.dataset.n; $$('#whoami-grid .wt').forEach(x => { const on = x === b; x.classList.toggle('on', on); x.setAttribute('aria-checked', on); }); okBtn(); });
     okBtn(); };
   const open = () => { pick = name; $('#whoami-cancel').hidden = !name; $('#whoami-stamp').classList.remove('in'); tiles(); ov.hidden = false; document.body.classList.add('locked'); };
@@ -1842,7 +1976,7 @@ const WHO = (() => { const subs = []; const valid = n => CONFIG.people.some(p =>
   $('#whoami-ok').onclick = () => { if (!pick) return; const changed = pick !== name; name = pick; store.set('whoami', name);
     if (changed) API.send({type:'whoami', d:{name}});
     $('#whoami-stamp-n').textContent = name; const st = $('#whoami-stamp'); st.classList.remove('in'); void st.offsetWidth; st.classList.add('in');
-    setTimeout(() => { close(); toast(changed ? `Witaj, ${name}. Komisja odnotowała obecność.` : `Nadal ${name}. Komisja przyjmuje do wiadomości.`); }, 950);
+    setTimeout(() => { close(); toast(name === GUEST ? 'Witaj, Gościu. Podglądaj do woli — głosują i zamawiają Wódowicze.' : changed ? `Witaj, ${name}. Komisja odnotowała obecność.` : `Nadal ${name}. Komisja przyjmuje do wiadomości.`); }, 950);
     subs.forEach(f => f(name)); };
   API.on(() => { if (!ov.hidden) tiles(); });
   const start = () => { if (!name && !/[?&]perf\b/.test(location.search)) open(); };
@@ -1852,7 +1986,17 @@ const WHO = (() => { const subs = []; const valid = n => CONFIG.people.some(p =>
   $('#menu-who').onclick = () => { $('#menu-close').click(); open(); };
   $('#foot-who').onclick = open;
   subs.push(label); label();
-  return { get name() { return name; }, open, on: f => { subs.push(f); f(name); } };
+  return { get name() { return name; }, get guest() { return name === GUEST; }, GUEST, open, on: f => { subs.push(f); f(name); } };
+})();
+
+/* GOŚĆ — blokada ankiet, zamawiania piosenek i przysięgi (przechwycone, zanim zadziałają właściwe obsługi) */
+(() => {
+  const BLOCK = '#poll .poll__vote, #poll .poll__del, #poll-add button, #b-send, #sz-res .sz__add, #oath button';
+  const no = e => { if (!WHO.guest) return; const t = e.type === 'submit' ? e.target.closest('#poll-add, #oath') : e.target.closest(BLOCK); if (!t) return;
+    e.preventDefault(); e.stopImmediatePropagation();
+    toast('Gość tylko podgląda — głosują i zamawiają Wódowicze. Jesteś Wódowiczem? Zmień legitymację w menu.'); };
+  document.addEventListener('click', no, true); document.addEventListener('submit', no, true);
+  WHO.on(() => document.documentElement.classList.toggle('is-guest', WHO.guest));
 })();
 
 (() => { // ankieta
@@ -2016,7 +2160,7 @@ carouselDots($('#kary-track'), $('#kary-dots'), 'przesuń →');
       $('ul', c).innerHTML = [['Status', p.confirmed ? 'potwierdzony' : 'na ławce'], ['Na stronie', s.in ? 'zameldowany(-a) ✓' : 'jeszcze nie'], ['Przysięga', s.oath ? 'złożona ✓' : 'oczekuje'],
         ['Głos na', s.vote || '—'], ['Zgłosił(a)', s.props && s.props.length ? s.props.join(', ') : '—'],
         ['Piosenki', s.songs ? s.songs + (s.last ? ' · „' + cut(s.last, 18) + '”' : '') : '0'],
-        ['Polanie', fmtG(g.polanie)], ['Podwódne', fmtG(g.karafka)], ['Kary odbyte', '0 (na razie)']]
+        ['Wódżitsu', fmtG(g.wodzitsu)], ['Polanie', fmtG(g.polanie)], ['Podwódne', fmtG(g.karafka)], ['Kary odbyte', '0 (na razie)']]
         .map(([k, v]) => `<li><span>${k}</span><b title="${String(v).replace(/"/g,'&quot;')}">${String(v).replace(/&/g,'&amp;').replace(/</g,'&lt;')}</b></li>`).join('');
       let nm = $('.idc__notme', c); if (p.name === me && !nm) { $('.idc__b ul', c).insertAdjacentHTML('afterend', '<button type="button" class="idc__notme">To nie ja — zmień</button>'); nm = $('.idc__notme', c);
         nm.onclick = e => { e.stopPropagation(); WHO.open(); }; } if (p.name !== me && nm) nm.remove(); });
@@ -2976,6 +3120,497 @@ const GFX = {}; // rysunki współdzielone przez gry i okładki w Game Store
     aim(x, y) { tx = x; ty = y; }, grab() { grabReq = .01; ptr = 'mouse'; }, setProm(p) { prom = p; }, setT(v) { tAlive = v; level = Math.min(LEVELS.length - 1, Math.floor(v / LV_T)); }, DR };
 })();
 /* =========================================================
+   GRA 3: WÓDŻITSU — bijatyka Wódowiczów. Wybierasz postać z legitymacji, przechodzisz drabinkę 8 walk z komputerem.
+   każdy ma cios, kopniak, blok, skok i atak specjalny z legitymacji; statystyki z legitymacji wpływają na siłę, zdrowie i wódometr
+   rekordy we wspólnej bazie (typ 'score-g', g:'wodzitsu', f = wygrane walki, x = numer postaci)
+   ========================================================= */
+(() => {
+  const stage = $('#wdz-stage'), cv = $('#wdz-cv'), g = cv.getContext('2d'), screen = $('#wdz-screen');
+  const K = { ink:'#0B0B1E', blue:'#2B2BFF', lime:'#D9FF3D', pink:'#FF5FD2', paper:'#EFE6D2', aqua:'#8FE8FF', mag:'#E0249B', red:'#E5301F', gold:'#F5C542', skin:'#F2C29C', pants:'#23234a' };
+  const SHIRT = [K.lime, K.pink, K.aqua, '#FF8A3D', K.gold, K.red, '#9B6BFF', K.blue, '#7BC043'];
+  const STEP = 1/120, H = 360, GROUND = 322, ARENA = 760, ROUND_T = 45, WINS = 2, GRAV = 1900;
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v)), rnd = (a, b) => a + Math.random() * (b - a), pick = a => a[Math.floor(Math.random() * a.length)];
+  const FEM = { Klaudia:1, Kasia:1, 'Łucja':1, Ola:1, Magda:1 };
+  const SPEC = {
+    Wiktorek: { k:'stamp',  d:'Pieczęć komisji spada na przeciwnika. Uciekaj z cienia!' },
+    Klaudia:  { k:'balls',  d:'Trzy kule toczą się po parkiecie. Przeskocz albo oberwij.' },
+    Kasia:    { k:'orb',    d:'Wielka kula wódy leci prosto w przeciwnika.' },
+    'Łucja':  { k:'cage',   d:'Szkocka krata zamyka przeciwnika. Stoi jak wryty.' },
+    Ola:      { k:'wheat',  d:'Kłosy pszenicy wyrastają z parkietu fala za falą.' },
+    Arek:     { k:'knee',   d:'Lot z kolanem ze stali przez pół sali.' },
+    Magda:    { k:'acquit', d:'Uniewinnienie: leczy i daje chwilę nietykalności.' },
+    Konrad:   { k:'improv', d:'Losowy atak specjalny innego Wódowicza. Improwizacja!' },
+    Koli:     { k:'spray',  d:'Strumień WD-40: odpycha, a przeciwnik ślizga się po parkiecie.' },
+  };
+  const KINDS = ['stamp', 'balls', 'orb', 'cage', 'wheat', 'knee', 'acquit', 'spray'];
+  const ATK = {
+    punch: { dur:.28, a0:.07, a1:.15, range:64, dmg:6, stun:.24, push:140, m:8 },
+    kick:  { dur:.42, a0:.13, a1:.22, range:88, dmg:9, stun:.32, push:220, m:10 },
+    air:   { dur:.45, a0:.05, a1:.32, range:72, dmg:8, stun:.3,  push:200, m:9 },
+  };
+  // statystyki jak na legitymacji (te same liczby)
+  const stat = (p, k) => { if (p.stats && p.stats[k] != null) return p.stats[k]; let h = 0; for (const c of p.name + k) h = (h * 31 + c.charCodeAt(0)) % 997; return 25 + h % 70; };
+  const PEOPLE = CONFIG.people.map((p, i) => ({ i, name: p.name, nick: String(p.role || '').replace(/[„”"]/g, ''), attack: p.attack, photo: p.photo,
+    spec: (SPEC[p.name] || { k:'orb', d:'Kula wódy prosto w przeciwnika.' }), fem: !!FEM[p.name], col: SHIRT[i % SHIRT.length],
+    toast: stat(p, 'TOASTY'), wyt: stat(p, 'WYTRZYMAŁOŚĆ'), spiew: stat(p, 'ŚPIEW'), img: null }));
+  PEOPLE.forEach(P => { if (!P.photo) return; const im = new Image(); im.decoding = 'async'; im.onload = () => { P.img = im; art(); }; im.src = P.photo; });
+
+  /* ---------- świat i kamera ---------- */
+  let W = 640, S = 1, dpr = 1, vis = false, cam = 0;
+  const bgC = document.createElement('canvas'), bg = bgC.getContext('2d');
+  function buildBg() { // remiza: ściana, baner, stół z wódeczką, parkiet
+    const sc = S * dpr; bgC.width = Math.ceil(ARENA * sc); bgC.height = Math.ceil(H * sc); bg.setTransform(sc, 0, 0, sc, 0, 0);
+    bg.fillStyle = '#3a2a6e'; bg.fillRect(0, 0, ARENA, GROUND);
+    bg.fillStyle = 'rgba(255,255,255,.05)'; for (let x = 0; x < ARENA; x += 46) bg.fillRect(x, 0, 23, GROUND - 60); // tapeta w pasy
+    bg.fillStyle = '#2a1d55'; bg.fillRect(0, GROUND - 92, ARENA, 92); // boazeria
+    bg.strokeStyle = 'rgba(0,0,0,.25)'; bg.lineWidth = 2; for (let x = 0; x < ARENA; x += 38) { bg.beginPath(); bg.moveTo(x, GROUND - 92); bg.lineTo(x, GROUND); bg.stroke(); }
+    // baner
+    bg.save(); bg.translate(ARENA / 2, 122); bg.scale(.78, .78); bg.fillStyle = K.lime; bg.strokeStyle = K.ink; bg.lineWidth = 3;
+    bg.beginPath(); bg.moveTo(-210, -24); bg.lineTo(210, -24); bg.lineTo(196, 0); bg.lineTo(210, 24); bg.lineTo(-210, 24); bg.lineTo(-196, 0); bg.closePath(); bg.fill(); bg.stroke();
+    bg.fillStyle = K.ink; bg.font = '400 30px Anton, Impact, sans-serif'; bg.textAlign = 'center'; bg.textBaseline = 'middle'; bg.fillText('TURNIEJ WÓDŻITSU 2026', 0, 2); bg.restore();
+    // girlanda
+    bg.strokeStyle = K.ink; bg.lineWidth = 2; bg.beginPath(); for (let x = 0; x <= ARENA; x += 8) bg.lineTo(x, 92 + Math.sin(x / 90) * 8); bg.stroke();
+    for (let x = 20, i = 0; x < ARENA; x += 38, i++) { bg.fillStyle = [K.pink, K.lime, K.aqua, K.gold][i % 4]; bg.beginPath(); const y = 92 + Math.sin(x / 90) * 8; bg.moveTo(x - 9, y); bg.lineTo(x + 9, y); bg.lineTo(x, y + 18); bg.closePath(); bg.fill(); bg.stroke(); }
+    // stół z wódeczką w tle
+    const ty = GROUND - 120; bg.fillStyle = '#fff'; bg.fillRect(70, ty, 240, 10); bg.fillRect(ARENA - 310, ty, 240, 10);
+    bg.fillStyle = 'rgba(229,48,31,.8)'; for (let x = 70; x < 310; x += 20) { bg.fillRect(x, ty + 10, 10, 26); bg.fillRect(ARENA - 380 + x, ty + 10, 10, 26); }
+    bg.fillStyle = '#fff'; [[70, 310], [ARENA - 310, ARENA - 70]].forEach(([a, b]) => { for (let x = a; x < b; x += 20) bg.fillRect(x + 10, ty + 10, 10, 26); });
+    bg.strokeStyle = K.ink; bg.lineWidth = 2; bg.strokeRect(70, ty, 240, 36); bg.strokeRect(ARENA - 310, ty, 240, 36);
+    const bottle = x => { bg.save(); bg.translate(x, ty); bg.fillStyle = 'rgba(143,232,255,.85)'; bg.strokeStyle = K.ink; bg.lineWidth = 2;
+      bg.beginPath(); bg.moveTo(-3, -46); bg.lineTo(3, -46); bg.lineTo(3, -34); bg.quadraticCurveTo(9, -30, 9, -22); bg.lineTo(9, 0); bg.lineTo(-9, 0); bg.lineTo(-9, -22); bg.quadraticCurveTo(-9, -30, -3, -34); bg.closePath(); bg.fill(); bg.stroke();
+      bg.fillStyle = '#fff'; bg.fillRect(-8, -18, 16, 10); bg.fillStyle = K.ink; bg.fillRect(-3, -50, 6, 5); bg.restore(); };
+    [110, 150, 250, ARENA - 270, ARENA - 150, ARENA - 110].forEach(bottle);
+    if (GFX.fish) { [[200, .42], [ARENA - 210, .42]].forEach(([x, k]) => { bg.save(); bg.translate(x, ty); bg.scale(k, k); GFX.fish(bg, true); bg.restore(); }); }
+    // parkiet
+    bg.fillStyle = '#b8743a'; bg.fillRect(0, GROUND, ARENA, H - GROUND);
+    bg.strokeStyle = 'rgba(0,0,0,.25)'; bg.lineWidth = 1.5; for (let y = GROUND + 8; y < H; y += 10) { bg.beginPath(); bg.moveTo(0, y); bg.lineTo(ARENA, y); bg.stroke(); }
+    for (let x = 0; x < ARENA; x += 60) for (let r = 0; r < 5; r++) { const xx = x + (r % 2) * 30; bg.beginPath(); bg.moveTo(xx, GROUND + r * 10); bg.lineTo(xx, GROUND + r * 10 + 10); bg.stroke(); }
+    bg.fillStyle = K.ink; bg.fillRect(0, GROUND - 2, ARENA, 4);
+  }
+  function resize() { const r = screen.getBoundingClientRect(); if (!r.width) return;
+    dpr = Math.min(2, devicePixelRatio || 1); S = r.height / H; W = r.width / S;
+    cv.width = Math.round(r.width * dpr); cv.height = Math.round(r.height * dpr); buildBg(); }
+
+  /* ---------- postać ---------- */
+  const POSE = {
+    idle:  { fa1:.75, fa2:2.45, ba1:.45, ba2:2.25, fl1:.3, fl2:.08, bl1:-.28, bl2:-.38, lean:.04 },
+    walk:  { fa1:.75, fa2:2.45, ba1:.45, ba2:2.25, fl1:.3, fl2:.08, bl1:-.28, bl2:-.38, lean:.08 },
+    punch: { fa1:1.57, fa2:1.57, ba1:.45, ba2:2.3, fl1:.35, fl2:.1, bl1:-.35, bl2:-.4, lean:.16 },
+    kick:  { fa1:.95, fa2:2.0, ba1:-.4, ba2:.35, fl1:1.5, fl2:1.62, bl1:-.12, bl2:-.12, lean:-.26 },
+    air:   { fa1:1.1, fa2:2.2, ba1:-.3, ba2:.5, fl1:1.4, fl2:1.5, bl1:.3, bl2:-.6, lean:-.15 },
+    block: { fa1:1.2, fa2:2.95, ba1:1.0, ba2:2.95, fl1:.25, fl2:-.05, bl1:-.3, bl2:-.45, lean:-.1 },
+    hit:   { fa1:-.35, fa2:.3, ba1:-.6, ba2:-.1, fl1:.2, fl2:.1, bl1:-.4, bl2:-.3, lean:-.38 },
+    jump:  { fa1:2.0, fa2:2.7, ba1:1.6, ba2:2.5, fl1:.95, fl2:-.25, bl1:.2, bl2:-.7, lean:0 },
+    special:{ fa1:1.5, fa2:1.5, ba1:1.35, ba2:1.4, fl1:.4, fl2:.15, bl1:-.4, bl2:-.45, lean:.22 },
+    knee:  { fa1:-.5, fa2:.4, ba1:2.2, ba2:2.6, fl1:1.65, fl2:.15, bl1:-.5, bl2:-.4, lean:.28 },
+    win:   { fa1:2.9, fa2:3.1, ba1:2.7, ba2:3.05, fl1:.25, fl2:.05, bl1:-.25, bl2:-.3, lean:-.05 },
+    dizzy: { fa1:-.2, fa2:.1, ba1:-.15, ba2:.15, fl1:.15, fl2:.05, bl1:-.18, bl2:-.1, lean:0 },
+    stun:  { fa1:.2, fa2:.4, ba1:.1, ba2:.3, fl1:.12, fl2:.05, bl1:-.12, bl2:-.05, lean:-.05 },
+  };
+  function fighter(P, cpu, x, face) {
+    return { P, cpu, x, y:0, vx:0, vy:0, face, st:'idle', t:0, atk:null, hitDone:false, stun:0, inv:0, slide:0, ko:0,
+      hpMax: Math.round(85 + P.wyt * .35), hp:0, meter:0, wins:0, dmgMul: .85 + P.toast / 100 * .35, mGain: .8 + P.spiew / 100 * .5,
+      pose: Object.assign({}, POSE.idle), ph: Math.random() * 6, blockT:0, ai:{ t:.5, hold:0, walk:0 } };
+  }
+  function limb(c, x0, y0, a, len) { return [x0 + Math.sin(a) * len, y0 + Math.cos(a) * len]; }
+  function cap(c, x0, y0, x1, y1, w, col) { c.lineCap = 'round'; c.strokeStyle = K.ink; c.lineWidth = w + 5; c.beginPath(); c.moveTo(x0, y0); c.lineTo(x1, y1); c.stroke();
+    c.strokeStyle = col; c.lineWidth = w; c.stroke(); }
+  // głowy wycięte ze zdjęć legitymacji: [środek x, góra, dół] jako ułamki szerokości/wysokości zdjęcia
+  const HEADS = { 'img/wiktorek.webp':[.477,0,.64], 'img/klaudia.webp':[.509,0,.69], 'img/kasia.webp':[.415,0,.53], 'img/lucja.webp':[.585,0,.58], 'img/ola.webp':[.53,0,.58],
+    'img/arek.webp':[.459,0,.36], 'img/magda.webp':[.321,0,.42], 'img/konrad.webp':[.61,.06,.47], 'img/koli.webp':[.29,0,.43] };
+  function headOf(P) { if (P.head || !P.img) return P.head; const im = P.img, W0 = im.naturalWidth, H0 = im.naturalHeight, [hx, t0, b0] = HEADS[P.photo] || [.5, 0, .5], hh = (b0 - t0) * H0;
+    const c = document.createElement('canvas'); c.width = c.height = 192; const x = c.getContext('2d');
+    x.drawImage(im, hx * W0 - hh / 2, t0 * H0, hh, hh, 0, 0, 192, 192);
+    x.globalCompositeOperation = 'destination-in'; x.beginPath(); x.roundRect(0, 0, 192, 113, 64); x.ellipse(95, 103, 89, 87, 0, 0, Math.PI * 2); x.fill();
+    return (P.head = c); }
+  function drawFighter(c, f, t) {
+    const p = f.pose, P = f.P, sx = f.x - cam, fem = P.fem;
+    c.save(); c.translate(sx, GROUND - f.y);
+    if (f.st === 'ko' || f.st === 'zgon') { const k = Math.min(1, f.ko * 3.5); c.translate(-f.face * 30 * k, 0); c.rotate(-f.face * 1.48 * k); }
+    c.scale(f.face, 1);
+    if (f.inv > 0) { c.globalAlpha = .6 + .4 * Math.sin(t * 30); }
+    const lean = p.lean + (f.st === 'dizzy' ? Math.sin(t * 5) * .18 : 0) + (f.st === 'idle' ? Math.sin(t * 3 + f.ph) * .02 : 0);
+    // nogi z biodra; całe ciało opuszczone tak, by niższa stopa stała na ziemi
+    const hipY = -64, th = 32, sh = 32;
+    const fk = limb(c, 4, hipY, p.fl1, th), ff = limb(c, ...fk, p.fl2, sh), bk = limb(c, -4, hipY, p.bl1, th), bf = limb(c, ...bk, p.bl2, sh);
+    const drop = f.y > 1 || f.st === 'ko' || f.st === 'zgon' ? 0 : -Math.max(ff[1], bf[1]);
+    c.translate(0, drop);
+    const TL = 50, shY = hipY - TL + 4, shX = Math.sin(lean) * TL, armW = fem ? 9 : 12, foreW = fem ? 8 : 10, legW = fem ? 11 : 14;
+    const sleeve = P.col, legC = fem ? '#1b1b38' : K.pants, legB = fem ? '#121230' : '#1b1b38';
+    // tylna ręka
+    const sB = [shX - 6, shY + 6], eB = limb(c, ...sB, p.ba1, 24), hB = limb(c, ...eB, p.ba2, 22);
+    cap(c, ...sB, ...eB, armW, sleeve); cap(c, ...eB, ...hB, foreW, K.skin); fist(c, hB, fem);
+    // nogi
+    cap(c, -4, hipY, ...bk, legW, legB); cap(c, ...bk, ...bf, legW - 2, legB); shoe(c, bf, p.bl2, fem);
+    cap(c, 4, hipY, ...fk, legW, legC); cap(c, ...fk, ...ff, legW - 2, legC); shoe(c, ff, p.fl2, fem);
+    // tułów: męski — szerokie barki; kobiecy — talia i spódniczka
+    c.save(); c.translate(0, hipY); c.rotate(lean);
+    c.lineJoin = 'round'; c.strokeStyle = K.ink; c.lineWidth = 3;
+    if (fem) {
+      c.fillStyle = shadeCol(P.col, -.28); c.beginPath(); c.moveTo(-15, -6); c.lineTo(15, -6); c.lineTo(23, 18); c.quadraticCurveTo(0, 23, -23, 18); c.closePath(); c.fill(); c.stroke(); // spódniczka
+      c.fillStyle = P.col; c.beginPath(); c.moveTo(-17, -TL + 2); c.quadraticCurveTo(-18, -TL - 2, -12, -TL - 3); c.lineTo(12, -TL - 3); c.quadraticCurveTo(18, -TL - 2, 17, -TL + 2);
+      c.quadraticCurveTo(8, -26, 14, -4); c.lineTo(-14, -4); c.quadraticCurveTo(-8, -26, -17, -TL + 2); c.closePath(); c.fill(); c.stroke();
+      c.fillStyle = 'rgba(11,11,30,.22)'; c.fillRect(-12, -10, 24, 4); // pasek
+    } else {
+      c.fillStyle = K.pants; c.beginPath(); c.roundRect(-16, -8, 32, 14, 4); c.fill(); c.stroke(); // biodra w spodniach
+      c.fillStyle = P.col; c.beginPath(); c.moveTo(-23, -TL - 1); c.quadraticCurveTo(-25, -TL + 10, -18, -4); c.lineTo(18, -4); c.quadraticCurveTo(25, -TL + 10, 23, -TL - 1); c.quadraticCurveTo(0, -TL - 6, -23, -TL - 1); c.closePath(); c.fill(); c.stroke();
+      c.fillStyle = 'rgba(11,11,30,.18)'; c.fillRect(-17, -9, 34, 5);
+    }
+    c.save(); c.scale(f.face, 1); c.fillStyle = K.ink; c.font = '400 12px Anton, Impact, sans-serif'; c.textAlign = 'center'; c.fillText(String(P.i + 1).padStart(2, '0'), 0, -22); c.restore(); // numer zawsze czytelny
+    c.restore();
+    // szyja i głowa (sama głowa ze zdjęcia, duża jak w bobblehead)
+    const hx = shX + 2, hy = shY - 4, bob = Math.sin(t * 6 + f.ph) * (f.st === 'walk' ? 1.5 : .6);
+    cap(c, shX, shY + 2, hx, hy - 8, fem ? 8 : 11, K.skin);
+    const hd = headOf(P), HS = 64;
+    c.save(); c.translate(hx, hy + bob); c.rotate(lean * .6 + (f.st === 'hit' ? -.15 : 0));
+    if (hd) { c.fillStyle = 'rgba(11,11,30,.35)'; c.beginPath(); c.ellipse(1, -HS * .44, HS * .47, HS * .46, 0, 0, 7); c.fill(); c.drawImage(hd, -HS / 2, -HS * .96, HS, HS); }
+    else { c.fillStyle = K.skin; c.strokeStyle = K.ink; c.lineWidth = 3; c.beginPath(); c.arc(0, -30, 26, 0, 7); c.fill(); c.stroke(); }
+    c.restore();
+    if (f.st === 'dizzy' || f.st === 'stun') for (let i = 0; i < 3; i++) { const a = t * 4 + i * 2.1; c.fillStyle = K.gold; star(c, hx + Math.cos(a) * 30, hy - 74 + Math.sin(a) * 7, 6); }
+    // przednia ręka
+    const sF = [shX + 6, shY + 6], eF = limb(c, ...sF, p.fa1, 24), hF = limb(c, ...eF, p.fa2, 22);
+    cap(c, ...sF, ...eF, armW, sleeve); cap(c, ...eF, ...hF, foreW, K.skin); fist(c, hF, fem);
+    c.restore();
+  }
+  function shadeCol(hex, k) { const n = parseInt(hex.slice(1), 16), f = v => Math.round(clamp(k < 0 ? v * (1 + k) : v + (255 - v) * k, 0, 255));
+    return '#' + [n >> 16 & 255, n >> 8 & 255, n & 255].map(f).map(v => v.toString(16).padStart(2, '0')).join(''); }
+  const shade = col => col; // tylna ręka w tym samym kolorze (prościej czytać sylwetkę)
+  function fist(c, [x, y], fem) { c.fillStyle = K.skin; c.strokeStyle = K.ink; c.lineWidth = 2.5; c.beginPath(); c.arc(x, y, fem ? 5.5 : 7, 0, 7); c.fill(); c.stroke(); }
+  function shoe(c, [x, y], a, fem) { c.save(); c.translate(x, y); c.rotate(-a * .3); c.fillStyle = fem ? K.mag : K.ink; c.strokeStyle = K.ink; c.lineWidth = 2; c.beginPath(); c.ellipse(5, 0, fem ? 9 : 11, fem ? 4.5 : 5.5, 0, 0, 7); c.fill(); c.stroke(); c.restore(); }
+  function star(c, x, y, r) { c.beginPath(); for (let i = 0; i < 10; i++) { const a = i * Math.PI / 5 - Math.PI / 2, rr = i % 2 ? r * .45 : r; c.lineTo(x + Math.cos(a) * rr, y + Math.sin(a) * rr); } c.closePath(); c.fill(); c.strokeStyle = K.ink; c.lineWidth = 1.5; c.stroke(); }
+
+  /* ---------- stan gry ---------- */
+  let st = 'select', phT = 0, me = null, foe = null, sel = 0, ladder = [], fightNo = 0, round = 1, timer = ROUND_T, score = 0, wonFights = 0;
+  let fx = [], parts = [], texts = [], shake = 0, flash = 0, banner = null, finishWho = null, roundWinner = null, perfect = false, zgonT = 0;
+  const L = () => clamp(fightNo / 7, 0, 1);
+  const inp = { l:0, r:0, u:0, d:0, pq:0, kq:0, sq:0 };
+  function say(s, l = 1.4, c = K.lime, sm = '') { banner = { s, l, t:0, c, sm }; }
+  function newLadder() { const others = PEOPLE.filter(P => P.i !== sel); const boss = others.find(P => P.name === 'Wiktorek');
+    ladder = others.filter(P => P !== boss).sort(() => Math.random() - .5); if (boss) ladder.push(boss); fightNo = 0; }
+  function setupFight() { me = fighter(PEOPLE[sel], false, ARENA / 2 - 120, 1); foe = fighter(ladder[fightNo], true, ARENA / 2 + 120, -1); me.wins = foe.wins = 0; round = 1; setupRound(); st = 'vs'; phT = 0; }
+  function setupRound() { [me, foe].forEach((f, i) => { Object.assign(f, { x: ARENA / 2 + (i ? 120 : -120), y:0, vx:0, vy:0, face: i ? -1 : 1, st:'idle', t:0, atk:null, stun:0, inv:0, slide:0, ko:0, hp: f.hpMax }); f.pose = Object.assign({}, POSE.idle); });
+    fx = []; texts = []; timer = ROUND_T; perfect = true; roundWinner = null; finishWho = null; cam = ARENA / 2 - W / 2; }
+  function startGame() { newLadder(); score = 0; wonFights = 0; setupFight(); show(null); stage.classList.add('run'); stage.focus({ preventScroll: true }); play(); }
+
+  /* ---------- walka ---------- */
+  const other = f => f === me ? foe : me;
+  const canAct = f => ['idle', 'walk', 'block'].includes(f.st) && f.y === 0;
+  function setSt(f, s) { f.st = s; f.t = 0; }
+  function attack(f, kind) { if (f.y > 0 && kind !== 'special' && (f.st === 'jump')) { f.atk = ATK.air; setSt(f, 'air'); f.hitDone = false; return; }
+    if (!canAct(f)) return; f.atk = ATK[kind]; setSt(f, kind); f.hitDone = false; }
+  function jump(f) { if (!canAct(f)) return; setSt(f, 'jump'); f.vy = 640; f.vx = (f === me ? (inp.r - inp.l) : f.ai.walk) * 190; }
+  function hurt(t, a, dmg, stun, push, o = {}) {
+    if (st !== 'fight' || t.st === 'ko' || t.st === 'dizzy') return false;
+    if (t.inv > 0) { pop(t.x, GROUND - t.y - 120, 'NIETYKALNA!', K.aqua); return false; }
+    const dir = Math.sign(t.x - a.x) || a.face;
+    const blocking = t.st === 'block' && t.face === -dir && !o.unblock;
+    if (blocking) { dmg *= .15; push *= .6; sparks(t.x - dir * 18, GROUND - t.y - 100, '#fff', 6); t.meter = Math.min(100, t.meter + 3 * t.mGain); t.vx = dir * push; }
+    else { setSt(t, o.stunSt || 'hit'); t.stun = stun; t.vx = dir * push; if (o.launch) t.vy = o.launch; t.atk = null;
+      sparks(t.x - dir * 10, GROUND - t.y - 100, K.aqua, 12); shake = Math.max(shake, .18 + dmg / 80);
+      a.meter = Math.min(100, a.meter + 8 * a.mGain); t.meter = Math.min(100, t.meter + 5 * t.mGain); }
+    const d = dmg * a.dmgMul; t.hp = Math.max(0, t.hp - d); if (t === me && d > 0) perfect = false;
+    if (a === me && !blocking) score += Math.round(d * 5);
+    if (t.hp <= 0) endRound(a);
+    return !blocking;
+  }
+  function special(f) { if (f.meter < 100 || !canAct(f)) return false; f.meter = 0; const o = other(f); let k = f.P.spec.k;
+    if (k === 'improv') { k = pick(KINDS); const src = PEOPLE.find(P => P.spec.k === k); pop(f.x, GROUND - 190, 'IMPROWIZACJA: ' + (src ? src.attack : k).toUpperCase(), K.pink, true); }
+    else pop(f.x, GROUND - 190, f.P.attack.toUpperCase() + '!', K.lime, true);
+    setSt(f, k === 'knee' ? 'knee' : 'special'); f.spec = k; f.atk = null; flash = .25;
+    if (k === 'stamp') fx.push({ k, own: f, tx: o.x, t: 0 });
+    else if (k === 'balls') [0, .2, .4].forEach(d => fx.push({ k, own: f, x: f.x + f.face * 34, vx: f.face * 330, t: -d, r: 13 }));
+    else if (k === 'orb') fx.push({ k, own: f, x: f.x + f.face * 40, y: 100, vx: f.face * 430, t: 0 });
+    else if (k === 'cage') { if (Math.abs(o.x - f.x) < 320 && o.inv <= 0) { fx.push({ k, own: f, tgt: o, t: 0 }); hurt(o, f, 10, 1.4, 0, { unblock: true, stunSt: 'stun' }); } else pop(f.x, GROUND - 160, 'PUDŁO', K.paper); }
+    else if (k === 'wheat') for (let i = 0; i < 6; i++) fx.push({ k, own: f, x: f.x + f.face * (60 + i * 52), t: -i * .08, hit: false });
+    else if (k === 'knee') { f.vx = f.face * 640; f.hitDone = false; }
+    else if (k === 'acquit') { f.hp = Math.min(f.hpMax, f.hp + 20); f.inv = 2.2; fx.push({ k, own: f, t: 0 }); pop(f.x, GROUND - 210, f.P.fem ? 'UNIEWINNIONA!' : 'UNIEWINNIONY!', K.aqua, true); }
+    else if (k === 'spray') fx.push({ k, own: f, t: 0, tick: 0 });
+    return true; }
+  function endRound(winner) { if (st !== 'fight') return; const loser = other(winner); roundWinner = winner;
+    const decisive = winner.wins + 1 >= WINS;
+    if (decisive && winner === me) { st = 'finish'; phT = 0; setSt(loser, 'dizzy'); loser.hp = 0; finishWho = loser; say(loser.P.fem ? 'DOLEJ JEJ!' : 'DOLEJ MU!', 3.2, K.pink, 'atak specjalny ★ z bliska'); }
+    else if (decisive && Math.random() < .5) { st = 'finish'; phT = 0; setSt(loser, 'dizzy'); finishWho = loser; say(loser.P.fem ? 'DOLEJ JEJ!' : 'DOLEJ MU!', 2.2, K.pink); }
+    else { setSt(loser, 'ko'); loser.x = clamp(loser.x, 110, ARENA - 110); st = 'roundEnd'; phT = 0; say('NOKAUT!', 1.6, K.red); } }
+  function zgon(by) { const v = other(by); v.x = clamp(v.x, 130, ARENA - 130); st = 'zgon'; phT = 0; setSt(v, 'zgon'); setSt(by, 'win'); fx.push({ k:'pour', tgt: v, t: 0 }); say('ZGON!', 2.6, K.lime, v.P.name + ' śpi pod stołem'); if (by === me) score += 1500; }
+  function finishRoundScore() { const w = roundWinner; w.wins++;
+    if (w === me) { score += 500 + Math.round(me.hp / me.hpMax * 1000) + Math.round(timer * 10); if (perfect) { score += 1000; pop(ARENA / 2, 150, 'CZYSTA KARTA! +1000', K.gold, true); } } }
+  function afterRound() { // po napisach: następna runda, następna walka albo koniec
+    if (me.wins >= WINS) { wonFights++; score += 1000 * (fightNo + 1); fightNo++;
+      if (fightNo >= ladder.length) { score += 5000; st = 'champion'; phT = 0; say('MISTRZ WÓDŻITSU!', 4, K.gold, 'pokonano całą ekipę'); setSt(me, 'win'); setTimeout(() => showOver(true), 2600); return; }
+      setupFight(); return; }
+    if (foe.wins >= WINS) { st = 'over'; phT = 0; setTimeout(() => showOver(false), 400); return; }
+    round++; setupRound(); st = 'intro'; phT = 0; }
+
+  function ctrl(f, dt) { // gracz: klawiatura / przyciski
+    if (inp.pq > 0 && (canAct(f) || f.st === 'jump')) { attack(f, 'punch'); inp.pq = 0; }
+    else if (inp.kq > 0 && (canAct(f) || f.st === 'jump')) { attack(f, 'kick'); inp.kq = 0; }
+    else if (inp.sq > 0) { if (st === 'finish' && finishWho === foe) { if (Math.abs(foe.x - f.x) < 190) { zgon(f); inp.sq = 0; } } else if (special(f)) inp.sq = 0; }
+    inp.pq -= dt; inp.kq -= dt; inp.sq -= dt;
+    if (!canAct(f)) return;
+    if (inp.u) { jump(f); return; }
+    if (inp.d) { if (f.st !== 'block') setSt(f, 'block'); return; } else if (f.st === 'block') setSt(f, 'idle');
+    const mv = inp.r - inp.l; if (mv) { f.x += mv * 175 * dt; if (f.st !== 'walk') setSt(f, 'walk'); } else if (f.st === 'walk') setSt(f, 'idle'); }
+  function ai(f, dt) { const o = other(f), dx = o.x - f.x, dist = Math.abs(dx), lv = L(), A = f.ai;
+    if (st === 'finish') { if (finishWho === me && f.st !== 'win') { if (dist > 150) { f.x += Math.sign(dx) * 160 * dt; if (f.st !== 'walk') setSt(f, 'walk'); } else if (phT > .8) zgon(f); } return; }
+    A.t -= dt; A.hold -= dt;
+    if (f.st === 'block' && A.hold <= 0) setSt(f, 'idle');
+    if (canAct(f) && A.walk) { f.x += A.walk * 160 * (.8 + lv * .4) * dt; if (f.st !== 'walk') setSt(f, 'walk'); } else if (f.st === 'walk' && !A.walk) setSt(f, 'idle');
+    // reakcja na atak gracza: blok
+    if (canAct(f) && (o.st === 'punch' || o.st === 'kick' || o.st === 'air') && o.t < .08 && dist < 120 && Math.random() < (.15 + .5 * lv) * dt * 60 * .25) { A.walk = 0; setSt(f, 'block'); A.hold = .35; return; }
+    if (A.t > 0) return; A.t = (.4 - .26 * lv) * rnd(.7, 1.3); A.walk = 0;
+    if (!canAct(f)) return;
+    const ranged = ['stamp', 'balls', 'orb', 'wheat', 'improv'].includes(f.P.spec.k);
+    if (f.meter >= 100 && Math.random() < .5 + .35 * lv && (ranged ? dist > 120 : dist < 230)) { special(f); return; }
+    if (dist > 100) { const r = Math.random(); if (r < .08) jump(f); else A.walk = Math.sign(dx); return; }
+    const r = Math.random();
+    if (r < .42) attack(f, 'punch'); else if (r < .72) attack(f, 'kick'); else if (r < .82 + lv * .05) { setSt(f, 'block'); A.hold = .4; } else if (r < .93) A.walk = -Math.sign(dx); else jump(f); }
+
+  function physics(f, dt) {
+    f.t += dt; if (f.inv > 0) f.inv -= dt; if (f.slide > 0) f.slide -= dt;
+    if (f.y > 0 || f.vy > 0) { f.vy -= GRAV * dt; f.y += f.vy * dt; f.x += f.vx * dt; if (f.y <= 0) { f.y = 0; f.vy = 0; if (f.st === 'jump' || f.st === 'air') setSt(f, 'idle'); if (f.st !== 'knee') f.vx = 0; } }
+    else { f.x += f.vx * dt; const fr = f.st === 'knee' ? 0 : f.slide > 0 ? 1.2 : 9; f.vx *= Math.exp(-fr * dt); if (Math.abs(f.vx) < 4) f.vx = 0; }
+    f.x = clamp(f.x, 30, ARENA - 30);
+    if (f.st === 'hit' || f.st === 'stun') { f.stun -= dt; if (f.stun <= 0 && f.y === 0) setSt(f, 'idle'); }
+    if (f.atk && (f.st === 'punch' || f.st === 'kick' || f.st === 'air')) { const A = f.atk;
+      if (!f.hitDone && f.t >= A.a0 && f.t <= A.a1) { const o = other(f), dx = (o.x - f.x) * f.face;
+        if (dx > 0 && dx < A.range + 22 && Math.abs(f.y - o.y) < 70) { f.hitDone = true; hurt(o, f, A.dmg, A.stun, A.push); } }
+      if (f.t >= A.dur) { f.atk = null; setSt(f, f.y > 0 ? 'jump' : 'idle'); } }
+    if (f.st === 'special' && f.t > .38) setSt(f, 'idle');
+    if (f.st === 'knee') { const o = other(f); if (!f.hitDone && Math.abs(o.x - f.x) < 52 && Math.abs(o.y - f.y) < 80) { f.hitDone = true; hurt(o, f, 20, .6, 380); f.vx *= .3; }
+      if (f.t > .42) { f.vx = 0; setSt(f, 'idle'); } }
+    if (f.st === 'ko' || f.st === 'zgon') f.ko += dt;
+    if (f.y === 0 && !['knee', 'hit', 'ko', 'zgon'].includes(f.st) && !f.atk && f.st !== 'special') f.face = Math.sign(other(f).x - f.x) || f.face;
+    // poza: płynne przejście
+    let key = f.st === 'walk' || f.st === 'idle' ? 'idle' : f.st === 'zgon' || f.st === 'ko' ? 'hit' : f.st;
+    let tp = POSE[key] || POSE.idle;
+    if (f.atk && f.t < f.atk.a0) tp = POSE.idle; // zamach
+    const k = 1 - Math.exp(-dt * 26); for (const q in tp) f.pose[q] += (tp[q] - f.pose[q]) * k;
+    if (f.st === 'walk') { const w = Math.sin(f.t * 11); f.pose.fl1 = .3 * w + .05; f.pose.bl1 = -.3 * w - .05; f.pose.fl2 = f.pose.fl1 - .15; f.pose.bl2 = f.pose.bl1 - .15; }
+  }
+  function pushApart() { const d = foe.x - me.x, min = 46; if (Math.abs(d) < min && Math.abs(me.y - foe.y) < 90) { const o = (min - Math.abs(d)) / 2 * (Math.sign(d) || 1); me.x -= o; foe.x += o; me.x = clamp(me.x, 30, ARENA - 30); foe.x = clamp(foe.x, 30, ARENA - 30); } }
+  function stepFx(dt) {
+    for (const e of fx) { e.t += dt; const o = e.own ? other(e.own) : null;
+      if (e.k === 'stamp' && !e.done && e.t >= .5) { e.done = true; shake = .4; if (Math.abs(o.x - e.tx) < 58 && o.y < 50) hurt(o, e.own, 20, .7, 120, { unblock: true }); sparks(e.tx, GROUND - 10, K.red, 16); }
+      if (e.k === 'balls' && e.t >= 0) { e.x += e.vx * dt; if (!e.done && Math.abs(o.x - e.x) < 22 && o.y < 26) { e.done = true; hurt(o, e.own, 7, .25, 120); } if (e.x < -40 || e.x > ARENA + 40) e.done = true; }
+      if (e.k === 'orb') { e.x += e.vx * dt; if (!e.done && Math.abs(o.x - e.x) < 32 && o.y < e.y + 20 && o.y + 150 > e.y - 20) { e.done = true; hurt(o, e.own, 18, .5, 260); sparks(e.x, GROUND - e.y, K.aqua, 18); } if (e.x < -40 || e.x > ARENA + 40) e.done = true; }
+      if (e.k === 'wheat' && e.t >= 0 && !e.hit && e.t < .35) { if (Math.abs(o.x - e.x) < 30 && o.y < 50) { fx.filter(w => w.k === 'wheat' && w.own === e.own).forEach(w => w.hit = true); hurt(o, e.own, 16, .5, 80, { launch: 480 }); } }
+      if (e.k === 'spray') { e.tick -= dt; if (e.tick <= 0 && e.t < .65) { e.tick = .1; const f = e.own, dx = (o.x - f.x) * f.face;
+          for (let i = 0; i < 5; i++) parts.push({ x: f.x + f.face * 40, y: GROUND - f.y - 100, vx: f.face * rnd(300, 520), vy: rnd(-60, 40), r: rnd(2, 4), l: .35, c: i % 2 ? K.aqua : '#fff', fl: 1 });
+          if (dx > 0 && dx < 200 && Math.abs(o.y - f.y) < 80) { o.slide = 1.2; if (hurt(o, f, 2, .15, 300)) { o.vx = f.face * 420; } } } }
+    }
+    fx = fx.filter(e => !(e.done && e.k !== 'stamp') && !(e.k === 'stamp' && e.t > 1.1) && !(e.k === 'wheat' && e.t > .7) && !(e.k === 'cage' && e.t > 1.4) && !(e.k === 'acquit' && e.t > 2.2) && !(e.k === 'spray' && e.t > .7) && !(e.k === 'pour' && e.t > 3));
+  }
+  function sparks(x, y, c, n) { for (let i = 0; i < n; i++) parts.push({ x, y, vx: rnd(-260, 260), vy: rnd(-320, 60), r: rnd(2, 4.5), l: rnd(.3, .6), c }); }
+  function pop(x, y, s, c, big) { texts.push({ x, y, s, c, l: 1.3, big }); }
+
+  function step(dt) {
+    phT += dt;
+    if (st === 'vs') { if (phT > 2.2) { st = 'intro'; phT = 0; } return; }
+    if (st === 'intro') { if (phT < .05) say(`RUNDA ${round}`, 1, K.paper); if (phT > 1 && phT - dt <= 1) say('POLEJ!', .8, K.lime); if (phT > 1.6) { st = 'fight'; phT = 0; } }
+    if (st === 'fight') { timer -= dt; if (timer <= 0) { timer = 0; const a = me.hp / me.hpMax, b = foe.hp / foe.hpMax; say('KONIEC CZASU', 1.4, K.paper); endRound(a >= b ? me : foe); } }
+    if (st === 'fight' || st === 'finish') { if (me.st !== 'win') ctrl(me, dt); ai(foe, dt); }
+    [me, foe].forEach(f => physics(f, dt)); pushApart(); stepFx(dt);
+    if (st === 'finish' && phT > (finishWho === foe ? 3.2 : 2.4)) { setSt(finishWho, 'ko'); finishWho.x = clamp(finishWho.x, 110, ARENA - 110); st = 'roundEnd'; phT = 0; }
+    if (st === 'roundEnd' && phT > 2) { finishRoundScore(); afterRound(); }
+    if (st === 'zgon' && phT > 2.8) { finishRoundScore(); afterRound(); }
+    // kamera
+    const mid = (me.x + foe.x) / 2, want = W >= ARENA ? (ARENA - W) / 2 : clamp(mid - W / 2, 0, ARENA - W); cam += (want - cam) * Math.min(1, dt * 6);
+  }
+  function common(dt) {
+    parts = parts.filter(p => (p.l -= dt) > 0); parts.forEach(p => { if (!p.fl) p.vy += 900 * dt; p.x += p.vx * dt; p.y += p.vy * dt; });
+    texts = texts.filter(t => (t.l -= dt) > 0); texts.forEach(t => t.y -= 30 * dt);
+    if (banner) { banner.t += dt; if (banner.t > banner.l) banner = null; }
+    shake = Math.max(0, shake - dt); flash = Math.max(0, flash - dt * 2);
+  }
+
+  /* ---------- rysowanie ---------- */
+  function render(t) {
+    g.setTransform(S * dpr, 0, 0, S * dpr, 0, 0); g.clearRect(0, 0, W, H);
+    g.save(); if (shake && !reduced) g.translate(Math.sin(t * 80) * 6 * shake, Math.cos(t * 65) * 4 * shake);
+    g.drawImage(bgC, -cam, 0, ARENA, H);
+    // reflektory
+    g.globalCompositeOperation = 'lighter'; for (let i = 0; i < 3; i++) { const x = ARENA * (.2 + .3 * i) + Math.sin(t * .7 + i * 2) * 120 - cam;
+      const gr = g.createRadialGradient(x, GROUND - 20, 0, x, GROUND - 20, 120); gr.addColorStop(0, ['rgba(255,95,210,.22)', 'rgba(217,255,61,.18)', 'rgba(143,232,255,.2)'][i]); gr.addColorStop(1, 'rgba(0,0,0,0)');
+      g.fillStyle = gr; g.fillRect(x - 120, GROUND - 140, 240, 160); } g.globalCompositeOperation = 'source-over';
+    if (st !== 'select' && me) {
+      // cienie
+      [me, foe].forEach(f => { g.fillStyle = 'rgba(0,0,0,.28)'; g.beginPath(); g.ellipse(f.x - cam, GROUND + 4, 34 - Math.min(20, f.y / 8), 7, 0, 0, 7); g.fill(); });
+      fx.filter(e => e.k === 'stamp').forEach(e => drawFx(e, t));
+      const order = me.st === 'hit' || me.st === 'ko' ? [me, foe] : [foe, me];
+      order.forEach(f => drawFighter(g, f, t));
+      fx.filter(e => e.k !== 'stamp').forEach(e => drawFx(e, t));
+      parts.forEach(p => { g.fillStyle = p.c; g.globalAlpha = Math.min(1, p.l * 3); g.beginPath(); g.arc(p.x - cam, p.y, p.r, 0, 7); g.fill(); }); g.globalAlpha = 1;
+      g.lineJoin = 'round'; g.miterLimit = 2;
+      texts.forEach(tx => { g.globalAlpha = Math.min(1, tx.l * 2); g.textAlign = 'center'; g.font = tx.big ? '400 22px Anton, Impact, sans-serif' : '700 13px "Courier Prime", monospace';
+        g.lineWidth = tx.big ? 6 : 4; g.strokeStyle = K.ink; g.strokeText(tx.s, tx.x - cam, tx.y, W - 20); g.fillStyle = tx.c; g.fillText(tx.s, tx.x - cam, tx.y, W - 20); }); g.globalAlpha = 1;
+    }
+    g.restore();
+    if (flash) { g.fillStyle = `rgba(255,255,255,${flash * .35})`; g.fillRect(0, 0, W, H); }
+    if (st !== 'select' && me) { hud(t); if (st === 'vs') vs(t); }
+    if (banner) big(banner, t);
+  }
+  function drawFx(e, t) { const x = (e.x != null ? e.x : 0) - cam;
+    if (e.k === 'stamp') { const tx = e.tx - cam, k = Math.min(1, e.t / .5);
+      g.fillStyle = 'rgba(229,48,31,.35)'; g.beginPath(); g.ellipse(tx, GROUND + 2, 30 + 30 * k, 8 + 4 * k, 0, 0, 7); g.fill();
+      const y = e.t < .5 ? -80 + (GROUND - 40 + 80) * k * k : GROUND - 40; g.save(); g.translate(tx, y); g.rotate(-.08); g.globalAlpha = e.t > .8 ? Math.max(0, 1 - (e.t - .8) / .3) : 1;
+      g.fillStyle = 'rgba(229,48,31,.92)'; g.strokeStyle = K.ink; g.lineWidth = 4; g.beginPath(); g.roundRect(-62, -36, 124, 72, 8); g.fill(); g.stroke();
+      g.strokeStyle = '#fff'; g.lineWidth = 3; g.strokeRect(-54, -28, 108, 56); g.fillStyle = '#fff'; g.font = '400 30px Anton, Impact, sans-serif'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText('WINNY', 0, 2); g.textBaseline = 'alphabetic'; g.restore(); }
+    else if (e.k === 'balls' && e.t >= 0 && !e.done) { g.save(); g.translate(x, GROUND - e.r); g.rotate(e.x / e.r); g.fillStyle = K.gold; g.strokeStyle = K.ink; g.lineWidth = 2.5; g.beginPath(); g.arc(0, 0, e.r, 0, 7); g.fill(); g.stroke();
+      g.fillStyle = K.ink; g.beginPath(); g.arc(4, -4, 2.5, 0, 7); g.arc(-3, -6, 2, 0, 7); g.arc(0, 4, 2, 0, 7); g.fill(); g.restore(); }
+    else if (e.k === 'orb' && !e.done) { const y = GROUND - e.y; g.save(); g.translate(x, y); const r = 22 + Math.sin(t * 20) * 2;
+      g.fillStyle = 'rgba(143,232,255,.85)'; g.strokeStyle = K.ink; g.lineWidth = 3; g.beginPath(); g.arc(0, 0, r, 0, 7); g.fill(); g.stroke();
+      g.fillStyle = 'rgba(255,255,255,.9)'; g.beginPath(); g.ellipse(-7, -8, 7, 4, -.5, 0, 7); g.fill(); g.fillStyle = K.ink; g.font = '400 10px Anton, Impact, sans-serif'; g.textAlign = 'center'; g.fillText('WÓDA', 0, 6); g.restore();
+      for (let i = 0; i < 2; i++) parts.push({ x: e.x - Math.sign(e.vx) * 20, y: y + rnd(-10, 10), vx: -e.vx * .1, vy: rnd(-20, 20), r: rnd(1.5, 3), l: .3, c: K.aqua, fl: 1 }); }
+    else if (e.k === 'cage') { const f = e.tgt, cx = f.x - cam, h = Math.min(1, e.t / .15) * 170, a = e.t > 1.2 ? 1 - (e.t - 1.2) / .2 : 1;
+      g.save(); g.globalAlpha = a; g.translate(cx, GROUND); g.strokeStyle = K.red; g.lineWidth = 5;
+      for (let i = -2; i <= 2; i++) { g.beginPath(); g.moveTo(i * 18, 0); g.lineTo(i * 18, -h); g.stroke(); }
+      g.strokeStyle = K.ink; g.lineWidth = 3; for (let j = 1; j < 5; j++) { g.beginPath(); g.moveTo(-44, -h * j / 5); g.lineTo(44, -h * j / 5); g.stroke(); }
+      g.strokeStyle = '#2f8a3a'; g.lineWidth = 2; for (let j = 1; j < 9; j++) { g.beginPath(); g.moveTo(-44, -h * j / 9); g.lineTo(44, -h * j / 9); g.stroke(); }
+      g.strokeStyle = K.ink; g.lineWidth = 4; g.strokeRect(-46, -h, 92, h); g.restore(); }
+    else if (e.k === 'wheat' && e.t >= 0) { const k = e.t < .12 ? e.t / .12 : e.t > .5 ? Math.max(0, 1 - (e.t - .5) / .2) : 1; g.save(); g.translate(x, GROUND);
+      for (let j = -1; j <= 1; j++) { g.save(); g.rotate(j * .18); g.strokeStyle = '#7a5a12'; g.lineWidth = 3; g.beginPath(); g.moveTo(0, 0); g.lineTo(0, -70 * k); g.stroke();
+        g.fillStyle = K.gold; g.strokeStyle = K.ink; g.lineWidth = 1.5; for (let q = 0; q < 6; q++) { const yy = -70 * k + q * 7; [-1, 1].forEach(s => { g.beginPath(); g.ellipse(s * 4, yy, 3.5, 6, s * .5, 0, 7); g.fill(); g.stroke(); }); } g.restore(); }
+      g.restore(); }
+    else if (e.k === 'acquit') { const f = e.own, a = e.t > 1.8 ? 1 - (e.t - 1.8) / .4 : 1; g.save(); g.globalAlpha = .7 * a; g.translate(f.x - cam, GROUND - f.y - 80);
+      g.strokeStyle = K.aqua; g.lineWidth = 4; g.beginPath(); g.ellipse(0, 0, 58 + Math.sin(t * 8) * 4, 96, 0, 0, 7); g.stroke(); g.strokeStyle = '#fff'; g.lineWidth = 2; g.stroke();
+      g.fillStyle = K.gold; g.strokeStyle = K.ink; g.lineWidth = 2.5; g.beginPath(); g.ellipse(0, -110, 26, 6, 0, 0, 7); g.stroke(); g.restore(); }
+    else if (e.k === 'spray') { const f = e.own; g.save(); g.translate(f.x - cam + f.face * 30, GROUND - f.y - 102); g.scale(f.face, 1);
+      g.fillStyle = '#2b62c9'; g.strokeStyle = K.ink; g.lineWidth = 2.5; g.beginPath(); g.roundRect(-6, -14, 22, 30, 4); g.fill(); g.stroke(); g.fillStyle = K.gold; g.fillRect(-6, -2, 22, 8);
+      g.fillStyle = K.red; g.fillRect(14, -12, 14, 3); g.fillStyle = '#fff'; g.font = '400 8px Anton, Impact, sans-serif'; g.textAlign = 'center'; g.fillText('WÓDE', 5, 5); g.restore(); }
+    else if (e.k === 'pour') { const f = e.tgt, cx = f.x - cam - f.face * 50, cy = GROUND - 210 + Math.min(1, e.t * 2) * 20; g.save(); g.translate(cx, cy); g.rotate(Math.min(1.9, e.t * 1.6));
+      if (GFX.fish) { g.scale(.9, .9); GFX.fish(g, true); } g.restore();
+      if (e.t > .9) { g.strokeStyle = 'rgba(143,232,255,.9)'; g.lineWidth = 6; g.beginPath(); g.moveTo(cx + 34, cy + 10); g.quadraticCurveTo(cx + 30, GROUND - 60, cx + 4, GROUND - 22); g.stroke(); }
+      if (e.t > 1.4) { g.fillStyle = '#fff'; g.font = '400 22px Anton, Impact, sans-serif'; g.textAlign = 'center'; g.lineWidth = 5; g.strokeStyle = K.ink;
+        ['Z', 'z', 'z'].forEach((z, i) => { const yy = GROUND - 60 - ((e.t * 30 + i * 18) % 60), zx = f.x - cam - f.face * 70 + i * 12; g.strokeText(z, zx, yy); g.fillText(z, zx, yy); }); } }
+  }
+  function hud(t) {
+    const pad = 12, bw = Math.min(250, W / 2 - 52);
+    [[me, pad, 1], [foe, W - pad, -1]].forEach(([f, x0, s]) => {
+      const x = s > 0 ? x0 : x0 - bw, hp = f.hp / f.hpMax;
+      g.fillStyle = K.ink; g.fillRect(x - 2, 14, bw + 4, 20); g.fillStyle = K.red; g.fillRect(x, 16, bw, 16);
+      g.fillStyle = hp > .3 ? K.lime : K.gold; const w = bw * hp; g.fillRect(s > 0 ? x : x + bw - w, 16, w, 16);
+      const mb = bw * .7, mx = s > 0 ? x : x + bw - mb, mw = mb * f.meter / 100; // wódometr
+      g.fillStyle = K.ink; g.fillRect(mx - 2, 36, mb + 4, 9); g.fillStyle = f.meter >= 100 ? (Math.sin(t * 12) > 0 ? K.pink : '#fff') : K.aqua;
+      g.fillRect(s > 0 ? mx : mx + mb - mw, 38, mw, 5);
+      g.font = '400 15px Anton, Impact, sans-serif'; g.textAlign = s > 0 ? 'left' : 'right'; g.lineJoin = 'round'; g.lineWidth = 4; g.strokeStyle = K.ink; g.fillStyle = '#fff';
+      const nm = f.P.name.toUpperCase() + (f.meter >= 100 ? '  ★' : ''); g.strokeText(nm, x0, 62); g.fillText(nm, x0, 62);
+      for (let i = 0; i < WINS; i++) { const cx = s > 0 ? x0 + 6 + i * 16 : x0 - 6 - i * 16; g.fillStyle = i < f.wins ? K.lime : 'rgba(255,255,255,.25)'; g.strokeStyle = K.ink; g.lineWidth = 2;
+        g.beginPath(); g.moveTo(cx - 5, 70); g.lineTo(cx + 5, 70); g.lineTo(cx + 3.5, 82); g.lineTo(cx - 3.5, 82); g.closePath(); g.fill(); g.stroke(); } });
+    g.textAlign = 'center'; g.font = '400 30px Anton, Impact, sans-serif'; g.lineWidth = 5; g.strokeStyle = K.ink; g.fillStyle = timer < 10 ? K.pink : '#fff';
+    const tt = String(Math.ceil(timer)); g.strokeText(tt, W / 2, 42); g.fillText(tt, W / 2, 42);
+    g.font = '700 10px "Courier Prime", monospace'; g.fillStyle = '#fff'; g.fillText(`WALKA ${fightNo + 1}/${ladder.length}`, W / 2, 56);
+    g.textAlign = 'left'; g.font = '700 10px "Courier Prime", monospace'; g.fillText('PUNKTY ' + pad5(score), 12, H - 10);
+  }
+  const pad5 = n => String(n).padStart(6, '0');
+  function big(b, t) { const a = Math.min(1, b.t * 6, (b.l - b.t) * 4); g.save(); g.globalAlpha = Math.max(0, a); g.textAlign = 'center'; g.lineJoin = 'round'; g.miterLimit = 2;
+    const sc = 1 + Math.max(0, .25 - b.t) * 2; g.translate(W / 2, H * .42); g.scale(sc, sc); g.font = '400 48px Anton, Impact, sans-serif'; g.lineWidth = 9; g.strokeStyle = K.ink; g.strokeText(b.s, 0, 0, W - 30); g.fillStyle = b.c; g.fillText(b.s, 0, 0, W - 30);
+    if (b.sm) { g.font = '700 13px "Courier Prime", monospace'; g.lineWidth = 4; g.strokeText(b.sm.toUpperCase(), 0, 26); g.fillStyle = '#fff'; g.fillText(b.sm.toUpperCase(), 0, 26); } g.restore(); }
+  function vs(t) { const k = Math.min(1, phT * 3), a = phT > 1.9 ? Math.max(0, 1 - (phT - 1.9) / .3) : 1; g.save(); g.globalAlpha = a;
+    g.fillStyle = 'rgba(11,11,30,.88)'; g.fillRect(0, 0, W, H);
+    [[me, -1], [foe, 1]].forEach(([f, s]) => { const P = f.P, cx = W / 2 + s * (W * .25 + (1 - k) * W * .3);
+      if (P.img) { const ih = Math.min(200, H * .55), iw = ih * P.img.naturalWidth / P.img.naturalHeight; g.save(); g.translate(cx, H * .66); if (s > 0) g.scale(-1, 1); g.drawImage(P.img, -iw / 2, -ih, iw, ih); g.restore(); }
+      g.textAlign = 'center'; g.font = '400 26px Anton, Impact, sans-serif'; g.lineWidth = 5; g.strokeStyle = K.ink; g.fillStyle = s < 0 ? K.lime : K.pink;
+      g.strokeText(P.name.toUpperCase(), cx, H * .66 + 30); g.fillText(P.name.toUpperCase(), cx, H * .66 + 30);
+      g.font = '700 10px "Courier Prime", monospace'; g.fillStyle = '#fff'; g.fillText(P.nick, cx, H * .66 + 46, W / 2 - 20); });
+    g.font = '400 64px Shrikhand, cursive'; g.textAlign = 'center'; g.lineWidth = 8; g.strokeStyle = K.ink; g.fillStyle = K.gold; g.strokeText('vs', W / 2, H * .45); g.fillText('vs', W / 2, H * .45);
+    g.font = '700 12px "Courier Prime", monospace'; g.fillStyle = '#fff'; g.fillText(`WALKA ${fightNo + 1} Z ${ladder.length}` + (fightNo === ladder.length - 1 ? ' · FINAŁ' : ''), W / 2, 30); g.restore(); }
+
+  /* ---------- pętla ---------- */
+  let raf = 0, last = 0, acc = 0;
+  function frame(ms) { raf = requestAnimationFrame(frame); const t = ms / 1000, dt = Math.min(.05, last ? t - last : 0); last = t;
+    if (['vs', 'intro', 'fight', 'finish', 'roundEnd', 'zgon', 'champion', 'over'].includes(st) && !paused) { acc += dt; while (acc >= STEP) { step(STEP); acc -= STEP; } }
+    if (!paused) common(dt); render(t); }
+  let paused = false;
+  const play = () => { if (!raf && vis) { last = 0; raf = requestAnimationFrame(frame); } };
+  const stop = () => { cancelAnimationFrame(raf); raf = 0; };
+
+  /* ---------- sterowanie ---------- */
+  const ov = { start: $('#wdz-start'), pause: $('#wdz-pause'), over: $('#wdz-over') };
+  const show = k => Object.keys(ov).forEach(x => ov[x].hidden = x !== k);
+  const running = () => !paused && ['intro', 'fight', 'finish', 'roundEnd', 'zgon', 'vs'].includes(st);
+  function pause() { if (!running()) return; paused = true; stage.classList.remove('run'); show('pause'); }
+  function resume() { if (!paused) return; paused = false; last = 0; acc = 0; show(null); stage.classList.add('run'); stage.focus({ preventScroll: true }); }
+  const KEYS = { ArrowLeft:'l', a:'l', A:'l', ArrowRight:'r', d:'r', D:'r', ArrowUp:'u', w:'u', W:'u', ArrowDown:'d', s:'d', S:'d' };
+  const HITS = { j:'pq', J:'pq', z:'pq', Z:'pq', k:'kq', K:'kq', x:'kq', X:'kq', l:'sq', L:'sq', c:'sq', C:'sq', ' ':'sq' };
+  addEventListener('keydown', e => {
+    if (!running()) { if (document.activeElement === stage && (e.key === 'Escape' || e.key === 'p') && paused) resume(); return; }
+    if (e.key === 'Escape' || e.key === 'p' || e.key === 'P') { pause(); return; }
+    if (KEYS[e.key]) { inp[KEYS[e.key]] = 1; e.preventDefault(); }
+    else if (HITS[e.key]) { if (!e.repeat) inp[HITS[e.key]] = .14; e.preventDefault(); } });
+  addEventListener('keyup', e => { if (KEYS[e.key]) inp[KEYS[e.key]] = 0; });
+  // przyciski dotykowe (wiele palców naraz)
+  $$('#wdz-pad [data-k]').forEach(b => { const k = b.dataset.k;
+    const down = e => { e.preventDefault(); try { b.setPointerCapture(e.pointerId); } catch (_) {} b.classList.add('on'); if (k.endsWith('q')) inp[k] = .14; else inp[k] = 1; navigator.vibrate && navigator.vibrate(8); };
+    const up = () => { b.classList.remove('on'); if (!k.endsWith('q')) inp[k] = 0; };
+    b.addEventListener('pointerdown', down); b.addEventListener('pointerup', up); b.addEventListener('pointercancel', up); b.addEventListener('lostpointercapture', up);
+    b.addEventListener('contextmenu', e => e.preventDefault()); });
+  $('#wdz-resume').onclick = resume;
+  document.addEventListener('visibilitychange', () => { if (document.hidden) pause(); });
+  addEventListener('blur', () => { pause(); Object.keys(inp).forEach(k => inp[k] = 0); });
+  new IntersectionObserver(es => { vis = es[0].isIntersecting; if (vis) { resize(); play(); } else { pause(); stop(); } }, { rootMargin: '80px 0px' }).observe(stage);
+  new ResizeObserver(() => resize()).observe(screen);
+
+  /* ---------- wybór postaci ---------- */
+  const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+  function selInfo() { const P = PEOPLE[sel]; $$('#wdz-grid .wdz__p').forEach((b, i) => { b.classList.toggle('on', i === sel); b.setAttribute('aria-checked', i === sel); });
+    $('#wdz-info').innerHTML = `<b>${esc(P.name)}</b> <span>${esc(P.nick)}</span><em>★ ${esc(P.attack)} — ${esc(P.spec.d)}</em>` +
+      `<span class="wdz__st">${[['SIŁA', P.toast], ['ZDROWIE', P.wyt], ['WÓDOMETR', P.spiew]].map(([k, v]) => `<i>${k}<u style="--v:${v}%"></u></i>`).join('')}</span>`;
+    $('#wdz-go').textContent = `Do walki: ${P.name} →`; }
+  $('#wdz-grid').innerHTML = PEOPLE.map((P, i) => `<button type="button" class="wdz__p" role="radio" aria-checked="false" data-i="${i}" style="--c:${P.col}"><span>${P.photo ? `<img src="${P.photo}" alt="" decoding="async">` : ''}</span><b>${esc(P.name)}</b></button>`).join('');
+  $$('#wdz-grid .wdz__p').forEach(b => b.onclick = () => { sel = +b.dataset.i; store.set('wdz-pick', sel); selInfo(); });
+  const mine = () => { const n = typeof WHO !== 'undefined' && WHO.name; const i = PEOPLE.findIndex(P => P.name === n); return i; };
+  sel = clamp(store.get('wdz-pick', -1) >= 0 ? store.get('wdz-pick', 0) : Math.max(0, mine()), 0, PEOPLE.length - 1); selInfo();
+  $('#wdz-go').onclick = startGame;
+
+  /* ---------- koniec gry i rejestr ---------- */
+  const ini = $('#wdz-ini'), boxes = $$('#wdz-save .gra__ini i'), form = $('#wdz-save');
+  const clean = v => v.toUpperCase().replace(/[^A-ZĄĆĘŁŃÓŚŹŻ0-9]/g, '').slice(0, 3);
+  const paint = () => { const v = ini.value; boxes.forEach((b, i) => { b.textContent = v[i] || ''; b.classList.toggle('cur', document.activeElement === ini && i === Math.min(2, v.length)); }); };
+  ini.addEventListener('input', () => { ini.value = clean(ini.value); paint(); }); ini.addEventListener('focus', paint); ini.addEventListener('blur', paint);
+  let result = null, justSaved = null;
+  function showOver(champ) { stage.classList.remove('run'); st = 'done';
+    result = { p: score, f: wonFights, x: sel };
+    $('#wdz-pts').textContent = score; $('#wdz-won').textContent = wonFights; $('#wdz-who').textContent = PEOPLE[sel].name;
+    $('#wdz-over-h').textContent = champ ? 'Mistrz Wódżitsu!' : pick(['Pod stołem!', 'Nokaut!', 'Koniec turnieju!']);
+    $('#wdz-why').textContent = champ ? 'Cała ekipa pokonana. Komisja wręcza złotą karafkę (w wyobraźni).' : `Pokonał(a) Cię: ${foe.P.name} · walka ${fightNo + 1} z ${ladder.length}`;
+    $('#wdz-saved').textContent = ''; form.classList.remove('done'); ini.value = store.get('game-ini', ''); paint();
+    const best = store.get('wdz-best', 0); if (score > best) { store.set('wdz-best', score); $('#wdz-saved').textContent = best ? 'Nowy rekord osobisty!' : ''; }
+    show('over'); myBest(); if (!isMobile()) setTimeout(() => ini.focus({ preventScroll: true }), 60); }
+  $('#wdz-again').onclick = () => { st = 'select'; me = null; show('start'); selInfo(); };
+  const shared = () => !!(API.state && API.state.boards && API.state.boards.wodzitsu);
+  const boardList = () => shared() ? API.state.boards.wodzitsu : store.get('wdz-scores', []).map(s => Object.assign({ who: API.me }, s));
+  form.onsubmit = e => { e.preventDefault(); const n = clean(ini.value);
+    if (n.length < 1) { const w = $('#wdz-save .gra__ini'); w.classList.remove('shake'); void w.offsetWidth; w.classList.add('shake'); ini.focus(); return; }
+    if (!result) return; store.set('game-ini', n);
+    const entry = { n, p: result.p, f: result.f, x: result.x };
+    const loc = store.get('wdz-scores', []); loc.push(entry); loc.sort((a, b) => b.p - a.p); store.set('wdz-scores', loc.slice(0, 15));
+    API.send({ type: 'score-g', d: Object.assign({ g: 'wodzitsu' }, entry) });
+    if (shared()) API.state.boards.wodzitsu = API.state.boards.wodzitsu.concat([Object.assign({ who: API.me, fresh: 1 }, entry)]).sort((a, b) => b.p - a.p);
+    const list = boardList(), pos = list.findIndex(s => s.n === n && s.p === entry.p && (s.who === API.me || !s.who)) + 1;
+    form.classList.add('done'); justSaved = entry; board();
+    $('#wdz-saved').textContent = `Wpisano do rejestru: ${n}, ${entry.p} pkt` + (pos ? ` — miejsce ${pos}.` : '.'); result = null; ini.blur(); };
+  function board() { const list = boardList().slice(0, 10), sh = shared();
+    $('#wdz-top').innerHTML = list.length ? list.map(s => `<li class="${s.who === API.me ? 'me' : ''}${s === justSaved || s.fresh ? ' new' : ''}"><b>${String(s.n).replace(/[<>&"]/g, '')}</b><em>${PEOPLE[s.x] ? esc(PEOPLE[s.x].name) + ' · ' : ''}${s.f || 0} walk</em><strong>${s.p}</strong></li>`).join('')
+      : '<li class="empty">Rejestr pusty. Pierwszy wpis należy do Ciebie.</li>';
+    list.forEach(s => delete s.fresh);
+    $('#wdz-live').innerHTML = sh ? '<i></i>NA ŻYWO · REKORDY CAŁEJ EKIPY' : CONFIG.api ? '<i></i>ŁĄCZĘ Z KOMISJĄ…' : '';
+    $('#wdz-board-note').textContent = sh ? 'Jeden wpis = jeden turniej. Komisja nie sprawdza, kto grał po wódeczce.' : 'Na razie rekordy z tego urządzenia.'; }
+  function myBest() { const b = store.get('wdz-best', 0); $('#wdz-mybest').textContent = b ? `Twój rekord: ${b} pkt` : ''; }
+  API.on(board); board(); myBest();
+  // okładka w Game Store: dwie postaci naprzeciw siebie
+  function art() { const c = $('.cart__art[data-art="wodzitsu"]'); if (!c) return; const r = c.getBoundingClientRect(); if (!r.width) return;
+    const d = Math.min(2, devicePixelRatio || 1); c.width = Math.round(r.width * d); c.height = Math.round(r.height * d); const x = c.getContext('2d'), s = c.width / 150; x.setTransform(s, 0, 0, s, 0, 0);
+    x.fillStyle = '#3a2a6e'; x.fillRect(0, 0, 150, 150); x.fillStyle = '#b8743a'; x.fillRect(0, 118, 150, 32); x.fillStyle = K.ink; x.fillRect(0, 116, 150, 3);
+    const a = PEOPLE.find(P => P.name === 'Arek') || PEOPLE[0], b = PEOPLE.find(P => P.name === 'Klaudia') || PEOPLE[1];
+    [[a, 42, 1], [b, 108, -1]].forEach(([P, cx, s2]) => { if (!P.img) return; const ih = 78, iw = ih * P.img.naturalWidth / P.img.naturalHeight; x.save(); x.translate(cx, 120); if (s2 < 0) x.scale(-1, 1); x.drawImage(P.img, -iw / 2, -ih, iw, ih); x.restore(); });
+    x.font = '400 34px Shrikhand, cursive'; x.textAlign = 'center'; x.lineJoin = 'round'; x.lineWidth = 6; x.strokeStyle = K.ink; x.fillStyle = K.gold; x.strokeText('vs', 75, 52); x.fillText('vs', 75, 52); }
+  new ResizeObserver(art).observe($('.store'));
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => { art(); resize(); });
+  resize();
+  if (/gradebug/.test(location.search)) window.__wdz = { get s() { return { st, me, foe, fightNo, ladder: ladder.map(P => P.name), score, round, timer, fx, W, cam }; },
+    inp, setHp(who, v) { (who === 'me' ? me : foe).hp = v; }, meter(v) { me.meter = v; }, special: () => special(me) };
+})();
+/* =========================================================
    WÓDYSTOPAD GAME STORE — wybór gry (jedna widoczna naraz) i okładki rysowane kodem gier
    ========================================================= */
 (() => {
@@ -2987,7 +3622,7 @@ const GFX = {}; // rysunki współdzielone przez gry i okładki w Game Store
     if (scroll) { const el = $('#game-' + id); const top = el.getBoundingClientRect().top + scrollY - (isMobile() ? 70 : 110); scrollTo({ top, behavior: reduced ? 'auto' : 'smooth' }); }
   }
   carts.forEach(c => c.addEventListener("click", () => choose(c.dataset.game, false))); // bez przewijania — gra jest tuż pod kartami
-  const saved = store.get('game-pick', 'polanie'); choose(games.some(gm => gm.dataset.game === saved) ? saved : 'polanie', false);
+  const saved = store.get('game-pick', 'wodzitsu'); choose(games.some(gm => gm.dataset.game === saved) ? saved : 'polanie', false);
   // okładki
   function art() { $$('.cart__art').forEach(cv => { const r = cv.getBoundingClientRect(); if (!r.width) return;
     const d = Math.min(2, devicePixelRatio || 1); cv.width = Math.round(r.width * d); cv.height = Math.round(r.height * d);
@@ -3069,7 +3704,7 @@ const GFX = {}; // rysunki współdzielone przez gry i okładki w Game Store
   const get = async q => (await fetch(url + (url.includes('?') ? '&' : '?') + q, {cache:'no-store'})).json();
 
   // kto zamawia — legitymacja wybrana przy wejściu
-  WHO.on(n => { $('#sz-me').textContent = n || '—'; });
+  WHO.on(n => { $('#sz-me').textContent = WHO.guest ? 'Gość (tylko słucha)' : n || '—'; });
   $('#sz-change').onclick = () => WHO.open();
 
   // playlista: na stronie 5 ostatnio dodanych (najnowsze u góry), na podstronie wszystkie w kolejności grania

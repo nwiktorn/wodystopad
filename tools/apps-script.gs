@@ -6,7 +6,7 @@
  * Arkusz „log”: każde zdarzenie ze strony w jednym wierszu (czas, wyborca, typ, dane JSON).
  * Arkusz „Podsumowanie”: czytelne zestawienie, odświeżane po każdym zapisie.
  * Typ 'score' — wyniki gry „Podwódne Przygody” (3 litery, punkty, rybki, nr mapy); strona dostaje top 15 w `scores`.
- * Typ 'score-g' — wyniki pozostałych gier z Wódystopad Game Store (pole g = id gry, np. 'polanie'); strona dostaje top 15 każdej w `boards`.
+ * Typ 'score-g' — wyniki pozostałych gier z Wódystopad Game Store (pole g = id gry: 'polanie', 'wodzitsu'); strona dostaje top 15 każdej w `boards` (x = np. numer postaci w Wódżitsu).
  * Typ 'song' — Szafa grająca: piosenka z YouTube dodana do playlisty Wódzireja (v = id filmu, k = kto zamawia).
  *   Wymaga usługi zaawansowanej: Edytor → Usługi (+) → „YouTube Data API v3” (identyfikator: YouTube).
  *   Skrypt działa jako właściciel (Wykonuj jako: Ja), więc dodaje utwory do jego playlisty. Pierwsze uruchomienie: testSzafy().
@@ -15,7 +15,8 @@
  *   (zdarzenia sprzed pierwszego wyboru — też). Strona dostaje statystyki osób w `people` (bez identyfikatorów telefonów).
  */
 const LOG = 'log', SUM = 'Podsumowanie';
-const GAMES = { polanie: 'OSTATNIE POLANIE' }; // gry z biblioteki zapisywane jako 'score-g'
+const GAMES = { polanie: 'OSTATNIE POLANIE', wodzitsu: 'WÓDŻITSU' }; // gry z biblioteki zapisywane jako 'score-g'
+const GAME_F = { polanie: 'KIELONKI', wodzitsu: 'WYGRANE' };     // co znaczy pole f w danej grze (kolumna w Podsumowaniu)
 const PLAYLIST = 'PLHXPoXasIR78';              // playlista „Wódystopad 2026” na YouTube Wódzireja
 const SONG_LIMIT = { n: 6, min: 15 };          // maks. 6 piosenek z jednego telefonu w 15 minut
 
@@ -113,7 +114,7 @@ function state_() {
 function public_(s) {
   return { brands: s.brands, people: s.people, bottles: s.bottles, sworn: s.oaths.map(o => o.who), fish: s.fish,
     scores: s.scores.slice(0, 15).map(x => ({ n: x.n, p: x.p, f: x.f, who: x.who })), games: s.scores.length,
-    boards: Object.keys(s.boards).reduce((o, k) => (o[k] = s.boards[k].slice(0, 15).map(x => ({ n: x.n, p: x.p, f: x.f, who: x.who })), o), {}) };
+    boards: Object.keys(s.boards).reduce((o, k) => (o[k] = s.boards[k].slice(0, 15).map(x => ({ n: x.n, p: x.p, f: x.f, x: x.x, who: x.who })), o), {}) };
 }
 
 function summary_(s) {
@@ -127,7 +128,7 @@ function summary_(s) {
   rows.push(['', '', ''], ['RYBKI (21.11)', s.fish, '']);
   rows.push(['', '', ''], ['PODWÓDNE PRZYGODY — TOP 10', 'PUNKTY', 'RYBKI']);
   s.scores.slice(0, 10).forEach((x, i) => rows.push([(i + 1) + '. ' + x.n, x.p, x.f]));
-  Object.keys(GAMES).forEach(k => { rows.push(['', '', ''], [GAMES[k] + ' — TOP 10', 'PUNKTY', 'KIELONKI']);
+  Object.keys(GAMES).forEach(k => { rows.push(['', '', ''], [GAMES[k] + ' — TOP 10', 'PUNKTY', GAME_F[k] || 'WYNIK']);
     s.boards[k].slice(0, 10).forEach((x, i) => rows.push([(i + 1) + '. ' + x.n, x.p, x.f])); });
   rows.push(['', '', ''], ['SZAFA GRAJĄCA — ZAMÓWIENIA', 'KTO', '']);
   s.songs.forEach((x, i) => rows.push([(i + 1) + '. ' + x.t, x.k || '—', '']));
