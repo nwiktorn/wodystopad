@@ -2107,19 +2107,28 @@ carouselDots($('#kary-track'), $('#kary-dots'), 'przesuń →');
     rybki:'#fishes{display:none!important}', babelki:'.bubbles{display:none!important}', promienie:'.rays{display:none!important}', ziarno:'.grain{display:none!important}',
     karafka:'.porthole .carafe{animation:none!important;filter:none!important}', naklejki:'.sticker--rave,.date-sticker{animation:none!important}',
     nav:'.nav{display:none!important}', fale:'.wave{display:none!important}' };
-  const V = [['wszystko', ''], ...Object.keys(OFF).map(k => ['bez: ' + k, OFF[k]]), ['nic (stop)', Object.values(OFF).join('')], ['wszystko (2)', '']];
+  const V = [['wszystko', ''], ['stare promienie', 'OLD'], ...Object.keys(OFF).map(k => ['bez: ' + k, OFF[k]]), ['nic (stop)', Object.values(OFF).join('')]];
   const st = document.createElement('style'); document.head.appendChild(st);
   const gate = $('#gate'); if (gate) gate.hidden = true; document.body.classList.remove('locked');
   const out = document.createElement('pre'); out.style.cssText = 'position:fixed;right:12px;top:90px;z-index:999;background:#fff;color:#000;font:13px/1.35 monospace;padding:10px 12px;border:3px solid #000;white-space:pre';
   document.body.appendChild(out);
   const ua = (navigator.userAgent.match(/(Firefox|Edg|Chrome|Safari)\/[\d.]+/) || ['?'])[0];
-  const lines = [`${ua} · dpr ${devicePixelRatio} · ${innerWidth}×${innerHeight}`, 'wariant            fps  maks.ms  >25ms'];
+  const lines = [`${ua} · dpr ${devicePixelRatio} · ${innerWidth}×${innerHeight}`, '                    STOI          PRZEWIJANIE', 'wariant            fps  maks.ms   fps  maks.ms'];
   const wait = ms => new Promise(r => setTimeout(r, ms));
-  const meas = ms => new Promise(r => { let n = 0, worst = 0, j = 0, last = performance.now(); const t0 = last;
-    const f = t => { const d = t - last; last = t; n++; if (d > worst) worst = d; if (d > 25) j++; if (t - t0 < ms) requestAnimationFrame(f); else r({ fps: Math.round(n * 1000 / (t - t0)), worst: Math.round(worst), j }); }; requestAnimationFrame(f); });
-  (async () => { document.documentElement.style.scrollBehavior = 'auto'; scrollTo(0, 0); out.textContent = lines.concat('…mierzę, nie przewijaj').join('\n'); await wait(2500);
-    for (const [name, css] of V) { st.textContent = css; await wait(700); const m = await meas(3000);
-      lines.push(`${name.padEnd(18)} ${String(m.fps).padStart(3)}  ${String(m.worst).padStart(6)}  ${String(m.j).padStart(5)}`); out.textContent = lines.concat('…').join('\n'); }
+  const meas = (ms, scroll) => new Promise(r => { let n = 0, worst = 0, last = performance.now(); const t0 = last;
+    const f = t => { const d = t - last; last = t; n++; if (n > 1 && d > worst) worst = d; const k = (t - t0) / ms;
+      if (scroll) scrollTo(0, Math.round(Math.min(1, Math.max(0, k)) * 1400));
+      if (t - t0 < ms) requestAnimationFrame(f); else r({ fps: Math.round(n * 1000 / (t - t0)), worst: Math.round(worst) }); }; requestAnimationFrame(f); });
+  const rays = $('#rays'); let old = null;
+  const setOld = on => { if (on && !old) { old = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); old.setAttribute('viewBox', '0 0 1600 1200'); old.setAttribute('preserveAspectRatio', 'none'); old.setAttribute('class', 'rays');
+      old.innerHTML = decodeURIComponent(rays.style.backgroundImage.match(/data:image\/svg\+xml,([^"]+)/)[1]).replace(/^<svg[^>]*>|<\/svg>$/g, ''); rays.after(old); rays.style.visibility = 'hidden'; }
+    if (!on && old) { old.remove(); old = null; rays.style.visibility = ''; } };
+  const p3 = (x, w) => String(x).padStart(w);
+  (async () => { document.documentElement.style.scrollBehavior = 'auto'; scrollTo(0, 0); out.textContent = lines.concat('…mierzę (ok. 75 s) — nie ruszaj myszką i nie przewijaj').join('\n'); await wait(2500);
+    for (const [name, css] of V) { setOld(css === 'OLD'); st.textContent = css === 'OLD' ? '' : css; scrollTo(0, 0); await wait(600);
+      const a = await meas(2000, false), b2 = await meas(2000, true); scrollTo(0, 0);
+      lines.push(`${name.padEnd(18)} ${p3(a.fps, 3)}  ${p3(a.worst, 6)}   ${p3(b2.fps, 3)}  ${p3(b2.worst, 6)}`); out.textContent = lines.concat('…').join('\n'); }
+    setOld(false);
     st.textContent = ''; lines.push('KONIEC — zrób zrzut tej tabelki'); out.textContent = lines.join('\n'); })();
 })();
 (() => { const io = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle('off', !e.isIntersecting)), {rootMargin:'100px 0px'});
