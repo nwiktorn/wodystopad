@@ -61,3 +61,11 @@ Głosy z ankiety marek, propozycje butelek, przysięgi i rybki zapisują się w 
 - Zmiana kodu skryptu: wklej nową wersję w edytorze Apps Script → **Wdróż → Zarządzaj wdrożeniami → ołówek → Wersja: Nowa wersja → Wdróż** (adres zostaje ten sam).
 - Usunięcie wpisu (np. testowego): skasuj wiersz w zakładce `log`.
 - `CONFIG.api: ''` wyłącza bazę — strona wraca do zapisu tylko w przeglądarce.
+
+## Wódystopad the Game (sekcja `#gra`)
+
+Minigra w canvasie: ryba-karafka biegnie po stole, przeskakuje kieliszki, butelki, skrzynki i przerwy między stołami, zbiera kieliszki-rybki (każda dołącza do orszaku: +10 pkt, +0,1‰ — od 1‰ obraz zaczyna się bujać). Skok: spacja / klik / tap, przytrzymanie = wyżej. Esc lub P = pauza.
+
+- **Mapy losowane:** numer mapy (ziarno) wyznacza układ przeszkód i motyw (Wódny Rave, Stół biesiadny, Nocne posiedzenie komisji, Pod wodą). Trudność rośnie z dystansem.
+- **Rejestr rekordów:** po grze 3 litery → zdarzenie `score` do wspólnej bazy (top 15 na stronie, top 10 w zakładce `Podsumowanie`). Gdy skrypt nie zna jeszcze typu `score`, wyniki czekają w kolejce w przeglądarce i pokazują się lokalnie.
+- Kod gry jest w `index.html` (blok „GRA: WÓDYSTOPAD THE GAME”). `?gradebug` w adresie wystawia `window.__gra` do testów automatycznych.

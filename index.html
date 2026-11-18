@@ -755,6 +755,85 @@ mark{background:none;color:var(--mag);font-weight:700}
   .grain{animation:none}
   .lu.drunk{filter:blur(calc(var(--L)*.5px))}
 }
+
+/* =========================================================
+   GRA — WÓDYSTOPAD THE GAME
+   ========================================================= */
+.gra__head{position:relative}
+.gra__title{color:var(--lime)}
+.gra__title{padding-top:.14em}
+.gra__the{display:block;width:max-content;font:400 .46em/1.25 var(--f-sticker);text-transform:none;letter-spacing:0;color:var(--pink);-webkit-text-stroke:.05em var(--ink);paint-order:stroke fill;text-shadow:.06em .06em 0 var(--ink);transform:rotate(-4deg);margin:-.08em 0 0 .1em}
+.gra__card h3 .gra__the{display:inline-block;font-size:.6em;margin:0 0 0 4px;vertical-align:.1em;-webkit-text-stroke:.04em var(--ink);text-shadow:.05em .05em 0 var(--ink)}
+.gra__head .stamp{position:absolute;right:0;top:24px;color:var(--pink);--rot:9deg}
+.gra__lead{font-size:21px;margin-top:20px;max-width:40em}
+.gra__grid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:32px;margin-top:56px;align-items:start}
+.gra__stage{position:relative;aspect-ratio:16/7;border:3px solid var(--ink);border-radius:24px;box-shadow:10px 10px 0 var(--ink);overflow:hidden;background:var(--ink);touch-action:manipulation;user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none;outline-offset:6px}
+.gra__stage.run{touch-action:none;cursor:pointer}
+.gra__stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.gra__ov{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:18px;background:rgba(11,11,30,.38)}
+.gra__ov[hidden]{display:none}
+.gra__card{background:var(--paper);color:var(--ink);border:3px solid var(--ink);border-radius:20px;box-shadow:8px 8px 0 var(--ink);padding:20px 26px 22px;text-align:center;width:100%;max-width:440px;display:flex;flex-direction:column;align-items:center;gap:10px;transform:rotate(-1deg);animation:graIn .45s cubic-bezier(.2,1.4,.4,1)}
+.gra__card--sm{max-width:300px}
+@keyframes graIn{from{opacity:0;transform:rotate(-6deg) scale(.8)}}
+.gra__card small{font:700 11px/1.3 var(--f-type);letter-spacing:.12em;text-transform:uppercase;color:var(--mag)}
+.gra__card h3{font:400 clamp(34px,4vw,52px)/1.05 var(--f-display);text-transform:uppercase;letter-spacing:.01em}
+.gra__card p{font-size:14px;line-height:1.45;max-width:30em}
+.gra__card .btn-pill{justify-content:center;font-size:15px;padding:13px 24px;box-shadow:4px 4px 0 var(--ink)}
+.gra__card .btn-pill:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink)}
+.gra__note{font:700 12px/1.4 var(--f-type);letter-spacing:.06em;text-transform:uppercase;opacity:.8}
+.gra__note:empty{display:none}
+.gra__res{display:flex;gap:10px;width:100%;justify-content:center}
+.gra__res div{flex:1;max-width:120px;background:#fff;border:2.5px solid var(--ink);border-radius:12px;padding:6px 4px 5px;display:flex;flex-direction:column}
+.gra__res b{font:400 30px/1.05 var(--f-display)}
+.gra__res span{font:700 10px/1.2 var(--f-type);letter-spacing:.1em;text-transform:uppercase}
+.gra__res div:first-child{background:var(--lime)}
+.gra__save{display:flex;flex-direction:column;align-items:center;gap:6px;margin-top:2px}
+.gra__save label{font:700 11px var(--f-type);letter-spacing:.1em;text-transform:uppercase}
+.gra__row{display:flex;align-items:center;gap:12px}
+.gra__ini{position:relative;display:flex;gap:6px}
+.gra__ini i{width:42px;height:52px;border:2.5px solid var(--ink);border-radius:10px;background:#fff;display:flex;align-items:center;justify-content:center;font:400 34px/1 var(--f-display);font-style:normal;text-transform:uppercase}
+.gra__ini i.cur{background:var(--lime);box-shadow:inset 0 -5px 0 var(--pink)}
+.gra__ini input{position:absolute;inset:0;width:100%;height:100%;opacity:0;font-size:16px;caret-color:transparent;border:0;cursor:text}
+.gra__ini.shake{animation:shake .35s}
+.gra__save.done{display:none}
+.gra__saved{font:700 13px/1.4 var(--f-type);color:var(--mag)}
+.gra__saved:empty{display:none}
+.gra__board{background:var(--paper);color:var(--ink);border:3px solid var(--ink);border-radius:20px;box-shadow:8px 8px 0 var(--ink);padding:22px 22px 20px;transform:rotate(1deg)}
+.gra__board h3{font:400 30px/1.05 var(--f-display);text-transform:uppercase}
+.gra__top{list-style:none;margin-top:14px;display:flex;flex-direction:column;gap:4px;counter-reset:gt}
+.gra__top li{display:grid;grid-template-columns:28px 54px 1fr auto;align-items:baseline;gap:6px;padding:5px 8px;border-radius:8px;font:700 14px/1.2 var(--f-type);counter-increment:gt}
+.gra__top li::before{content:counter(gt,decimal-leading-zero);font-size:11px;opacity:.6}
+.gra__top li:nth-child(odd){background:rgba(11,11,30,.05)}
+.gra__top li:first-child{background:var(--lime);border:2px solid var(--ink)}
+.gra__top li.me{box-shadow:inset 4px 0 0 var(--pink)}
+.gra__top li.new{animation:graNew 1.2s ease 2}
+@keyframes graNew{50%{background:var(--pink)}}
+.gra__top b{font:400 22px/1 var(--f-display);letter-spacing:.06em}
+.gra__top em{font-style:normal;font-size:11px;opacity:.7}
+.gra__top strong{font:400 20px/1 var(--f-display)}
+.gra__top .empty{display:block;font-weight:400;font-size:13px;opacity:.75;background:none!important;border:0!important}
+.gra__top .empty::before{content:none}
+.gra__board .gra__note{margin-top:12px;font-size:11px}
+.gra__keys{margin-top:28px;font-size:14px;opacity:.85}
+@media (max-width:1180px){
+  .gra__grid{grid-template-columns:1fr}
+  .gra__board{transform:none;max-width:560px}
+}
+@media (max-width:760px){
+  .gra__head .stamp{position:relative;inset:auto;display:flex;width:max-content;margin:6px 0 0 auto;--ss:16px}
+  .gra__head .stamp>span{padding:6px 12px}
+  .gra__lead{font-size:14px}
+  .gra__grid{margin-top:28px;gap:24px}
+  .gra__stage{aspect-ratio:auto;height:min(96vw,440px);border-radius:18px;box-shadow:6px 6px 0 var(--ink);margin-right:6px}
+  .gra__card{padding:16px 16px 18px;gap:8px}
+  .gra__card h3{font-size:34px}
+  .gra__card p{font-size:13px}
+  .gra__res b{font-size:24px}
+  .gra__ini i{width:38px;height:46px;font-size:30px}
+  .gra__board{padding:18px 16px;box-shadow:6px 6px 0 var(--ink);margin-right:6px}
+  .gra__top li{grid-template-columns:24px 50px 1fr auto;font-size:13px}
+  .gra__keys{font-size:12px;margin-top:20px}
+}
 </style>
 </head>
 <body>
@@ -816,6 +895,7 @@ mark{background:none;color:var(--mag);font-weight:700}
     <li><a href="#kary">Kary</a></li>
     <li><a href="#promile">Promil-meter</a></li>
     <li><a href="#program">Program</a></li>
+    <li><a href="#gra">Gra</a></li>
   </ul>
   <a class="btn-pill btn-pink" href="#przysiega">Złóż przysięgę →</a>
   <button class="btn-pill btn-pink nav__menu" id="menu-open" aria-expanded="false" aria-controls="menu">MENU
@@ -1072,8 +1152,68 @@ mark{background:none;color:var(--mag);font-weight:700}
   </div>
 </section>
 
-<!-- ================== 11 STOPKA ================== -->
-<footer class="s bg-ink foot" data-prev="#D9FF3D">
+<!-- ================== 11 GRA: WÓDYSTOPAD THE GAME ================== -->
+<section class="s bg-blue gra" id="gra" data-page="10" data-prev="#D9FF3D">
+  <div class="container">
+    <div class="gra__head">
+      <p class="eyebrow" style="color:var(--lime)">Rozdział V · Formularz S-1 · sprawdzian sprawności karafki</p>
+      <h2 class="h-title gra__title">Wódystopad<br><span class="gra__the">the Game</span></h2>
+      <div class="stamp" data-stamp><span><b>SPRAWDZIAN</b><small>komisja patrzy</small></span></div>
+      <p class="gra__lead">Karafka-ryba rusza po stole. Przeskakuj kieliszki, zbieraj rybki — każda dołącza do orszaku. Jeden przewrócony kielonek i komisja zamyka posiedzenie.</p>
+    </div>
+    <div class="gra__grid">
+      <div class="gra__stage" id="gra-stage" tabindex="0" aria-label="Gra Wódystopad the Game. Spacja, kliknięcie albo dotknięcie — skok. Przytrzymaj, żeby skoczyć wyżej.">
+        <canvas id="gra-cv" aria-hidden="true"></canvas>
+        <div class="gra__ov" id="gra-start">
+          <div class="gra__card">
+            <small id="gra-map">Mapa losowana przez komisję</small>
+            <h3>Wódystopad <span class="gra__the">the Game</span></h3>
+            <p>Skok — <b>spacja</b>, <b>klik</b> albo <b>tap</b>. Przytrzymaj, żeby skoczyć wyżej — butelki są wysokie.</p>
+            <button class="btn-pill btn-lime" id="gra-go" type="button">Start →</button>
+            <p class="gra__note" id="gra-mybest"></p>
+          </div>
+        </div>
+        <div class="gra__ov" id="gra-pause" hidden>
+          <div class="gra__card gra__card--sm">
+            <h3>Pauza</h3>
+            <p>Komisja poczeka. Karafka też.</p>
+            <button class="btn-pill btn-lime" id="gra-resume" type="button">Wracam →</button>
+          </div>
+        </div>
+        <div class="gra__ov" id="gra-over" hidden>
+          <div class="gra__card">
+            <small id="gra-why">Kielonek 1 : Karafka 0</small>
+            <h3 id="gra-over-h">Rozlane!</h3>
+            <div class="gra__res">
+              <div><b id="gra-pts">0</b><span>punktów</span></div>
+              <div><b id="gra-fish">0</b><span>rybek</span></div>
+              <div><b id="gra-m">0</b><span>metrów</span></div>
+            </div>
+            <form class="gra__save" id="gra-save" autocomplete="off">
+              <label for="gra-ini">Inicjały do rejestru — 3 litery</label>
+              <div class="gra__row">
+                <div class="gra__ini"><input id="gra-ini" maxlength="3" inputmode="text" autocapitalize="characters" spellcheck="false" enterkeyhint="done" aria-label="Trzy litery"><i></i><i></i><i></i></div>
+                <button class="btn-pill btn-ink" type="submit">Zapisz →</button>
+              </div>
+            </form>
+            <p class="gra__saved" id="gra-saved" aria-live="polite"></p>
+            <button class="btn-pill btn-pink" id="gra-again" type="button">Jeszcze raz ↻</button>
+          </div>
+        </div>
+      </div>
+      <aside class="gra__board" aria-labelledby="gra-board-h">
+        <h3 id="gra-board-h">Rejestr rekordów</h3>
+        <p class="live" id="gra-live"></p>
+        <ol class="gra__top" id="gra-top"></ol>
+        <p class="gra__note" id="gra-board-note"></p>
+      </aside>
+    </div>
+    <p class="gra__keys"><b>SPACJA / KLIK / TAP</b> — skok · <b>przytrzymaj</b> — wyżej · rybka = +10 pkt i +0,1‰ (od 1‰ stół zaczyna się bujać)</p>
+  </div>
+</section>
+
+<!-- ================== 12 STOPKA ================== -->
+<footer class="s bg-ink foot" data-prev="#2B2BFF">
   <div class="fishes" id="fishes2" aria-hidden="true"></div>
   <div class="container">
     <p class="h-title foot__big">Do zobaczenia<br>21.11</p>
@@ -1159,7 +1299,7 @@ $$('[data-prev]').forEach((s,i) => {
   s.insertAdjacentHTML('afterbegin', `<div class="wave" aria-hidden="true" style="--wd:${12+i*2}s"><svg viewBox="0 0 2880 36" preserveAspectRatio="none"><path d="${d}" fill="${c}"/></svg></div>`);
 });
 $$('[data-page]').forEach(s => { if(s.id==='start') return; const dark = s.classList.contains('bg-ink')||s.classList.contains('bg-blue');
-  s.insertAdjacentHTML('beforeend', `<span class="pagemark" style="color:${dark?'var(--paper)':'var(--ink)'}">Dok. nr 1/2026 · str. ${s.dataset.page}/09 · Wódystopad</span>`); });
+  s.insertAdjacentHTML('beforeend', `<span class="pagemark" style="color:${dark?'var(--paper)':'var(--ink)'}">Dok. nr 1/2026 · str. ${s.dataset.page}/10 · Wódystopad</span>`); });
 
 /* =========================================================
    BRAMKA WIEKOWA
@@ -1182,8 +1322,8 @@ $$('[data-page]').forEach(s => { if(s.id==='start') return; const dark = s.class
   addEventListener('scroll', () => { const y = scrollY, down = y > last && y > 200;
     nav.classList.toggle('hidden', down && isMobile()); sticky.classList.toggle('hide', blockers.size > 0 || y > document.body.scrollHeight - innerHeight - 260); last = y; }, {passive:true});
   const blockers = new Set(); const bio = new IntersectionObserver(es => { es.forEach(e => e.isIntersecting ? blockers.add(e.target) : blockers.delete(e.target)); sticky.classList.toggle('hide', blockers.size > 0); }, {rootMargin:'0px 0px -60px 0px'});
-  ['#reg-accept','#oath','#licznik','.panels'].forEach(s => bio.observe($(s)));
-  const sections = [['pismo','Pismo okólne'],['regulamin','Regulamin'],['wodowicze','Legitymacje'],['zaopatrzenie','Co pijemy, ile pijemy'],['kary','Taryfikator kar'],['promile','Promil-meter'],['program','Porządek obrad'],['przysiega','Przysięga']];
+  ['#reg-accept','#oath','#licznik','.panels','#gra-stage'].forEach(s => bio.observe($(s)));
+  const sections = [['pismo','Pismo okólne'],['regulamin','Regulamin'],['wodowicze','Legitymacje'],['zaopatrzenie','Co pijemy, ile pijemy'],['kary','Taryfikator kar'],['promile','Promil-meter'],['program','Porządek obrad'],['przysiega','Przysięga'],['gra','Wódystopad the Game']];
   $('#menu-list').innerHTML = sections.map(([id,t],i)=>`<li style="--i:${i}"><a href="#${id}" data-id="${id}"><span>${pad(i+1)}</span><b>${t}</b></a></li>`).join('');
   const menu = $('#menu'), open = (v) => { menu.classList.toggle('open', v); menu.setAttribute('aria-hidden', !v); $('#menu-open').setAttribute('aria-expanded', v); document.body.classList.toggle('locked', v); };
   $('#menu-open').onclick = () => open(true); $('#menu-close').onclick = () => open(false);
@@ -1353,7 +1493,8 @@ const API = (() => { const url = CONFIG.api;
   const load = async () => { if (!url) return; try { const r = await fetch(url, {cache:'no-store'}); apply(await r.json()); } catch (e) { ok = false; live(); } };
   const flush = async () => { if (!url || busy) return; const q = store.get('outbox', []); if (!q.length) return; busy = true;
     try { const r = await fetch(url, {method:'POST', body: JSON.stringify({who: me, events: q})}); const s = await r.json();
-      if (s.ok) { store.set('outbox', store.get('outbox', []).slice(q.length)); apply(s); } else throw 0; }
+      if (s.ok) { const keep = Array.isArray(s.scores) ? [] : q.filter(e => e.type === 'score'); // stary skrypt nie zna wyników gry — czekają w kolejce
+        store.set('outbox', keep.concat(store.get('outbox', []).slice(q.length))); apply(s); if (keep.length) { busy = false; return; } } else throw 0; }
     catch (e) { ok = false; live(); } busy = false; if (store.get('outbox', []).length && ok) flush(); };
   const send = (...events) => { if (!url) return; store.set('outbox', store.get('outbox', []).concat(events)); flush(); };
   if (url) {
@@ -1574,6 +1715,387 @@ carouselDots($('#kary-track'), $('#kary-dots'), 'przesuń →');
     n++; store.set('fish', n); API.send({type:'fish', d:{n:1}}); out.textContent = pad(n,3); out.classList.remove('bump'); void out.offsetWidth; out.classList.add('bump'); navigator.vibrate && navigator.vibrate(30); };
   btn.onclick = plus;
   $('[data-plus]').addEventListener('click', () => setTimeout(plus, 600));
+})();
+/* =========================================================
+   GRA: WÓDYSTOPAD THE GAME — ryba-karafka przeskakuje kieliszki, zbiera rybki
+   mapy losowane (ziarno + motyw), rekordy we wspólnej bazie (typ 'score')
+   ========================================================= */
+(() => {
+  const stage = $('#gra-stage'), cv = $('#gra-cv'), g = cv.getContext('2d');
+  const K = { ink:'#0B0B1E', blue:'#2B2BFF', lime:'#D9FF3D', pink:'#FF5FD2', paper:'#EFE6D2', aqua:'#8FE8FF', mag:'#E0249B', red:'#E5301F', gold:'#F5C542',
+    glaze:'#C0661C', glazeL:'#F2A54C', glazeD:'#6E3509', mouth:'#3A1804' };
+  const GRAV = 2600, JUMP = 760, HOLD = .15, STEP = 1/120, PER_M = 40, FISH_PTS = 10, SP = 26;
+  const THEMES = [
+    { id:'rave',  name:'WÓDNY RAVE',               sky:K.blue,    far:'#3d3dff', top:K.lime,  face:'#b5d82a', stripe:'rgba(11,11,30,.18)', hud:'#fff' },
+    { id:'stol',  name:'STÓŁ BIESIADNY',           sky:K.paper,   far:'#e2d4b4', top:K.red,   face:'#b8261a', stripe:'#fff',               hud:K.ink },
+    { id:'noc',   name:'NOCNE POSIEDZENIE KOMISJI', sky:K.ink,    far:'#1b1b3a', top:K.pink,  face:K.mag,     stripe:'rgba(11,11,30,.22)', hud:'#fff' },
+    { id:'woda',  name:'POD WODĄ',                 sky:K.aqua,    far:'#6fd6f2', top:K.blue,  face:'#1d1dc4', stripe:'rgba(143,232,255,.35)', hud:K.ink },
+  ];
+  const LEVELS = ['ROZGRZEWKA','WÓDOWICZ ROZGRZANY','POSIEDZENIE KOMISJI','WOLNE WNIOSKI','TRYB §3','UPRAWNIONY DO ŁAMANIA REGULAMINU'];
+  const WHY = {
+    glass:  ['Kielonek 1 : Karafka 0', 'Przewrócony kielonek. Komisja widziała.', 'Utrącono rączki (§6).'],
+    tower:  ['Piramida kielonków runęła.', 'Kto to będzie sprzątał?'],
+    bottle: ['Butelka stała pierwsza.', 'Zderzenie z butelką. Szkoda wódeczki.'],
+    crate:  ['Skrzynka nie ustąpiła.', 'Czołowe z kratą wódeczki.'],
+    gap:    ['Spadła ze stołu.', 'Za krawędzią stołu. Wódzirej łapie się za głowę.'],
+  };
+  const pick = (a, r = Math.random) => a[Math.floor(r() * a.length)];
+
+  /* ---------- rysunki ---------- */
+  const fishPath = new Path2D('M-11 -90 C-16 -74 -22 -62 -21 -44 C-20 -28 -16 -14 -10 -8 L-20 -2 Q-23 2 -16 2 L22 2 Q28 1 24 -3 L14 -9 C22 -22 25 -40 20 -56 C16 -70 12 -80 11 -90 Z');
+  function drawFish(c, big) { // karafka (big) albo kieliszek-rybka — rysowane od dołu, przodem w prawo
+    c.lineJoin = c.lineCap = 'round';
+    // ogon zawinięty w uchwyt
+    const h = new Path2D('M-17 -60 C-46 -64 -47 -16 -12 -15');
+    c.strokeStyle = K.ink; c.lineWidth = big ? 14 : 15; c.stroke(h);
+    c.strokeStyle = K.glaze; c.lineWidth = big ? 7.5 : 8; c.stroke(h);
+    c.strokeStyle = K.glazeL; c.lineWidth = 2; c.globalAlpha = .7; c.stroke(new Path2D('M-22 -58 C-38 -58 -40 -26 -20 -20')); c.globalAlpha = 1;
+    // płetwa grzbietowa
+    c.fillStyle = K.glaze; c.strokeStyle = K.ink; c.lineWidth = 3;
+    const fb = new Path2D('M-20 -48 L-31 -42 L-21 -34 Z'); c.fill(fb); c.stroke(fb);
+    // ciało
+    c.fillStyle = K.glaze; c.fill(fishPath);
+    c.save(); c.clip(fishPath);
+    c.fillStyle = K.glazeD; c.globalAlpha = .35; c.beginPath(); c.ellipse(-14, -40, 9, 40, 0, 0, 7); c.fill(); c.globalAlpha = 1;
+    if (big) { c.strokeStyle = K.glazeL; c.lineWidth = 1.5; // łuski
+      for (let r = 0, y = -50; y < -10; y += 5.5, r++) for (let x = -12 + (r % 2) * 3; x < 20; x += 6) { c.beginPath(); c.ellipse(x, y, 2.3, 1.7, 0, 0, 7); c.stroke(); } }
+    else { c.strokeStyle = K.glazeL; c.lineWidth = 3; for (let y = -46; y < -14; y += 9) { c.beginPath(); c.moveTo(-10, y); c.quadraticCurveTo(4, y + 5, 18, y); c.stroke(); } }
+    c.restore();
+    c.strokeStyle = K.ink; c.lineWidth = big ? 3.5 : 5; c.stroke(fishPath);
+    // skrzela, pyszczek
+    c.strokeStyle = K.glazeD; c.lineWidth = big ? 2.5 : 4;
+    c.beginPath(); c.moveTo(-6, -82); c.lineTo(1, -73); c.lineTo(9, -84); c.stroke();
+    c.beginPath(); c.moveTo(-9, -60); c.quadraticCurveTo(4, -50, 18, -58); c.stroke();
+    // oko (koncentryczne jak na prawdziwej karafce)
+    c.fillStyle = K.glazeL; c.strokeStyle = K.ink; c.lineWidth = big ? 2.5 : 4;
+    c.beginPath(); c.arc(7, -67, 6.5, 0, 7); c.fill(); c.stroke();
+    c.strokeStyle = K.glazeD; c.lineWidth = big ? 2 : 3; c.beginPath(); c.arc(7, -67, 3.4, 0, 7); c.stroke();
+    c.fillStyle = K.ink; c.beginPath(); c.arc(7.5, -67, 1.6, 0, 7); c.fill();
+    // otwór (wylewka)
+    c.fillStyle = K.mouth; c.strokeStyle = K.ink; c.lineWidth = big ? 3 : 4.5;
+    c.beginPath(); c.ellipse(0, -90, 11.5, 4.6, 0, 0, 7); c.fill(); c.stroke();
+    // płetwa piersiowa
+    c.fillStyle = K.glaze; c.lineWidth = 3;
+    const fp = new Path2D('M14 -50 Q28 -54 35 -40 Q29 -41 27 -35 Q22 -39 20 -33 Q17 -38 14 -36 Z'); c.fill(fp); c.strokeStyle = K.ink; c.stroke(fp);
+    if (big) { c.strokeStyle = K.glazeD; c.lineWidth = 1.6; [[18,-47,30,-42],[17,-44,26,-37],[16,-41,21,-35]].forEach(([a,b,d,e]) => { c.beginPath(); c.moveTo(a,b); c.lineTo(d,e); c.stroke(); }); }
+    // stopka (płetwa ogonowa) — prążki
+    c.strokeStyle = K.glazeD; c.lineWidth = big ? 1.6 : 3; [-12,-4,4,12,18].forEach(x => { c.beginPath(); c.moveTo(x * .6, -6); c.lineTo(x, 0); c.stroke(); });
+    // połysk glazury
+    c.strokeStyle = '#fff'; c.globalAlpha = .75; c.lineWidth = big ? 3 : 4.5;
+    c.beginPath(); c.moveTo(14, -78); c.quadraticCurveTo(20, -64, 19, -50); c.stroke();
+    c.lineWidth = big ? 2 : 3; c.beginPath(); c.moveTo(-15, -74); c.quadraticCurveTo(-18, -66, -18, -60); c.stroke(); c.globalAlpha = 1;
+  }
+  function drawGlass(c) { // zwykły kieliszek 24 × 32
+    c.lineJoin = 'round';
+    const p = new Path2D('M-12 -32 L12 -32 L8.5 -5 L-8.5 -5 Z');
+    c.fillStyle = 'rgba(143,232,255,.55)'; c.fill(p);
+    c.fillStyle = 'rgba(255,255,255,.92)'; c.beginPath(); c.moveTo(-10.6, -22); c.lineTo(10.6, -22); c.lineTo(8.5, -5); c.lineTo(-8.5, -5); c.closePath(); c.fill();
+    c.strokeStyle = K.ink; c.lineWidth = 3; c.stroke(p);
+    c.beginPath(); c.moveTo(-10.6, -22); c.quadraticCurveTo(0, -19, 10.6, -22); c.lineWidth = 2; c.stroke();
+    c.fillStyle = 'rgba(143,232,255,.9)'; c.fillRect(-9, -5, 18, 5); c.lineWidth = 3; c.strokeRect(-9, -5, 18, 5);
+    c.strokeStyle = '#fff'; c.lineWidth = 2.5; c.beginPath(); c.moveTo(-7, -28); c.lineTo(-5.5, -9); c.stroke();
+  }
+  const bottlePath = new Path2D('M15 12 H25 V30 C25 36 36 38 36 50 V100 Q36 108 28 108 H12 Q4 108 4 100 V50 C4 38 15 36 15 30 Z');
+  function drawBottle(c) { // butelka 30 × 96
+    c.save(); c.translate(-15, -96); c.scale(.75, 96 / 110 * 1.0);
+    c.lineJoin = 'round';
+    c.fillStyle = K.ink; c.fillRect(13.5, 1, 13, 12);
+    c.fillStyle = 'rgba(143,232,255,.9)'; c.fill(bottlePath);
+    c.fillStyle = 'rgba(255,255,255,.55)'; c.fillRect(6, 52, 28, 50);
+    c.strokeStyle = K.ink; c.lineWidth = 3.5; c.stroke(bottlePath);
+    c.fillStyle = '#fff'; c.fillRect(7, 58, 26, 28); c.strokeRect(7, 58, 26, 28);
+    c.fillStyle = K.red; c.fillRect(7, 58, 26, 7);
+    c.fillStyle = K.ink; c.font = '400 9px Anton, Impact, sans-serif'; c.textAlign = 'center'; c.fillText('WÓDA', 20, 79);
+    c.strokeStyle = '#fff'; c.lineWidth = 3; c.globalAlpha = .8; c.beginPath(); c.moveTo(29, 46); c.lineTo(29, 98); c.stroke(); c.globalAlpha = 1;
+    c.restore();
+  }
+  function drawCrate(c, w, h) { // skrzynka (od lewego dolnego rogu)
+    c.lineJoin = 'round';
+    c.fillStyle = K.ink; for (let x = 10; x < w - 6; x += 13) { c.beginPath(); c.arc(x, -h + 1, 4.5, Math.PI, 0); c.fill(); } // kapsle
+    c.fillStyle = K.red; c.fillRect(0, -h, w, h);
+    c.fillStyle = 'rgba(11,11,30,.25)'; c.fillRect(0, -h * .38, w, 3); c.fillRect(0, -h * .7, w, 3);
+    c.fillStyle = K.ink; c.beginPath(); c.roundRect(w / 2 - 13, -h + 7, 26, 8, 4); c.fill();
+    c.fillStyle = '#fff'; c.font = '400 11px Anton, Impact, sans-serif'; c.textAlign = 'center'; c.fillText('WÓDYSTOPAD', w / 2, -h * .22 + 2);
+    c.strokeStyle = K.ink; c.lineWidth = 3; c.strokeRect(0, -h, w, h);
+  }
+
+  /* ---------- sprite'y (prerender w rozdzielczości ekranu) ---------- */
+  let S = 1; const spr = {};
+  function sprite(w, h, ox, oy, fn) { const s = S * 1.15, c = document.createElement('canvas');
+    c.width = Math.ceil(w * s); c.height = Math.ceil(h * s); const x = c.getContext('2d'); x.scale(s, s); x.translate(ox, oy); fn(x); return { c, w, h, ox, oy }; }
+  function buildSprites() {
+    spr.carafe = sprite(84, 100, 50, 96, c => drawFish(c, true));
+    spr.rybka = sprite(84, 100, 50, 96, c => drawFish(c, false));
+    spr.glass = sprite(32, 38, 16, 36, drawGlass);
+    spr.bottle = sprite(36, 100, 18, 98, drawBottle);
+  }
+  const blit = (sp, x, y, sc = 1) => g.drawImage(sp.c, x - sp.ox * sc, y - sp.oy * sc, sp.w * sc, sp.h * sc);
+
+  /* ---------- rozmiar świata ---------- */
+  let W = 800, H = 360, GROUND = 300, PX = 140, dpr = 1, vis = false;
+  function resize() { const r = stage.getBoundingClientRect(); if (!r.width) return;
+    dpr = Math.min(2, devicePixelRatio || 1); S = Math.min(r.height / 360, r.width / 400);
+    const oldG = GROUND; W = r.width / S; H = r.height / S; GROUND = H - 62; const dG = GROUND - oldG;
+    if (dG && hist) { y += dG; hist.forEach(h => h.y += dG); parts.forEach(p => p.y += dG); texts.forEach(t => { if (!t.big) t.y += dG; }); } PX = Math.max(110, Math.min(170, W * .19));
+    cv.width = Math.round(r.width * dpr); cv.height = Math.round(r.height * dpr); S *= dpr; buildSprites(); S /= dpr; }
+
+  /* ---------- stan gry ---------- */
+  let st = 'ready', rng = Math.random, theme = THEMES[0], mapNo = 0;
+  let cam, dist, spd, y, vy, onGround, coyote, buf, holding, holdT, fish, followers, hist, obs, crates, gaps, picks, parts, texts, genX, level, tAlive, deadT, why, squash, tilt, deco;
+  const mulberry = a => () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+  function newMap() {
+    mapNo = 1 + Math.floor(Math.random() * 9999); rng = mulberry(mapNo * 7919);
+    theme = THEMES[Math.floor(rng() * THEMES.length)];
+    deco = { stars: Array.from({length:70}, () => [rng(), rng(), rng()]), bub: Array.from({length:26}, () => [rng(), rng(), .4 + rng()]), off: rng() * 1000 };
+  }
+  function reset() {
+    cam = 0; dist = 0; spd = 0; y = GROUND; vy = 0; onGround = true; coyote = 0; buf = 0; holding = false; holdT = 0;
+    fish = 0; followers = 0; hist = []; obs = []; crates = []; gaps = []; picks = []; parts = []; texts = []; genX = W + 260; level = 0; tAlive = 0; deadT = 0; why = ''; squash = 0; tilt = 0;
+  }
+  newMap();
+
+  /* ---------- generator mapy ---------- */
+  const pushPick = (x, h) => picks.push({ x, h, got: false, ph: rng() * 6 });
+  function chunk() {
+    const d = Math.min(1, dist / 18000), x = genX, r = rng();
+    const opts = [['glass', 3], ['glass2', 2 + d * 2], ['arc', 2], ['line', 1.4], ['crate', d > .08 ? 1.6 : 0], ['tower', d > .15 ? 1.6 : 0],
+      ['bottle', d > .22 ? 1.4 + d : 0], ['gap', d > .2 ? 1.3 + d : 0], ['stairs', d > .4 ? 1 : 0], ['pyramid', d > .5 ? 1 : 0], ['crateGlass', d > .45 ? 1 : 0]];
+    let sum = opts.reduce((a, o) => a + o[1], 0), q = r * sum, k = 'glass'; for (const o of opts) { if ((q -= o[1]) < 0) { k = o[0]; break; } }
+    let w = 24;
+    if (k === 'glass') { obs.push({ k:'glass', x, w:24, h:32 }); if (rng() < .45) pushPick(x + 12, 70 + rng() * 40); }
+    else if (k === 'glass2') { obs.push({ k:'glass', x, w:24, h:32 }, { k:'glass', x: x + 27, w:24, h:32 }); w = 51; if (rng() < .5) pushPick(x + 25, 95); }
+    else if (k === 'arc') { obs.push({ k:'glass', x: x + 40, w:24, h:32 }); [-36, -12, 12, 36].forEach((o, i) => pushPick(x + 52 + o * 1.6, [52, 92, 92, 52][i])); w = 110; }
+    else if (k === 'line') { for (let i = 0; i < 3 + (rng() * 3 | 0); i++) pushPick(x + i * 34, 4); w = 140; }
+    else if (k === 'tower') { obs.push({ k:'tower', x, w:24, h:62 }); }
+    else if (k === 'pyramid') { obs.push({ k:'pyramid', x, w:51, h:62 }); w = 51; }
+    else if (k === 'bottle') { obs.push({ k:'bottle', x, w:30, h:96 }); w = 30; if (rng() < .6) pushPick(x + 15, 150); }
+    else if (k === 'crate') { const cw = 86 + (rng() * 2 | 0) * 50; crates.push({ x, w: cw, h:48 }); for (let i = 0; i < Math.floor(cw / 40); i++) pushPick(x + 22 + i * 38, 52); w = cw; }
+    else if (k === 'crateGlass') { crates.push({ x, w:136, h:48 }); obs.push({ k:'glass', x: x + 92, w:24, h:32, base:48 }); pushPick(x + 30, 52); pushPick(x + 104, 128); w = 136; }
+    else if (k === 'stairs') { crates.push({ x, w:84, h:48 }, { x: x + 84, w:84, h:96 }); pushPick(x + 40, 52); pushPick(x + 108, 100); pushPick(x + 140, 100); w = 168; }
+    else if (k === 'gap') { const gw = Math.round(86 + d * 70 + rng() * 30); gaps.push({ x0: x, x1: x + gw }); [.25, .5, .75].forEach((f, i) => pushPick(x + gw * f, [70, 100, 70][i])); w = gw; }
+    const s = Math.max(spd, 300), extra = (k === 'line') ? .2 : 1;
+    genX = x + w + s * (.7 + .1 * (1 - d)) * extra + 40 + rng() * s * (.85 - d * .45);
+  }
+
+  /* ---------- fizyka ---------- */
+  const overGround = wx => !gaps.some(q => wx - 9 > q.x0 && wx + 9 < q.x1);
+  const box = () => ({ l: cam + PX - 13, r: cam + PX + 13, t: y - 72, b: y - 3 });
+  function die(kind) {
+    if (st !== 'run') return; st = 'dead'; deadT = 0; why = pick(WHY[kind] || WHY.glass);
+    navigator.vibrate && navigator.vibrate([40, 40, 80]);
+    for (let i = 0; i < 26; i++) parts.push({ x: cam + PX + 10, y: y - 60, vx: (Math.random() - .3) * 360, vy: -Math.random() * 520 - 80, r: 2 + Math.random() * 4, l: 1.2, c: Math.random() < .5 ? '#fff' : K.aqua });
+    stage.classList.remove('run');
+    setTimeout(showOver, 900);
+  }
+  function step(dt) {
+    tAlive += dt;
+    spd = (300 + Math.min(390, dist * .0115)) * Math.max(.8, Math.min(1, W / 880));
+    const dx = spd * dt; cam += dx; dist += dx;
+    const lv = Math.min(LEVELS.length - 1, Math.floor(dist / PER_M / 250));
+    if (lv > level) { level = lv; texts.push({ x: W / 2, y: H * .3, s: 'TEMPO ↑ · ' + LEVELS[lv], l: 2.2, big: true, scr: true }); }
+    while (genX < cam + W + 300) chunk();
+    // skok
+    if (buf > 0) buf -= dt; if (coyote > 0) coyote -= dt;
+    if (buf > 0 && (onGround || coyote > 0)) { vy = -JUMP; onGround = false; coyote = 0; buf = 0; holdT = 0; squash = -1;
+      for (let i = 0; i < 5; i++) parts.push({ x: cam + PX - 10, y: y - 2, vx: -Math.random() * 120 - 40, vy: -Math.random() * 90, r: 2 + Math.random() * 2, l: .4, c: '#fff' }); }
+    let gr = GRAV; if (holding && vy < 0 && holdT < HOLD) { gr *= .42; holdT += dt; }
+    const py = y; vy += gr * dt; y += vy * dt;
+    const wx = cam + PX, b = box();
+    // wsparcie: stół / skrzynki
+    let support = null;
+    if (overGround(wx) && py <= GROUND + 1 && y >= GROUND) support = GROUND;
+    for (const c of crates) { const top = GROUND - c.h;
+      if (b.r > c.x + 2 && b.l < c.x + c.w - 2) {
+        if (py <= top + 1 && y >= top) support = support === null ? top : Math.min(support, top);
+        else if (y > top + 3 && y - 70 < GROUND) return die('crate'); } }
+    if (support !== null && vy >= 0) { if (!onGround && vy > 300) squash = 1; y = support; vy = 0; onGround = true; }
+    else if (onGround) { // zejście z krawędzi
+      const still = (Math.abs(y - GROUND) < 1 && overGround(wx)) || crates.some(c => Math.abs(y - (GROUND - c.h)) < 1 && b.r > c.x + 2 && b.l < c.x + c.w - 2);
+      if (!still) { onGround = false; coyote = .09; } }
+    if (y > GROUND + 14) return die('gap');
+    // przeszkody
+    for (const o of obs) { const base = GROUND - (o.base || 0);
+      if (b.r > o.x + 4 && b.l < o.x + o.w - 4 && b.b > base - o.h + 5 && b.t < base) return die(o.k); }
+    // rybki
+    for (const p of picks) if (!p.got && Math.abs(p.x - wx) < 26 && Math.abs((GROUND - p.h - 16) - (y - 40)) < 48) {
+      p.got = true; fish++; followers++; navigator.vibrate && navigator.vibrate(12);
+      texts.push({ x: p.x, y: GROUND - p.h - 40, s: '+1 RYBKA', l: .9 });
+      for (let i = 0; i < 8; i++) parts.push({ x: p.x, y: GROUND - p.h - 18, vx: (Math.random() - .5) * 240, vy: -Math.random() * 240, r: 2 + Math.random() * 2, l: .5, c: K.lime });
+    }
+    // ślad dla orszaku
+    hist.push({ x: wx, y, r: tilt }); const minX = wx - SP * 12 - 60; while (hist.length > 2 && hist[1].x < minX) hist.shift();
+    // sprzątanie
+    const cut = cam - 300; obs = obs.filter(o => o.x + o.w > cut); crates = crates.filter(c => c.x + c.w > cut); gaps = gaps.filter(q => q.x1 > cut); picks = picks.filter(p => p.x > cut);
+  }
+  function common(dt) {
+    parts = parts.filter(p => (p.l -= dt) > 0); parts.forEach(p => { p.vy += 900 * dt; p.x += p.vx * dt; p.y += p.vy * dt; });
+    texts = texts.filter(t => (t.l -= dt) > 0); texts.forEach(t => { if (!t.big) t.y -= 40 * dt; });
+    squash += (0 - squash) * Math.min(1, dt * 12);
+    const want = st === 'dead' ? 1.6 : onGround ? 0 : Math.max(-.35, Math.min(.35, vy / 2200));
+    tilt += (want - tilt) * Math.min(1, dt * (st === 'dead' ? 4 : 10));
+  }
+
+  /* ---------- rysowanie ---------- */
+  const fx = x => x - cam;
+  function bg(t) {
+    const T = theme; g.fillStyle = T.sky; g.fillRect(0, 0, W, H);
+    if (T.id === 'rave') { g.save(); g.translate(W / 2, -40); g.fillStyle = 'rgba(255,255,255,.07)';
+      for (let i = 0; i < 11; i += 2) { g.save(); g.rotate(-1 + i * .2); g.beginPath(); g.moveTo(0, 0); g.lineTo(-70, H * 2); g.lineTo(70, H * 2); g.fill(); g.restore(); } g.restore();
+      g.fillStyle = T.far; for (let i = -1; i < W / 260 + 2; i++) { const x = i * 260 - ((cam * .25 + deco.off) % 260), yy = GROUND - 150 - (i % 2) * 70 + Math.sin(t + i) * 6; fishShape(x, yy, 1.1 - (i % 2) * .3); } }
+    else if (T.id === 'stol') { g.fillStyle = T.far; const o = (cam * .2) % 60;
+      for (let yy = 30; yy < GROUND - 40; yy += 60) for (let x = -60 - o + ((yy / 60) % 2) * 30; x < W + 60; x += 60) { g.beginPath(); g.moveTo(x, yy - 14); g.lineTo(x + 10, yy); g.lineTo(x, yy + 14); g.lineTo(x - 10, yy); g.fill(); }
+      const so = (cam * .45) % 380, sy = GROUND - 120; g.fillStyle = '#cbb894';
+      for (let x = -so - 380; x < W + 380; x += 380) { g.fillRect(x + 20, sy, 230, 8); for (let k = 0; k < 5; k++) { g.save(); g.translate(x + 40 + k * 42, sy); g.scale(.62, .62); g.globalAlpha = .38; g.fillStyle = '#9c8458'; g.fill(new Path2D('M15 -96 H25 V-80 C25 -74 36 -72 36 -60 V-8 Q36 0 28 0 H12 Q4 0 4 -8 V-60 C4 -72 15 -74 15 -80 Z')); g.restore(); } } }
+    else if (T.id === 'noc') { deco.stars.forEach(([a, b, c]) => { g.fillStyle = `rgba(255,255,255,${.3 + .5 * Math.abs(Math.sin(t * (1 + c) + a * 9))})`; const x = ((a * W * 1.5 - cam * .05 * c) % (W + 20) + W + 20) % (W + 20); g.fillRect(x, b * (GROUND - 60), 2, 2); });
+      const so = (cam * .3) % 900; g.font = `400 54px Shrikhand, cursive`; g.textAlign = 'center';
+      for (let x = -so - 900; x < W + 900; x += 900) { const on = Math.sin(t * 3 + x) > -.85; g.lineWidth = 7; g.strokeStyle = on ? 'rgba(255,95,210,.35)' : 'rgba(255,95,210,.12)'; g.strokeText('Wódystopad', x + 450, GROUND - 130); g.fillStyle = on ? K.pink : '#5a2a55'; g.fillText('Wódystopad', x + 450, GROUND - 130); } }
+    else if (T.id === 'woda') { deco.bub.forEach(([a, b, c]) => { const x = ((a * W * 1.3 - cam * .3 * c) % (W + 40) + W + 40) % (W + 40) - 20, yy = GROUND - ((b * GROUND + t * 40 * c) % GROUND);
+        g.strokeStyle = 'rgba(255,255,255,.7)'; g.lineWidth = 2; g.beginPath(); g.arc(x, yy, 3 + c * 4, 0, 7); g.stroke(); });
+      g.strokeStyle = 'rgba(217,255,61,.9)'; g.lineWidth = 7; g.lineCap = 'round'; const so = (cam * .5) % 170;
+      for (let x = -so - 170; x < W + 170; x += 170) for (let k = 0; k < 3; k++) { g.beginPath(); const bx = x + k * 14; g.moveTo(bx, GROUND); for (let s = 1; s <= 6; s++) g.lineTo(bx + Math.sin(t * 2 + s + k + x) * 6, GROUND - s * (14 + k * 4)); g.stroke(); }
+      g.fillStyle = T.far; for (let i = -1; i < W / 300 + 2; i++) fishShape(i * 300 - ((cam * .2 + deco.off) % 300), GROUND - 190 + (i % 2) * 50, .8); }
+  }
+  function fishShape(x, yy, s) { g.save(); g.translate(x, yy); g.scale(-s * .5, s * .5);
+    g.beginPath(); g.moveTo(136, 40); g.lineTo(176, 12); g.lineTo(166, 40); g.lineTo(176, 68); g.closePath(); g.fill();
+    g.beginPath(); g.moveTo(8, 40); g.bezierCurveTo(40, 2, 112, 2, 140, 40); g.bezierCurveTo(112, 78, 40, 78, 8, 40); g.fill(); g.restore(); }
+  function ground() {
+    const T = theme, segs = []; let x0 = cam - 10;
+    gaps.filter(q => q.x1 > cam && q.x0 < cam + W).sort((a, b) => a.x0 - b.x0).forEach(q => { segs.push([x0, q.x0]); x0 = q.x1; }); segs.push([x0, cam + W + 10]);
+    g.fillStyle = K.ink; g.fillRect(0, GROUND, W, H - GROUND);
+    segs.forEach(([a, b]) => { if (b <= a) return; const l = fx(a), w = b - a;
+      g.save(); g.beginPath(); g.rect(l, GROUND, w, H - GROUND); g.clip();
+      g.fillStyle = T.top; g.fillRect(l, GROUND, w, 26); g.fillStyle = T.face; g.fillRect(l, GROUND + 26, w, H);
+      g.fillStyle = T.stripe;
+      if (T.id === 'stol') { for (let x = Math.floor(a / 13) * 13; x < b; x += 13) for (let r = 0; r < 2; r++) if ((Math.round(x / 13) + r) % 2 === 0) g.fillRect(fx(x), GROUND + r * 13, 13, 13);
+        g.fillStyle = 'rgba(255,255,255,.12)'; for (let x = Math.floor(a / 13) * 13; x < b; x += 26) g.fillRect(fx(x), GROUND + 26, 13, H); }
+      else for (let x = Math.floor(a / 40) * 40; x < b; x += 40) { g.beginPath(); g.moveTo(fx(x), GROUND + 26); g.lineTo(fx(x) + 14, GROUND + 26); g.lineTo(fx(x) + 30, H); g.lineTo(fx(x) + 16, H); g.fill(); }
+      g.fillStyle = 'rgba(255,255,255,.35)'; g.fillRect(l, GROUND + 3, w, 3);
+      g.restore();
+      g.strokeStyle = K.ink; g.lineWidth = 3; g.beginPath(); g.moveTo(l, GROUND); g.lineTo(l + w, GROUND); g.moveTo(l, GROUND + 26); g.lineTo(l + w, GROUND + 26);
+      if (a > cam - 5) { g.moveTo(l, GROUND); g.lineTo(l, H); } if (b < cam + W + 5) { g.moveTo(l + w, GROUND); g.lineTo(l + w, H); } g.stroke(); });
+  }
+  function render(t) {
+    g.setTransform(S * dpr, 0, 0, S * dpr, 0, 0);
+    const drunk = reduced ? 0 : Math.max(0, Math.min(1, (fish * .1 - 1) / 3));
+    g.save();
+    if (drunk && st !== 'ready') { g.translate(W / 2, H / 2); g.rotate(Math.sin(t * 1.3) * .035 * drunk); g.translate(-W / 2 + Math.sin(t * .9) * 6 * drunk, -H / 2); }
+    g.clearRect(-50, -50, W + 100, H + 100);
+    bg(t); ground();
+    crates.forEach(c => { if (fx(c.x) < W + 10 && fx(c.x + c.w) > -10) { g.save(); g.translate(fx(c.x), GROUND); drawCrate(g, c.w, c.h); g.restore(); } });
+    obs.forEach(o => { const x = fx(o.x), base = GROUND - (o.base || 0); if (x > W + 40 || x + o.w < -40) return;
+      if (o.k === 'glass') blit(spr.glass, x + 12, base);
+      else if (o.k === 'tower') { blit(spr.glass, x + 12, base); blit(spr.glass, x + 12, base - 30); }
+      else if (o.k === 'pyramid') { blit(spr.glass, x + 12, base); blit(spr.glass, x + 39, base); blit(spr.glass, x + 25.5, base - 30); }
+      else if (o.k === 'bottle') blit(spr.bottle, x + 15, base); });
+    picks.forEach(p => { if (p.got) return; const x = fx(p.x); if (x < -30 || x > W + 30) return; const bob = Math.sin(t * 4 + p.ph) * 3;
+      g.fillStyle = 'rgba(217,255,61,.35)'; g.beginPath(); g.arc(x, GROUND - p.h - 17 + bob, 20 + Math.sin(t * 6 + p.ph) * 2, 0, 7); g.fill();
+      blit(spr.rybka, x, GROUND - p.h + bob, .38); });
+    // orszak rybek
+    const n = Math.min(followers, 12), wx = cam + PX;
+    for (let k = n; k >= 1; k--) { const tx = wx - SP * k; let h = null; for (let i = hist.length - 1; i >= 0; i--) if (hist[i].x <= tx) { h = hist[i]; break; }
+      if (!h) continue; const x = fx(tx), hop = st === 'run' && Math.abs(h.y - GROUND) < 1 ? Math.abs(Math.sin(t * 12 + k)) * 4 : 0;
+      g.save(); g.translate(x, h.y - hop); g.rotate(st === 'dead' ? Math.min(1.4, deadT * 3) * (k % 2 ? 1 : -1) : h.r * .8); blit(spr.rybka, 0, 0, .38); g.restore(); }
+    if (followers > 12) { g.fillStyle = theme.hud; g.font = '700 12px "Courier Prime", monospace'; g.textAlign = 'center'; g.fillText('+' + (followers - 12), fx(wx - SP * 12.8), GROUND - 34); }
+    // karafka
+    const run = st === 'run' && onGround ? Math.abs(Math.sin(t * 13)) : 0;
+    const sq = squash > 0 ? squash * .16 : squash * .1;
+    g.save(); g.translate(PX, y - run * 5); g.rotate(tilt + (st === 'run' && onGround ? Math.sin(t * 13) * .05 : 0)); g.scale(1 + sq, 1 - sq);
+    blit(spr.carafe, 0, 0, .86); g.restore();
+    parts.forEach(p => { g.fillStyle = p.c; g.globalAlpha = Math.min(1, p.l * 3); g.beginPath(); g.arc(fx(p.x), p.y, p.r, 0, 7); g.fill(); }); g.globalAlpha = 1;
+    texts.forEach(tt => { g.globalAlpha = Math.min(1, tt.l * 2.5); g.textAlign = 'center';
+      if (tt.big) { g.font = '400 26px Anton, Impact, sans-serif'; g.lineWidth = 6; g.strokeStyle = K.ink; g.strokeText(tt.s, tt.x, tt.y); g.fillStyle = K.lime; g.fillText(tt.s, tt.x, tt.y); }
+      else { g.font = '700 13px "Courier Prime", monospace'; g.lineWidth = 4; g.strokeStyle = K.ink; g.strokeText(tt.s, fx(tt.x), tt.y); g.fillStyle = K.lime; g.fillText(tt.s, fx(tt.x), tt.y); } });
+    g.globalAlpha = 1; g.restore();
+    if (st !== 'ready') hud();
+  }
+  function hud() {
+    const c = theme.hud, m = Math.floor(dist / PER_M), pts = m + fish * FISH_PTS;
+    g.textAlign = 'left'; g.fillStyle = c; g.font = '700 11px "Courier Prime", monospace'; g.fillText('PUNKTY', 18, 26);
+    g.font = '400 34px Anton, Impact, sans-serif'; g.fillText(pad(pts, 5), 18, 60);
+    g.textAlign = 'right'; g.font = '700 11px "Courier Prime", monospace'; g.fillText('RYBKI · PROMILE', W - 18, 26);
+    g.font = '400 34px Anton, Impact, sans-serif'; g.fillText(`${fish} · ${(fish / 10).toFixed(1).replace('.', ',')}‰`, W - 18, 60);
+    if (tAlive < 3.2 && st === 'run') { g.globalAlpha = Math.min(1, (3.2 - tAlive) * 2); g.textAlign = 'center'; g.font = '700 12px "Courier Prime", monospace';
+      g.fillText(`MAPA NR ${pad(mapNo, 4)} · ${theme.name}`, W / 2, 26); g.globalAlpha = 1; }
+  }
+
+  /* ---------- pętla ---------- */
+  let raf = 0, last = 0, acc = 0, idleY = 0;
+  function frame(ms) { raf = requestAnimationFrame(frame); const t = ms / 1000, dt = Math.min(.05, last ? t - last : 0); last = t;
+    if (st === 'run') { acc += dt; while (acc >= STEP && st === 'run') { step(STEP); acc -= STEP; } }
+    else if (st === 'ready') { cam += 60 * dt; y = GROUND - Math.abs(Math.sin(t * 3)) * 10; }
+    else if (st === 'dead') deadT += dt;
+    common(dt); render(t); }
+  const play = () => { if (!raf && vis) { last = 0; raf = requestAnimationFrame(frame); } };
+  const stop = () => { cancelAnimationFrame(raf); raf = 0; };
+
+  /* ---------- sterowanie ---------- */
+  const ov = { start: $('#gra-start'), pause: $('#gra-pause'), over: $('#gra-over') };
+  const show = k => Object.keys(ov).forEach(x => ov[x].hidden = x !== k);
+  let played = false;
+  const mapLabel = () => { $('#gra-map').textContent = `Mapa nr ${pad(mapNo, 4)} · ${theme.name.toLowerCase()} — wylosowana przez komisję`; };
+  function start() { if (played) newMap(); played = true; reset(); st = 'run'; acc = 0; show(null); stage.classList.add('run'); stage.focus({ preventScroll: true }); play(); }
+  function pause() { if (st !== 'run') return; st = 'pause'; holding = false; stage.classList.remove('run'); show('pause'); }
+  function resume() { if (st !== 'pause') return; st = 'run'; acc = 0; last = 0; show(null); stage.classList.add('run'); stage.focus({ preventScroll: true }); }
+  const press = () => { if (st === 'run') { buf = .12; holding = true; } };
+  const release = () => { holding = false; };
+  stage.addEventListener('pointerdown', e => { if (e.target.closest('button, input, form, .gra__card')) return;
+    if (st === 'run') { e.preventDefault(); press(); } else if (st === 'ready') start(); else if (st === 'pause') resume(); });
+  addEventListener('pointerup', release); addEventListener('pointercancel', release);
+  const JK = [' ', 'Spacebar', 'ArrowUp', 'w', 'W'];
+  addEventListener('keydown', e => {
+    if (st === 'run' && JK.includes(e.key)) { e.preventDefault(); if (!e.repeat) press(); return; }
+    if (st === 'run' && (e.key === 'Escape' || e.key === 'p' || e.key === 'P')) { pause(); return; }
+    if (document.activeElement === stage && (e.key === ' ' || e.key === 'Enter')) { e.preventDefault(); if (st === 'ready') start(); else if (st === 'pause') resume(); }
+  });
+  addEventListener('keyup', e => { if (JK.includes(e.key)) release(); });
+  $('#gra-go').onclick = start; $('#gra-resume').onclick = resume; $('#gra-again').onclick = start;
+  document.addEventListener('visibilitychange', () => { if (document.hidden) pause(); });
+  addEventListener('blur', pause);
+  new IntersectionObserver(es => { vis = es[0].isIntersecting; if (vis) { resize(); play(); } else { pause(); stop(); } }, { rootMargin: '80px 0px' }).observe(stage);
+  new ResizeObserver(() => { const wasReady = st === 'ready'; resize(); if (wasReady) { reset(); } }).observe(stage);
+
+  /* ---------- koniec gry i rejestr ---------- */
+  const ini = $('#gra-ini'), boxes = $$('.gra__ini i'), form = $('#gra-save');
+  const clean = v => v.toUpperCase().replace(/[^A-ZĄĆĘŁŃÓŚŹŻ0-9]/g, '').slice(0, 3);
+  const paint = () => { const v = ini.value; boxes.forEach((b, i) => { b.textContent = v[i] || ''; b.classList.toggle('cur', document.activeElement === ini && i === Math.min(2, v.length)); }); };
+  ini.addEventListener('input', () => { ini.value = clean(ini.value); paint(); });
+  ini.addEventListener('focus', paint); ini.addEventListener('blur', paint);
+  let result = null;
+  function showOver() {
+    const m = Math.floor(dist / PER_M); result = { p: m + fish * FISH_PTS, f: fish, m, map: mapNo };
+    $('#gra-pts').textContent = result.p; $('#gra-fish').textContent = result.f; $('#gra-m').textContent = m;
+    $('#gra-why').textContent = why; $('#gra-over-h').textContent = why.startsWith('Spadła') || why.startsWith('Za krawędzią') ? 'Za burtą!' : 'Rozlane!';
+    $('#gra-saved').textContent = ''; form.classList.remove('done'); ini.value = store.get('game-ini', ''); paint();
+    const best = store.get('game-best', 0); if (result.p > best) { store.set('game-best', result.p); $('#gra-saved').textContent = best ? 'Nowy rekord osobisty!' : ''; }
+    show('over'); myBest();
+    if (!isMobile()) setTimeout(() => ini.focus({ preventScroll: true }), 60);
+  }
+  form.onsubmit = e => { e.preventDefault(); const n = clean(ini.value);
+    if (n.length < 1) { const w = $('.gra__ini'); w.classList.remove('shake'); void w.offsetWidth; w.classList.add('shake'); ini.focus(); return; }
+    if (!result) return; store.set('game-ini', n);
+    const entry = { n, p: result.p, f: result.f, m: result.map };
+    const loc = store.get('game-scores', []); loc.push(entry); loc.sort((a, b) => b.p - a.p); store.set('game-scores', loc.slice(0, 15));
+    API.send({ type: 'score', d: entry });
+    if (API.state) { API.state.scores = (API.state.scores || []).concat([Object.assign({ who: API.me, fresh: 1 }, entry)]).sort((a, b) => b.p - a.p); }
+    const list = boardList(), pos = list.findIndex(s => s.n === n && s.p === entry.p && (s.who === API.me || !s.who)) + 1;
+    form.classList.add('done'); justSaved = entry; board();
+    $('#gra-saved').textContent = `Wpisano do rejestru: ${n}, ${entry.p} pkt` + (pos ? ` — miejsce ${pos}.` : '.');
+    result = null; ini.blur(); };
+  let justSaved = null;
+  const boardList = () => (API.state && Array.isArray(API.state.scores)) ? API.state.scores : store.get('game-scores', []).map(s => Object.assign({ who: API.me }, s));
+  function board() {
+    const list = boardList().slice(0, 10), shared = !!(API.state && Array.isArray(API.state.scores));
+    $('#gra-top').innerHTML = list.length ? list.map(s => `<li class="${s.who === API.me ? 'me' : ''}${s === justSaved || s.fresh ? ' new' : ''}"><b>${s.n.replace(/[<>&"]/g, '')}</b><em>${s.f || 0} ryb.</em><strong>${s.p}</strong></li>`).join('')
+      : '<li class="empty">Rejestr pusty. Pierwszy wpis należy do Ciebie.</li>';
+    list.forEach(s => delete s.fresh);
+    $('#gra-live').innerHTML = shared ? '<i></i>NA ŻYWO · REKORDY CAŁEJ EKIPY' : CONFIG.api ? '<i></i>ŁĄCZĘ Z KOMISJĄ…' : '';
+    $('#gra-board-note').textContent = shared ? 'Jeden wpis = jedna gra. Komisja nie sprawdza, kto grał po wódeczce.' : 'Na razie rekordy z tego urządzenia.';
+  }
+  function myBest() { const b = store.get('game-best', 0); $('#gra-mybest').textContent = b ? `Twój rekord: ${b} pkt` : ''; }
+  API.on(board); board(); myBest(); mapLabel();
+  (document.fonts ? document.fonts.load('400 20px Anton', 'ÓĄ') .then(() => document.fonts.load('400 20px Shrikhand', 'ó')).catch(() => {}) : Promise.resolve()).then(() => { resize(); });
+  resize(); reset();
+  if (/gradebug/.test(location.search)) window.__gra = { get s() { return { st, cam, PX, y, vy, onGround, obs, crates, gaps, picks, spd, fish, followers, GROUND, dist, W }; } };
 })();
 (() => { const io = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle('off', !e.isIntersecting)), {rootMargin:'100px 0px'});
   $$('main > section, main > footer').forEach(s => io.observe(s)); })();
