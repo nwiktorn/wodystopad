@@ -72,6 +72,10 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 @keyframes grain{0%{transform:translate(0,0)}25%{transform:translate(-3%,2%)}50%{transform:translate(2%,-3%)}75%{transform:translate(-2%,-1%)}100%{transform:translate(0,0)}}
 
 /* ---------- typografia wspólna ---------- */
+.live{font:700 10px/1.4 var(--f-type);letter-spacing:.08em;margin-top:10px;opacity:.75}
+.live:empty{display:none}
+.live i{display:inline-block;width:8px;height:8px;border-radius:50%;background:#2fd36b;margin-right:6px;vertical-align:1px;box-shadow:0 0 0 3px rgba(47,211,107,.25)}
+.live.off i{background:#e5301f;box-shadow:0 0 0 3px rgba(229,48,31,.25)}
 .eyebrow{font:700 13px/1.4 var(--f-type);letter-spacing:.14em;text-transform:uppercase}
 .h-title{font-family:var(--f-display);font-weight:400;text-transform:uppercase;line-height:1.02;font-size:clamp(60px,10.4vw,150px);
   text-shadow:calc(.065em + var(--drunk)*.12em) calc(.05em + var(--drunk)*.04em) 0 var(--mis,var(--pink));letter-spacing:.005em}
@@ -954,6 +958,7 @@ mark{background:none;color:var(--mag);font-weight:700}
         <span class="panel__k">ANKIETA W-2 · ZGŁOŚ MARKĘ I GŁOSUJ</span>
         <h3>Jaka wódeczka?</h3>
         <div class="poll" id="poll"></div>
+        <p class="live" data-live></p>
         <form class="poll-add" id="poll-add"><input type="text" id="poll-input" maxlength="40" placeholder="+ zgłoś markę (bez żartów)" aria-label="Zgłoś markę"><button type="submit" aria-label="Dodaj">+</button></form>
       </div>
       <div class="panel" id="p-butelki" data-reveal>
@@ -973,6 +978,7 @@ mark{background:none;color:var(--mag);font-weight:700}
         </div>
         <button class="btn-pill btn-ink" id="b-send" type="button">Zgłaszam propozycję →</button>
         <div class="calc" id="b-sum"></div>
+        <p class="live" data-live></p>
       </div>
       <div class="panel" id="p-skladeczka" data-reveal>
         <span class="panel__k">ZRZUTKA NA ZAOPATRZENIE</span>
@@ -1124,7 +1130,8 @@ const CONFIG = {
   guests: 8,            // liczba Wódowiczów do przeliczeń
   bottleProposals: [],  // propozycje grupy: [{kto:'Arek', n:6, ml:700}, …] — wpisz ręcznie z grupy albo podłączymy wspólną bazę
   skladeczka: { zebrano:0, cel:null, wplacili:0, wyswietlone:null, blik:'', tytul:'Tytuł: „Wódystopad — składeczka”' }, // cel:null / blik:'' = jeszcze nieustalone
-  sworn: 5,                 // ile osób złożyło przysięgę (stan startowy)
+  sworn: 0,                 // przysięgi złożone poza stroną (dolicza się do tych ze wspólnej bazy)
+  api: '',                  // adres /exec skryptu Google (arkusz „Wódystopad 2026 — głosy”) — wspólna baza głosów
   formEndpoint: '',         // np. 'https://formspree.io/f/xxxxxxx' — wtedy przysięgi lecą do Wódzireja mailem
   counterAlwaysOn: false,   // true = licznik rybek działa także przed 21.11 (do testów)
 };
@@ -1331,18 +1338,60 @@ spawnFish($('#fishes2'), [[18,120,'#FF5FD2',.8],[30,100,'#fff',.6],[78,90,'#D9FF
 /* =========================================================
    ZAOPATRZENIE: ankieta, butelki, składeczka
    ========================================================= */
+/* =========================================================
+   WSPÓLNA BAZA (Google Sheets + Apps Script) — głosy widzi cała ekipa
+   ========================================================= */
+const API = (() => { const url = CONFIG.api;
+  let me = store.get('me', null); if (!me) { me = Math.random().toString(36).slice(2, 10) + Date.now().toString(36); store.set('me', me); }
+  let state = null, busy = false, ok = true; const subs = [];
+  const live = () => $$('[data-live]').forEach(el => { el.classList.toggle('off', !ok);
+    el.innerHTML = !url ? '' : ok ? (state ? '<i></i>NA ŻYWO · WIDZISZ GŁOSY CAŁEJ EKIPY' : '<i></i>ŁĄCZĘ Z KOMISJĄ…') : '<i></i>BRAK POŁĄCZENIA · TWÓJ GŁOS CZEKA I POLECI, GDY WRÓCI SIEĆ'; });
+  const apply = s => { if (s && s.ok) { state = s; ok = true; live(); subs.forEach(f => f(s)); } };
+  const load = async () => { if (!url) return; try { const r = await fetch(url, {cache:'no-store'}); apply(await r.json()); } catch (e) { ok = false; live(); } };
+  const flush = async () => { if (!url || busy) return; const q = store.get('outbox', []); if (!q.length) return; busy = true;
+    try { const r = await fetch(url, {method:'POST', body: JSON.stringify({who: me, events: q})}); const s = await r.json();
+      if (s.ok) { store.set('outbox', store.get('outbox', []).slice(q.length)); apply(s); } else throw 0; }
+    catch (e) { ok = false; live(); } busy = false; if (store.get('outbox', []).length && ok) flush(); };
+  const send = (...events) => { if (!url) return; store.set('outbox', store.get('outbox', []).concat(events)); flush(); };
+  if (url) {
+    // jednorazowo: wyślij to, co ktoś zaznaczył, zanim strona miała wspólną bazę (zostało w jego telefonie)
+    if (!store.get('migrated', false)) { const ev = [];
+      store.get('poll-extra', []).forEach(n => ev.push({type:'brand-add', d:{name:n}}));
+      const v = store.get('poll-vote', null); if (v) ev.push({type:'vote', d:{name:v}});
+      const b = store.get('bottle-prop', null); if (b && b.sent) ev.push({type:'bottle', d:{n:b.n, ml:b.ml}});
+      const f = store.get('fish', 0); if (f) ev.push({type:'fish', d:{n:Math.min(5, f)}});
+      store.set('migrated', true); if (ev.length) send(...ev); }
+    live(); load(); flush();
+    addEventListener('online', flush);
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) { load(); flush(); } });
+    setInterval(() => { if (!document.hidden) load(); }, 30000); }
+  return { on: f => { subs.push(f); if (state) f(state); }, send, me, get on_() { return !!url; }, get state() { return state; } };
+})();
+
 (() => { // ankieta
   let opts = store.get('poll-extra', []); const mine = () => store.get('poll-vote', null);
-  const render = () => { const all = CONFIG.poll.concat(opts.map(o=>[o,0])); const v = mine();
-    const votes = all.map(([n,c]) => c + (v===n?1:0)); const max = Math.max(4, ...votes);
+  const lc = x => String(x||'').toLowerCase();
+  const render = () => { const v = mine(), S = API.state;
+    // ze wspólnej bazy: [nazwa, głosy bez mojego, czy moja propozycja]; lokalnie: jak dawniej
+    const all = S ? S.brands.map(b => [b.name, b.votes - (lc(S._myVote) === lc(b.name) ? 1 : 0), b.owner === API.me]) : CONFIG.poll.concat(opts.map(o=>[o,0,true]));
+    const votes = all.map(([n,c]) => c + (lc(v)===lc(n)?1:0)); const max = Math.max(4, ...votes);
     if (!all.length) { $('#poll').innerHTML = '<p class="poll-empty">Brak propozycji. Komisja czeka na pierwszą markę — zgłoś ją poniżej (bez żartów).</p>'; return; }
     const esc = n => n.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
-    $('#poll').innerHTML = all.map(([n],i) => `<div class="poll__item"><button type="button" class="poll__vote ${v===n?'mine':''}" data-n="${esc(n)}"><div class="row"><span>${esc(n)}</span><em>${votes[i]}</em></div><div class="bar"><i style="width:${Math.max(3, votes[i]/max*100)}%"></i></div></button>${opts.includes(n)?`<button type="button" class="poll__del" data-n="${esc(n)}" aria-label="Usuń propozycję ${esc(n)}" title="Usuń moją propozycję">✕</button>`:''}</div>`).join('');
-    $$('#poll .poll__vote').forEach(b => b.onclick = () => { store.set('poll-vote', b.dataset.n); render(); toast('Głos oddany. Komisja odnotowała.'); });
-    $$('#poll .poll__del').forEach(b => b.onclick = () => { opts = opts.filter(o => o !== b.dataset.n); store.set('poll-extra', opts); if (mine() === b.dataset.n) store.set('poll-vote', null); render(); toast('Propozycja wycofana.'); }); };
+    $('#poll').innerHTML = all.map(([n],i) => `<div class="poll__item"><button type="button" class="poll__vote ${lc(v)===lc(n)?'mine':''}" data-n="${esc(n)}"><div class="row"><span>${esc(n)}</span><em>${votes[i]}</em></div><div class="bar"><i style="width:${Math.max(3, votes[i]/max*100)}%"></i></div></button>${all[i][2]?`<button type="button" class="poll__del" data-n="${esc(n)}" aria-label="Usuń propozycję ${esc(n)}" title="Usuń moją propozycję">✕</button>`:''}</div>`).join('');
+    $$('#poll .poll__vote').forEach(b => b.onclick = () => { store.set('poll-vote', b.dataset.n); API.send({type:'vote', d:{name:b.dataset.n}}); render(); toast('Głos oddany. Komisja odnotowała.'); });
+    $$('#poll .poll__del').forEach(b => b.onclick = () => { const n = b.dataset.n; opts = opts.filter(o => o !== n); store.set('poll-extra', opts);
+      if (API.state) API.state.brands = API.state.brands.filter(x => lc(x.name) !== lc(n));
+      const ev = [{type:'brand-del', d:{name:n}}]; if (lc(mine()) === lc(n)) { store.set('poll-vote', null); ev.push({type:'vote', d:{name:null}}); }
+      API.send(...ev); render(); toast('Propozycja wycofana.'); }); };
   $('#poll-add').onsubmit = e => { e.preventDefault(); const v = $('#poll-input').value.trim(); if (!v) return;
     if (/żart|haha|xd/i.test(v)) { toast('Mówiłem: bez żartów.'); return; }
-    if (CONFIG.poll.concat(opts.map(o=>[o])).some(([n]) => n.toLowerCase() === v.toLowerCase())) { toast('Ta marka już jest na liście — zagłosuj na nią.'); return; } opts.push(v); store.set('poll-extra', opts); store.set('poll-vote', v); $('#poll-input').value=''; render(); toast('Propozycja przyjęta (i od razu Twój głos).'); };
+    const have = API.state ? API.state.brands.map(b => b.name) : CONFIG.poll.map(([n]) => n).concat(opts);
+    if (have.some(n => lc(n) === lc(v))) { toast('Ta marka już jest na liście — zagłosuj na nią.'); return; }
+    opts.push(v); store.set('poll-extra', opts); store.set('poll-vote', v);
+    if (API.state) API.state.brands.push({name:v, owner:API.me, votes:0});
+    API.send({type:'brand-add', d:{name:v}}, {type:'vote', d:{name:v}}); $('#poll-input').value=''; render(); toast('Propozycja przyjęta (i od razu Twój głos).'); };
+  // serwer liczy już mój głos — zapamiętaj, który to był w chwili odpowiedzi, żeby nie liczyć go podwójnie
+  API.on(s => { s._myVote = mine(); render(); });
   render();
 })();
 (() => { // propozycje: ile butelek
@@ -1359,7 +1408,8 @@ spawnFish($('#fishes2'), [[18,120,'#FF5FD2',.8],[30,100,'#fff',.6],[78,90,'#D9FF
     $('#b-lvl').textContent = `= ${L(me.n*me.ml)} · ${lvl(me.n*me.ml/1000)}`;
     $('#b-send').textContent = me.sent ? 'Propozycja zgłoszona ✓ (zmień i zgłoś ponownie)' : 'Zgłaszam propozycję →';
     // zestawienie
-    const all = CONFIG.bottleProposals.map(p => ({...p, me:false})).concat(me.sent ? [{kto:'Ty', n:me.n, ml:me.ml, me:true}] : []);
+    const S = API.state, others = S ? S.bottles.filter(p => p.who !== API.me).map(p => ({n:p.n, ml:p.ml, me:false})) : [];
+    const all = CONFIG.bottleProposals.map(p => ({...p, me:false})).concat(others, me.sent ? [{kto:'Ty', n:me.n, ml:me.ml, me:true}] : []);
     if (!all.length) { $('#b-sum').innerHTML = '<span class="calc__k">ZESTAWIENIE PROPOZYCJI</span><p class="sum__empty">Brak propozycji. Zgłoś swoją — pojawi się tutaj razem z propozycjami reszty.</p>'; store.set('bottle-prop', me); return; }
     const groups = {}; all.forEach(p => { const k = p.n + '×' + p.ml; (groups[k] ||= {n:p.n, ml:p.ml, votes:0, me:false}); groups[k].votes++; if (p.me) groups[k].me = true; });
     const rows = Object.values(groups).sort((a,b) => b.votes - a.votes || b.n*b.ml - a.n*a.ml); const max = rows[0].votes;
@@ -1373,9 +1423,10 @@ spawnFish($('#fishes2'), [[18,120,'#FF5FD2',.8],[30,100,'#fff',.6],[78,90,'#D9FF
   $('#b-minus').onclick = () => { if (me.n === 1) toast('Zero butelek? To nie jest Wódystopad.'); change(me.n - 1); };
   $('#b-plus').onclick = () => change(me.n + 1);
   $$('#b-fmt button').forEach(b => b.onclick = () => { me.ml = +b.dataset.v; render(); });
-  $('#b-send').onclick = async () => { me.sent = true; render();
+  $('#b-send').onclick = async () => { me.sent = true; render(); API.send({type:'bottle', d:{n:me.n, ml:me.ml}});
     if (CONFIG.formEndpoint) { try { const fd = new FormData(); fd.append('typ','butelki'); fd.append('ile', me.n); fd.append('pojemnosc', me.ml); await fetch(CONFIG.formEndpoint, {method:'POST', headers:{Accept:'application/json'}, body: fd}); } catch(e){} }
     toast(`Propozycja: ${me.n} × ${fmt(me.ml)} = ${L(me.n*me.ml)}. Przyjęto.`); };
+  API.on(render);
   render();
 })();
 (() => { // składeczka
@@ -1497,6 +1548,7 @@ carouselDots($('#kary-track'), $('#kary-dots'), 'przesuń →');
    ========================================================= */
 (() => { const total = CONFIG.people.length; let sworn = CONFIG.sworn + (store.get('sworn', false) ? 1 : 0);
   const upd = () => { $('#sworn-label').textContent = `PRZYSIĘGĘ ZŁOŻYŁO: ${Math.min(sworn,total)} Z ${total} WÓDOWICZÓW`; $('#sworn-bar').style.width = Math.min(100, sworn/total*100)+'%'; };
+  API.on(s => { sworn = CONFIG.sworn + s.sworn.length + (store.get('sworn', false) && !s.sworn.includes(API.me) ? 1 : 0); upd(); });
   new IntersectionObserver((es,o)=>{ if(es[0].isIntersecting){ upd(); o.disconnect(); } }).observe($('#licznik'));
   const form = $('#oath');
   if (store.get('sworn', false)) $('#oath-stamp').classList.add('in');
@@ -1506,6 +1558,7 @@ carouselDots($('#kary-track'), $('#kary-dots'), 'przesuń →');
     $('#oath-err').textContent = '';
     if (CONFIG.formEndpoint) { try { await fetch(CONFIG.formEndpoint, {method:'POST', headers:{'Accept':'application/json'}, body: fd}); } catch(err) {} }
     const st = $('#oath-stamp'); st.classList.remove('in'); void st.offsetWidth; st.classList.add('in');
+    API.send({type:'oath', d:{imie: fd.get('imie').trim(), ksywa: (fd.get('ksywa')||'').trim()}});
     if (!store.get('sworn', false)) { store.set('sworn', true); sworn++; upd(); }
     toast(`Przysięga przyjęta, ${fd.get('ksywa') || fd.get('imie').split(' ')[0]}. Wpisano do rejestru.`); };
   // licznik rybek
@@ -1515,7 +1568,7 @@ carouselDots($('#kary-track'), $('#kary-dots'), 'przesuń →');
   const active = CONFIG.counterAlwaysOn || (day(now) === day(ev) || (now > ev && now - ev < 12*36e5));
   const btn = $('#plus-fish'); if (!active) btn.classList.add('off'); else $('#fish-note').textContent = 'Licznik aktywny. Pij z głową — rybki liczą się same.';
   const plus = () => { if (!active) { toast('Licznik ruszy 21.11 o 19:00. Cierpliwości, Wódowiczu.'); return; }
-    n++; store.set('fish', n); out.textContent = pad(n,3); out.classList.remove('bump'); void out.offsetWidth; out.classList.add('bump'); navigator.vibrate && navigator.vibrate(30); };
+    n++; store.set('fish', n); API.send({type:'fish', d:{n:1}}); out.textContent = pad(n,3); out.classList.remove('bump'); void out.offsetWidth; out.classList.add('bump'); navigator.vibrate && navigator.vibrate(30); };
   btn.onclick = plus;
   $('[data-plus]').addEventListener('click', () => setTimeout(plus, 600));
 })();
