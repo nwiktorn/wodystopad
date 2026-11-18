@@ -5,9 +5,11 @@
  *
  * Arkusz „log”: każde zdarzenie ze strony w jednym wierszu (czas, wyborca, typ, dane JSON).
  * Arkusz „Podsumowanie”: czytelne zestawienie, odświeżane po każdym zapisie.
- * Typ 'score' — wyniki minigry „Wódystopad the Game” (3 litery, punkty, rybki, nr mapy); strona dostaje top 15.
+ * Typ 'score' — wyniki gry „Podwódne Przygody” (3 litery, punkty, rybki, nr mapy); strona dostaje top 15 w `scores`.
+ * Typ 'score-g' — wyniki pozostałych gier z Wódystopad Game Store (pole g = id gry, np. 'polanie'); strona dostaje top 15 każdej w `boards`.
  */
 const LOG = 'log', SUM = 'Podsumowanie';
+const GAMES = { polanie: 'OSTATNIE POLANIE' }; // gry z biblioteki zapisywane jako 'score-g'
 
 function sheet_(name) {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
@@ -25,7 +27,7 @@ function events_() {
 }
 
 function state_() {
-  const brands = {}; const votes = {}; const bottles = {}; const oaths = {}; const scores = []; let fish = 0;
+  const brands = {}; const votes = {}; const bottles = {}; const oaths = {}; const scores = []; const boards = {}; Object.keys(GAMES).forEach(k => boards[k] = []); let fish = 0;
   events_().forEach(e => {
     if (e.type === 'brand-add') {
       const name = String(e.d.name || '').trim().slice(0, 40); if (!name) return;
@@ -45,6 +47,11 @@ function state_() {
       const n = String(e.d.n || '').toUpperCase().replace(/[^A-ZĄĆĘŁŃÓŚŹŻ0-9]/g, '').slice(0, 3); if (!n) return;
       const num = (v, max) => Math.max(0, Math.min(max, parseInt(v, 10) || 0));
       scores.push({ n, p: num(e.d.p, 99999), f: num(e.d.f, 999), m: num(e.d.m, 9999), who: e.who, t: +new Date(e.t) || 0 });
+    } else if (e.type === 'score-g') {
+      const gid = String(e.d.g || ''); if (!boards[gid]) return;
+      const n = String(e.d.n || '').toUpperCase().replace(/[^A-ZĄĆĘŁŃÓŚŹŻ0-9]/g, '').slice(0, 3); if (!n) return;
+      const num = (v, max) => Math.max(0, Math.min(max, parseInt(v, 10) || 0));
+      boards[gid].push({ n, p: num(e.d.p, 99999), f: num(e.d.f, 999), x: num(e.d.x, 999), who: e.who, t: +new Date(e.t) || 0 });
     } else if (e.type === 'fish') {
       fish += Math.max(1, Math.min(5, parseInt(e.d.n, 10) || 1));
     }
@@ -59,14 +66,16 @@ function state_() {
     bottles: Object.keys(bottles).map(w => Object.assign({ who: w }, bottles[w])),
     oaths: Object.keys(oaths).map(w => Object.assign({ who: w }, oaths[w])),
     fish: fish,
-    scores: scores.sort((a, b) => b.p - a.p || a.t - b.t)
+    scores: scores.sort((a, b) => b.p - a.p || a.t - b.t),
+    boards: Object.keys(boards).reduce((o, k) => (o[k] = boards[k].sort((a, b) => b.p - a.p || a.t - b.t), o), {})
   };
 }
 
 /* to, co widzi strona (bez imion i nazwisk z przysięg i bez mapy głosów) */
 function public_(s) {
   return { brands: s.brands, bottles: s.bottles, sworn: s.oaths.map(o => o.who), fish: s.fish,
-    scores: s.scores.slice(0, 15).map(x => ({ n: x.n, p: x.p, f: x.f, who: x.who })), games: s.scores.length };
+    scores: s.scores.slice(0, 15).map(x => ({ n: x.n, p: x.p, f: x.f, who: x.who })), games: s.scores.length,
+    boards: Object.keys(s.boards).reduce((o, k) => (o[k] = s.boards[k].slice(0, 15).map(x => ({ n: x.n, p: x.p, f: x.f, who: x.who })), o), {}) };
 }
 
 function summary_(s) {
@@ -78,8 +87,10 @@ function summary_(s) {
   rows.push(['', '', ''], ['PRZYSIĘGI', 'KSYWA', '']);
   s.oaths.forEach(o => rows.push([o.imie, o.ksywa, '']));
   rows.push(['', '', ''], ['RYBKI (21.11)', s.fish, '']);
-  rows.push(['', '', ''], ['WÓDYSTOPAD THE GAME — TOP 10', 'PUNKTY', 'RYBKI']);
+  rows.push(['', '', ''], ['PODWÓDNE PRZYGODY — TOP 10', 'PUNKTY', 'RYBKI']);
   s.scores.slice(0, 10).forEach((x, i) => rows.push([(i + 1) + '. ' + x.n, x.p, x.f]));
+  Object.keys(GAMES).forEach(k => { rows.push(['', '', ''], [GAMES[k] + ' — TOP 10', 'PUNKTY', 'KIELONKI']);
+    s.boards[k].slice(0, 10).forEach((x, i) => rows.push([(i + 1) + '. ' + x.n, x.p, x.f])); });
   sh.getRange(1, 1, rows.length, 3).setValues(rows);
   sh.getRange(1, 1).setFontWeight('bold').setFontSize(14);
 }
@@ -98,7 +109,7 @@ function doPost(e) {
     const body = JSON.parse(e.postData.contents || '{}');
     const list = Array.isArray(body.events) ? body.events : [body];
     const who = String(body.who || '').slice(0, 40);
-    const ok = ['brand-add', 'brand-del', 'vote', 'bottle', 'oath', 'fish', 'score'];
+    const ok = ['brand-add', 'brand-del', 'vote', 'bottle', 'oath', 'fish', 'score', 'score-g'];
     const rows = list.filter(ev => ok.indexOf(ev.type) >= 0 && who).slice(0, 30)
       .map(ev => [new Date(), who, ev.type, JSON.stringify(ev.d || {}).slice(0, 500)]);
     if (rows.length) { const sh = sheet_(LOG); sh.getRange(sh.getLastRow() + 1, 1, rows.length, 4).setValues(rows); }

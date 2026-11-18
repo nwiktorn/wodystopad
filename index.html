@@ -834,6 +834,62 @@ mark{background:none;color:var(--mag);font-weight:700}
   .gra__top li{grid-template-columns:24px 50px 1fr auto;font-size:13px}
   .gra__keys{font-size:12px;margin-top:20px}
 }
+/* ---- Wódystopad Game Store: biblioteka gier ---- */
+.gra__fine{font:700 12px/1.45 var(--f-type);letter-spacing:.04em;margin-top:10px;max-width:46em;opacity:.75}
+.store{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px;margin-top:52px}
+.cart{all:unset;box-sizing:border-box;cursor:pointer;position:relative;display:grid;grid-template-columns:150px minmax(0,1fr);gap:20px;align-items:center;background:var(--paper);color:var(--ink);border:3px solid var(--ink);border-radius:22px;box-shadow:8px 8px 0 var(--ink);padding:16px 20px 16px 16px;transition:transform .15s,box-shadow .15s,background .2s;-webkit-tap-highlight-color:transparent}
+.cart:hover{transform:translate(-2px,-2px);box-shadow:10px 10px 0 var(--ink)}
+.cart:active{transform:translate(3px,3px);box-shadow:4px 4px 0 var(--ink)}
+.cart:focus-visible{outline:3px solid var(--lime);outline-offset:5px}
+.cart.on{background:var(--lime)}
+.cart__art{width:100%;aspect-ratio:1;display:block;border:3px solid var(--ink);border-radius:14px;background:var(--blue)}
+.cart__body{display:flex;flex-direction:column;min-width:0}
+.cart__meta{font:700 10.5px/1.3 var(--f-type);letter-spacing:.1em;text-transform:uppercase;color:var(--mag)}
+.cart__meta i{font-style:normal}
+.cart__t{font:400 clamp(30px,2.9vw,40px)/1.04 var(--f-display);text-transform:uppercase;margin:6px 0 6px;padding-top:.08em}
+.cart__d{font-size:14px;line-height:1.4}
+.cart__foot{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;margin-top:12px;font:700 11px/1.2 var(--f-type);letter-spacing:.06em;text-transform:uppercase}
+.cart__price s{opacity:.55;margin-right:4px}
+.cart__cta{margin-left:auto;background:var(--ink);color:var(--lime);border-radius:999px;padding:8px 14px}
+.cart.on .cart__cta{background:var(--pink);color:var(--ink);border:2px solid var(--ink);padding:6px 12px}
+.cart.on .cart__cta::before{content:'▶ ';}
+.cart__new{position:absolute;top:-16px;left:-10px;font:400 19px/1 var(--f-sticker);background:var(--pink);border:3px solid var(--ink);border-radius:999px;padding:6px 14px 9px;transform:rotate(-8deg);box-shadow:3px 3px 0 var(--ink);z-index:2}
+.gra__game{margin-top:44px}
+.gra__game[hidden]{display:none}
+.gra__game .gra__grid{margin-top:0}
+.gra__stage--pol{aspect-ratio:16/9;cursor:pointer}
+.gra__stage--pol.run{cursor:none}
+.gra__boardgame{display:block;font:700 11px/1.2 var(--f-type);letter-spacing:.12em;text-transform:uppercase;color:var(--mag);margin-bottom:4px}
+.pol__ok{display:flex;justify-content:center;gap:10px;margin:2px 0}
+.pol__ok figure{display:flex;flex-direction:column;align-items:center;gap:4px;width:78px}
+.gra__stage .pol__ok canvas{position:static;inset:auto;width:66px;height:66px;display:block;background:#fff;border:2.5px solid var(--ink);border-radius:12px;box-shadow:3px 3px 0 var(--lime)}
+.pol__ok figcaption{font:700 10.5px/1.1 var(--f-type);letter-spacing:.06em;text-transform:uppercase}
+.pol__ok--plus canvas{box-shadow:3px 3px 0 #6FA531}
+.pol__ok--star canvas{box-shadow:3px 3px 0 var(--pink)}
+.gra__card .pol__no{font:700 11.5px/1.3 var(--f-type);letter-spacing:.04em}
+.pol__no b{color:var(--red);font:400 15px/1 var(--f-display);margin-right:4px}
+@media (max-width:1180px){
+  .store{grid-template-columns:1fr;max-width:640px}
+}
+@media (max-width:760px){
+  .gra__fine{font-size:11px}
+  .store{margin-top:30px;gap:18px}
+  .cart{grid-template-columns:84px minmax(0,1fr);gap:14px;padding:12px 14px 12px 12px;border-radius:18px;box-shadow:6px 6px 0 var(--ink);margin-right:6px}
+  .cart__art{border-radius:10px;border-width:2.5px}
+  .cart__t{font-size:26px;margin:3px 0 2px}
+  .cart__d{display:none}
+  .cart__meta{font-size:9.5px}
+  .cart__foot{margin-top:6px;font-size:10px}
+  .cart__foot span:nth-child(2){display:none}
+  .cart__new{font-size:14px;top:-14px;left:-8px;padding:4px 9px 7px}
+  .cart__meta i{display:none}
+  .gra__game{margin-top:30px}
+  .gra__stage--pol{aspect-ratio:auto;height:min(118vw,520px)}
+  .pol__ok{gap:6px}
+  .pol__ok figure{width:62px}
+  .gra__stage .pol__ok canvas{width:52px;height:52px;border-radius:10px}
+  .pol__ok figcaption{font-size:9px}
+}
 </style>
 </head>
 <body>
@@ -895,7 +951,7 @@ mark{background:none;color:var(--mag);font-weight:700}
     <li><a href="#kary">Kary</a></li>
     <li><a href="#promile">Promil-meter</a></li>
     <li><a href="#program">Program</a></li>
-    <li><a href="#gra">Gra</a></li>
+    <li><a href="#gra">Gry</a></li>
   </ul>
   <a class="btn-pill btn-pink" href="#przysiega">Złóż przysięgę →</a>
   <button class="btn-pill btn-pink nav__menu" id="menu-open" aria-expanded="false" aria-controls="menu">MENU
@@ -1152,63 +1208,151 @@ mark{background:none;color:var(--mag);font-weight:700}
   </div>
 </section>
 
-<!-- ================== 11 GRA: WÓDYSTOPAD THE GAME ================== -->
+<!-- ================== 11 WÓDYSTOPAD GAME STORE ================== -->
 <section class="s bg-blue gra" id="gra" data-page="10" data-prev="#D9FF3D">
   <div class="container">
     <div class="gra__head">
-      <p class="eyebrow" style="color:var(--lime)">Rozdział V · Formularz S-1 · sprawdzian sprawności karafki</p>
-      <h2 class="h-title gra__title">Wódystopad<br><span class="gra__the">the Game</span></h2>
+      <p class="eyebrow" style="color:var(--lime)">Rozdział V · Formularz S-1 · salon gier komisji</p>
+      <h2 class="h-title gra__title">Wódystopad<br><span class="gra__the">Game Store</span></h2>
       <div class="stamp" data-stamp><span><b>SPRAWDZIAN</b><small>komisja patrzy</small></span></div>
-      <p class="gra__lead">Karafka-ryba rusza po stole. Przeskakuj kieliszki, zbieraj rybki — każda dołącza do orszaku. Jeden przewrócony kielonek i komisja zamyka posiedzenie.</p>
+      <p class="gra__lead">Wybierz ulubioną grę, bij rekordy, a kto wie, może na najlepszych graczy będzie czekać specjalna nagroda!</p>
+      <p class="gra__fine">Nie liczyłbym na to, ale w tę szaloną noc wydarzyć może się dosłownie wszystko. Bądź panem swojego losu!</p>
     </div>
-    <div class="gra__grid">
-      <div class="gra__stage" id="gra-stage" tabindex="0" aria-label="Gra Wódystopad the Game. Spacja, kliknięcie albo dotknięcie — skok. Przytrzymaj, żeby skoczyć wyżej.">
-        <canvas id="gra-cv" aria-hidden="true"></canvas>
-        <div class="gra__ov" id="gra-start">
-          <div class="gra__card">
-            <small id="gra-map">Mapa losowana przez komisję</small>
-            <h3>Wódystopad <span class="gra__the">the Game</span></h3>
-            <p>Skok — <b>spacja</b>, <b>klik</b> albo <b>tap</b>. Przytrzymaj, żeby skoczyć wyżej — butelki są wysokie.</p>
-            <button class="btn-pill btn-lime" id="gra-go" type="button">Start →</button>
-            <p class="gra__note" id="gra-mybest"></p>
-          </div>
-        </div>
-        <div class="gra__ov" id="gra-pause" hidden>
-          <div class="gra__card gra__card--sm">
-            <h3>Pauza</h3>
-            <p>Komisja poczeka. Karafka też.</p>
-            <button class="btn-pill btn-lime" id="gra-resume" type="button">Wracam →</button>
-          </div>
-        </div>
-        <div class="gra__ov" id="gra-over" hidden>
-          <div class="gra__card">
-            <small id="gra-why">Kielonek 1 : Karafka 0</small>
-            <h3 id="gra-over-h">Rozlane!</h3>
-            <div class="gra__res">
-              <div><b id="gra-pts">0</b><span>punktów</span></div>
-              <div><b id="gra-fish">0</b><span>rybek</span></div>
-              <div><b id="gra-m">0</b><span>metrów</span></div>
-            </div>
-            <form class="gra__save" id="gra-save" autocomplete="off">
-              <label for="gra-ini">Inicjały do rejestru — 3 litery</label>
-              <div class="gra__row">
-                <div class="gra__ini"><input id="gra-ini" maxlength="3" inputmode="text" autocapitalize="characters" spellcheck="false" enterkeyhint="done" aria-label="Trzy litery"><i></i><i></i><i></i></div>
-                <button class="btn-pill btn-ink" type="submit">Zapisz →</button>
+
+    <div class="store" role="tablist" aria-label="Biblioteka gier">
+      <button class="cart on" type="button" role="tab" aria-selected="true" aria-controls="game-polanie" data-game="polanie">
+        <span class="cart__new">Nowość!</span>
+        <canvas class="cart__art" data-art="polanie" aria-hidden="true"></canvas>
+        <span class="cart__body">
+          <span class="cart__meta">Gra nr 2<i> · zręcznościowa · mysz / dotyk</i></span>
+          <span class="cart__t">Ostatnie Polanie</span>
+          <span class="cart__d">Wódzirej stawia trunki. Ty bierzesz wyłącznie wódeczkę. Im więcej promili, tym bardziej ręka nie słucha.</span>
+          <span class="cart__foot"><span class="cart__price"><s>49,99 zł</s> 0,00 zł</span><span>★★★★★ komisji</span><span class="cart__cta">Graj →</span></span>
+        </span>
+      </button>
+      <button class="cart" type="button" role="tab" aria-selected="false" aria-controls="game-karafka" data-game="karafka">
+        <canvas class="cart__art" data-art="karafka" aria-hidden="true"></canvas>
+        <span class="cart__body">
+          <span class="cart__meta">Gra nr 1<i> · platformówka · spacja / klik / tap</i></span>
+          <span class="cart__t">Podwódne Przygody</span>
+          <span class="cart__d">Karafka-ryba pędzi po stole, przeskakuje kieliszki i zbiera orszak rybek.</span>
+          <span class="cart__foot"><span class="cart__price"><s>39,99 zł</s> 0,00 zł</span><span>★★★★★ komisji</span><span class="cart__cta">Graj →</span></span>
+        </span>
+      </button>
+    </div>
+
+    <!-- GRA 2: OSTATNIE POLANIE -->
+    <div class="gra__game" id="game-polanie" role="tabpanel" data-game="polanie">
+      <div class="gra__grid">
+        <div class="gra__stage gra__stage--pol" id="pol-stage" tabindex="0" aria-label="Gra Ostatnie Polanie. Ręka podąża za myszą albo palcem. Klik albo dotknięcie — chwyć trunek. Bierz tylko wódeczkę.">
+          <canvas id="pol-cv" aria-hidden="true"></canvas>
+          <div class="gra__ov" id="pol-start">
+            <div class="gra__card">
+              <small>Wódystopad · gra nr 2</small>
+              <h3>Ostatnie Polanie</h3>
+              <p>Ręka chodzi za <b>myszą</b> albo <b>palcem</b>, <b>klik / tap</b> — chwytasz. Bierzesz <b>wyłącznie wódeczkę</b>, zanim wyparuje:</p>
+              <div class="pol__ok">
+                <figure><canvas data-drink="vodka" aria-hidden="true"></canvas><figcaption>kieliszek</figcaption></figure>
+                <figure><canvas data-drink="rybka" aria-hidden="true"></canvas><figcaption>rybka</figcaption></figure>
+                <figure class="pol__ok--star"><canvas data-drink="karafka" aria-hidden="true"></canvas><figcaption>karafka ★</figcaption></figure>
+                <figure class="pol__ok--plus"><canvas data-drink="ogorek" aria-hidden="true"></canvas><figcaption>ogórek +1</figcaption></figure>
               </div>
-            </form>
-            <p class="gra__saved" id="gra-saved" aria-live="polite"></p>
-            <button class="btn-pill btn-pink" id="gra-again" type="button">Jeszcze raz ↻</button>
+              <p class="pol__no"><b>✕</b> Wszystko inne to pułapka — nawet przezroczyste.</p>
+              <button class="btn-pill btn-lime" id="pol-go" type="button">Polewamy →</button>
+              <p class="gra__note" id="pol-mybest"></p>
+            </div>
+          </div>
+          <div class="gra__ov" id="pol-pause" hidden>
+            <div class="gra__card gra__card--sm">
+              <h3>Pauza</h3>
+              <p>Wódeczka postoi. Wódzirej też.</p>
+              <button class="btn-pill btn-lime" id="pol-resume" type="button">Wracam →</button>
+            </div>
+          </div>
+          <div class="gra__ov" id="pol-over" hidden>
+            <div class="gra__card">
+              <small id="pol-why">Komisja zamyka posiedzenie.</small>
+              <h3 id="pol-over-h">Koniec zagrychy!</h3>
+              <div class="gra__res">
+                <div><b id="pol-pts">0</b><span>punktów</span></div>
+                <div><b id="pol-kiel">0</b><span>kielonków</span></div>
+                <div><b id="pol-prom">0</b><span>maks. ‰</span></div>
+              </div>
+              <form class="gra__save" id="pol-save" autocomplete="off">
+                <label for="pol-ini">Inicjały do rejestru — 3 litery</label>
+                <div class="gra__row">
+                  <div class="gra__ini"><input id="pol-ini" maxlength="3" inputmode="text" autocapitalize="characters" spellcheck="false" enterkeyhint="done" aria-label="Trzy litery"><i></i><i></i><i></i></div>
+                  <button class="btn-pill btn-ink" type="submit">Zapisz →</button>
+                </div>
+              </form>
+              <p class="gra__saved" id="pol-saved" aria-live="polite"></p>
+              <button class="btn-pill btn-pink" id="pol-again" type="button">Jeszcze raz ↻</button>
+            </div>
           </div>
         </div>
+        <aside class="gra__board" aria-labelledby="pol-board-h">
+          <small class="gra__boardgame">Ostatnie Polanie</small>
+          <h3 id="pol-board-h">Rejestr rekordów</h3>
+          <p class="live" id="pol-live"></p>
+          <ol class="gra__top" id="pol-top"></ol>
+          <p class="gra__note" id="pol-board-note"></p>
+        </aside>
       </div>
-      <aside class="gra__board" aria-labelledby="gra-board-h">
-        <h3 id="gra-board-h">Rejestr rekordów</h3>
-        <p class="live" id="gra-live"></p>
-        <ol class="gra__top" id="gra-top"></ol>
-        <p class="gra__note" id="gra-board-note"></p>
-      </aside>
+      <p class="gra__keys"><b>MYSZ / PALEC</b> — ręka · <b>KLIK / TAP</b> — chwyć · wódeczka = +10 pkt i +0,1‰ · co 5 z rzędu mnożnik rośnie · zły trunek albo wyparowana wódeczka = −1 ogórek</p>
     </div>
-    <p class="gra__keys"><b>SPACJA / KLIK / TAP</b> — skok · <b>przytrzymaj</b> — wyżej · rybka = +10 pkt i +0,1‰ (od 1‰ stół zaczyna się bujać)</p>
+
+    <!-- GRA 1: PODWÓDNE PRZYGODY -->
+    <div class="gra__game" id="game-karafka" role="tabpanel" data-game="karafka" hidden>
+      <div class="gra__grid">
+        <div class="gra__stage" id="gra-stage" tabindex="0" aria-label="Gra Podwódne Przygody. Spacja, kliknięcie albo dotknięcie — skok. Przytrzymaj, żeby skoczyć wyżej.">
+          <canvas id="gra-cv" aria-hidden="true"></canvas>
+          <div class="gra__ov" id="gra-start">
+            <div class="gra__card">
+              <small id="gra-map">Mapa losowana przez komisję</small>
+              <h3>Podwódne Przygody</h3>
+              <p>Skok — <b>spacja</b>, <b>klik</b> albo <b>tap</b>. Przytrzymaj, żeby skoczyć wyżej — butelki są wysokie.</p>
+              <button class="btn-pill btn-lime" id="gra-go" type="button">Start →</button>
+              <p class="gra__note" id="gra-mybest"></p>
+            </div>
+          </div>
+          <div class="gra__ov" id="gra-pause" hidden>
+            <div class="gra__card gra__card--sm">
+              <h3>Pauza</h3>
+              <p>Komisja poczeka. Karafka też.</p>
+              <button class="btn-pill btn-lime" id="gra-resume" type="button">Wracam →</button>
+            </div>
+          </div>
+          <div class="gra__ov" id="gra-over" hidden>
+            <div class="gra__card">
+              <small id="gra-why">Kielonek 1 : Karafka 0</small>
+              <h3 id="gra-over-h">Rozlane!</h3>
+              <div class="gra__res">
+                <div><b id="gra-pts">0</b><span>punktów</span></div>
+                <div><b id="gra-fish">0</b><span>rybek</span></div>
+                <div><b id="gra-m">0</b><span>metrów</span></div>
+              </div>
+              <form class="gra__save" id="gra-save" autocomplete="off">
+                <label for="gra-ini">Inicjały do rejestru — 3 litery</label>
+                <div class="gra__row">
+                  <div class="gra__ini"><input id="gra-ini" maxlength="3" inputmode="text" autocapitalize="characters" spellcheck="false" enterkeyhint="done" aria-label="Trzy litery"><i></i><i></i><i></i></div>
+                  <button class="btn-pill btn-ink" type="submit">Zapisz →</button>
+                </div>
+              </form>
+              <p class="gra__saved" id="gra-saved" aria-live="polite"></p>
+              <button class="btn-pill btn-pink" id="gra-again" type="button">Jeszcze raz ↻</button>
+            </div>
+          </div>
+        </div>
+        <aside class="gra__board" aria-labelledby="gra-board-h">
+          <small class="gra__boardgame">Podwódne Przygody</small>
+          <h3 id="gra-board-h">Rejestr rekordów</h3>
+          <p class="live" id="gra-live"></p>
+          <ol class="gra__top" id="gra-top"></ol>
+          <p class="gra__note" id="gra-board-note"></p>
+        </aside>
+      </div>
+      <p class="gra__keys"><b>SPACJA / KLIK / TAP</b> — skok · <b>przytrzymaj</b> — wyżej · rybka = +10 pkt i +0,1‰ (od 1‰ stół zaczyna się bujać)</p>
+    </div>
   </div>
 </section>
 
@@ -1322,8 +1466,8 @@ $$('[data-page]').forEach(s => { if(s.id==='start') return; const dark = s.class
   addEventListener('scroll', () => { const y = scrollY, down = y > last && y > 200;
     nav.classList.toggle('hidden', down && isMobile()); sticky.classList.toggle('hide', blockers.size > 0 || y > document.body.scrollHeight - innerHeight - 260); last = y; }, {passive:true});
   const blockers = new Set(); const bio = new IntersectionObserver(es => { es.forEach(e => e.isIntersecting ? blockers.add(e.target) : blockers.delete(e.target)); sticky.classList.toggle('hide', blockers.size > 0); }, {rootMargin:'0px 0px -60px 0px'});
-  ['#reg-accept','#oath','#licznik','.panels','#gra-stage'].forEach(s => bio.observe($(s)));
-  const sections = [['pismo','Pismo okólne'],['regulamin','Regulamin'],['wodowicze','Legitymacje'],['zaopatrzenie','Co pijemy, ile pijemy'],['kary','Taryfikator kar'],['promile','Promil-meter'],['program','Porządek obrad'],['przysiega','Przysięga'],['gra','Wódystopad the Game']];
+  ['#reg-accept','#oath','#licznik','.panels','#gra-stage','#pol-stage','.store'].forEach(s => bio.observe($(s)));
+  const sections = [['pismo','Pismo okólne'],['regulamin','Regulamin'],['wodowicze','Legitymacje'],['zaopatrzenie','Co pijemy, ile pijemy'],['kary','Taryfikator kar'],['promile','Promil-meter'],['program','Porządek obrad'],['przysiega','Przysięga'],['gra','Wódystopad Game Store']];
   $('#menu-list').innerHTML = sections.map(([id,t],i)=>`<li style="--i:${i}"><a href="#${id}" data-id="${id}"><span>${pad(i+1)}</span><b>${t}</b></a></li>`).join('');
   const menu = $('#menu'), open = (v) => { menu.classList.toggle('open', v); menu.setAttribute('aria-hidden', !v); $('#menu-open').setAttribute('aria-expanded', v); document.body.classList.toggle('locked', v); };
   $('#menu-open').onclick = () => open(true); $('#menu-close').onclick = () => open(false);
@@ -1494,7 +1638,7 @@ const API = (() => { const url = CONFIG.api;
   const load = async () => { if (!url) return; try { const r = await fetch(url, {cache:'no-store'}); apply(await r.json()); } catch (e) { ok = false; live(); } };
   const flush = async () => { if (!url || busy) return; const q = store.get('outbox', []); if (!q.length) return; busy = true;
     try { const r = await fetch(url, {method:'POST', body: JSON.stringify({who: me, events: q})}); const s = await r.json();
-      if (s.ok) { const keep = Array.isArray(s.scores) ? [] : q.filter(e => e.type === 'score'); // stary skrypt nie zna wyników gry — czekają w kolejce
+      if (s.ok) { const keep = q.filter(e => (e.type === 'score' && !Array.isArray(s.scores)) || (e.type === 'score-g' && !s.boards)); // stary skrypt nie zna wyników gier — czekają w kolejce
         store.set('outbox', keep.concat(store.get('outbox', []).slice(q.length))); apply(s); if (keep.length) { busy = false; return; } } else throw 0; }
     catch (e) { ok = false; live(); } busy = false; if (store.get('outbox', []).length && ok) flush(); };
   const send = (...events) => { if (!url) return; store.set('outbox', store.get('outbox', []).concat(events)); flush(); };
@@ -1717,8 +1861,9 @@ carouselDots($('#kary-track'), $('#kary-dots'), 'przesuń →');
   btn.onclick = plus;
   $('[data-plus]').addEventListener('click', () => setTimeout(plus, 600));
 })();
+const GFX = {}; // rysunki współdzielone przez gry i okładki w Game Store
 /* =========================================================
-   GRA: WÓDYSTOPAD THE GAME — ryba-karafka przeskakuje kieliszki, zbiera rybki
+   GRA 1: PODWÓDNE PRZYGODY — ryba-karafka przeskakuje kieliszki, zbiera rybki
    mapy losowane (ziarno + motyw), rekordy we wspólnej bazie (typ 'score')
    ========================================================= */
 (() => {
@@ -1786,6 +1931,7 @@ carouselDots($('#kary-track'), $('#kary-dots'), 'przesuń →');
     c.beginPath(); c.moveTo(14, -78); c.quadraticCurveTo(20, -64, 19, -50); c.stroke();
     c.lineWidth = big ? 2 : 3; c.beginPath(); c.moveTo(-15, -74); c.quadraticCurveTo(-18, -66, -18, -60); c.stroke(); c.globalAlpha = 1;
   }
+  GFX.fish = drawFish;
   function drawGlass(c) { // zwykły kieliszek 24 × 32
     c.lineJoin = 'round';
     const p = new Path2D('M-12 -32 L12 -32 L8.5 -5 L-8.5 -5 Z');
@@ -2003,6 +2149,7 @@ carouselDots($('#kary-track'), $('#kary-dots'), 'przesuń →');
     g.save(); g.translate(PX, y - run * 5); g.rotate(tilt + (st === 'run' && onGround ? Math.sin(t * 13) * .05 : 0)); g.scale(1 + sq, 1 - sq);
     blit(spr.carafe, 0, 0, .86); g.restore();
     parts.forEach(p => { g.fillStyle = p.c; g.globalAlpha = Math.min(1, p.l * 3); g.beginPath(); g.arc(fx(p.x), p.y, p.r, 0, 7); g.fill(); }); g.globalAlpha = 1;
+    g.lineJoin = 'round'; g.miterLimit = 2;
     texts.forEach(tt => { g.globalAlpha = Math.min(1, tt.l * 2.5); g.textAlign = 'center';
       if (tt.big) { g.font = '400 26px Anton, Impact, sans-serif'; g.lineWidth = 6; g.strokeStyle = K.ink; g.strokeText(tt.s, tt.x, tt.y); g.fillStyle = K.lime; g.fillText(tt.s, tt.x, tt.y); }
       else { g.font = '700 13px "Courier Prime", monospace'; g.lineWidth = 4; g.strokeStyle = K.ink; g.strokeText(tt.s, fx(tt.x), tt.y); g.fillStyle = K.lime; g.fillText(tt.s, fx(tt.x), tt.y); } });
@@ -2097,6 +2244,561 @@ carouselDots($('#kary-track'), $('#kary-dots'), 'przesuń →');
   (document.fonts ? document.fonts.load('400 20px Anton', 'ÓĄ') .then(() => document.fonts.load('400 20px Shrikhand', 'ó')).catch(() => {}) : Promise.resolve()).then(() => { resize(); });
   resize(); reset();
   if (/gradebug/.test(location.search)) window.__gra = { get s() { return { st, cam, PX, y, vy, onGround, obs, crates, gaps, picks, spd, fish, followers, GROUND, dist, W }; } };
+})();
+
+/* =========================================================
+   GRA 2: OSTATNIE POLANIE — ręka gracza za myszą/palcem, ręka Wódzireja stawia trunki,
+   bierzemy wyłącznie wódeczkę. Zagrycha (ogórki) = życia, promile = bujanie i spóźniona ręka.
+   rekordy we wspólnej bazie (typ 'score-g', g:'polanie')
+   ========================================================= */
+(() => {
+  const stage = $('#pol-stage'), cv = $('#pol-cv'), g = cv.getContext('2d');
+  const K = { ink:'#0B0B1E', blue:'#2B2BFF', lime:'#D9FF3D', pink:'#FF5FD2', paper:'#EFE6D2', aqua:'#8FE8FF', mag:'#E0249B', red:'#E5301F', gold:'#F5C542',
+    skin:'#F4C7A1', skinD:'#C98A62', skin2:'#E9B48A', suit:'#23234a' };
+  const STEP = 1/120, LV_T = 25;
+  const LEVELS = ['KIELONEK POWITALNY','DRUGA KOLEJKA','TOAST ZA KOMISJĘ','STO LAT, STO LAT','WOLNE WNIOSKI','OSTATNIE POLANIE'];
+  const pick = a => a[Math.floor(Math.random() * a.length)];
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+  const ease = u => 1 - Math.pow(1 - u, 3);
+
+  /* ---------- trunki: w, h (jednostki świata przy skali 1), ok: 1 wódeczka · 2 karafka · 3 zagrycha ---------- */
+  const VOD = 'rgba(236,250,255,.96)';
+  const DR = {
+    vodka:   { w:30, h:38, ok:1 },
+    rybka:   { w:36, h:46, ok:1 },
+    karafka: { w:60, h:90, ok:2 },
+    ogorek:  { w:62, h:28, ok:3 },
+    whisky:  { w:42, h:40, why:['Whisky. Komisja nie uznaje importu.', 'Whisky z lodem. Wódzirej rozczarowany.'] },
+    wino:    { w:38, h:76, why:['Wino? Na Wódystopadzie? Wstyd przed komisją.', 'Wino. To nie wesele cioci.'] },
+    drink:   { w:50, h:84, why:['Kolorowy drink z parasolką. To nie wakacje.', 'Parasolka nie chroni przed karą (§6).'] },
+    piwo:    { w:46, h:62, why:['Piwo to nie wódeczka. Nawet zimne.', 'Piwo. Komisja patrzy z politowaniem.'] },
+    kompot:  { w:36, h:52, why:['Kompot od babci. Babcia dumna, komisja nie.', 'Kompot. Wódzirej udaje, że tego nie widział.'] },
+    szampan: { w:24, h:80, from:15, why:['Szampan. Sylwester dopiero za miesiąc.', 'Bąbelki w kieliszku na nóżce. Pudło.'] },
+    gin:     { w:34, h:66, from:25, why:['Gin z tonikiem. Za dużo zieleni.', 'Przezroczyste, ale z limonką — to gin.'] },
+    tequila: { w:30, h:38, from:35, why:['Sól i limonka. Tequila się zdradziła.', 'Tequila. Komisja pyta: gdzie Twoja czujność?'] },
+    woda:    { w:30, h:38, from:50, why:['Woda z bąbelkami. Prawie się udało.', 'Woda. Bąbelki zdradzają wodę.'] },
+  };
+  const MISS = ['Wódeczka wyparowała!', 'Wódzirej wypił za Ciebie.', 'Wódeczka stała i czekała. Na próżno.'];
+
+  /* ---------- rysunki trunków (podstawa w 0,0, rysujemy w górę) ---------- */
+  const glassFill = 'rgba(200,240,255,.33)';
+  function outline(c, p, w = 2.6) { c.strokeStyle = K.ink; c.lineWidth = w; c.lineJoin = c.lineCap = 'round'; c.stroke(p); }
+  function shine(c, x0, y0, x1, y1, w = 2.4) { c.strokeStyle = '#fff'; c.globalAlpha = .85; c.lineWidth = w; c.lineCap = 'round'; c.beginPath(); c.moveTo(x0, y0); c.lineTo(x1, y1); c.stroke(); c.globalAlpha = 1; }
+  function shot(c, col, lv) { // kieliszek 28 × 38
+    const p = new Path2D('M-14 -38 L14 -38 L10 -7 L-10 -7 Z');
+    c.fillStyle = glassFill; c.fill(p);
+    if (lv > 0) { const top = -7 - 27 * lv, hw = 10 + 4 * ((-7 - top) / 31);
+      c.fillStyle = col; c.beginPath(); c.moveTo(-hw, top); c.lineTo(hw, top); c.lineTo(10, -7); c.lineTo(-10, -7); c.closePath(); c.fill();
+      c.strokeStyle = 'rgba(11,11,30,.4)'; c.lineWidth = 1.5; c.beginPath(); c.moveTo(-hw + 1, top); c.quadraticCurveTo(0, top + 3, hw - 1, top); c.stroke(); }
+    outline(c, p);
+    c.fillStyle = 'rgba(205,240,252,.97)'; c.beginPath(); c.roundRect(-12, -7, 24, 7, 2); c.fill(); c.lineWidth = 2.6; c.stroke();
+    shine(c, -9.5, -33, -7.5, -11);
+  }
+  function musztardowka(c, lv) { // musztardówka 30 × 40, prążki u dołu
+    const p = new Path2D('M-15 -40 L15 -40 L13 -2 Q13 0 11 0 L-11 0 Q-13 0 -13 -2 Z');
+    c.fillStyle = glassFill; c.fill(p);
+    if (lv > 0) { const top = -3 - 26 * lv; c.fillStyle = VOD; c.save(); c.clip(p); c.fillRect(-16, top, 32, 40); c.restore();
+      c.strokeStyle = 'rgba(11,11,30,.4)'; c.lineWidth = 1.5; c.beginPath(); c.moveTo(-13, top); c.quadraticCurveTo(0, top + 3, 13, top); c.stroke(); }
+    c.strokeStyle = 'rgba(11,11,30,.35)'; c.lineWidth = 1.6; for (let x = -10; x <= 10; x += 5) { c.beginPath(); c.moveTo(x, -14); c.lineTo(x * 1.04, -3); c.stroke(); }
+    c.strokeStyle = 'rgba(11,11,30,.35)'; c.beginPath(); c.moveTo(-14.6, -33); c.lineTo(14.6, -33); c.stroke();
+    outline(c, p); shine(c, -10, -36, -9, -18);
+  }
+  function tumbler(c, col, lv, ice) { // szklanka do whisky 40 × 40
+    const p = new Path2D('M-20 -40 L20 -40 L18 -2 Q18 0 16 0 L-16 0 Q-18 0 -18 -2 Z');
+    c.fillStyle = glassFill; c.fill(p);
+    c.save(); c.clip(p);
+    if (lv > 0) { const top = -8 - 18 * lv; c.fillStyle = col; c.fillRect(-21, top, 42, 40);
+      c.strokeStyle = 'rgba(11,11,30,.35)'; c.lineWidth = 1.5; c.beginPath(); c.moveTo(-19, top); c.quadraticCurveTo(0, top + 3, 19, top); c.stroke(); }
+    if (ice) { c.save(); c.translate(-3, -24); c.rotate(.35); c.fillStyle = 'rgba(255,255,255,.75)'; c.fillRect(-8, -8, 16, 16); c.strokeStyle = 'rgba(11,11,30,.45)'; c.lineWidth = 1.5; c.strokeRect(-8, -8, 16, 16); c.restore(); }
+    c.fillStyle = 'rgba(205,240,252,.8)'; c.fillRect(-21, -8, 42, 9); c.restore();
+    outline(c, p); c.lineWidth = 1.8; c.beginPath(); c.moveTo(-18, -8); c.lineTo(18, -8); c.stroke();
+    shine(c, -14, -35, -13, -14);
+  }
+  function stem(c, top) { c.strokeStyle = K.ink; c.lineWidth = 6.5; c.lineCap = 'round'; c.beginPath(); c.moveTo(0, top); c.lineTo(0, -4); c.stroke();
+    c.strokeStyle = 'rgba(215,245,255,1)'; c.lineWidth = 2.5; c.stroke();
+    c.fillStyle = 'rgba(215,245,255,1)'; c.beginPath(); c.ellipse(0, -2.5, 15, 3.6, 0, 0, 7); c.fill(); outline(c, new Path2D('M-15 -2.5 A15 3.6 0 1 0 15 -2.5 A15 3.6 0 1 0 -15 -2.5'), 2.4); }
+  function wine(c, lv) { // 36 × 76
+    stem(c, -40);
+    const p = new Path2D('M-17 -76 Q-21 -46 0 -40 Q21 -46 17 -76 Z');
+    c.fillStyle = glassFill; c.fill(p);
+    if (lv > 0) { c.save(); c.clip(p); c.fillStyle = '#8c1438'; c.fillRect(-22, -40 - 22 * lv, 44, 40); c.restore(); }
+    outline(c, p); shine(c, -12, -70, -12, -54);
+  }
+  function cocktail(c, col, lv) { // 50 × 84
+    stem(c, -40);
+    const p = new Path2D('M-24 -66 L24 -66 L0 -40 Z');
+    c.fillStyle = glassFill; c.fill(p);
+    if (lv > 0) { c.save(); c.clip(p); c.fillStyle = col; c.fillRect(-25, -40 - 22 * lv, 50, 40); c.restore(); }
+    outline(c, p);
+    c.fillStyle = K.red; c.beginPath(); c.arc(-15, -66, 5, 0, 7); c.fill(); outline(c, new Path2D('M-10 -66 A5 5 0 1 0 -20 -66 A5 5 0 1 0 -10 -66'), 2);
+    c.strokeStyle = K.ink; c.lineWidth = 2; c.beginPath(); c.moveTo(6, -56); c.lineTo(20, -80); c.stroke();
+    c.save(); c.translate(20, -80); c.rotate(.35);
+    const u = new Path2D('M-15 0 Q0 -16 15 0 Z'); c.fillStyle = K.pink; c.fill(u);
+    c.save(); c.clip(u); c.fillStyle = K.lime; c.beginPath(); c.moveTo(0, -1); c.lineTo(-6, -14); c.lineTo(6, -14); c.fill(); c.restore(); outline(c, u, 2); c.restore();
+  }
+  function beer(c, lv) { // kufel 46 × 62
+    const p = new Path2D('M-17 -52 L17 -52 L16 -3 Q16 0 13 0 L-13 0 Q-16 0 -16 -3 Z');
+    c.strokeStyle = K.ink; c.lineWidth = 9; c.beginPath(); c.moveTo(16, -42); c.bezierCurveTo(31, -42, 31, -14, 16, -14); c.stroke();
+    c.strokeStyle = 'rgba(215,245,255,1)'; c.lineWidth = 4; c.stroke();
+    c.fillStyle = glassFill; c.fill(p);
+    c.save(); c.clip(p); c.fillStyle = '#F2B233'; c.fillRect(-18, -6 - 36 * lv, 36, 60);
+    c.fillStyle = 'rgba(255,255,255,.55)'; for (let i = 0; i < 6; i++) { c.beginPath(); c.arc(-9 + i * 3.6, -10 - (i * 7) % 26, 1.4, 0, 7); c.fill(); } c.restore();
+    if (lv > .5) { const f = new Path2D('M-19 -44 Q-22 -56 -12 -56 Q-8 -64 0 -59 Q8 -65 13 -56 Q22 -57 19 -44 Z'); c.fillStyle = '#fff'; c.fill(f); outline(c, f, 2.4); }
+    outline(c, p); shine(c, -11, -46, -11, -10, 3);
+  }
+  function flute(c, lv, t) { // szampan 24 × 80
+    stem(c, -36);
+    const p = new Path2D('M-10 -80 Q-12 -46 0 -36 Q12 -46 10 -80 Z');
+    c.fillStyle = glassFill; c.fill(p);
+    if (lv > 0) { c.save(); c.clip(p); c.fillStyle = '#F2D36B'; c.fillRect(-13, -36 - 38 * lv, 26, 50);
+      c.fillStyle = 'rgba(255,255,255,.85)'; for (let i = 0; i < 5; i++) { const yy = -40 - ((t * 22 + i * 9) % 32); c.beginPath(); c.arc(-3 + (i % 3) * 3, yy, 1.3, 0, 7); c.fill(); } c.restore(); }
+    outline(c, p); shine(c, -6, -75, -6, -54, 2);
+  }
+  function highball(c, lv) { // gin z tonikiem 34 × 66
+    const p = new Path2D('M-15 -62 L15 -62 L14 -2 Q14 0 12 0 L-12 0 Q-14 0 -14 -2 Z');
+    c.strokeStyle = K.ink; c.lineWidth = 2; c.beginPath(); c.moveTo(4, -50); c.lineTo(12, -76); c.stroke(); // słomka
+    c.strokeStyle = K.pink; c.lineWidth = 3.5; c.beginPath(); c.moveTo(4, -50); c.lineTo(12, -76); c.stroke();
+    c.fillStyle = glassFill; c.fill(p);
+    c.save(); c.clip(p); if (lv > 0) { c.fillStyle = VOD; c.fillRect(-16, -6 - 46 * lv, 32, 70); }
+    c.fillStyle = 'rgba(255,255,255,.8)'; c.strokeStyle = 'rgba(11,11,30,.4)'; c.lineWidth = 1.4;
+    [[-5, -40, .3], [4, -26, -.2]].forEach(([x, y, r]) => { c.save(); c.translate(x, y); c.rotate(r); c.fillRect(-6, -6, 12, 12); c.strokeRect(-6, -6, 12, 12); c.restore(); });
+    c.restore(); outline(c, p);
+    c.save(); c.translate(-12, -60); // plasterek limonki na brzegu
+    c.fillStyle = '#7BC043'; c.beginPath(); c.arc(0, 0, 10, 0, 7); c.fill(); c.fillStyle = '#D6F28C'; c.beginPath(); c.arc(0, 0, 7, 0, 7); c.fill();
+    c.strokeStyle = '#7BC043'; c.lineWidth = 1.2; for (let a = 0; a < 6; a++) { c.beginPath(); c.moveTo(0, 0); c.lineTo(Math.cos(a) * 7, Math.sin(a) * 7); c.stroke(); }
+    outline(c, new Path2D('M10 0 A10 10 0 1 0 -10 0 A10 10 0 1 0 10 0'), 2); c.restore();
+    shine(c, -10, -55, -9, -10);
+  }
+  function jar(c, lv) { // kompot 36 × 52
+    const p = new Path2D('M-15 -46 Q-17 -49 -14 -50 L14 -50 Q17 -49 15 -46 L16 -6 Q16 0 10 0 L-10 0 Q-16 0 -16 -6 Z');
+    c.fillStyle = glassFill; c.fill(p);
+    c.save(); c.clip(p); c.fillStyle = 'rgba(214,84,122,.85)'; c.fillRect(-18, -4 - 38 * lv, 36, 60);
+    if (lv > .3) { [[-7, -10, '#7a0f2a'], [5, -16, '#7a0f2a'], [-2, -24, '#F5C542'], [8, -7, '#7a0f2a']].forEach(([x, y, col]) => { c.fillStyle = col; c.beginPath(); c.arc(x, y, col === '#F5C542' ? 5 : 3.6, 0, 7); c.fill(); }); }
+    c.restore(); outline(c, p); shine(c, -10, -42, -10, -10);
+  }
+  function plate(c) { // ogórki na talerzyku 62 × 28
+    c.fillStyle = '#fff'; c.beginPath(); c.ellipse(0, -6, 30, 7.5, 0, 0, 7); c.fill(); outline(c, new Path2D('M30 -6 A30 7.5 0 1 0 -30 -6 A30 7.5 0 1 0 30 -6'), 2.4);
+    c.strokeStyle = 'rgba(11,11,30,.25)'; c.lineWidth = 1.5; c.beginPath(); c.ellipse(0, -6, 20, 4.5, 0, 0, 7); c.stroke();
+    [[-10, -13, -.25], [9, -12, .2], [0, -18, -.05]].forEach(([x, y, r]) => { c.save(); c.translate(x, y); c.rotate(r);
+      const p = new Path2D('M-15 0 Q-15 -6 -9 -6 L9 -6 Q15 -6 15 0 Q15 6 9 6 L-9 6 Q-15 6 -15 0 Z');
+      c.fillStyle = '#5E8F2A'; c.fill(p); c.fillStyle = '#86B83F'; c.fillRect(-11, -4, 22, 2.5);
+      c.fillStyle = '#3d6417'; [-9, -3, 3, 9].forEach((xx, i) => { c.beginPath(); c.arc(xx, i % 2 ? 2 : 3, 1.1, 0, 7); c.fill(); });
+      outline(c, p, 2.2); c.restore(); });
+  }
+  function drawDrink(c, it, t) {
+    const lv = it.liq;
+    switch (it.k) {
+      case 'vodka': shot(c, VOD, lv);
+        c.fillStyle = 'rgba(255,255,255,.9)'; [[6, -30], [8, -22], [4, -16], [-3, -27]].forEach(([x, y]) => c.fillRect(x, y, 1.6, 1.6)); break; // szron
+      case 'tequila': shot(c, 'rgba(250,246,226,.96)', lv);
+        c.fillStyle = '#fff'; c.strokeStyle = K.ink; c.lineWidth = 1; for (let x = -13; x <= 13; x += 3.2) { c.fillRect(x - 1.2, -40.5 + (Math.abs(x) % 2), 2.6, 2.6); }
+        c.save(); c.translate(13, -38); c.rotate(-.5); c.fillStyle = '#7BC043'; c.beginPath(); c.arc(0, 0, 9, Math.PI, 0); c.closePath(); c.fill();
+        c.fillStyle = '#D6F28C'; c.beginPath(); c.arc(0, 0, 6.3, Math.PI, 0); c.closePath(); c.fill(); outline(c, new Path2D('M-9 0 A9 9 0 0 1 9 0 Z'), 2); c.restore(); break;
+      case 'woda': shot(c, VOD, lv);
+        if (lv > .2) { c.fillStyle = 'rgba(43,43,255,.55)'; for (let i = 0; i < 6; i++) { const yy = -9 - ((t * 16 + i * 5.5) % (24 * lv)); c.beginPath(); c.arc(-6 + (i % 4) * 4 + Math.sin(t * 5 + i) * .8, yy, 1.4, 0, 7); c.fill(); } } break;
+      case 'rybka': c.save(); c.scale(.46, .46); GFX.fish(c, false); c.restore(); break;
+      case 'karafka': c.save(); c.scale(.92, .92); GFX.fish(c, true); c.restore(); break;
+      case 'musztar': musztardowka(c, lv); break;
+      case 'whisky': tumbler(c, '#C9741C', lv, true); break;
+      case 'wino': wine(c, lv); break;
+      case 'drink': cocktail(c, it.col, lv); break;
+      case 'piwo': beer(c, lv); break;
+      case 'kompot': jar(c, lv); break;
+      case 'szampan': flute(c, lv, t); break;
+      case 'gin': highball(c, lv); break;
+      case 'ogorek': plate(c); break;
+    }
+  }
+
+  /* ---------- ręce ---------- */
+  function capsule(c, x0, y0, x1, y1, w, fill) { c.lineCap = 'round'; c.strokeStyle = K.ink; c.lineWidth = w + 5; c.beginPath(); c.moveTo(x0, y0); c.lineTo(x1, y1); c.stroke();
+    c.strokeStyle = fill; c.lineWidth = w; c.stroke(); }
+  function hand(c, closed, skin, mirror) { // palce do góry, środek dłoni w 0,0; prawa ręka od wierzchu (kciuk po lewej)
+    c.save(); if (mirror) c.scale(-1, 1);
+    if (!closed) {
+      capsule(c, -13, -6, -16, -36, 9.5, skin); capsule(c, -4.5, -10, -5, -44, 10, skin); capsule(c, 4.5, -10, 5, -42, 10, skin); capsule(c, 13, -6, 15, -33, 9, skin);
+      capsule(c, -15, 8, -30, -8, 10, skin);
+      const p = new Path2D('M-19 -10 Q-19 -16 -12 -16 L12 -16 Q19 -16 19 -10 L18 12 Q16 22 0 22 Q-16 22 -18 12 Z'); c.fillStyle = skin; c.fill(p);
+      c.strokeStyle = K.ink; c.lineWidth = 2.6; c.stroke(p);
+      c.fillStyle = skin; c.fillRect(-17, -14, 34, 6); // zakrywa nasady palców
+      c.strokeStyle = K.skinD; c.lineWidth = 1.6; [[-15, -28], [-5, -34], [5, -32], [14, -25]].forEach(([x, y]) => { c.beginPath(); c.moveTo(x - 2.5, y); c.lineTo(x + 2.5, y); c.stroke(); });
+      c.fillStyle = 'rgba(255,255,255,.55)'; [[-16, -33], [-5, -41], [5, -39], [15, -30]].forEach(([x, y]) => { c.beginPath(); c.ellipse(x, y, 2.6, 2, 0, 0, 7); c.fill(); });
+    } else {
+      const p = new Path2D('M-21 -12 Q-21 -22 -11 -22 L11 -22 Q21 -22 21 -12 L20 10 Q18 20 0 20 Q-18 20 -20 10 Z'); c.fillStyle = skin; c.fill(p);
+      c.strokeStyle = K.ink; c.lineWidth = 2.6; c.stroke(p);
+      c.strokeStyle = K.ink; c.lineWidth = 2; [-10.5, -3.5, 3.5, 10.5].forEach(x => { c.beginPath(); c.arc(x, -17, 4.2, Math.PI * 1.05, Math.PI * 1.95); c.stroke(); });
+      c.strokeStyle = K.skinD; c.lineWidth = 1.8; [-7, 0, 7].forEach(x => { c.beginPath(); c.moveTo(x, -18); c.lineTo(x, -8); c.stroke(); });
+      capsule(c, -22, 4, 2, -2, 10, skin);
+    }
+    c.restore();
+  }
+  function arm(c, x0, y0, x1, y1, sleeve, cuff, w) { // rękaw od krawędzi ekranu do nadgarstka
+    c.lineCap = 'round'; c.strokeStyle = K.ink; c.lineWidth = w + 6; c.beginPath(); c.moveTo(x0, y0); c.lineTo(x1, y1); c.stroke();
+    c.strokeStyle = sleeve; c.lineWidth = w; c.stroke();
+    const a = Math.atan2(y1 - y0, x1 - x0), cx = x1 - Math.cos(a) * 9, cy = y1 - Math.sin(a) * 9;
+    c.lineCap = 'butt'; c.strokeStyle = K.ink; c.lineWidth = w + 6; c.beginPath(); c.moveTo(cx - Math.cos(a) * 7, cy - Math.sin(a) * 7); c.lineTo(x1 + Math.cos(a) * 2, y1 + Math.sin(a) * 2); c.stroke();
+    c.strokeStyle = cuff; c.lineWidth = w; c.stroke(); c.lineCap = 'round';
+  }
+
+  /* ---------- świat ---------- */
+  let W = 640, H = 360, S = 1, dpr = 1, vis = false, TT = 108, ROWS = 3, COLS = 5, slots = [];
+  const bgC = document.createElement('canvas'), bg = bgC.getContext('2d');
+  const tl = y => { const u = (y - TT) / (H - TT); return { l: W * .05 - u * W * .2, r: W * .95 + u * W * .2 }; };
+  function buildBg() {
+    bgC.width = cv.width; bgC.height = cv.height; bg.setTransform(S * dpr, 0, 0, S * dpr, 0, 0);
+    // ściana
+    bg.fillStyle = K.blue; bg.fillRect(0, 0, W, TT + 2);
+    bg.save(); bg.translate(W / 2, -30); bg.fillStyle = 'rgba(255,255,255,.07)';
+    for (let i = 0; i < 13; i += 2) { bg.save(); bg.rotate(-1.15 + i * .19); bg.beginPath(); bg.moveTo(0, 0); bg.lineTo(-40, TT * 3); bg.lineTo(40, TT * 3); bg.fill(); bg.restore(); } bg.restore();
+    // girlanda rybek
+    bg.strokeStyle = K.ink; bg.lineWidth = 2; bg.beginPath(); bg.moveTo(-10, 12); for (let x = 0; x <= W + 10; x += 10) bg.lineTo(x, 4 + Math.sin(x / W * Math.PI) * 14); bg.stroke();
+    const cols = [K.lime, K.pink, K.aqua, K.paper];
+    for (let i = 0, x = 26; x < W - 10; x += 46, i++) { const yy = 4 + Math.sin(x / W * Math.PI) * 14;
+      bg.save(); bg.translate(x, yy + 9); bg.rotate(Math.PI / 2); bg.scale(.13, .13); bg.fillStyle = cols[i % 4]; bg.strokeStyle = K.ink; bg.lineWidth = 16;
+      const f = new Path2D('M136 40 L176 12 L166 40 L176 68 Z M8 40 C40 2 112 2 140 40 C112 78 40 78 8 40 Z'); bg.translate(-90, -40); bg.fill(f); bg.stroke(f); bg.restore(); }
+    // neon
+    bg.textAlign = 'center'; bg.font = `400 ${Math.min(30, W / 15)}px Shrikhand, cursive`;
+    const ny = TT - 14; bg.lineJoin = 'round'; bg.lineWidth = 8; bg.strokeStyle = 'rgba(255,95,210,.35)'; bg.strokeText('Ostatnie Polanie', W / 2, ny);
+    bg.fillStyle = K.pink; bg.fillText('Ostatnie Polanie', W / 2, ny);
+    // stół: obrus w kratkę w perspektywie
+    bg.fillStyle = K.paper; bg.fillRect(-W, TT, W * 3, H);
+    const N = 9, M = 14, yy = i => TT + (H + 30 - TT) * Math.pow(i / N, 1.35);
+    for (let i = 0; i < N; i++) { const ya = yy(i), yb = yy(i + 1), A = tl(ya), B = tl(yb);
+      for (let j = 0; j < M; j++) { if ((i + j) % 2) continue;
+        const xa0 = A.l + (A.r - A.l) * j / M, xa1 = A.l + (A.r - A.l) * (j + 1) / M, xb0 = B.l + (B.r - B.l) * j / M, xb1 = B.l + (B.r - B.l) * (j + 1) / M;
+        bg.fillStyle = 'rgba(229,48,31,.62)'; bg.beginPath(); bg.moveTo(xa0, ya); bg.lineTo(xa1, ya); bg.lineTo(xb1, yb); bg.lineTo(xb0, yb); bg.fill(); } }
+    const g0 = bg.createLinearGradient(0, TT, 0, TT + 40); g0.addColorStop(0, 'rgba(11,11,30,.28)'); g0.addColorStop(1, 'rgba(11,11,30,0)'); bg.fillStyle = g0; bg.fillRect(0, TT, W, 40);
+    bg.fillStyle = K.ink; bg.fillRect(0, TT - 2, W, 5);
+  }
+  function layout() {
+    ROWS = H / W > 1 ? 4 : 3; COLS = W >= 560 ? 5 : 4; slots = [];
+    const fr = ROWS === 3 ? [.3, .62, .93] : [.24, .48, .72, .95];
+    fr.forEach((f, r) => { const y = TT + (H - TT) * f - (ROWS === 3 ? 6 : 8), L = tl(y), w = (L.r - L.l) * .8, sc = .78 + .34 * (r / (ROWS - 1)) * (ROWS === 3 ? 1 : 1.05);
+      const n = COLS - (r % 2 && COLS > 4 ? 1 : 0);
+      for (let c = 0; c < n; c++) slots.push({ r, x: W / 2 + (c - (n - 1) / 2) * (w / COLS) * (n < COLS ? 1.12 : 1), y, s: sc * 1.2 }); });
+  }
+  function resize() { const r = stage.getBoundingClientRect(); if (!r.width) return;
+    dpr = Math.min(2, devicePixelRatio || 1); S = Math.min(r.height / 360, r.width / 400);
+    W = r.width / S; H = r.height / S; TT = Math.round(H * (H / W > 1 ? .26 : .3));
+    cv.width = Math.round(r.width * dpr); cv.height = Math.round(r.height * dpr);
+    const old = slots; layout(); buildBg();
+    if (items && old.length) items.forEach(it => { const s = slots[Math.min(slots.length - 1, it.slot)] || slots[0]; it.slot = slots.indexOf(s); it.x = s.x + it.jx; it.y = s.y; it.s = s.s; });
+    if (st === 'ready') demo();
+  }
+
+  /* ---------- stan ---------- */
+  let st = 'ready', items = [], arms = [], parts = [], texts = [], t0 = 0;
+  let hx, hy, tx, ty, grabReq, closed, holding, cool, lives, pts, kiel, prom, promMax, streak, mult, tAlive, spawnT, level, flash, shake, deadT, why, ptr = 'mouse', bestStreak;
+  function reset() {
+    items = []; arms = []; parts = []; texts = []; hx = tx = W * .6; hy = ty = H * .8; grabReq = 0; closed = 0; holding = null; cool = 0;
+    lives = 3; pts = 0; kiel = 0; prom = 0; promMax = 0; streak = 0; mult = 1; tAlive = 0; spawnT = .6; level = 0; flash = 0; shake = 0; deadT = 0; why = ''; bestStreak = 0;
+  }
+  function demo() { items = []; const ks = ['wino', 'vodka', 'piwo', 'rybka', 'drink', 'whisky', 'vodka', 'kompot'];
+    slots.forEach((s, i) => { if (i % 2 && i < 12) { const k = ks[(i >> 1) % ks.length]; items.push(mk(k, i, 0)); items[items.length - 1].st = 'on'; } }); }
+  const mk = (k, slot, life) => { const s = slots[slot], jx = (Math.random() - .5) * 10;
+    return { k, slot, x: s.x + jx, jx, y: s.y, s: s.s, st: 'drop', age: 0, life, liq: 1, rot: 0, a: 1, col: pick([K.pink, K.aqua, K.lime, '#FF8A3D']), ph: Math.random() * 6 }; };
+
+  /* ---------- generator: ręka Wódzireja stawia trunki ---------- */
+  function chooseKind(d) {
+    if (lives < 3 && Math.random() < .045) return 'ogorek';
+    if (tAlive > 20 && Math.random() < .03) return 'karafka';
+    if (Math.random() < .46 - .1 * d) { return pick(['vodka', 'vodka', 'vodka', 'rybka']); }
+    const bad = Object.keys(DR).filter(k => DR[k].why && (!DR[k].from || tAlive > DR[k].from));
+    // świeżo odblokowane podchwytliwe trunki pojawiają się częściej
+    const hard = bad.filter(k => DR[k].from && tAlive > DR[k].from);
+    return hard.length && Math.random() < .45 ? pick(hard) : pick(bad);
+  }
+  function spawn() {
+    const d = Math.min(1, tAlive / 150);
+    const busy = new Set(items.filter(i => i.st !== 'gone').map(i => i.slot));
+    const free = slots.map((s, i) => i).filter(i => !busy.has(i)); if (!free.length) return;
+    const slot = pick(free), k = chooseKind(d), life = (3.5 - 1.7 * d) * (k === 'karafka' ? .8 : 1) * (.9 + Math.random() * .25);
+    const it = mk(k, slot, life); items.push(it);
+    const s = slots[slot], dur = .42 - .16 * d;
+    arms.push({ it, x: it.x, y0: -40, ph: 'in', t: 0, dur, bx: it.x + (it.x - W / 2) * .35 + 30 });
+  }
+  function stepArms(dt) {
+    arms.forEach(a => { a.t += dt / a.dur;
+      if (a.ph === 'in' && a.t >= 1) { a.ph = 'out'; a.t = 0; a.it.st = 'on'; a.it.age = 0; for (let i = 0; i < 4; i++) parts.push({ x: a.it.x + (Math.random() - .5) * 20, y: a.it.y, vx: (Math.random() - .5) * 80, vy: -Math.random() * 60, r: 1.5 + Math.random() * 1.5, l: .3, c: '#fff' }); } });
+    arms = arms.filter(a => !(a.ph === 'out' && a.t >= 1));
+  }
+  const armHand = a => { // pozycja dłoni Wódzireja
+    const it = a.it, hh = DR[it.k].h * it.s;
+    if (a.ph === 'in') { const u = ease(clamp(a.t, 0, 1)), base = -hh - 30 + (it.y + hh + 30) * u; return { x: it.x, y: base - hh * .62, base, closed: true }; }
+    const u = ease(clamp(a.t, 0, 1)), y0 = it.y - hh * .62 - 6; return { x: it.x, y: y0 + (-80 - y0) * u, closed: false };
+  };
+
+  /* ---------- akcje gracza ---------- */
+  function hit(px, py) { let best = null;
+    for (const it of items) { if (it.st !== 'on') continue; const d = DR[it.k], w = d.w * it.s / 2 + 8, h = d.h * it.s + 8;
+      if (px > it.x - w && px < it.x + w && py > it.y - h && py < it.y + 10 && (!best || it.y > best.y)) best = it; }
+    return best; }
+  function grab() {
+    grabReq = 0; if (holding || cool > 0 || st !== 'run') return;
+    closed = 1; cool = .16;
+    const it = hit(hx, hy);
+    if (!it) { const a = arms.find(a => { const h = armHand(a); return Math.hypot(h.x - hx, h.y - hy) < 30; });
+      if (a) { texts.push({ x: hx, y: hy - 50, s: 'PIĄTKA Z WÓDZIREJEM!', l: 1.1, c: K.pink }); cool = .45; } return; }
+    const d = DR[it.k]; holding = it; it.st = 'held'; it.age = 0; it.hx = it.x - hx; it.hy = it.y - hy;
+    if (d.ok) {
+      if (d.ok === 3) { lives = Math.min(3, lives + 1); prom = Math.max(0, prom - .3); pts += 5; texts.push({ x: it.x, y: it.y - 50, s: 'ZAGRYCHA! +1 OGÓREK', l: 1.2, c: K.lime }); return; }
+      streak++; bestStreak = Math.max(bestStreak, streak); mult = Math.min(5, 1 + Math.floor(streak / 5));
+      const big = d.ok === 2, add = (big ? 50 : 10) * mult; pts += add; kiel += big ? 3 : 1; prom += big ? .3 : .1; promMax = Math.max(promMax, prom);
+      texts.push({ x: it.x, y: it.y - DR[it.k].h * it.s - 14, s: (big ? 'CAŁA KARAFKA! ' : '') + '+' + add + (mult > 1 ? ' ×' + mult : ''), l: 1, c: K.lime });
+      if (streak % 5 === 0 && mult <= 5) texts.push({ x: W / 2, y: H * .42, s: mult < 5 ? `SERIA ${streak} · MNOŻNIK ×${mult}` : `SERIA ${streak} · ×5 MAKSYMALNIE`, l: 1.4, big: true });
+      navigator.vibrate && navigator.vibrate(15);
+    } else {
+      it.st = 'bad'; lives--; streak = 0; mult = 1; flash = 1; shake = .35; why = pick(d.why);
+      texts.push({ x: W / 2, y: H * .44, s: 'TO NIE WÓDECZKA!', l: 1.6, big: true, c: K.red }, { x: W / 2, y: H * .44 + 26, s: why, l: 1.6, big: true, sm: true });
+      navigator.vibrate && navigator.vibrate([40, 30, 60]);
+      if (lives <= 0) die();
+    }
+  }
+  function miss(it) { lives--; streak = 0; mult = 1; flash = .6; why = pick(MISS);
+    texts.push({ x: W / 2, y: H * .44, s: why.toUpperCase(), l: 1.6, big: true, c: K.pink });
+    for (let i = 0; i < 6; i++) parts.push({ x: it.x + (Math.random() - .5) * 14, y: it.y - 20, vx: (Math.random() - .5) * 30, vy: -40 - Math.random() * 50, r: 3 + Math.random() * 3, l: .9, c: 'rgba(255,255,255,.8)', fl: 1 });
+    if (lives <= 0) die(); }
+  function die() { if (st !== 'run') return; st = 'dead'; deadT = 0; stage.classList.remove('run'); setTimeout(showOver, 1100); }
+
+  /* ---------- krok ---------- */
+  function step(dt) {
+    tAlive += dt; const d = Math.min(1, tAlive / 150);
+    const lv = Math.min(LEVELS.length - 1, Math.floor(tAlive / LV_T));
+    if (lv > level) { level = lv; texts.push({ x: W / 2, y: H * .3, s: 'TEMPO ↑ · ' + LEVELS[lv], l: 2.2, big: true }); }
+    spawnT -= dt; if (spawnT <= 0) { spawn(); spawnT = (1.12 - .62 * d) * (.8 + Math.random() * .4); }
+    stepArms(dt);
+    // ręka gracza: im więcej promili, tym bardziej się spóźnia i chwieje
+    const P = Math.min(prom + d * .8, 4), rate = 30 / (1 + P * 1.6), k = 1 - Math.exp(-rate * dt); // im dalej, tym ręka bardziej „po wódeczce”
+    const wob = P * 7, wx = Math.sin(tAlive * 2.1) * wob + Math.sin(tAlive * 5.3) * wob * .25, wy = Math.cos(tAlive * 1.7) * wob * .7;
+    hx += (tx + wx - hx) * k; hy += (ty + wy - hy) * k;
+    hx = clamp(hx, 10, W - 10); hy = clamp(hy, TT - 30, H - 6);
+    if (grabReq > 0) { grabReq -= dt; if (ptr === 'mouse' || Math.hypot(tx + wx - hx, ty + wy - hy) < 14 || grabReq <= 0) grab(); }
+    if (cool > 0) cool -= dt;
+    closed = Math.max(holding ? 1 : 0, closed - dt * 5);
+    // trunki
+    for (const it of items) {
+      it.age += dt;
+      if (it.st === 'on' && it.age > it.life) { it.st = 'gone'; if (DR[it.k].ok === 1) miss(it); else it.st = 'fade', it.age = 0; }
+      else if (it.st === 'fade') { it.a = 1 - it.age / .35; if (it.a <= 0) it.st = 'gone'; }
+      else if (it.st === 'held') { const ok = DR[it.k].ok;
+        it.x = hx + it.hx * (1 - Math.min(1, it.age * 5)); it.y = hy + DR[it.k].h * it.s * .5 - Math.min(1, it.age * 4) * 18;
+        if (ok !== 3) { it.rot = -Math.min(1, it.age * 3) * .9; it.liq = Math.max(0, 1 - it.age * 2.6); } else it.a = 1 - it.age * 2.5;
+        if (it.age > .5) { it.st = 'gone'; holding = null; for (let i = 0; i < 7; i++) parts.push({ x: it.x, y: it.y - 20, vx: (Math.random() - .5) * 200, vy: -Math.random() * 200, r: 1.5 + Math.random() * 2, l: .45, c: K.lime }); } }
+      else if (it.st === 'bad') { it.x = hx + it.hx; it.y = hy + DR[it.k].h * it.s * .5;
+        if (it.age > .28) { it.st = 'fall'; it.age = 0; holding = null; const col = { wino:'#8c1438', piwo:'#F2B233', whisky:'#C9741C', kompot:'#d6547a', drink:it.col, szampan:'#F2D36B' }[it.k] || K.aqua;
+          for (let i = 0; i < 18; i++) parts.push({ x: it.x, y: it.y - 20, vx: (Math.random() - .5) * 260, vy: -Math.random() * 260, r: 2 + Math.random() * 3, l: .8, c: col }); } }
+      else if (it.st === 'fall') { it.rot = Math.min(1.5, it.age * 6); it.y += 60 * dt; it.a = 1 - it.age / .6; if (it.a <= 0) it.st = 'gone'; }
+    }
+    items = items.filter(it => it.st !== 'gone');
+  }
+  function common(dt) {
+    parts = parts.filter(p => (p.l -= dt) > 0); parts.forEach(p => { if (!p.fl) p.vy += 700 * dt; p.x += p.vx * dt; p.y += p.vy * dt; });
+    texts = texts.filter(t => (t.l -= dt) > 0); texts.forEach(t => { if (!t.big) t.y -= 34 * dt; });
+    flash = Math.max(0, flash - dt * 2.5); shake = Math.max(0, shake - dt);
+  }
+
+  /* ---------- rysowanie ---------- */
+  function drawItem(it, t, ghost) {
+    const d = DR[it.k]; let blink = 1;
+    if (it.st === 'on' && it.life && it.life - it.age < .9) blink = .55 + .45 * Math.abs(Math.cos((it.life - it.age) * 14));
+    g.save(); g.translate(it.x + (ghost || 0), it.y); g.globalAlpha = it.a * blink * (ghost ? .3 : 1);
+    if (!ghost && it.st !== 'held' && it.st !== 'bad' && it.st !== 'fall') { g.fillStyle = 'rgba(11,11,30,.18)'; g.beginPath(); g.ellipse(0, -1, d.w * it.s * .55, 4 * it.s, 0, 0, 7); g.fill(); }
+    if (it.st === 'on' && it.life && it.life - it.age < .9) g.rotate(Math.sin(t * 30) * .04);
+    g.rotate(it.rot); g.scale(it.s, it.s);
+    if (DR[it.k].ok === 2 && !ghost) { g.fillStyle = 'rgba(217,255,61,.35)'; g.beginPath(); g.arc(0, -46, 46 + Math.sin(t * 6) * 3, 0, 7); g.fill(); }
+    drawDrink(g, it, t); g.restore();
+  }
+  function render(t) {
+    g.setTransform(S * dpr, 0, 0, S * dpr, 0, 0); g.clearRect(0, 0, W, H);
+    const P = st === 'ready' ? 0 : prom, prog = st === 'ready' ? 0 : clamp(tAlive / 150, 0, 1);
+    // kamera: bujanie rośnie z czasem gry i z promilami (od ok. 2 min gry albo 3,5‰ — pełna moc, potem jeszcze mocniej)
+    const drunk = reduced ? 0 : clamp(prog * .6 + (P - .6) / 3, 0, 1.4);
+    blur(t, prog, P);
+    g.save();
+    if (drunk) { const z = 1 + .03 * drunk + Math.sin(t * .8) * .02 * drunk;
+      g.translate(W / 2, H / 2); g.rotate((Math.sin(t * 1.3) * .035 + Math.sin(t * .47 + 1) * .03) * drunk); g.scale(z, z);
+      g.translate(-W / 2 + (Math.sin(t * .9) * 10 + Math.sin(t * 2.3) * 3) * drunk, -H / 2 + Math.sin(t * 1.1) * 6 * drunk);
+      g.drawImage(bgC, -90, -90, W + 180, H + 180); } // zapas pod przechylonym obrazem
+    if (shake && !reduced) g.translate(Math.sin(t * 90) * 5 * shake, Math.cos(t * 70) * 3 * shake);
+    g.save(); g.setTransform(1, 0, 0, 1, 0, 0); g.globalAlpha = 1; g.restore();
+    g.drawImage(bgC, -20, -20, W + 40, H + 40); // lekki zapas na bujanie
+    const order = items.filter(it => it.st !== 'drop' && it.st !== 'held' && it.st !== 'bad').sort((a, b) => a.y - b.y);
+    const ghost = !reduced && P > 2.5 ? Math.sin(t * 1.6) * 7 * clamp((P - 2.5) / 1.5, 0, 1) + 4 : 0;
+    order.forEach(it => { if (ghost) drawItem(it, t, ghost); drawItem(it, t); });
+    // ręce Wódzireja (z trunkiem w trakcie stawiania)
+    arms.forEach(a => { const h = armHand(a);
+      if (a.ph === 'in') { const it = a.it; g.save(); g.translate(it.x, h.base); g.scale(it.s, it.s); drawDrink(g, it, t); g.restore(); }
+      arm(g, a.bx, -60, h.x + 4, h.y - 26, K.suit, '#fff', 24);
+      g.fillStyle = K.gold; g.strokeStyle = K.ink; g.lineWidth = 2; // zegarek
+      g.save(); g.translate(h.x + 2, h.y - 30); g.beginPath(); g.roundRect(-9, -5, 18, 10, 3); g.fill(); g.stroke(); g.restore();
+      g.save(); g.translate(h.x, h.y); g.rotate(Math.PI); hand(g, h.closed, K.skin2, true); g.restore(); });
+    parts.forEach(p => { g.fillStyle = p.c; g.globalAlpha = Math.min(1, p.l * 3); g.beginPath(); g.arc(p.x, p.y, p.r, 0, 7); g.fill(); }); g.globalAlpha = 1;
+    // celownik (gdzie jest mysz — ręka po wódeczce nie nadąża)
+    if (st === 'run' && P > .25) { g.strokeStyle = K.lime; g.lineWidth = 2.5; g.globalAlpha = Math.min(.9, P); g.beginPath(); g.arc(tx, ty, 7, 0, 7); g.stroke();
+      g.strokeStyle = K.ink; g.lineWidth = 1.2; g.beginPath(); g.arc(tx, ty, 9.5, 0, 7); g.stroke(); g.globalAlpha = 1; }
+    // ręka gracza
+    const held = items.find(it => it.st === 'held' || it.st === 'bad');
+    if (held) drawItem(held, t);
+    const bx = clamp(hx + 90, W * .35, W + 40);
+    arm(g, bx, H + 70, hx + 6, hy + 24, K.blue, K.lime, 30);
+    g.save(); g.translate(hx, hy); g.scale(1.15, 1.15); hand(g, closed > .3, K.skin, false); g.restore();
+    if (held && held.st === 'held' && DR[held.k].ok !== 3) { g.lineJoin = 'round'; g.fillStyle = '#fff'; g.font = '700 12px "Courier Prime", monospace'; g.textAlign = 'center'; g.lineWidth = 4; g.strokeStyle = K.ink;
+      g.strokeText('*glug*', hx - 30, hy - 44); g.fillText('*glug*', hx - 30, hy - 44); }
+    // napisy
+    g.lineJoin = 'round'; g.miterLimit = 2;
+    texts.forEach(tt => { g.globalAlpha = Math.min(1, tt.l * 2.5); g.textAlign = 'center';
+      if (tt.big) { const sz = tt.sm ? 14 : 26; g.font = tt.sm ? `700 ${sz}px "Courier Prime", monospace` : `400 ${sz}px Anton, Impact, sans-serif`;
+        g.lineWidth = tt.sm ? 4 : 6; g.strokeStyle = K.ink; g.strokeText(tt.s, tt.x, tt.y, W - 24); g.fillStyle = tt.sm ? '#fff' : (tt.c || K.lime); g.fillText(tt.s, tt.x, tt.y, W - 24); }
+      else { g.font = '700 13px "Courier Prime", monospace'; g.lineWidth = 4; g.strokeStyle = K.ink; g.strokeText(tt.s, tt.x, tt.y); g.fillStyle = tt.c || K.lime; g.fillText(tt.s, tt.x, tt.y); } });
+    g.globalAlpha = 1; g.restore();
+    if (flash) { g.fillStyle = `rgba(229,48,31,${flash * .28})`; g.fillRect(0, 0, W, H); }
+    if (st !== 'ready') hud(t);
+  }
+  // delikatne zamazania: fale rozmycia, coraz częstsze i mocniejsze z postępem i promilami
+  let blurPx = 0;
+  function blur(t, prog, P) {
+    let b = 0;
+    if (st === 'run' && !reduced) { const k = clamp(prog * .7 + (P - 1.2) / 2.5, 0, 1.3), wave = Math.max(0, Math.sin(t * .8 + Math.sin(t * .23) * 2));
+      b = k * (.3 + 2.2 * wave * wave); }
+    b = Math.round(b * 10) / 10; if (b !== blurPx) { blurPx = b; cv.style.filter = b ? `blur(${b}px)` : ''; } }
+  function pickle(x, y, on) { g.save(); g.translate(x, y); g.rotate(-.35); g.globalAlpha = on ? 1 : .3;
+    const p = new Path2D('M-11 0 Q-11 -5 -6 -5 L6 -5 Q11 -5 11 0 Q11 5 6 5 L-6 5 Q-11 5 -11 0 Z'); g.fillStyle = on ? '#6FA531' : '#fff'; g.fill(p);
+    g.strokeStyle = K.ink; g.lineWidth = 2; g.stroke(p); if (on) { g.fillStyle = '#3d6417'; [-6, 0, 6].forEach(xx => { g.beginPath(); g.arc(xx, 1, 1, 0, 7); g.fill(); }); } g.restore(); }
+  function hud(t) {
+    g.lineJoin = 'round'; g.miterLimit = 2;
+    g.textAlign = 'left'; g.fillStyle = '#fff'; g.font = '700 11px "Courier Prime", monospace'; g.fillText('PUNKTY' + (mult > 1 ? '  ×' + mult : ''), 16, 24);
+    g.font = '400 32px Anton, Impact, sans-serif'; g.fillText(pad(pts, 5), 16, 56);
+    g.textAlign = 'right'; g.font = '700 11px "Courier Prime", monospace'; g.fillText('KIELONKI · PROMILE', W - 16, 24);
+    g.font = '400 32px Anton, Impact, sans-serif'; g.fillText(`${kiel} · ${prom.toFixed(1).replace('.', ',')}‰`, W - 16, 56);
+    g.textAlign = 'center'; g.font = '700 10px "Courier Prime", monospace'; g.fillText('ZAGRYCHA', W / 2, 22);
+    for (let i = 0; i < 3; i++) pickle(W / 2 - 26 + i * 26, 38, i < lives);
+    if (tAlive < 3.5 && st === 'run') { g.globalAlpha = Math.min(1, (3.5 - tAlive) * 2); g.font = '400 22px Anton, Impact, sans-serif'; g.lineWidth = 5; g.strokeStyle = K.ink;
+      g.strokeText('BIERZESZ TYLKO WÓDECZKĘ', W / 2, H * .5); g.fillStyle = K.lime; g.fillText('BIERZESZ TYLKO WÓDECZKĘ', W / 2, H * .5); g.globalAlpha = 1; }
+  }
+
+  /* ---------- pętla ---------- */
+  let raf = 0, last = 0, acc = 0;
+  function frame(ms) { raf = requestAnimationFrame(frame); const t = ms / 1000, dt = Math.min(.05, last ? t - last : 0); last = t;
+    if (st === 'run') { acc += dt; while (acc >= STEP && st === 'run') { step(STEP); acc -= STEP; } }
+    else if (st === 'ready') { hx += (tx - hx) * Math.min(1, dt * 10); hy += (ty - hy) * Math.min(1, dt * 10); }
+    else if (st === 'dead') { deadT += dt; items.forEach(it => { if (it.st === 'fall') { it.age += dt; it.rot = Math.min(1.5, it.age * 6); it.a = Math.max(0, 1 - it.age / .6); } }); stepArms(dt); }
+    common(dt); render(t); }
+  const play = () => { if (!raf && vis) { last = 0; raf = requestAnimationFrame(frame); } };
+  const stop = () => { cancelAnimationFrame(raf); raf = 0; };
+
+  /* ---------- sterowanie: mysz albo palec ---------- */
+  const ov = { start: $('#pol-start'), pause: $('#pol-pause'), over: $('#pol-over') };
+  const show = k => Object.keys(ov).forEach(x => ov[x].hidden = x !== k);
+  const toWorld = e => { const r = cv.getBoundingClientRect(); return [(e.clientX - r.left) / S, (e.clientY - r.top) / S]; };
+  function start() { reset(); st = 'run'; acc = 0; show(null); stage.classList.add('run'); stage.focus({ preventScroll: true }); play(); }
+  function pause() { if (st !== 'run') return; st = 'pause'; stage.classList.remove('run'); show('pause'); }
+  function resume() { if (st !== 'pause') return; st = 'run'; acc = 0; last = 0; show(null); stage.classList.add('run'); }
+  stage.addEventListener('pointermove', e => { if (e.target.closest('.gra__card')) return; ptr = e.pointerType; [tx, ty] = toWorld(e); ty -= ptr === 'mouse' ? 0 : 0; });
+  stage.addEventListener('pointerdown', e => { if (e.target.closest('button, input, form, .gra__card')) return;
+    ptr = e.pointerType; [tx, ty] = toWorld(e);
+    if (st === 'run') { e.preventDefault(); grabReq = ptr === 'mouse' ? .01 : .35; } else if (st === 'ready') start(); else if (st === 'pause') resume(); });
+  addEventListener('keydown', e => {
+    if (st === 'run' && (e.key === 'Escape' || e.key === 'p' || e.key === 'P')) { pause(); return; }
+    if (document.activeElement === stage && (e.key === ' ' || e.key === 'Enter')) { e.preventDefault(); if (st === 'ready') start(); else if (st === 'pause') resume(); }
+  });
+  $('#pol-go').onclick = start; $('#pol-resume').onclick = resume; $('#pol-again').onclick = start;
+  document.addEventListener('visibilitychange', () => { if (document.hidden) pause(); });
+  addEventListener('blur', pause);
+  new IntersectionObserver(es => { vis = es[0].isIntersecting; if (vis) { resize(); play(); } else { pause(); stop(); } }, { rootMargin: '80px 0px' }).observe(stage);
+  new ResizeObserver(() => resize()).observe(stage);
+
+  /* ---------- koniec gry i rejestr (osobny dla tej gry) ---------- */
+  const ini = $('#pol-ini'), boxes = $$('#pol-save .gra__ini i'), form = $('#pol-save');
+  const clean = v => v.toUpperCase().replace(/[^A-ZĄĆĘŁŃÓŚŹŻ0-9]/g, '').slice(0, 3);
+  const paint = () => { const v = ini.value; boxes.forEach((b, i) => { b.textContent = v[i] || ''; b.classList.toggle('cur', document.activeElement === ini && i === Math.min(2, v.length)); }); };
+  ini.addEventListener('input', () => { ini.value = clean(ini.value); paint(); });
+  ini.addEventListener('focus', paint); ini.addEventListener('blur', paint);
+  let result = null, justSaved = null;
+  function showOver() {
+    result = { p: pts, f: kiel, x: Math.round(promMax * 10) };
+    $('#pol-pts').textContent = pts; $('#pol-kiel').textContent = kiel; $('#pol-prom').textContent = promMax.toFixed(1).replace('.', ',');
+    $('#pol-why').textContent = why || 'Komisja zamyka posiedzenie.';
+    $('#pol-over-h').textContent = pick(['Koniec zagrychy!', 'Ostatnie polanie!', 'Komisja zabiera kieliszek!']);
+    $('#pol-saved').textContent = ''; form.classList.remove('done'); ini.value = store.get('game-ini', ''); paint();
+    const best = store.get('pol-best', 0); if (pts > best) { store.set('pol-best', pts); $('#pol-saved').textContent = best ? 'Nowy rekord osobisty!' : ''; }
+    show('over'); myBest();
+    if (!isMobile()) setTimeout(() => ini.focus({ preventScroll: true }), 60);
+  }
+  const shared = () => !!(API.state && API.state.boards);
+  const boardList = () => shared() ? (API.state.boards.polanie || []) : store.get('pol-scores', []).map(s => Object.assign({ who: API.me }, s));
+  form.onsubmit = e => { e.preventDefault(); const n = clean(ini.value);
+    if (n.length < 1) { const w = $('#pol-save .gra__ini'); w.classList.remove('shake'); void w.offsetWidth; w.classList.add('shake'); ini.focus(); return; }
+    if (!result) return; store.set('game-ini', n);
+    const entry = { n, p: result.p, f: result.f, x: result.x };
+    const loc = store.get('pol-scores', []); loc.push(entry); loc.sort((a, b) => b.p - a.p); store.set('pol-scores', loc.slice(0, 15));
+    API.send({ type: 'score-g', d: Object.assign({ g: 'polanie' }, entry) });
+    if (shared()) API.state.boards.polanie = (API.state.boards.polanie || []).concat([Object.assign({ who: API.me, fresh: 1 }, entry)]).sort((a, b) => b.p - a.p);
+    const list = boardList(), pos = list.findIndex(s => s.n === n && s.p === entry.p && (s.who === API.me || !s.who)) + 1;
+    form.classList.add('done'); justSaved = entry; board();
+    $('#pol-saved').textContent = `Wpisano do rejestru: ${n}, ${entry.p} pkt` + (pos ? ` — miejsce ${pos}.` : '.');
+    result = null; ini.blur(); };
+  function board() {
+    const list = boardList().slice(0, 10), sh = shared();
+    $('#pol-top').innerHTML = list.length ? list.map(s => `<li class="${s.who === API.me ? 'me' : ''}${s === justSaved || s.fresh ? ' new' : ''}"><b>${String(s.n).replace(/[<>&"]/g, '')}</b><em>${s.f || 0} kiel.</em><strong>${s.p}</strong></li>`).join('')
+      : '<li class="empty">Rejestr pusty. Pierwszy wpis należy do Ciebie.</li>';
+    list.forEach(s => delete s.fresh);
+    $('#pol-live').innerHTML = sh ? '<i></i>NA ŻYWO · REKORDY CAŁEJ EKIPY' : CONFIG.api ? '<i></i>ŁĄCZĘ Z KOMISJĄ…' : '';
+    $('#pol-board-note').textContent = sh ? 'Jeden wpis = jedna gra. Komisja nie sprawdza, kto grał po wódeczce.' : 'Na razie rekordy z tego urządzenia.';
+  }
+  function myBest() { const b = store.get('pol-best', 0); $('#pol-mybest').textContent = b ? `Twój rekord: ${b} pkt` : ''; }
+  API.on(board); board(); myBest();
+  (document.fonts ? document.fonts.load('400 20px Shrikhand', 'Ostatnie Polanie').then(() => document.fonts.load('400 20px Anton', 'ÓĄ')).catch(() => {}) : Promise.resolve()).then(() => resize());
+  reset(); resize();
+  GFX.polanie = { drawDrink, hand, shot };
+  function legend() { $$('#pol-start canvas[data-drink]').forEach(c => { const r = c.getBoundingClientRect(); if (!r.width) return;
+    const d = Math.min(2, devicePixelRatio || 1); c.width = Math.round(r.width * d); c.height = Math.round(r.height * d);
+    const x = c.getContext('2d'), k = c.dataset.drink, def = DR[k], base = r.height * .84 / DR.karafka.h, // wspólna skala: karafka duża, kieliszki małe
+      sc = (k === 'ogorek' ? r.width * .8 / def.w : k === 'karafka' ? base : base * 1.45) * d;
+    x.setTransform(sc, 0, 0, sc, c.width / 2, c.height - 4 * d); drawDrink(x, { k, liq: 1, col: K.pink }, 0); }); }
+  new ResizeObserver(legend).observe($('#pol-start'));
+  if (/gradebug/.test(location.search)) window.__pol = { get s() { return { st, items, arms, hx, hy, tx, ty, lives, pts, kiel, prom, tAlive, W, H, slots }; },
+    aim(x, y) { tx = x; ty = y; }, grab() { grabReq = .01; ptr = 'mouse'; }, setProm(p) { prom = p; }, setT(v) { tAlive = v; level = Math.min(LEVELS.length - 1, Math.floor(v / LV_T)); }, DR };
+})();
+/* =========================================================
+   WÓDYSTOPAD GAME STORE — wybór gry (jedna widoczna naraz) i okładki rysowane kodem gier
+   ========================================================= */
+(() => {
+  const carts = $$('.cart'), games = $$('.gra__game');
+  function choose(id, scroll) {
+    carts.forEach(c => { const on = c.dataset.game === id; c.classList.toggle('on', on); c.setAttribute('aria-selected', on); });
+    games.forEach(gm => gm.hidden = gm.dataset.game !== id);
+    store.set('game-pick', id);
+    if (scroll) { const el = $('#game-' + id); const top = el.getBoundingClientRect().top + scrollY - (isMobile() ? 70 : 110); scrollTo({ top, behavior: reduced ? 'auto' : 'smooth' }); }
+  }
+  carts.forEach(c => c.addEventListener('click', () => choose(c.dataset.game, true)));
+  const saved = store.get('game-pick', 'polanie'); choose(games.some(gm => gm.dataset.game === saved) ? saved : 'polanie', false);
+  // okładki
+  function art() { $$('.cart__art').forEach(cv => { const r = cv.getBoundingClientRect(); if (!r.width) return;
+    const d = Math.min(2, devicePixelRatio || 1); cv.width = Math.round(r.width * d); cv.height = Math.round(r.height * d);
+    const c = cv.getContext('2d'), s = cv.width / 150; c.setTransform(s, 0, 0, s, 0, 0);
+    if (cv.dataset.art === 'polanie' && GFX.polanie) { const P = GFX.polanie;
+      c.fillStyle = '#2B2BFF'; c.fillRect(0, 0, 150, 150);
+      c.fillStyle = '#EFE6D2'; c.beginPath(); c.moveTo(10, 62); c.lineTo(140, 62); c.lineTo(170, 150); c.lineTo(-20, 150); c.fill();
+      c.fillStyle = 'rgba(229,48,31,.85)'; for (let i = 0; i < 5; i++) for (let j = 0; j < 7; j++) if ((i + j) % 2 === 0) { const y0 = 62 + i * 18, y1 = y0 + 18, l0 = 10 - i * 6, r0 = 140 + i * 6, l1 = l0 - 6, r1 = r0 + 6;
+        c.beginPath(); c.moveTo(l0 + (r0 - l0) * j / 7, y0); c.lineTo(l0 + (r0 - l0) * (j + 1) / 7, y0); c.lineTo(l1 + (r1 - l1) * (j + 1) / 7, y1); c.lineTo(l1 + (r1 - l1) * j / 7, y1); c.fill(); }
+      c.fillStyle = '#0B0B1E'; c.fillRect(0, 60, 150, 4);
+      c.save(); c.translate(36, 96); c.scale(.78, .78); P.drawDrink(c, { k:'wino', liq:1 }, 0); c.restore();
+      c.save(); c.translate(116, 92); c.scale(.8, .8); P.drawDrink(c, { k:'piwo', liq:1 }, 0); c.restore();
+      c.save(); c.translate(76, 122); c.scale(1.25, 1.25); P.drawDrink(c, { k:'vodka', liq:1 }, 0); c.restore();
+      c.save(); c.translate(150, 190); c.rotate(-.6); c.lineCap = 'round'; c.strokeStyle = '#0B0B1E'; c.lineWidth = 34; c.beginPath(); c.moveTo(0, 0); c.lineTo(0, -70); c.stroke(); c.strokeStyle = '#2B2BFF'; c.lineWidth = 28; c.stroke(); c.restore();
+      c.save(); c.translate(98, 104); c.rotate(-.35); P.hand(c, false, '#F4C7A1', false); c.restore();
+    } else if (cv.dataset.art === 'karafka' && GFX.fish) {
+      c.fillStyle = '#2B2BFF'; c.fillRect(0, 0, 150, 150);
+      c.fillStyle = '#3d3dff'; c.beginPath(); c.arc(120, 30, 40, 0, 7); c.fill();
+      c.fillStyle = '#D9FF3D'; c.fillRect(0, 112, 150, 14); c.fillStyle = '#b5d82a'; c.fillRect(0, 126, 150, 30);
+      c.strokeStyle = '#0B0B1E'; c.lineWidth = 3; c.beginPath(); c.moveTo(0, 112); c.lineTo(150, 112); c.moveTo(0, 126); c.lineTo(150, 126); c.stroke();
+      [[22, .36], [42, .36]].forEach(([x, k]) => { c.save(); c.translate(x, 112); c.scale(k, k); GFX.fish(c, false); c.restore(); });
+      c.save(); c.translate(92, 84); c.rotate(-.25); c.scale(.95, .95); GFX.fish(c, true); c.restore();
+      c.save(); c.translate(132, 112); c.scale(1.05, 1.05); c.strokeStyle = '#0B0B1E'; c.lineWidth = 3; c.fillStyle = 'rgba(143,232,255,.6)';
+      c.beginPath(); c.moveTo(-12, -32); c.lineTo(12, -32); c.lineTo(8.5, -5); c.lineTo(-8.5, -5); c.closePath(); c.fill(); c.stroke(); c.strokeRect(-9, -5, 18, 5); c.restore();
+    } }); }
+  new ResizeObserver(art).observe($('.store'));
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(art);
 })();
 
 /* =========================================================
