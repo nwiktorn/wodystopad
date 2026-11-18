@@ -2770,7 +2770,7 @@ const GFX = {}; // rysunki współdzielone przez gry i okładki w Game Store
     store.set('game-pick', id);
     if (scroll) { const el = $('#game-' + id); const top = el.getBoundingClientRect().top + scrollY - (isMobile() ? 70 : 110); scrollTo({ top, behavior: reduced ? 'auto' : 'smooth' }); }
   }
-  carts.forEach(c => c.addEventListener('click', () => choose(c.dataset.game, true)));
+  carts.forEach(c => c.addEventListener("click", () => choose(c.dataset.game, false))); // bez przewijania — gra jest tuż pod kartami
   const saved = store.get('game-pick', 'polanie'); choose(games.some(gm => gm.dataset.game === saved) ? saved : 'polanie', false);
   // okładki
   function art() { $$('.cart__art').forEach(cv => { const r = cv.getBoundingClientRect(); if (!r.width) return;
