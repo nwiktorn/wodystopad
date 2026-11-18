@@ -53,3 +53,11 @@ python3 -m http.server 8000
 
 ---
 Strona wyłącznie dla osób pełnoletnich. Po wódeczce wracamy taksówką.
+
+## Wspólna baza głosów (Google Sheets)
+
+Głosy z ankiety marek, propozycje butelek, przysięgi i rybki zapisują się w arkuszu **„Wódystopad 2026 — głosy”** na Google Drive Wódzireja (zakładki `log` — surowe wpisy, `Podsumowanie` — czytelne zestawienie). Pośredniczy skrypt Google Apps Script przypięty do arkusza (kod: `tools/apps-script.gs`), wdrożony jako aplikacja internetowa („Wykonaj jako: Ja”, „Kto ma dostęp: Każdy”). Jego adres `/exec` jest w `CONFIG.api`.
+
+- Zmiana kodu skryptu: wklej nową wersję w edytorze Apps Script → **Wdróż → Zarządzaj wdrożeniami → ołówek → Wersja: Nowa wersja → Wdróż** (adres zostaje ten sam).
+- Usunięcie wpisu (np. testowego): skasuj wiersz w zakładce `log`.
+- `CONFIG.api: ''` wyłącza bazę — strona wraca do zapisu tylko w przeglądarce.
