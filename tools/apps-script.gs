@@ -15,6 +15,13 @@
  *   (zdarzenia sprzed pierwszego wyboru — też). Strona dostaje statystyki osób w `people` (bez identyfikatorów telefonów).
  */
 const LOG = 'log', SUM = 'Podsumowanie';
+// ZEROWANIE „Co pijemy” (18.11): ankieta marek i Butelkomat liczą tylko zdarzenia od tej chwili (stare zostają w logu)
+const RESET_ZAOP = new Date('2026-11-18T12:40:00Z').getTime();
+const ZAOP = ['brand-add', 'brand-del', 'vote', 'bottle', 'set-add', 'set-del', 'set-vote'];
+const ML = ['500', '700', '1000'];
+/* Butelkomat: zestaw = ile butelek każdej pojemności, klucz „500:2|700:3” (bez zer) */
+function setKey_(c) { return ML.map(m => [m, Math.max(0, Math.min(40, parseInt((c || {})[m], 10) || 0))]).filter(x => x[1]).map(x => x[0] + ':' + x[1]).join('|'); }
+function setComp_(k) { const o = {}; String(k || '').split('|').forEach(p => { const a = p.split(':'); if (ML.indexOf(a[0]) >= 0) o[a[0]] = +a[1] || 0; }); return o; }
 const GAMES = { polanie: 'OSTATNIE POLANIE', wodzitsu: 'WÓDŻITSU' }; // gry z biblioteki zapisywane jako 'score-g'
 const GAME_F = { polanie: 'KIELONKI', wodzitsu: 'WYGRANE' };     // co znaczy pole f w danej grze (kolumna w Podsumowaniu)
 const PLAYLIST = 'PLHXPoXasIR78';              // playlista „Wódystopad 2026” na YouTube Wódzireja
@@ -49,13 +56,21 @@ function personAt_(ids, who, t) {
 }
 
 function state_() {
-  const brands = {}; const votes = {}; const bottles = {}; const oaths = {}; const scores = []; const boards = {}; Object.keys(GAMES).forEach(k => boards[k] = []); let fish = 0; const songs = [];
+  const brands = {}; const votes = {}; const bottles = {}; const sets = {}; const setVotes = {}; const oaths = {}; const scores = []; const boards = {}; Object.keys(GAMES).forEach(k => boards[k] = []); let fish = 0; const songs = [];
   const evs = events_(), ids = ids_(evs);
   const people = {}; const P = n => people[n] || (people[n] = { in: false, oath: false, vote: null, props: [], songs: 0, last: '', games: {} });
   Object.keys(ids).forEach(w => ids[w].forEach(x => P(x.n).in = true));
   evs.forEach(e => {
     const per = personAt_(ids, e.who, +new Date(e.t) || 0);
-    if (e.type === 'brand-add') {
+    if (ZAOP.indexOf(e.type) >= 0 && (+new Date(e.t) || 0) < RESET_ZAOP) return;   // sprzed zerowania
+    if (e.type === 'set-add') {
+      const k = setKey_(e.d.s); if (!k) return;
+      if (!sets[k] || sets[k].gone) sets[k] = { k: k, owner: e.who, by: per, gone: false, t: +new Date(e.t) || 0 };
+    } else if (e.type === 'set-del') {
+      const st = sets[String(e.d.k || '')]; if (st && st.owner === e.who) st.gone = true;
+    } else if (e.type === 'set-vote') {
+      setVotes[per ? 'p:' + per : e.who] = e.d.k ? String(e.d.k) : null;
+    } else if (e.type === 'brand-add') {
       const name = String(e.d.name || '').trim().slice(0, 40); if (!name) return;
       const key = name.toLowerCase();
       if (!brands[key] || brands[key].gone) brands[key] = { name, owner: e.who, by: per, gone: false };
@@ -93,12 +108,18 @@ function state_() {
   // rekordy: najlepszy wynik osoby i jego miejsce w rejestrze
   const best = (list, g) => { list.slice().sort((a, b) => b.p - a.p || a.t - b.t).forEach((x, i) => { if (x.per && !P(x.per).games[g]) P(x.per).games[g] = { p: x.p, r: i + 1, of: list.length }; }); };
   best(scores, 'karafka'); Object.keys(boards).forEach(g => best(boards[g], g));
+  const names = (map, k) => Object.keys(map).filter(w => map[w] === k && w.indexOf('p:') === 0).map(w => w.slice(2));
   const list = Object.keys(brands).filter(k => !brands[k].gone).map(k => ({
     name: brands[k].name, owner: brands[k].owner, by: brands[k].by || '',
-    votes: Object.keys(votes).filter(w => votes[w] === k).length
+    votes: Object.keys(votes).filter(w => votes[w] === k).length, voters: names(votes, k)
   }));
+  const setList = Object.keys(sets).filter(k => !sets[k].gone).map(k => ({
+    k: k, s: setComp_(k), owner: sets[k].owner, by: sets[k].by || '', t: sets[k].t,
+    votes: Object.keys(setVotes).filter(w => setVotes[w] === k).length, voters: names(setVotes, k)
+  })).sort((a, b) => b.votes - a.votes || a.t - b.t);
   return {
     brands: list,
+    sets: setList,
     votes: votes,
     bottles: Object.keys(bottles).map(w => Object.assign({ who: w }, bottles[w])),
     oaths: Object.keys(oaths).map(w => Object.assign({ who: w }, oaths[w])),
@@ -112,7 +133,7 @@ function state_() {
 
 /* to, co widzi strona (bez imion i nazwisk z przysięg i bez mapy głosów) */
 function public_(s) {
-  return { brands: s.brands, people: s.people, bottles: s.bottles, sworn: s.oaths.map(o => o.who), fish: s.fish,
+  return { brands: s.brands, sets: s.sets, people: s.people, bottles: s.bottles, sworn: s.oaths.map(o => o.who), fish: s.fish,
     scores: s.scores.slice(0, 15).map(x => ({ n: x.n, p: x.p, f: x.f, who: x.who })), games: s.scores.length,
     boards: Object.keys(s.boards).reduce((o, k) => (o[k] = s.boards[k].slice(0, 15).map(x => ({ n: x.n, p: x.p, f: x.f, x: x.x, who: x.who })), o), {}) };
 }
@@ -120,9 +141,10 @@ function public_(s) {
 function summary_(s) {
   const sh = sheet_(SUM); sh.clear();
   const rows = [['WÓDYSTOPAD 2026 — zestawienie', '', ''], ['', '', ''], ['MARKA', 'GŁOSY', '']];
-  s.brands.slice().sort((a, b) => b.votes - a.votes).forEach(b => rows.push([b.name, b.votes, '']));
-  rows.push(['', '', ''], ['ILE BUTELEK (propozycja)', 'POJEMNOŚĆ', 'LITRY']);
-  s.bottles.forEach(b => rows.push([b.n + ' szt.' + (b.kto ? ' — ' + b.kto : ''), b.ml / 1000 + ' l', b.n * b.ml / 1000]));
+  s.brands.slice().sort((a, b) => b.votes - a.votes).forEach(b => rows.push([b.name + (b.by ? ' (zgł. ' + b.by + ')' : ''), b.votes, b.voters.join(', ')]));
+  rows.push(['', '', ''], ['BUTELKOMAT — ZESTAW', 'GŁOSY', 'LITRY · KTO GŁOSOWAŁ']);
+  s.sets.forEach(x => { const l = ML.reduce((a, m) => a + (x.s[m] || 0) * m, 0) / 1000;
+    rows.push([ML.filter(m => x.s[m]).map(m => x.s[m] + ' × ' + (m / 1000).toString().replace('.', ',') + ' l').join(' + ') + (x.by ? ' (zgł. ' + x.by + ')' : ''), x.votes, l + ' l · ' + x.voters.join(', ')]); });
   rows.push(['', '', ''], ['PRZYSIĘGI', 'KSYWA', '']);
   s.oaths.forEach(o => rows.push([o.imie, o.ksywa, '']));
   rows.push(['', '', ''], ['RYBKI (21.11)', s.fish, '']);
@@ -152,7 +174,7 @@ function doPost(e) {
     const body = JSON.parse(e.postData.contents || '{}');
     const list = Array.isArray(body.events) ? body.events : [body];
     const who = String(body.who || '').slice(0, 40);
-    const ok = ['brand-add', 'brand-del', 'vote', 'bottle', 'oath', 'fish', 'score', 'score-g', 'whoami'];
+    const ok = ['brand-add', 'brand-del', 'vote', 'bottle', 'set-add', 'set-del', 'set-vote', 'oath', 'fish', 'score', 'score-g', 'whoami'];
     const rows = list.filter(ev => ok.indexOf(ev.type) >= 0 && who).slice(0, 30)
       .map(ev => [new Date(), who, ev.type, JSON.stringify(ev.d || {}).slice(0, 500)]);
     if (rows.length) { const sh = sheet_(LOG); sh.getRange(sh.getLastRow() + 1, 1, rows.length, 4).setValues(rows); }

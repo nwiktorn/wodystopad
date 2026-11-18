@@ -294,6 +294,46 @@ mark{background:none;color:var(--mag);font-weight:700}
 .poll .mine .row span::before{content:"✓ "}
 .poll .mine .bar i{background:var(--ink)}
 .poll-add{display:flex;gap:8px}
+.poll__by{font-weight:400;opacity:.65;margin-left:4px}
+.voters{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px;min-height:0}
+.voters span{font:700 10px/1 var(--f-type);letter-spacing:.04em;background:var(--ink);color:#fff;border-radius:99px;padding:4px 7px}
+.voters span.me{background:var(--pink);color:var(--ink)}
+/* Butelkomat */
+.bm__how{margin:0;padding:12px 14px 12px 32px;background:rgba(255,255,255,.5);border:2px dashed var(--ink);border-radius:12px;font:13px/1.5 var(--f-type)}
+.bm__how li::marker{font-weight:700}
+.bm{display:flex;flex-direction:column;gap:8px}
+.bm__row{display:grid;grid-template-columns:34px 1fr auto;align-items:center;gap:12px;background:#fff;border:2.5px solid var(--ink);border-radius:14px;padding:8px 10px}
+.bm__row svg{width:22px;color:var(--aqua);justify-self:center}
+.bm__row.on svg{color:var(--lime)}
+.bm__row b{font:400 24px/1 var(--f-display)}
+.bm__row small{display:block;font:11px var(--f-type);opacity:.6;margin-top:2px}
+.bm__st{display:flex;align-items:center;gap:8px}
+.bm__st button{width:38px;height:38px;border-radius:50%;border:2.5px solid var(--ink);background:#fff;font:400 22px/1 var(--f-display);transition:transform .12s}
+.bm__st button:last-child{background:var(--pink)}
+.bm__st button:active{transform:scale(.88)}
+.bm__st output{font:400 34px/1 var(--f-display);min-width:1.4ch;text-align:center}
+.bm__total{margin:0;background:var(--ink);color:#fff;border-radius:12px;padding:12px 14px;font:700 13px/1.45 var(--f-type)}
+.bm__total b{color:var(--lime);font:400 26px/1 var(--f-display);display:block;margin-bottom:4px}
+#bm-add:disabled{opacity:.4;cursor:not-allowed}
+.bm__list{display:flex;flex-direction:column;gap:10px}
+.bm__list h4{margin:6px 0 0;font:700 11px var(--f-type);letter-spacing:.1em;opacity:.65}
+.bm__set{display:flex;align-items:flex-start;gap:8px}
+.bm__vote{flex:1;min-width:0;text-align:left;background:#fff;border:2.5px solid var(--ink);border-radius:14px;padding:10px 12px;transition:transform .15s,box-shadow .15s;position:relative}
+.bm__vote:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--ink)}
+.bm__set.mine .bm__vote{background:var(--lime)}
+.bm__set.lead .bm__vote::after{content:"PROWADZI";position:absolute;top:-10px;right:12px;background:var(--pink);border:2px solid var(--ink);border-radius:6px;font:700 9px/1 var(--f-type);letter-spacing:.1em;padding:4px 6px}
+.bm__comp{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.bm__comp span{font:400 22px/1.1 var(--f-display)}
+.bm__comp em{font:400 22px/1 var(--f-display);font-style:normal;white-space:nowrap}
+.bm__ico{display:flex;flex-wrap:wrap;gap:2px;margin:6px 0 4px}
+.bm__ico svg{width:11px;color:var(--aqua)}
+.bm__meta{font:12px/1.4 var(--f-type);opacity:.75}
+.bm__vote .bar{height:10px;border:2px solid var(--ink);border-radius:99px;background:#fff;margin-top:8px;overflow:hidden}
+.bm__vote .bar i{display:block;height:100%;background:var(--pink);border-radius:99px;transition:width .8s cubic-bezier(.2,.9,.3,1.2)}
+.bm__set.mine .bm__vote .bar i{background:var(--ink)}
+.bm__cta{font:700 10px var(--f-type);letter-spacing:.08em;margin-top:6px;opacity:.6}
+.bm__set.mine .bm__cta{opacity:1}
+.bm__empty{font-style:italic;font-size:14px;line-height:1.5;background:rgba(255,255,255,.45);border:2px dashed var(--ink);border-radius:12px;padding:14px;margin:0}
 .poll-empty{font-style:italic;font-size:15px;line-height:1.5;background:rgba(255,255,255,.45);border:2px dashed var(--ink);border-radius:12px;padding:16px}
 .poll-add input{flex:1;min-width:0;border:2px solid var(--ink);border-radius:12px;padding:12px 14px;font:14px var(--f-type);background:#fff}
 .poll-add button{border:2px solid var(--ink);border-radius:12px;background:var(--ink);color:var(--lime);padding:0 16px;font-weight:700}
@@ -996,7 +1036,7 @@ mark{background:none;color:var(--mag);font-weight:700}
 .wt__g{font:400 30px/1 var(--f-display)}
 .guest-note{display:none}
 html.is-guest .guest-note{display:block;font:700 11px/1.4 var(--f-type);letter-spacing:.06em;text-transform:uppercase;background:var(--ink);color:var(--lime);border-radius:8px;padding:6px 10px;margin:6px 0 10px;width:max-content;max-width:100%}
-html.is-guest :is(#poll .poll__vote, #poll .poll__del, #poll-add, #b-send, #sz-res .sz__add, #oath button){opacity:.45;cursor:not-allowed}
+html.is-guest :is(#poll .poll__vote, #poll .poll__del, #poll-add, #bm-add, #bm .bm__st button, #bm-list .bm__vote, #bm-list .poll__del, #sz-res .sz__add, #oath button){opacity:.45;cursor:not-allowed}
 /* Szafa: kto zamawia + podstrona /szafa */
 .sz__as{font:700 12px var(--f-type);letter-spacing:.08em;margin:0 0 14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .sz__as b{font:400 22px var(--f-display);letter-spacing:.02em;color:var(--mag)}
@@ -1281,7 +1321,7 @@ html:not(.sz-page) #sz-count{display:none}
       <h2 class="h-title zp__title">Co pijemy.<br>Ile pijemy.</h2>
       <p class="zp__lead">Wiadomo, że wódeczkę. Już widzę, jak jakiś cwaniaczek wypala z jakimś głupim żartem — przestańcie, to jest poważna sprawa.<strong>Zaopatrzeniem zajmuje się Wódzirej. Robimy składeczkę i elegancko.</strong></p>
     </div>
-    <nav class="tabs" id="tabs" aria-label="Panele zaopatrzenia"><a href="#p-marka" class="on">MARKA</a><a href="#p-butelki">BUTELKI</a><a href="#p-skladeczka">SKŁADECZKA</a></nav>
+    <nav class="tabs" id="tabs" aria-label="Panele zaopatrzenia"><a href="#p-marka" class="on">MARKA</a><a href="#p-butelki">BUTELKOMAT</a><a href="#p-skladeczka">SKŁADECZKA</a></nav>
     <div class="panels">
       <div class="panel" id="p-marka" data-reveal>
         <span class="panel__k">ANKIETA W-2 · ZGŁOŚ MARKĘ I GŁOSUJ</span>
@@ -1292,23 +1332,14 @@ html:not(.sz-page) #sz-count{display:none}
         <form class="poll-add" id="poll-add"><input type="text" id="poll-input" maxlength="40" placeholder="+ zgłoś markę (bez żartów)" aria-label="Zgłoś markę"><button type="submit" aria-label="Dodaj">+</button></form>
       </div>
       <div class="panel" id="p-butelki" data-reveal>
-        <span class="panel__k">ANKIETA W-3 · ZAPROPONUJ ILOŚĆ</span>
-        <h3>Ile butelek?</h3>
-        <p class="guest-note">Tryb gościa — podglądasz, propozycje zgłaszają Wódowicze.</p>
-        <div class="dk">
-          <p class="dk__q"><b>1.</b> Jakie butelki?</p>
-          <div class="seg" id="b-fmt" role="radiogroup" aria-label="Pojemność butelki">
-            <button type="button" role="radio" data-v="500">0,5 l</button><button type="button" role="radio" data-v="700">0,7 l</button><button type="button" role="radio" data-v="1000">1 l</button>
-          </div>
-        </div>
-        <div class="dk">
-          <p class="dk__q"><b>2.</b> Ile sztuk?</p>
-          <div class="stepper stepper--sm"><button type="button" id="b-minus" aria-label="Mniej">−</button><div class="dk__num"><output id="b-count" aria-live="polite">6</output><span id="b-unit">butelek</span></div><button type="button" id="b-plus" aria-label="Więcej">+</button></div>
-          <div class="bottles" id="bottles" aria-hidden="true"></div>
-          <p class="dk__lvl" id="b-lvl"></p>
-        </div>
-        <button class="btn-pill btn-ink" id="b-send" type="button">Zgłaszam propozycję →</button>
-        <div class="calc" id="b-sum"></div>
+        <span class="panel__k">ANKIETA W-3 · ZŁÓŻ ZESTAW I GŁOSUJ</span>
+        <h3>Butelkomat</h3>
+        <p class="guest-note">Tryb gościa — podglądasz, zestawy składają i głosują Wódowicze.</p>
+        <ol class="bm__how"><li>Ustaw, ile butelek każdej pojemności.</li><li>Wrzuć zestaw do Butelkomatu.</li><li>Głosuj na najlepszy zestaw — jeden głos na osobę. Zwycięzca idzie do koszyka.</li></ol>
+        <div class="bm" id="bm"></div>
+        <p class="bm__total" id="bm-total"></p>
+        <button class="btn-pill btn-ink" id="bm-add" type="button">Wrzuć zestaw do Butelkomatu →</button>
+        <div class="bm__list" id="bm-list"></div>
         <p class="live" data-live></p>
       </div>
       <div class="panel" id="p-skladeczka" data-reveal>
@@ -1923,6 +1954,11 @@ spawnFish($('#fishes2'), [[18,120,'#FF5FD2',.8],[30,100,'#fff',.6],[78,90,'#D9FF
 /* =========================================================
    ZAOPATRZENIE: ankieta, butelki, składeczka
    ========================================================= */
+/* ZEROWANIE „Co pijemy” 18.11 — czyści lokalne głosy sprzed zmiany (serwer liczy tylko nowe) */
+(() => { const EP = 'zaop-2026-11-18'; if (store.get('zaop-epoch', '') === EP) return;
+  ['poll-extra','poll-vote','bottle-prop','set-vote'].forEach(k => store.set(k, k === 'poll-extra' ? [] : null));
+  store.set('outbox', store.get('outbox', []).filter(e => !['brand-add','brand-del','vote','bottle'].includes(e.type)));
+  store.set('zaop-epoch', EP); })();
 /* =========================================================
    WSPÓLNA BAZA (Google Sheets + Apps Script) — głosy widzi cała ekipa
    ========================================================= */
@@ -1991,7 +2027,7 @@ const WHO = (() => { const subs = []; const GUEST = 'Gość'; // gość: ogląda
 
 /* GOŚĆ — blokada ankiet, zamawiania piosenek i przysięgi (przechwycone, zanim zadziałają właściwe obsługi) */
 (() => {
-  const BLOCK = '#poll .poll__vote, #poll .poll__del, #poll-add button, #b-send, #sz-res .sz__add, #oath button';
+  const BLOCK = '#poll .poll__vote, #poll .poll__del, #poll-add button, #bm-add, #bm .bm__st button, #bm-list .bm__vote, #bm-list .poll__del, #sz-res .sz__add, #oath button';
   const no = e => { if (!WHO.guest) return; const t = e.type === 'submit' ? e.target.closest('#poll-add, #oath') : e.target.closest(BLOCK); if (!t) return;
     e.preventDefault(); e.stopImmediatePropagation();
     toast('Gość tylko podgląda — głosują i zamawiają Wódowicze. Jesteś Wódowiczem? Zmień legitymację w menu.'); };
@@ -2009,7 +2045,9 @@ const WHO = (() => { const subs = []; const GUEST = 'Gość'; // gość: ogląda
     if (!all.length) { $('#poll').innerHTML = '<p class="poll-empty">Brak propozycji. Komisja czeka na pierwszą markę — zgłoś ją poniżej (bez żartów).</p>'; return; }
     const esc = n => n.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
     const byOf = n => { const b = S && S.brands.find(x => lc(x.name) === lc(n)); return b && b.by ? b.by : ''; };
-    $('#poll').innerHTML = all.map(([n],i) => `<div class="poll__item"><button type="button" class="poll__vote ${lc(v)===lc(n)?'mine':''}" data-n="${esc(n)}"><div class="row"><span>${esc(n)}${byOf(n) ? `<small class="poll__by">· ${esc(byOf(n))}</small>` : ''}</span><em>${votes[i]}</em></div><div class="bar"><i style="width:${Math.max(3, votes[i]/max*100)}%"></i></div></button>${all[i][2]?`<button type="button" class="poll__del" data-n="${esc(n)}" aria-label="Usuń propozycję ${esc(n)}" title="Usuń moją propozycję">✕</button>`:''}</div>`).join('');
+    const me = WHO.guest ? '' : WHO.name;
+    const votersOf = n => { const b = S && S.brands.find(x => lc(x.name) === lc(n)); const l = ((b && b.voters) || []).filter(x => x !== me); if (me && lc(v) === lc(n)) l.push(me); return l; };
+    $('#poll').innerHTML = all.map(([n],i) => `<div class="poll__item"><button type="button" class="poll__vote ${lc(v)===lc(n)?'mine':''}" data-n="${esc(n)}"><div class="row"><span>${esc(n)}${byOf(n) ? `<small class="poll__by">· zgłosił(a): ${esc(byOf(n))}</small>` : ''}</span><em>${votes[i]}</em></div><div class="bar"><i style="width:${Math.max(3, votes[i]/max*100)}%"></i></div>${votersOf(n).length ? `<div class="voters">${votersOf(n).map(x => `<span class="${x===me?'me':''}">${esc(x)}</span>`).join('')}</div>` : ''}</button>${all[i][2]?`<button type="button" class="poll__del" data-n="${esc(n)}" aria-label="Usuń propozycję ${esc(n)}" title="Usuń moją propozycję">✕</button>`:''}</div>`).join('');
     $$('#poll .poll__vote').forEach(b => b.onclick = () => { store.set('poll-vote', b.dataset.n); API.send({type:'vote', d:{name:b.dataset.n}}); render(); toast('Głos oddany. Komisja odnotowała.'); });
     $$('#poll .poll__del').forEach(b => b.onclick = () => { const n = b.dataset.n; opts = opts.filter(o => o !== n); store.set('poll-extra', opts);
       if (API.state) API.state.brands = API.state.brands.filter(x => lc(x.name) !== lc(n));
@@ -2026,40 +2064,62 @@ const WHO = (() => { const subs = []; const GUEST = 'Gość'; // gość: ogląda
   API.on(s => { s._myVote = mine(); render(); });
   render();
 })();
-(() => { // propozycje: ile butelek
-  let me = store.get('bottle-prop', { n: 6, ml: 700, sent: false });
+(() => { // BUTELKOMAT — zestawy butelek (ile sztuk każdej pojemności) + głosowanie, jeden głos na osobę
+  const ML = [500, 700, 1000], lc = x => String(x || '');
+  const esc = t => String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
   const plural = (n, a, b, c) => n === 1 ? a : (n%10>=2 && n%10<=4 && (n%100<12 || n%100>14)) ? b : c;
   const L = ml => (Math.round(ml/100)/10).toString().replace('.', ',') + ' l';
-  const fmt = ml => ml === 1000 ? '1 l' : L(ml);
+  const cap = ml => ml === 1000 ? '1 l' : L(ml);
+  const key = c => ML.filter(m => c[m] > 0).map(m => m + ':' + c[m]).join('|');
+  const comp = k => { const o = {}; String(k||'').split('|').forEach(p => { const [m, n] = p.split(':'); if (ML.includes(+m)) o[m] = +n; }); return o; };
+  const total = c => ML.reduce((a, m) => a + (c[m] || 0) * m, 0);
+  const label = c => ML.filter(m => c[m] > 0).map(m => `${c[m]} × ${cap(m)}`).join(' + ');
+  const heads = () => Math.max(1, CONFIG.people.filter(p => p.confirmed !== false).length);
   const lvl = l => l < 2 ? 'Skromnie. Komisja się martwi.' : l < 4 ? 'Rozsądnie. Wódzirej kiwa głową.' : l < 6 ? 'Solidnie. Tak się robi Wódystopad.' : l < 9 ? 'Ambitnie. Zapas na niedzielę.' : 'Komisja wzywa na przesłuchanie.';
-  const render = () => {
-    $('#b-count').textContent = me.n; $('#b-unit').textContent = plural(me.n,'butelka','butelki','butelek') + ' × ' + fmt(me.ml);
-    $$('#b-fmt button').forEach(b => b.setAttribute('aria-checked', String(+b.dataset.v === me.ml)));
-    const h = me.ml === 500 ? 56 : me.ml === 700 ? 66 : 76;
-    $('#bottles').innerHTML = Array.from({length: Math.min(me.n, 20)}, (_, i) => `<svg viewBox="0 0 40 110" style="height:${h}px;color:${i===me.n-1?'var(--lime)':'#fff'}"><use href="#i-bottle"/></svg>`).join('') + (me.n > 20 ? `<b style="align-self:center">+${me.n-20}</b>` : '');
-    $('#b-lvl').textContent = `= ${L(me.n*me.ml)} · ${lvl(me.n*me.ml/1000)}`;
-    $('#b-send').textContent = me.sent ? 'Propozycja zgłoszona ✓ (zmień i zgłoś ponownie)' : 'Zgłaszam propozycję →';
-    // zestawienie
-    const S = API.state, others = S ? S.bottles.filter(p => p.who !== API.me).map(p => ({n:p.n, ml:p.ml, me:false})) : [];
-    const all = CONFIG.bottleProposals.map(p => ({...p, me:false})).concat(others, me.sent ? [{kto:'Ty', n:me.n, ml:me.ml, me:true}] : []);
-    if (!all.length) { $('#b-sum').innerHTML = '<span class="calc__k">ZESTAWIENIE PROPOZYCJI</span><p class="sum__empty">Brak propozycji. Zgłoś swoją — pojawi się tutaj razem z propozycjami reszty.</p>'; store.set('bottle-prop', me); return; }
-    const groups = {}; all.forEach(p => { const k = p.n + '×' + p.ml; (groups[k] ||= {n:p.n, ml:p.ml, votes:0, me:false}); groups[k].votes++; if (p.me) groups[k].me = true; });
-    const rows = Object.values(groups).sort((a,b) => b.votes - a.votes || b.n*b.ml - a.n*a.ml); const max = rows[0].votes;
-    const litres = all.map(p => p.n*p.ml).sort((a,b) => a-b); const med = litres[Math.floor((litres.length-1)/2)];
-    const avg = litres.reduce((a,b) => a+b, 0) / litres.length;
-    $('#b-sum').innerHTML = `<span class="calc__k">ZESTAWIENIE · ${all.length} ${plural(all.length,'PROPOZYCJA','PROPOZYCJE','PROPOZYCJI')}</span>` +
-      rows.map((r,i) => `<div class="sum__row${i===0?' top':''}${r.me?' me':''}"><b>${r.n} × ${fmt(r.ml)}</b><b>${r.votes} ${plural(r.votes,'głos','głosy','głosów')}</b><span class="sum__bar"><i style="width:${r.votes/max*100}%"></i></span></div>`).join('') +
-      `<div class="calc__row rec"><span>Średnio</span><b>${L(avg)} ≈ ${Math.ceil(avg/700)} × 0,7 l</b></div>`;
-    store.set('bottle-prop', me); };
-  const change = n => { me.n = Math.max(1, Math.min(40, n)); if (me.n === 40) toast('Komisja zatrzymuje licznik na 40. Rozsądek!'); render(); };
-  $('#b-minus').onclick = () => { if (me.n === 1) toast('Zero butelek? To nie jest Wódystopad.'); change(me.n - 1); };
-  $('#b-plus').onclick = () => change(me.n + 1);
-  $$('#b-fmt button').forEach(b => b.onclick = () => { me.ml = +b.dataset.v; render(); });
-  $('#b-send').onclick = async () => { me.sent = true; render(); API.send({type:'bottle', d:{n:me.n, ml:me.ml}});
-    if (CONFIG.formEndpoint) { try { const fd = new FormData(); fd.append('typ','butelki'); fd.append('ile', me.n); fd.append('pojemnosc', me.ml); await fetch(CONFIG.formEndpoint, {method:'POST', headers:{Accept:'application/json'}, body: fd}); } catch(e){} }
-    toast(`Propozycja: ${me.n} × ${fmt(me.ml)} = ${L(me.n*me.ml)}. Przyjęto.`); };
-  API.on(render);
-  render();
+  const icons = (c, max = 24) => { let out = '', i = 0; ML.forEach(m => { for (let j = 0; j < (c[m]||0) && i < max; j++, i++) out += `<svg viewBox="0 0 40 110" style="height:${m===500?20:m===700?24:28}px"><use href="#i-bottle"/></svg>`; }); const n = ML.reduce((a,m)=>a+(c[m]||0),0); return out + (n > max ? `<b style="font:700 11px var(--f-type);align-self:center">+${n-max}</b>` : ''); };
+  const build = { 500: 0, 700: 0, 1000: 0 };
+  let myVote = store.get('set-vote', null);
+  // wiersze konstruktora
+  $('#bm').innerHTML = ML.map(m => `<div class="bm__row" data-ml="${m}"><svg viewBox="0 0 40 110" style="height:${m===500?34:m===700?40:46}px"><use href="#i-bottle"/></svg><div><b>${cap(m)}</b><small>${m===500?'pół litra':m===700?'klasyk 0,7':'litrowa'}</small></div><div class="bm__st"><button type="button" data-d="-1" aria-label="Mniej butelek ${cap(m)}">−</button><output>0</output><button type="button" data-d="1" aria-label="Więcej butelek ${cap(m)}">+</button></div></div>`).join('');
+  $$('#bm .bm__row').forEach(r => { const m = +r.dataset.ml; $$('button', r).forEach(b => b.onclick = () => {
+    build[m] = Math.max(0, Math.min(40, build[m] + +b.dataset.d)); if (build[m] === 40 && +b.dataset.d > 0) toast('Komisja zatrzymuje licznik na 40. Rozsądek!'); draw(); }); });
+  const draw = () => {
+    $$('#bm .bm__row').forEach(r => { const m = +r.dataset.ml; $('output', r).textContent = build[m]; r.classList.toggle('on', build[m] > 0); });
+    const t = total(build), n = ML.reduce((a,m)=>a+build[m],0);
+    $('#bm-total').innerHTML = n ? `<b>${label(build)} = ${L(t)}</b>≈ ${Math.round(t/heads()/10)*10} ml na Wódowicza (${heads()} potwierdzonych) · ${lvl(t/1000)}`
+                                 : '<b>Zestaw pusty</b>Dodaj butelki przyciskami „+” — możesz mieszać pojemności.';
+    $('#bm-add').disabled = !n; list(); };
+  const list = () => { const S = API.state, me = WHO.guest ? '' : WHO.name;
+    const sets = S && S.sets ? S.sets.map(x => ({...x})) : [];
+    // mój głos liczony lokalnie (serwer może być sekundę do tyłu)
+    sets.forEach(x => { x.voters = (x.voters || []).filter(v => v !== me); x.votes = x.votes - (S && lc(S._mySet) === x.k ? 1 : 0); if (myVote === x.k) { x.votes++; if (me) x.voters.push(me); } });
+    sets.sort((a, b) => b.votes - a.votes || (a.t||0) - (b.t||0));
+    if (!sets.length) { $('#bm-list').innerHTML = '<p class="bm__empty">Butelkomat jest pusty. Złóż pierwszy zestaw powyżej — pozostali zagłosują.</p>'; return; }
+    const max = Math.max(1, ...sets.map(x => x.votes));
+    $('#bm-list').innerHTML = `<h4>ZESTAWY W BUTELKOMACIE · ${sets.length}</h4>` + sets.map((x, i) => { const t = total(x.s), mine = myVote === x.k;
+      return `<div class="bm__set${mine?' mine':''}${i===0 && x.votes>0 && (!sets[1] || x.votes > sets[1].votes)?' lead':''}"><button type="button" class="bm__vote" data-k="${esc(x.k)}">
+        <div class="bm__comp"><span>${label(x.s)}</span><em>${x.votes} ${plural(x.votes,'głos','głosy','głosów')}</em></div>
+        <div class="bm__ico" aria-hidden="true">${icons(x.s)}</div>
+        <div class="bm__meta">${L(t)} · ≈ ${Math.round(t/heads()/10)*10} ml na osobę${x.by ? ` · zestaw: <b>${esc(x.by)}</b>` : ''}</div>
+        <div class="bar"><i style="width:${Math.max(3, x.votes/max*100)}%"></i></div>
+        ${x.voters.length ? `<div class="voters">${x.voters.map(v => `<span class="${v===me?'me':''}">${esc(v)}</span>`).join('')}</div>` : ''}
+        <div class="bm__cta">${mine ? '✓ TWÓJ GŁOS · kliknij inny zestaw, żeby zmienić' : 'KLIKNIJ, ŻEBY ZAGŁOSOWAĆ'}</div></button>
+        ${x.owner === API.me ? `<button type="button" class="poll__del" data-k="${esc(x.k)}" aria-label="Wycofaj mój zestaw" title="Wycofaj mój zestaw">✕</button>` : ''}</div>`; }).join('');
+    $$('#bm-list .bm__vote').forEach(b => b.onclick = () => { const k = b.dataset.k; if (myVote === k) { toast('Ten zestaw już ma Twój głos.'); return; }
+      myVote = k; store.set('set-vote', k); API.send({type:'set-vote', d:{k}}); list(); toast('Głos na zestaw oddany. Komisja liczy butelki.'); });
+    $$('#bm-list .poll__del').forEach(b => b.onclick = () => { const k = b.dataset.k;
+      if (API.state && API.state.sets) API.state.sets = API.state.sets.filter(x => x.k !== k);
+      const ev = [{type:'set-del', d:{k}}]; if (myVote === k) { myVote = null; store.set('set-vote', null); ev.push({type:'set-vote', d:{k:null}}); }
+      API.send(...ev); list(); toast('Zestaw wycofany z Butelkomatu.'); }); };
+  $('#bm-add').onclick = () => { const k = key(build); if (!k) return;
+    const S = API.state, have = S && S.sets && S.sets.find(x => x.k === k);
+    if (!have && S && S.sets) S.sets.push({k, s: comp(k), owner: API.me, by: WHO.guest ? '' : WHO.name, votes: 0, voters: [], t: Date.now()});
+    myVote = k; store.set('set-vote', k);
+    API.send(...(have ? [] : [{type:'set-add', d:{s: {...build}}}]), {type:'set-vote', d:{k}});
+    ML.forEach(m => build[m] = 0); draw();
+    toast(have ? 'Taki zestaw już jest — dostał Twój głos.' : 'Zestaw w Butelkomacie (i od razu Twój głos).'); };
+  API.on(s => { s._mySet = myVote; list(); }); WHO.on(() => list());
+  draw();
 })();
 (() => { // składeczka
   const s = CONFIG.skladeczka, set = !!s.cel, pct = set ? Math.min(100, s.zebrano/s.cel*100) : 0;
