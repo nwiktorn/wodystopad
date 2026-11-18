@@ -1567,7 +1567,7 @@ html:not(.sz-page) #sz-count{display:none}
               <form class="gra__save" id="wdz-save" autocomplete="off">
                 <label for="wdz-ini">Inicjały do rejestru — 3 litery</label>
                 <div class="gra__row">
-                  <div class="gra__ini"><input id="wdz-ini" maxlength="3" inputmode="text" autocapitalize="characters" spellcheck="false" enterkeyhint="done" aria-label="Trzy litery"><i></i><i></i><i></i></div>
+                  <div class="gra__ini"><input id="wdz-ini" inputmode="text" autocapitalize="characters" spellcheck="false" enterkeyhint="done" aria-label="Trzy litery"><i></i><i></i><i></i></div>
                   <button class="btn-pill btn-ink" type="submit">Zapisz →</button>
                 </div>
               </form>
@@ -1627,7 +1627,7 @@ html:not(.sz-page) #sz-count{display:none}
               <form class="gra__save" id="pol-save" autocomplete="off">
                 <label for="pol-ini">Inicjały do rejestru — 3 litery</label>
                 <div class="gra__row">
-                  <div class="gra__ini"><input id="pol-ini" maxlength="3" inputmode="text" autocapitalize="characters" spellcheck="false" enterkeyhint="done" aria-label="Trzy litery"><i></i><i></i><i></i></div>
+                  <div class="gra__ini"><input id="pol-ini" inputmode="text" autocapitalize="characters" spellcheck="false" enterkeyhint="done" aria-label="Trzy litery"><i></i><i></i><i></i></div>
                   <button class="btn-pill btn-ink" type="submit">Zapisz →</button>
                 </div>
               </form>
@@ -1680,7 +1680,7 @@ html:not(.sz-page) #sz-count{display:none}
               <form class="gra__save" id="gra-save" autocomplete="off">
                 <label for="gra-ini">Inicjały do rejestru — 3 litery</label>
                 <div class="gra__row">
-                  <div class="gra__ini"><input id="gra-ini" maxlength="3" inputmode="text" autocapitalize="characters" spellcheck="false" enterkeyhint="done" aria-label="Trzy litery"><i></i><i></i><i></i></div>
+                  <div class="gra__ini"><input id="gra-ini" inputmode="text" autocapitalize="characters" spellcheck="false" enterkeyhint="done" aria-label="Trzy litery"><i></i><i></i><i></i></div>
                   <button class="btn-pill btn-ink" type="submit">Zapisz →</button>
                 </div>
               </form>
@@ -2653,8 +2653,10 @@ const GFX = {}; // rysunki współdzielone przez gry i okładki w Game Store
   const ini = $('#gra-ini'), boxes = $$('.gra__ini i'), form = $('#gra-save');
   const clean = v => v.toUpperCase().replace(/[^A-ZĄĆĘŁŃÓŚŹŻ0-9]/g, '').slice(0, 3);
   const paint = () => { const v = ini.value; boxes.forEach((b, i) => { b.textContent = v[i] || ''; b.classList.toggle('cur', document.activeElement === ini && i === Math.min(2, v.length)); }); };
-  ini.addEventListener('input', () => { ini.value = clean(ini.value); paint(); });
-  ini.addEventListener('focus', paint); ini.addEventListener('blur', paint);
+  // pole bywa wypełnione literami z poprzedniego zapisu — po wejściu w pole zaznacz całość (pisanie zastępuje), a nadmiar ponad 3 litery ucinaj od początku
+  ini.addEventListener('input', () => { const v = ini.value.toUpperCase().replace(/[^A-ZĄĆĘŁŃÓŚŹŻ0-9]/g, ''); ini.value = v.length > 3 ? v.slice(-3) : v; paint(); });
+  const selAll = () => setTimeout(() => { if (document.activeElement === ini) ini.select(); }, 0);
+  ini.addEventListener('focus', () => { paint(); selAll(); }); ini.addEventListener('pointerup', e => { if (ini.selectionStart === ini.selectionEnd && ini.value.length >= 3) { e.preventDefault(); ini.select(); } }); ini.addEventListener('blur', paint);
   let result = null;
   function showOver() {
     const m = Math.floor(dist / PER_M); result = { p: m + fish * FISH_PTS, f: fish, m, map: mapNo };
@@ -3158,8 +3160,10 @@ const GFX = {}; // rysunki współdzielone przez gry i okładki w Game Store
   const ini = $('#pol-ini'), boxes = $$('#pol-save .gra__ini i'), form = $('#pol-save');
   const clean = v => v.toUpperCase().replace(/[^A-ZĄĆĘŁŃÓŚŹŻ0-9]/g, '').slice(0, 3);
   const paint = () => { const v = ini.value; boxes.forEach((b, i) => { b.textContent = v[i] || ''; b.classList.toggle('cur', document.activeElement === ini && i === Math.min(2, v.length)); }); };
-  ini.addEventListener('input', () => { ini.value = clean(ini.value); paint(); });
-  ini.addEventListener('focus', paint); ini.addEventListener('blur', paint);
+  // pole bywa wypełnione literami z poprzedniego zapisu — po wejściu w pole zaznacz całość (pisanie zastępuje), a nadmiar ponad 3 litery ucinaj od początku
+  ini.addEventListener('input', () => { const v = ini.value.toUpperCase().replace(/[^A-ZĄĆĘŁŃÓŚŹŻ0-9]/g, ''); ini.value = v.length > 3 ? v.slice(-3) : v; paint(); });
+  const selAll = () => setTimeout(() => { if (document.activeElement === ini) ini.select(); }, 0);
+  ini.addEventListener('focus', () => { paint(); selAll(); }); ini.addEventListener('pointerup', e => { if (ini.selectionStart === ini.selectionEnd && ini.value.length >= 3) { e.preventDefault(); ini.select(); } }); ini.addEventListener('blur', paint);
   let result = null, justSaved = null;
   function showOver() {
     result = { p: pts, f: kiel, x: Math.round(promMax * 10) };
@@ -3653,7 +3657,10 @@ const GFX = {}; // rysunki współdzielone przez gry i okładki w Game Store
   const ini = $('#wdz-ini'), boxes = $$('#wdz-save .gra__ini i'), form = $('#wdz-save');
   const clean = v => v.toUpperCase().replace(/[^A-ZĄĆĘŁŃÓŚŹŻ0-9]/g, '').slice(0, 3);
   const paint = () => { const v = ini.value; boxes.forEach((b, i) => { b.textContent = v[i] || ''; b.classList.toggle('cur', document.activeElement === ini && i === Math.min(2, v.length)); }); };
-  ini.addEventListener('input', () => { ini.value = clean(ini.value); paint(); }); ini.addEventListener('focus', paint); ini.addEventListener('blur', paint);
+  // pole bywa wypełnione literami z poprzedniego zapisu — po wejściu w pole zaznacz całość (pisanie zastępuje), a nadmiar ponad 3 litery ucinaj od początku
+  ini.addEventListener('input', () => { const v = ini.value.toUpperCase().replace(/[^A-ZĄĆĘŁŃÓŚŹŻ0-9]/g, ''); ini.value = v.length > 3 ? v.slice(-3) : v; paint(); });
+  const selAll = () => setTimeout(() => { if (document.activeElement === ini) ini.select(); }, 0);
+  ini.addEventListener('focus', () => { paint(); selAll(); }); ini.addEventListener('pointerup', e => { if (ini.selectionStart === ini.selectionEnd && ini.value.length >= 3) { e.preventDefault(); ini.select(); } }); ini.addEventListener('blur', paint);
   let result = null, justSaved = null;
   function showOver(champ) { stage.classList.remove('run'); st = 'done';
     result = { p: score, f: wonFights, x: sel };
