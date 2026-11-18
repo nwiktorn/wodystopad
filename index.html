@@ -1114,7 +1114,7 @@ const CONFIG = {
     { name:'Arek', photo:'img/arek.webp',     role:'„MOCNY ZAWÓDNIK”',             attack:'Kolana ze stali',          confirmed:true },
     { name:'Magda', photo:'img/magda.webp',    role:'„WÓDNA, NIE WINNA”',           attack:'Uniewinnienie',        confirmed:true },
     { name:'Konrad', photo:'img/konrad.webp',   role:'„KONRAD WÓDENROD”',            attack:'Wielka Improwizacja',  confirmed:true },
-    { name:'Koli',   photo:'img/koli.webp',                  role:'„WóDe-40mm”',                  attack:'Wypiera wodę wódą',    confirmed:false },
+    { name:'Koli',   photo:'img/koli.webp',                  role:'„WóDe-40mm”',                  attack:'Wypiera wodę wódą',    confirmed:false, stats:{TOASTY:6, 'WYTRZYMAŁOŚĆ':4, 'ŚPIEW':3} },
   ],
   rules: [ // §2–§7 (§1 jest stałym banerem)
     'Nie mówimy nikomu o Wódystopadzie, chyba że komuś, komu akurat chcemy powiedzieć, lub jesteśmy po wypiciu znaczących ilości wódeczki.',
@@ -1499,7 +1499,7 @@ carouselDots($('#kary-track'), $('#kary-dots'), 'przesuń →');
    WÓDOWICZE: legitymacje
    ========================================================= */
 (() => { const bgs = ['var(--paper)','var(--lime)','var(--aqua)','#fff']; const arts = ['var(--blue)','var(--ink)']; const fc = ['#FF5FD2','#D9FF3D','#FF5FD2','#8FE8FF'];
-  const stat = (name, k) => { let h = 0; for (const c of name+k) h = (h*31 + c.charCodeAt(0)) % 997; return 25 + h % 70; };
+  const stat = (name, k) => { const p = CONFIG.people.find(x => x.name === name); if (p && p.stats && p.stats[k] != null) return p.stats[k]; let h = 0; for (const c of name+k) h = (h*31 + c.charCodeAt(0)) % 997; return 25 + h % 70; };
   $('#cards').innerHTML = CONFIG.people.map((p,i) => { const bub = Array.from({length:7},(_,k)=>{ const s=6+rnd()*16; return `<i style="--k:${k};width:${s}px;height:${s}px;left:${rnd()*92}%;top:${rnd()*85}%"></i>`; }).join('');
     return `<div class="idc${p.confirmed?'':' unconfirmed'}" tabindex="0" role="button" aria-label="Legitymacja: ${p.name}. Kliknij, by odwrócić."><div class="idc__in">
       <div class="idc__f" style="--c:${bgs[i%4]}">
