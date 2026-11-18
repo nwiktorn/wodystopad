@@ -83,7 +83,8 @@ function state_() {
       const n = Math.max(1, Math.min(40, parseInt(e.d.n, 10) || 0)); const ml = [500, 700, 1000].indexOf(+e.d.ml) >= 0 ? +e.d.ml : 700;
       bottles[e.who] = { n, ml, kto: String(e.d.kto || '').slice(0, 40) };
     } else if (e.type === 'oath') {
-      oaths[e.who] = { imie: String(e.d.imie || '').slice(0, 60), ksywa: String(e.d.ksywa || '').slice(0, 40) };
+      oaths[e.who] = { imie: String(e.d.imie || '').slice(0, 60), ksywa: String(e.d.ksywa || '').slice(0, 40), per: per || '',
+        urzeka: (Array.isArray(e.d.urzeka) ? e.d.urzeka : []).slice(0, 3).map(x => String(x || '').slice(0, 80)) };
       if (per) P(per).oath = true;
     } else if (e.type === 'score') {
       const n = String(e.d.n || '').toUpperCase().replace(/[^A-ZĄĆĘŁŃÓŚŹŻ0-9]/g, '').slice(0, 3); if (!n) return;
@@ -145,8 +146,8 @@ function summary_(s) {
   rows.push(['', '', ''], ['BUTELKOMAT — ZESTAW', 'GŁOSY', 'LITRY · KTO GŁOSOWAŁ']);
   s.sets.forEach(x => { const l = ML.reduce((a, m) => a + (x.s[m] || 0) * m, 0) / 1000;
     rows.push([ML.filter(m => x.s[m]).map(m => x.s[m] + ' × ' + (m / 1000).toString().replace('.', ',') + ' l').join(' + ') + (x.by ? ' (zgł. ' + x.by + ')' : ''), x.votes, l + ' l · ' + x.voters.join(', ')]); });
-  rows.push(['', '', ''], ['PRZYSIĘGI', 'KSYWA', '']);
-  s.oaths.forEach(o => rows.push([o.imie, o.ksywa, '']));
+  rows.push(['', '', ''], ['PRZYSIĘGI (IMIĘ · LEGITYMACJA)', 'KSYWA', 'CO URZEKA W WÓDZIREJU']);
+  s.oaths.forEach(o => rows.push([o.imie + (o.per && o.per !== o.imie ? ' · ' + o.per : ''), o.ksywa, (o.urzeka || []).map((x, i) => (i + 1) + '. ' + x).join('   ')]));
   rows.push(['', '', ''], ['RYBKI (21.11)', s.fish, '']);
   rows.push(['', '', ''], ['PODWÓDNE PRZYGODY — TOP 10', 'PUNKTY', 'RYBKI']);
   s.scores.slice(0, 10).forEach((x, i) => rows.push([(i + 1) + '. ' + x.n, x.p, x.f]));

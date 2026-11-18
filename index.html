@@ -546,6 +546,16 @@ mark{background:none;color:var(--mag);font-weight:700}
 .check input:checked::after{content:"✓";color:var(--lime);font-weight:700;font-size:18px}
 .form .btn-pill{justify-content:center;font-size:17px;padding:20px;box-shadow:5px 5px 0 var(--pink)}
 .form .err{color:var(--mag);font-weight:700;font-size:14px;min-height:1.2em}
+.urz{border:0;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;min-width:0}
+.urz legend{font:700 13px var(--f-type);letter-spacing:.08em;padding:0;margin-bottom:10px;line-height:1.4}
+.urz label{display:flex;align-items:center;gap:12px}
+.urz label b{flex:none;width:30px;height:30px;border-radius:50%;background:var(--ink);color:var(--lime);display:grid;place-items:center;font:900 15px var(--f-type)}
+.urz input{padding:12px 14px!important}
+.rota{border:2px dashed var(--ink);border-radius:12px;padding:18px 20px;background:rgba(255,255,255,.55);position:relative}
+.rota__k{display:block;font:700 11px var(--f-type);letter-spacing:.14em;color:var(--mag);margin-bottom:8px}
+.rota p{font:italic 500 16px/1.55 var(--f-type);margin:0;text-wrap:pretty}
+.rota__n{font-style:normal;background:var(--lime);padding:0 6px;border-radius:4px;box-shadow:inset 0 -2px 0 var(--ink);white-space:nowrap}
+.rota__n.empty{background:transparent;box-shadow:inset 0 -2px 0 var(--ink);color:rgba(11,11,30,.45)}
 .form .stamp{position:absolute;left:50%;top:40%;margin-left:-140px;color:var(--mag);--rot:-12deg;--ss:44px;z-index:3}
 .counter{background:var(--blue);color:#fff;border:3px solid var(--ink);border-radius:32px;box-shadow:10px 10px 0 var(--ink);padding:44px;display:flex;flex-direction:column;gap:16px;transform:rotate(1deg)}
 .counter h3{font:400 40px var(--f-display)}
@@ -777,6 +787,9 @@ mark{background:none;color:var(--mag);font-weight:700}
   .form{padding:22px 20px;box-shadow:6px 6px 0 var(--ink);border-width:2.5px}
   .form .btn-pill{font-size:14px;padding:16px;box-shadow:4px 4px 0 var(--pink)}
   .check{font-size:13px}
+  .rota{padding:14px}
+  .rota p{font-size:14px}
+  .urz legend{font-size:12px}
   .form .stamp{--ss:30px;margin-left:-110px}
   .counter{padding:24px 22px;border-radius:24px;box-shadow:6px 6px 0 var(--ink)}
   .counter h3{font-size:30px}
@@ -1005,6 +1018,7 @@ mark{background:none;color:var(--mag);font-weight:700}
 .whoami .stamp{margin:-40px 0 0 -150px}
 .whoami .stamp small{font-size:12px}
 /* moja legitymacja + kartoteka na żywo */
+.idc__vow{position:absolute;left:8px;top:10px;z-index:3;background:var(--lime);color:var(--ink);border:2px solid var(--ink);font:900 12px/1 var(--f-stamp);letter-spacing:.08em;padding:5px 8px 4px;border-radius:4px;transform:rotate(-6deg);box-shadow:2px 2px 0 var(--ink);pointer-events:none;animation:miniSlam .45s cubic-bezier(.2,1.6,.4,1)}
 .idc__me{position:absolute;left:-10px;top:-14px;z-index:5;font:400 20px/1 var(--f-sticker);color:var(--lime);-webkit-text-stroke:1.5px var(--ink);paint-order:stroke fill;text-shadow:2px 2px 0 var(--ink);transform:rotate(-8deg);pointer-events:none}
 .idc__b ul.live-k{font-size:13px;line-height:1.55}
 .idc__b ul.live-k li{display:flex;justify-content:space-between;gap:8px;border-bottom:1px dotted rgba(11,11,30,.25);padding:2px 0}
@@ -1446,10 +1460,16 @@ html:not(.sz-page) #sz-count{display:none}
       <p class="guest-note">Tryb gościa — przysięgę składają tylko Wódowicze.</p>
       <form class="form" id="oath" novalidate>
         <span class="k">WYPEŁNIĆ DRUKOWANYMI LITERAMI LUB PO WÓDECZCE</span>
-        <label class="f">IMIĘ I NAZWISKO<input type="text" name="imie" autocomplete="name" required></label>
-        <label class="f">KSYWA WÓDCZANA (OPCJONALNIE)<input type="text" name="ksywa"></label>
-        <label class="check"><input type="checkbox" name="regulamin" required>Zapoznałem(-am) się z regulaminem (lub ktoś mi go przeczytał).</label>
-        <label class="check"><input type="checkbox" name="skladeczka">Wpłaciłem(-am) na składeczkę i nie zostawiam „wyświetlone”.</label>
+        <label class="f">IMIĘ I NAZWISKO<input type="text" name="imie" autocomplete="name" maxlength="60" required></label>
+        <label class="f">KSYWA WÓDCZANA (OPCJONALNIE)<input type="text" name="ksywa" maxlength="40"></label>
+        <fieldset class="urz">
+          <legend>3 RZECZY, KTÓRE NAJBARDZIEJ URZEKAJĄ CIĘ W WÓDZIREJU:</legend>
+          <label><b>1.</b><input type="text" name="u1" maxlength="80" placeholder="np. skromność" required></label>
+          <label><b>2.</b><input type="text" name="u2" maxlength="80" required></label>
+          <label><b>3.</b><input type="text" name="u3" maxlength="80" required></label>
+        </fieldset>
+        <div class="rota"><span class="rota__k">ROTA PRZYSIĘGI</span>
+          <p>Ja, <b class="rota__n" id="rota-n">[imię]</b>, uroczyście przysięgam szanować Wódystopad, jego regulamin oraz Wódzireja po kres czasu. Zobowiązuję się do nienagannej reprezentacji wizerunku wzorowego Wódowicza, kochać wódeczkę po wsze czasy i&nbsp;zawsze być w pełnej gotowości do obrony wszystkich wartości, które reprezentuje Wódystopad i jego uczestnicy.</p></div>
         <p class="err" id="oath-err" aria-live="polite"></p>
         <button class="btn-pill btn-ink" type="submit">Przysięgam uroczyście →</button>
         <div class="stamp" id="oath-stamp"><span><b>PRZYSIĘGA PRZYJĘTA</b><small>wpisano do rejestru</small></span></div>
@@ -1942,12 +1962,10 @@ spawnFish($('#fishes2'), [[18,120,'#FF5FD2',.8],[30,100,'#fff',.6],[78,90,'#D9FF
   addEventListener('keydown', e => { if (['ArrowDown','PageDown',' ','End'].includes(e.key) && atBottom()) holaShow(); });
   $('#rules-yes').onclick = () => { try { localStorage.setItem('wody:rules-ok','1'); } catch(e){}
     root.classList.add('rules-ok'); const st = $('#rules-stamp'); st.classList.remove('in'); void st.offsetWidth; st.classList.add('in');
-    const cb = $('#oath input[name="regulamin"]'); if (cb) cb.checked = true;
     toast('Regulamin przyjęty w całości. Komisja dziękuje.'); dispatchEvent(new Event('resize')); };
   $('#rules-no').onclick = () => { const b = $('#rules-no'); b.classList.remove('shake'); void b.offsetWidth; b.classList.add('shake'); toast('Opcja niedostępna (§7). Spróbuj przycisku powyżej.'); };
   document.addEventListener('click', e => { if (accepted() || !isMobile()) return; const a = e.target.closest('a[href^="#"]'); if (!a) return;
     const t = document.getElementById(a.getAttribute('href').slice(1)); if (t && !t.getClientRects().length) { e.preventDefault(); setTimeout(nudge, 80); } }, true);
-  if (accepted()) { const cb = $('#oath input[name="regulamin"]'); if (cb) cb.checked = true; }
 
   setMode(); addEventListener('resize', setMode); const restack = () => { if (active && !dealt) stack(); }; addEventListener('load', restack); document.fonts && document.fonts.ready.then(restack); })();
 
@@ -2216,8 +2234,10 @@ carouselDots($('#kary-track'), $('#kary-dots'), 'przesuń →');
     $$('#cards .idc').forEach((c, i) => { const p = CONFIG.people[i], s = ppl[p.name] || {}, g = s.games || {};
       c.classList.toggle('me', p.name === me); const f = $('.idc__f', c), tag = $('.idc__me', c);
       if (p.name === me && !tag) f.insertAdjacentHTML('afterbegin', '<span class="idc__me">To Ty!</span>'); if (p.name !== me && tag) tag.remove();
+      const vow = !!s.oath || (p.name === me && store.get('sworn', false)), vb = $('.idc__vow', c), fem = /a$/.test(p.name);
+      if (vow && !vb) $('.idc__art', c).insertAdjacentHTML('beforeend', `<span class="idc__vow">${fem ? 'ŚLUBOWAŁA' : 'ŚLUBOWAŁ'} ✓</span>`); if (!vow && vb) vb.remove();
       $('ul', c).className = 'live-k';
-      $('ul', c).innerHTML = [['Status', p.confirmed ? 'potwierdzony' : 'na ławce'], ['Na stronie', s.in ? 'zameldowany(-a) ✓' : 'jeszcze nie'], ['Przysięga', s.oath ? 'złożona ✓' : 'oczekuje'],
+      $('ul', c).innerHTML = [['Status', p.confirmed ? 'potwierdzony' : 'na ławce'], ['Na stronie', s.in ? 'zameldowany(-a) ✓' : 'jeszcze nie'], ['Przysięga', vow ? (fem ? 'ślubowała ✓' : 'ślubował ✓') : 'oczekuje'],
         ['Głos na', s.vote || '—'], ['Zgłosił(a)', s.props && s.props.length ? s.props.join(', ') : '—'],
         ['Piosenki', s.songs ? s.songs + (s.last ? ' · „' + cut(s.last, 18) + '”' : '') : '0'],
         ['Wódżitsu', fmtG(g.wodzitsu)], ['Polanie', fmtG(g.polanie)], ['Podwódne', fmtG(g.karafka)], ['Kary odbyte', '0 (na razie)']]
@@ -2225,7 +2245,7 @@ carouselDots($('#kary-track'), $('#kary-dots'), 'przesuń →');
       let nm = $('.idc__notme', c); if (p.name === me && !nm) { $('.idc__b ul', c).insertAdjacentHTML('afterend', '<button type="button" class="idc__notme">To nie ja — zmień</button>'); nm = $('.idc__notme', c);
         nm.onclick = e => { e.stopPropagation(); WHO.open(); }; } if (p.name !== me && nm) nm.remove(); });
     $$('#chips span').forEach((ch, i) => ch.classList.toggle('in', !!(ppl[CONFIG.people[i].name] || {}).in)); };
-  API.on(kart); WHO.on(kart);
+  API.on(kart); WHO.on(kart); addEventListener('wody:sworn', kart);
   carouselDots($('#cards'), $('#cards-dots'), 'przesuń →');
 })();
 
@@ -2261,15 +2281,22 @@ carouselDots($('#kary-track'), $('#kary-dots'), 'przesuń →');
   new IntersectionObserver((es,o)=>{ if(es[0].isIntersecting){ upd(); o.disconnect(); } }).observe($('#licznik'));
   const form = $('#oath');
   if (store.get('sworn', false)) $('#oath-stamp').classList.add('in');
+  const nm = $('#rota-n'), imie = form.elements.imie;
+  const rota = () => { const v = imie.value.trim(); nm.textContent = v || '[imię]'; nm.classList.toggle('empty', !v); };
+  imie.addEventListener('input', rota);
+  WHO.on(() => { if (!imie.value.trim() && WHO.name && !WHO.guest) { imie.value = WHO.name; rota(); } }); rota();
   form.onsubmit = async e => { e.preventDefault(); const fd = new FormData(form);
-    if (!fd.get('imie').trim()) { $('#oath-err').textContent = 'Imię i nazwisko — obowiązkowo. Komisja musi wiedzieć, kogo karać.'; return; }
-    if (!fd.get('regulamin')) { $('#oath-err').textContent = 'Zaznacz regulamin. Bez tego ani rusz.'; return; }
+    const u = ['u1','u2','u3'].map(k => (fd.get(k) || '').trim());
+    if (!fd.get('imie').trim()) { $('#oath-err').textContent = 'Imię i nazwisko — obowiązkowo. Komisja musi wiedzieć, kogo karać.'; imie.focus(); return; }
+    const miss = u.findIndex(x => !x);
+    if (miss > -1) { $('#oath-err').textContent = `Brakuje rzeczy nr ${miss + 1}. Wódzirej ma ich przecież mnóstwo — wybierz którąkolwiek.`; form.elements['u' + (miss + 1)].focus(); return; }
     $('#oath-err').textContent = '';
     if (CONFIG.formEndpoint) { try { await fetch(CONFIG.formEndpoint, {method:'POST', headers:{'Accept':'application/json'}, body: fd}); } catch(err) {} }
     const st = $('#oath-stamp'); st.classList.remove('in'); void st.offsetWidth; st.classList.add('in');
-    API.send({type:'oath', d:{imie: fd.get('imie').trim(), ksywa: (fd.get('ksywa')||'').trim()}});
+    API.send({type:'oath', d:{imie: fd.get('imie').trim(), ksywa: (fd.get('ksywa')||'').trim(), urzeka: u}});
     if (!store.get('sworn', false)) { store.set('sworn', true); sworn++; upd(); }
-    toast(`Przysięga przyjęta, ${fd.get('ksywa') || fd.get('imie').split(' ')[0]}. Wpisano do rejestru.`); };
+    dispatchEvent(new Event('wody:sworn'));
+    toast(`Przysięga przyjęta, ${fd.get('ksywa') || fd.get('imie').split(' ')[0]}. Wódzirej przeczyta Twoje komplementy ze wzruszeniem.`); };
   // licznik rybek
   const out = $('#fish-count'); let n = store.get('fish', 0); out.textContent = pad(n,3);
   const now = new Date(), ev = new Date(CONFIG.eventDate);
