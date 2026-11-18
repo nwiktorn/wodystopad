@@ -11,6 +11,8 @@
  *   Wymaga usługi zaawansowanej: Edytor → Usługi (+) → „YouTube Data API v3” (identyfikator: YouTube).
  *   Skrypt działa jako właściciel (Wykonuj jako: Ja), więc dodaje utwory do jego playlisty. Pierwsze uruchomienie: testSzafy().
  *   GET ?yt=search&q=… — wyniki wyszukiwania (albo jeden film, gdy q to link); GET ?yt=list — zawartość playlisty.
+ * Typ 'whoami' — telefon wybrał legitymację (d.name = imię z CONFIG.people). Od tej chwili jego zdarzenia liczą się tej osobie
+ *   (zdarzenia sprzed pierwszego wyboru — też). Strona dostaje statystyki osób w `people` (bez identyfikatorów telefonów).
  */
 const LOG = 'log', SUM = 'Podsumowanie';
 const GAMES = { polanie: 'OSTATNIE POLANIE' }; // gry z biblioteki zapisywane jako 'score-g'
@@ -32,40 +34,66 @@ function events_() {
   return v.slice(1).map(r => ({ t: r[0], who: String(r[1]), type: String(r[2]), d: JSON.parse(r[3] || '{}') }));
 }
 
+/* telefon → osoba: lista wyborów legitymacji w czasie (zmiana przez „To nie ja”) */
+function ids_(evs) {
+  const m = {};
+  evs.forEach(e => { if (e.type !== 'whoami') return; const n = String(e.d.name || '').trim().slice(0, 30); if (n) (m[e.who] = m[e.who] || []).push({ t: +new Date(e.t) || 0, n: n }); });
+  return m;
+}
+/* kto był na tym telefonie w chwili t (zdarzenia sprzed pierwszego wyboru → pierwsza wybrana osoba) */
+function personAt_(ids, who, t) {
+  const l = ids[who]; if (!l) return '';
+  let n = l[0].n; for (let i = 0; i < l.length && l[i].t <= t; i++) n = l[i].n;
+  return n;
+}
+
 function state_() {
   const brands = {}; const votes = {}; const bottles = {}; const oaths = {}; const scores = []; const boards = {}; Object.keys(GAMES).forEach(k => boards[k] = []); let fish = 0; const songs = [];
-  events_().forEach(e => {
+  const evs = events_(), ids = ids_(evs);
+  const people = {}; const P = n => people[n] || (people[n] = { in: false, oath: false, vote: null, props: [], songs: 0, last: '', games: {} });
+  Object.keys(ids).forEach(w => ids[w].forEach(x => P(x.n).in = true));
+  evs.forEach(e => {
+    const per = personAt_(ids, e.who, +new Date(e.t) || 0);
     if (e.type === 'brand-add') {
       const name = String(e.d.name || '').trim().slice(0, 40); if (!name) return;
       const key = name.toLowerCase();
-      if (!brands[key] || brands[key].gone) brands[key] = { name, owner: e.who, gone: false };
+      if (!brands[key] || brands[key].gone) brands[key] = { name, owner: e.who, by: per, gone: false };
     } else if (e.type === 'brand-del') {
       const b = brands[String(e.d.name || '').toLowerCase()];
       if (b && b.owner === e.who) b.gone = true;
     } else if (e.type === 'vote') {
-      votes[e.who] = e.d.name ? String(e.d.name).toLowerCase() : null;
+      votes[per ? 'p:' + per : e.who] = e.d.name ? String(e.d.name).toLowerCase() : null;   // jedna osoba = jeden głos, nawet z dwóch telefonów
     } else if (e.type === 'bottle') {
       const n = Math.max(1, Math.min(40, parseInt(e.d.n, 10) || 0)); const ml = [500, 700, 1000].indexOf(+e.d.ml) >= 0 ? +e.d.ml : 700;
       bottles[e.who] = { n, ml, kto: String(e.d.kto || '').slice(0, 40) };
     } else if (e.type === 'oath') {
       oaths[e.who] = { imie: String(e.d.imie || '').slice(0, 60), ksywa: String(e.d.ksywa || '').slice(0, 40) };
+      if (per) P(per).oath = true;
     } else if (e.type === 'score') {
       const n = String(e.d.n || '').toUpperCase().replace(/[^A-ZĄĆĘŁŃÓŚŹŻ0-9]/g, '').slice(0, 3); if (!n) return;
       const num = (v, max) => Math.max(0, Math.min(max, parseInt(v, 10) || 0));
-      scores.push({ n, p: num(e.d.p, 99999), f: num(e.d.f, 999), m: num(e.d.m, 9999), who: e.who, t: +new Date(e.t) || 0 });
+      scores.push({ n, p: num(e.d.p, 99999), f: num(e.d.f, 999), m: num(e.d.m, 9999), who: e.who, per: per, t: +new Date(e.t) || 0 });
     } else if (e.type === 'score-g') {
       const gid = String(e.d.g || ''); if (!boards[gid]) return;
       const n = String(e.d.n || '').toUpperCase().replace(/[^A-ZĄĆĘŁŃÓŚŹŻ0-9]/g, '').slice(0, 3); if (!n) return;
       const num = (v, max) => Math.max(0, Math.min(max, parseInt(v, 10) || 0));
-      boards[gid].push({ n, p: num(e.d.p, 99999), f: num(e.d.f, 999), x: num(e.d.x, 999), who: e.who, t: +new Date(e.t) || 0 });
+      boards[gid].push({ n, p: num(e.d.p, 99999), f: num(e.d.f, 999), x: num(e.d.x, 999), who: e.who, per: per, t: +new Date(e.t) || 0 });
     } else if (e.type === 'fish') {
       fish += Math.max(1, Math.min(5, parseInt(e.d.n, 10) || 1));
     } else if (e.type === 'song') {
-      songs.push({ v: String(e.d.v || ''), k: String(e.d.k || ''), t: String(e.d.t || '') });
+      const k = String(e.d.k || '').slice(0, 30) || per;
+      songs.push({ v: String(e.d.v || ''), k: k, t: String(e.d.t || ''), at: +new Date(e.t) || 0 });
+      if (k) { P(k).songs++; P(k).last = String(e.d.t || ''); }
     }
   });
+  // ankieta: głos i propozycje każdej osoby
+  Object.keys(votes).forEach(k => { if (k.indexOf('p:') === 0 && votes[k]) { const b = brands[votes[k]]; P(k.slice(2)).vote = b && !b.gone ? b.name : null; } });
+  Object.keys(brands).forEach(k => { const b = brands[k]; if (!b.gone && b.by) P(b.by).props.push(b.name); });
+  // rekordy: najlepszy wynik osoby i jego miejsce w rejestrze
+  const best = (list, g) => { list.slice().sort((a, b) => b.p - a.p || a.t - b.t).forEach((x, i) => { if (x.per && !P(x.per).games[g]) P(x.per).games[g] = { p: x.p, r: i + 1, of: list.length }; }); };
+  best(scores, 'karafka'); Object.keys(boards).forEach(g => best(boards[g], g));
   const list = Object.keys(brands).filter(k => !brands[k].gone).map(k => ({
-    name: brands[k].name, owner: brands[k].owner,
+    name: brands[k].name, owner: brands[k].owner, by: brands[k].by || '',
     votes: Object.keys(votes).filter(w => votes[w] === k).length
   }));
   return {
@@ -75,6 +103,7 @@ function state_() {
     oaths: Object.keys(oaths).map(w => Object.assign({ who: w }, oaths[w])),
     fish: fish,
     songs: songs,
+    people: people,
     scores: scores.sort((a, b) => b.p - a.p || a.t - b.t),
     boards: Object.keys(boards).reduce((o, k) => (o[k] = boards[k].sort((a, b) => b.p - a.p || a.t - b.t), o), {})
   };
@@ -82,7 +111,7 @@ function state_() {
 
 /* to, co widzi strona (bez imion i nazwisk z przysięg i bez mapy głosów) */
 function public_(s) {
-  return { brands: s.brands, bottles: s.bottles, sworn: s.oaths.map(o => o.who), fish: s.fish,
+  return { brands: s.brands, people: s.people, bottles: s.bottles, sworn: s.oaths.map(o => o.who), fish: s.fish,
     scores: s.scores.slice(0, 15).map(x => ({ n: x.n, p: x.p, f: x.f, who: x.who })), games: s.scores.length,
     boards: Object.keys(s.boards).reduce((o, k) => (o[k] = s.boards[k].slice(0, 15).map(x => ({ n: x.n, p: x.p, f: x.f, who: x.who })), o), {}) };
 }
@@ -122,7 +151,7 @@ function doPost(e) {
     const body = JSON.parse(e.postData.contents || '{}');
     const list = Array.isArray(body.events) ? body.events : [body];
     const who = String(body.who || '').slice(0, 40);
-    const ok = ['brand-add', 'brand-del', 'vote', 'bottle', 'oath', 'fish', 'score', 'score-g'];
+    const ok = ['brand-add', 'brand-del', 'vote', 'bottle', 'oath', 'fish', 'score', 'score-g', 'whoami'];
     const rows = list.filter(ev => ok.indexOf(ev.type) >= 0 && who).slice(0, 30)
       .map(ev => [new Date(), who, ev.type, JSON.stringify(ev.d || {}).slice(0, 500)]);
     if (rows.length) { const sh = sheet_(LOG); sh.getRange(sh.getLastRow() + 1, 1, rows.length, 4).setValues(rows); }
@@ -195,9 +224,9 @@ function ytList_(fresh) {
 }
 
 function playlist_() {
-  const who = {};
-  events_().forEach(e => { if (e.type === 'song' && e.d.v && !who[e.d.v]) who[e.d.v] = String(e.d.k || '').slice(0, 30); });
-  return { songs: ytList_(false).map(s => Object.assign({ k: who[s.id] || '' }, s)), url: 'https://www.youtube.com/playlist?list=' + PLAYLIST };
+  const who = {}, at = {};
+  events_().forEach(e => { if (e.type === 'song' && e.d.v && !who[e.d.v]) { who[e.d.v] = String(e.d.k || '').slice(0, 30); at[e.d.v] = +new Date(e.t) || 0; } });
+  return { songs: ytList_(false).map(s => Object.assign({ k: who[s.id] || '', at: at[s.id] || 0 }, s)), url: 'https://www.youtube.com/playlist?list=' + PLAYLIST };
 }
 
 function ytErr_(err) {

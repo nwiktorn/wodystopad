@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<script>try{if(localStorage.getItem('wody:rules-ok'))document.documentElement.classList.add('rules-ok')}catch(e){}</script>
+<script>try{if(localStorage.getItem('wody:rules-ok'))document.documentElement.classList.add('rules-ok')}catch(e){}if(/[?&]szafa\b/.test(location.search))document.documentElement.classList.add('sz-page')</script>
 <title>WÓDYSTOPAD 2026 — Wódny Rave · 21.11</title>
 <meta name="description" content="Jedyny miesiąc w roku, w którym pijemy wódkę. A konkretnie — jeden wieczór. Sobota 21.11.2026. Nie mówimy nikomu (§1).">
 <meta name="theme-color" content="#2B2BFF">
@@ -901,15 +901,6 @@ mark{background:none;color:var(--mag);font-weight:700}
 .sz__panel{border:3px solid var(--ink);border-radius:22px;box-shadow:8px 8px 0 var(--ink);padding:24px;min-width:0}
 .sz__find{background:var(--paper);color:var(--ink)}
 .sz__list{background:var(--ink);color:var(--white)}
-.sz__k{font:700 12px var(--f-type);letter-spacing:.1em;color:var(--mag)}
-.sz__who{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 18px}
-.sz__who button{all:unset;cursor:pointer;font:700 12px var(--f-type);letter-spacing:.05em;text-transform:uppercase;border:2px solid var(--ink);border-radius:999px;padding:7px 12px;background:#fff;transition:background .15s,transform .1s}
-.sz__who button:hover{background:var(--lime)}
-.sz__who button:active{transform:translateY(1px)}
-.sz__who button:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
-.sz__who button[aria-checked="true"]{background:var(--ink);color:var(--lime)}
-.sz__who.need{animation:szshake .4s}
-@keyframes szshake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
 .sz__form{display:flex;gap:10px}
 .sz__form input{flex:1;min-width:0;border:2px solid var(--ink);border-radius:999px;padding:13px 18px;font:16px var(--f-type);background:#fff;color:var(--ink)}
 .sz__form input:focus{outline:3px solid var(--blue);outline-offset:1px}
@@ -932,14 +923,13 @@ mark{background:none;color:var(--mag);font-weight:700}
 .sz__lhead h3{font:400 34px/1 var(--f-display);text-transform:uppercase;letter-spacing:.01em}
 .sz__lhead h3 em{font-style:normal;color:var(--lime)}
 .sz__open{font:700 12px var(--f-type);letter-spacing:.06em;text-transform:uppercase;color:var(--lime)}
-.sz__pl{list-style:none;margin:16px 0 0;padding:0 4px 0 0;max-height:560px;overflow:auto;display:flex;flex-direction:column;gap:8px;counter-reset:sz;scrollbar-color:var(--pink) transparent}
-.sz__pl li{display:grid;grid-template-columns:26px 80px minmax(0,1fr);gap:12px;align-items:center;counter-increment:sz;padding:6px 0;border-bottom:1px dashed rgba(255,255,255,.18)}
-.sz__pl li::before{content:counter(sz);font:400 20px var(--f-display);color:var(--pink);text-align:right}
+.sz__pl{list-style:none;margin:16px 0 0;padding:0 4px 0 0;max-height:560px;overflow:auto;display:flex;flex-direction:column;gap:8px;scrollbar-color:var(--pink) transparent}
+.sz__pl li{display:grid;grid-template-columns:34px 80px minmax(0,1fr);gap:12px;align-items:center;padding:6px 0;border-bottom:1px dashed rgba(255,255,255,.18)}
 .sz__pl li.new{animation:sznew 1.6s}
 @keyframes sznew{0%{background:rgba(217,255,61,.35)}100%{background:transparent}}
 .sz__pl .sz__t{font-size:14px}
 .sz__pl .sz__m b{color:var(--lime);font-weight:700}
-.sz__empty{font:700 13px/1.5 var(--f-type);opacity:.7;margin-top:14px}
+.sz__pl li.sz__empty{display:block;border:0;font:700 13px/1.5 var(--f-type);opacity:.7;margin-top:14px}
 .sz__list .live{margin-top:8px}
 @media (max-width:1180px){ .sz__grid{grid-template-columns:minmax(0,1fr)} }
 @media (max-width:1100px) and (min-width:761px){ .nav__links{gap:10px} .nav__links a{font-size:11px;letter-spacing:.03em;white-space:nowrap} } /* 10 linków w menu (z „Muzyką”) — bez łamania w 2 linie */
@@ -948,15 +938,73 @@ mark{background:none;color:var(--mag);font-weight:700}
   .sz__head .stamp{position:relative;inset:auto;display:flex;width:max-content;margin:16px 0 0 auto}
   .sz__grid{margin-top:28px;gap:22px}
   .sz__panel{padding:16px;border-radius:18px;box-shadow:6px 6px 0 var(--ink);margin-right:6px}
-  .sz__who button{font-size:11px;padding:6px 10px}
   .sz__form .btn-pill{padding:12px 16px;font-size:12px}
   .sz__res li{grid-template-columns:84px minmax(0,1fr);gap:10px}
   .sz__res .sz__add{grid-column:2;justify-self:start;padding:7px 12px;font-size:11px}
   .sz__t{font-size:13px}
   .sz__lhead h3{font-size:28px}
   .sz__pl{max-height:460px}
-  .sz__pl li{grid-template-columns:20px 64px minmax(0,1fr);gap:9px}
+  .sz__pl li{grid-template-columns:30px 64px minmax(0,1fr);gap:9px}
 }
+/* ---------- kim jesteś (wybór legitymacji) ---------- */
+.whoami__card{max-width:760px;margin-top:20px;gap:12px}
+.whoami__card h2{font-size:40px}
+.whoami__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:4px 0 2px;text-align:left}
+.wt{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:64px minmax(0,1fr);grid-template-rows:auto auto 1fr;column-gap:10px;align-items:start;background:#fff;border:2.5px solid var(--ink);border-radius:14px;padding:8px;box-shadow:3px 3px 0 var(--ink);transition:transform .12s,box-shadow .12s,background .15s;-webkit-tap-highlight-color:transparent}
+.wt:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--ink)}
+.wt:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.wt.on{background:var(--lime);transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--pink)}
+.wt__ph{grid-row:1/4;width:64px;height:64px;border-radius:10px;border:2px solid var(--ink);background:var(--c,var(--blue));overflow:hidden;position:relative}
+.wt__ph img{position:absolute;left:50%;bottom:0;height:112%;width:auto;max-width:none;translate:-50% 0}
+.wt.q .wt__ph img{filter:grayscale(1)}
+.wt b{font:400 22px/1.05 var(--f-display);text-transform:uppercase}
+.wt small{font:700 9.5px/1.3 var(--f-type);letter-spacing:.04em;opacity:.7;margin-top:2px}
+.wt i{font:700 9px var(--f-type);font-style:normal;letter-spacing:.06em;color:var(--mag);margin-top:4px}
+.whoami [hidden]{display:none!important}
+.whoami__fine{font-size:12px!important;opacity:.7}
+.whoami .stamp{margin:-40px 0 0 -150px}
+.whoami .stamp small{font-size:12px}
+/* moja legitymacja + kartoteka na żywo */
+.idc__me{position:absolute;left:-10px;top:-14px;z-index:5;font:400 20px/1 var(--f-sticker);color:var(--lime);-webkit-text-stroke:1.5px var(--ink);paint-order:stroke fill;text-shadow:2px 2px 0 var(--ink);transform:rotate(-8deg);pointer-events:none}
+.idc__b ul.live-k{font-size:13px;line-height:1.55}
+.idc__b ul.live-k li{display:flex;justify-content:space-between;gap:8px;border-bottom:1px dotted rgba(11,11,30,.25);padding:2px 0}
+.idc__b ul.live-k li span{opacity:.7;white-space:nowrap}
+.idc__b ul.live-k li b{font-weight:700;text-align:right;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.idc__notme{all:unset;cursor:pointer;align-self:center;font:700 11px var(--f-type);letter-spacing:.06em;text-transform:uppercase;border:2px solid var(--ink);border-radius:99px;padding:6px 12px;background:var(--lime)}
+.idc__b .stamp{--ss:24px}
+.chips span.in::after{content:" ✓"}
+.poll__by{font:700 10px var(--f-type);letter-spacing:.04em;opacity:.6;margin-left:4px}
+.menu__who{all:unset;cursor:pointer;display:block;margin-top:18px;font:700 12px var(--f-type);letter-spacing:.06em;text-transform:uppercase;color:var(--lime)}
+.menu__who b{color:#fff}
+.foot__who{all:unset;cursor:pointer;font:700 12px var(--f-type);letter-spacing:.06em;color:var(--lime);text-decoration:underline;text-underline-offset:3px}
+@media (max-width:760px){
+  .whoami__card{padding:22px 14px;margin-top:0}
+  .whoami__card h2{font-size:30px}
+  .whoami__grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+  .wt{grid-template-columns:1fr;grid-template-rows:auto;padding:6px;text-align:center;justify-items:center;border-radius:12px}
+  .wt__ph{grid-row:auto;width:100%;height:auto;aspect-ratio:1}
+  .wt b{font-size:16px;margin-top:4px}
+  .wt small{display:none}
+  .wt i{font-size:8px}
+}
+/* Szafa: kto zamawia + podstrona /szafa */
+.sz__as{font:700 12px var(--f-type);letter-spacing:.08em;margin:0 0 14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.sz__as b{font:400 22px var(--f-display);letter-spacing:.02em;color:var(--mag)}
+.sz__as button{all:unset;cursor:pointer;font:700 11px var(--f-type);letter-spacing:.06em;text-decoration:underline;text-underline-offset:3px;opacity:.7}
+.sz__all{display:flex;justify-content:center;margin-top:16px;font-size:13px;box-shadow:4px 4px 0 var(--pink)}
+.sz__pl li .sz__no{font:400 18px var(--f-display);color:var(--pink);text-align:right}
+html.sz-page main>*:not(#szafa),html.sz-page .sticky,html.sz-page .nav__links,html.sz-page .nav>.btn-pill:not(.nav__menu),html.sz-page .marquee{display:none!important}
+html.sz-page #szafa{display:block!important;min-height:100vh;padding-top:120px}
+html.sz-page .sz__all{display:none}
+html.sz-page .sz__pl{max-height:none;overflow:visible}
+.sz__back{display:none}
+html.sz-page .sz__back{display:inline-flex}
+html.sz-page .sz__back{margin-bottom:16px;padding:9px 14px;font-size:11px}
+html.sz-page .sz__title{font-size:clamp(44px,6.4vw,92px)}
+html.sz-page .sz__head .stamp{display:none}
+html.sz-page .sz__grid{margin-top:28px}
+@media (max-width:760px){ html.sz-page #szafa{padding-top:96px} html.sz-page .sz__fine{display:none} html.sz-page .sz__lead{margin-top:10px} }
+html:not(.sz-page) #sz-count{display:none}
 </style>
 </head>
 <body>
@@ -1007,6 +1055,20 @@ mark{background:none;color:var(--mag);font-weight:700}
   </div>
 </div>
 
+<!-- ================== KIM JESTEŚ (wybór legitymacji przy pierwszym wejściu) ================== -->
+<div class="gate whoami" id="whoami" hidden role="dialog" aria-modal="true" aria-labelledby="whoami-h">
+  <div class="gate__card whoami__card">
+    <small>URZĄD DS. WÓDYSTOPADU · EWIDENCJA OBECNOŚCI</small>
+    <h2 id="whoami-h">Kim jesteś, Wódowiczu?</h2>
+    <p>Wybierz swoją legitymację. Komisja zapamięta to urządzenie — głosy, rekordy i zamówione piosenki trafią do Twojej kartoteki.</p>
+    <div class="whoami__grid" id="whoami-grid" role="radiogroup" aria-label="Legitymacje Wódowiczów"></div>
+    <button class="btn-pill btn-ink" id="whoami-ok" disabled>Najpierw wybierz legitymację</button>
+    <button class="btn-pill btn-paper" id="whoami-cancel" hidden>Jednak zostaję sobą</button>
+    <p class="whoami__fine">Pomyłka? Zmienisz to później: „To nie ja” na swojej legitymacji albo w menu.</p>
+    <div class="stamp" id="whoami-stamp"><span><b>ZAMELDOWANO</b><small id="whoami-stamp-n">—</small></span></div>
+  </div>
+</div>
+
 <!-- ================== NAV ================== -->
 <nav class="nav" id="nav" aria-label="Główna nawigacja">
   <a class="nav__logo" href="#start">WÓDYSTOPAD</a>
@@ -1030,6 +1092,7 @@ mark{background:none;color:var(--mag);font-weight:700}
   <button class="btn-pill btn-lime" id="menu-close" style="position:absolute;top:22px;right:28px;padding:8px 14px;font-size:12px">ZAMKNIJ ✕</button>
   <p class="eyebrow" style="color:var(--lime);font-size:10px">Spis treści · Dok. nr 1/2026</p>
   <ol id="menu-list"></ol>
+  <button type="button" class="menu__who" id="menu-who"></button>
   <div class="menu__cd"><span data-cd-text>DO PIERWSZEGO ŁYCZKA: —</span><small>SOBOTA 21.11.2026 · 19:00 · MIEJSCE ŚCIŚLE TAJNE</small></div>
 </div>
 
@@ -1429,6 +1492,7 @@ mark{background:none;color:var(--mag);font-weight:700}
   <div class="halftone" style="color:var(--ink);opacity:.14;left:0;bottom:0;width:560px;height:460px;--hx:0%;--hy:100%" aria-hidden="true"></div>
   <div class="container">
     <div class="sz__head">
+      <a class="btn-pill btn-paper sz__back" href="/">← Cała strona Wódystopadu</a>
       <p class="eyebrow">Rozdział VI · Formularz M-1 · zamówienia muzyczne u Wódzireja</p>
       <h2 class="h-title sz__title">Szafa<br>grająca <span class="sz__the">na życzenie</span></h2>
       <div class="stamp" data-stamp><span><b>GRAMY</b><small>zamówienie przyjęte</small></span></div>
@@ -1437,8 +1501,7 @@ mark{background:none;color:var(--mag);font-weight:700}
     </div>
     <div class="sz__grid">
       <div class="sz__panel sz__find">
-        <span class="sz__k">KTO ZAMAWIA?</span>
-        <div class="sz__who" id="sz-who" role="radiogroup" aria-label="Kto zamawia"></div>
+        <p class="sz__as">ZAMAWIA: <b id="sz-me">—</b><button type="button" id="sz-change">zmień</button></p>
         <form class="sz__form" id="sz-form" role="search">
           <input id="sz-q" type="search" placeholder="Tytuł, wykonawca albo link z YouTube" aria-label="Tytuł, wykonawca albo link z YouTube" autocomplete="off" enterkeyhint="search" maxlength="200">
           <button class="btn-pill btn-ink" type="submit">Szukaj</button>
@@ -1447,9 +1510,10 @@ mark{background:none;color:var(--mag);font-weight:700}
         <ol class="sz__res" id="sz-res"></ol>
       </div>
       <div class="sz__panel sz__list">
-        <div class="sz__lhead"><h3>Na playliście <em id="sz-count">—</em></h3><a class="sz__open" id="sz-open" href="#" target="_blank" rel="noopener">Otwórz na YouTube ↗</a></div>
+        <div class="sz__lhead"><h3><span id="sz-lt">Ostatnio dodane</span> <em id="sz-count">—</em></h3><a class="sz__open" id="sz-open" href="#" target="_blank" rel="noopener">Otwórz na YouTube ↗</a></div>
         <p class="live" id="sz-live"></p>
         <ol class="sz__pl" id="sz-pl"></ol>
+        <a class="btn-pill btn-lime sz__all" id="sz-all" href="/szafa">Wszystkie piosenki →</a>
       </div>
     </div>
   </div>
@@ -1464,6 +1528,7 @@ mark{background:none;color:var(--mag);font-weight:700}
     <p class="sticker foot__drive">po wódeczce wracamy lub nie wracamy — ważne, żeby nie prowadzić pojazdu mechanicznego</p>
     <div class="foot__bar">
       <span>© 2026 Urząd ds. Wódystopadu · strona wyłącznie dla osób pełnoletnich</span>
+      <button type="button" class="foot__who" id="foot-who"></button>
       <span>nie mówimy nikomu o tej stronie (§1)</span>
     </div>
   </div>
@@ -1553,7 +1618,7 @@ $$('[data-page]').forEach(s => { if(s.id==='start') return; const dark = s.class
   if (store.get('adult', false)) return;
   gate.hidden = false; document.body.classList.add('locked');
   const enter = (msg) => { store.set('adult', true); if (msg) $('#gate-msg').textContent = msg; $('#gate-stamp').classList.add('in');
-    setTimeout(()=>{ gate.hidden = true; document.body.classList.remove('locked'); }, msg ? 1300 : 750); };
+    setTimeout(()=>{ gate.hidden = true; document.body.classList.remove('locked'); dispatchEvent(new Event('wody:adult')); }, msg ? 1300 : 750); };
   $('#gate-yes').onclick = () => enter();
   $('#gate-no').onclick = () => enter('Komisja uznała, że raczej tak. Zapraszamy.');
 })();
@@ -1738,7 +1803,7 @@ const API = (() => { const url = CONFIG.api;
   const load = async () => { if (!url) return; try { const r = await fetch(url, {cache:'no-store'}); apply(await r.json()); } catch (e) { ok = false; live(); } };
   const flush = async () => { if (!url || busy) return; const q = store.get('outbox', []); if (!q.length) return; busy = true;
     try { const r = await fetch(url, {method:'POST', body: JSON.stringify({who: me, events: q})}); const s = await r.json();
-      if (s.ok) { const keep = q.filter(e => (e.type === 'score' && !Array.isArray(s.scores)) || (e.type === 'score-g' && !s.boards)); // stary skrypt nie zna wyników gier — czekają w kolejce
+      if (s.ok) { const keep = q.filter(e => (e.type === 'score' && !Array.isArray(s.scores)) || (e.type === 'score-g' && !s.boards) || (e.type === 'whoami' && !s.people)); // stary skrypt nie zna wyników gier ani legitymacji — czekają w kolejce
         store.set('outbox', keep.concat(store.get('outbox', []).slice(q.length))); apply(s); if (keep.length) { busy = false; return; } } else throw 0; }
     catch (e) { ok = false; live(); } busy = false; if (store.get('outbox', []).length && ok) flush(); };
   const send = (...events) => { if (!url) return; store.set('outbox', store.get('outbox', []).concat(events)); flush(); };
@@ -1757,6 +1822,39 @@ const API = (() => { const url = CONFIG.api;
   return { on: f => { subs.push(f); if (state) f(state); }, send, me, get on_() { return !!url; }, get state() { return state; } };
 })();
 
+/* =========================================================
+   KIM JESTEŚ — wybór legitymacji (raz na urządzenie, zmiana: „To nie ja”)
+   zdarzenie 'whoami' przypisuje telefon do osoby; statystyki osób przychodzą w API.state.people
+   ========================================================= */
+const WHO = (() => { const subs = []; const valid = n => CONFIG.people.some(p => p.name === n);
+  let name = store.get('whoami', ''); if (name && !valid(name)) name = '';
+  const ov = $('#whoami'), bgs = ['var(--blue)','var(--ink)','var(--blue)','var(--ink)']; let pick = '';
+  const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
+  const okBtn = () => { const b = $('#whoami-ok'); b.disabled = !pick; b.textContent = pick ? `To ja — ${pick} →` : 'Najpierw wybierz legitymację'; };
+  const tiles = () => { const ppl = (API.state && API.state.people) || {};
+    $('#whoami-grid').innerHTML = CONFIG.people.map((p, i) => `<button type="button" class="wt${p.name === pick ? ' on' : ''}${p.confirmed === false ? ' q' : ''}" role="radio" aria-checked="${p.name === pick}" data-n="${esc(p.name)}" style="--c:${bgs[i % 4]}">` +
+      `<span class="wt__ph">${p.photo ? `<img src="${p.photo}" alt="" decoding="async">` : ''}</span><b>${esc(p.name)}</b><small>${p.role}</small>${ppl[p.name] && ppl[p.name].in && p.name !== name ? '<i>już zameldowany(-a)</i>' : ''}</button>`).join('');
+    $$('#whoami-grid .wt').forEach(b => b.onclick = () => { pick = b.dataset.n; $$('#whoami-grid .wt').forEach(x => { const on = x === b; x.classList.toggle('on', on); x.setAttribute('aria-checked', on); }); okBtn(); });
+    okBtn(); };
+  const open = () => { pick = name; $('#whoami-cancel').hidden = !name; $('#whoami-stamp').classList.remove('in'); tiles(); ov.hidden = false; document.body.classList.add('locked'); };
+  const close = () => { ov.hidden = true; if ($('#gate').hidden) document.body.classList.remove('locked'); };
+  $('#whoami-cancel').onclick = close;
+  $('#whoami-ok').onclick = () => { if (!pick) return; const changed = pick !== name; name = pick; store.set('whoami', name);
+    if (changed) API.send({type:'whoami', d:{name}});
+    $('#whoami-stamp-n').textContent = name; const st = $('#whoami-stamp'); st.classList.remove('in'); void st.offsetWidth; st.classList.add('in');
+    setTimeout(() => { close(); toast(changed ? `Witaj, ${name}. Komisja odnotowała obecność.` : `Nadal ${name}. Komisja przyjmuje do wiadomości.`); }, 950);
+    subs.forEach(f => f(name)); };
+  API.on(() => { if (!ov.hidden) tiles(); });
+  const start = () => { if (!name && !/[?&]perf\b/.test(location.search)) open(); };
+  if (store.get('adult', false)) start(); else addEventListener('wody:adult', start, {once:true});
+  // „Jesteś: X · zmień” w menu i w stopce
+  const label = () => { const t = name ? `Jesteś: <b>${esc(name)}</b> · zmień` : 'Wybierz legitymację'; $('#menu-who').innerHTML = t; $('#foot-who').innerHTML = name ? `Zameldowano: ${esc(name)} · zmień` : 'Wybierz legitymację'; };
+  $('#menu-who').onclick = () => { $('#menu-close').click(); open(); };
+  $('#foot-who').onclick = open;
+  subs.push(label); label();
+  return { get name() { return name; }, open, on: f => { subs.push(f); f(name); } };
+})();
+
 (() => { // ankieta
   let opts = store.get('poll-extra', []); const mine = () => store.get('poll-vote', null);
   const lc = x => String(x||'').toLowerCase();
@@ -1766,7 +1864,8 @@ const API = (() => { const url = CONFIG.api;
     const votes = all.map(([n,c]) => c + (lc(v)===lc(n)?1:0)); const max = Math.max(4, ...votes);
     if (!all.length) { $('#poll').innerHTML = '<p class="poll-empty">Brak propozycji. Komisja czeka na pierwszą markę — zgłoś ją poniżej (bez żartów).</p>'; return; }
     const esc = n => n.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
-    $('#poll').innerHTML = all.map(([n],i) => `<div class="poll__item"><button type="button" class="poll__vote ${lc(v)===lc(n)?'mine':''}" data-n="${esc(n)}"><div class="row"><span>${esc(n)}</span><em>${votes[i]}</em></div><div class="bar"><i style="width:${Math.max(3, votes[i]/max*100)}%"></i></div></button>${all[i][2]?`<button type="button" class="poll__del" data-n="${esc(n)}" aria-label="Usuń propozycję ${esc(n)}" title="Usuń moją propozycję">✕</button>`:''}</div>`).join('');
+    const byOf = n => { const b = S && S.brands.find(x => lc(x.name) === lc(n)); return b && b.by ? b.by : ''; };
+    $('#poll').innerHTML = all.map(([n],i) => `<div class="poll__item"><button type="button" class="poll__vote ${lc(v)===lc(n)?'mine':''}" data-n="${esc(n)}"><div class="row"><span>${esc(n)}${byOf(n) ? `<small class="poll__by">· ${esc(byOf(n))}</small>` : ''}</span><em>${votes[i]}</em></div><div class="bar"><i style="width:${Math.max(3, votes[i]/max*100)}%"></i></div></button>${all[i][2]?`<button type="button" class="poll__del" data-n="${esc(n)}" aria-label="Usuń propozycję ${esc(n)}" title="Usuń moją propozycję">✕</button>`:''}</div>`).join('');
     $$('#poll .poll__vote').forEach(b => b.onclick = () => { store.set('poll-vote', b.dataset.n); API.send({type:'vote', d:{name:b.dataset.n}}); render(); toast('Głos oddany. Komisja odnotowała.'); });
     $$('#poll .poll__del').forEach(b => b.onclick = () => { const n = b.dataset.n; opts = opts.filter(o => o !== n); store.set('poll-extra', opts);
       if (API.state) API.state.brands = API.state.brands.filter(x => lc(x.name) !== lc(n));
@@ -1906,6 +2005,23 @@ carouselDots($('#kary-track'), $('#kary-dots'), 'przesuń →');
       c.style.setProperty('--mx', (x*100).toFixed(0)+'%'); c.style.setProperty('--my', (y*100).toFixed(0)+'%'); c.style.setProperty('--hx', (100-x*100).toFixed(0)+'%'); }); });
     c.addEventListener('pointerleave', () => { c.classList.remove('tilt'); ['--rx','--ry'].forEach(p => c.style.setProperty(p,'0deg')); }); });
   $('#chips').innerHTML = CONFIG.people.map(p => `<span class="${p.confirmed?'':'q'}">${p.name}${p.confirmed?'':' ?'}</span>`).join('');
+  // kartoteka na żywo (rewers) + „TO TY” na mojej legitymacji
+  const fmtG = g => g ? `${g.p} pkt · #${g.r}` : '—';
+  const cut = (t, n) => t && t.length > n ? t.slice(0, n - 1) + '…' : (t || '');
+  const kart = () => { const ppl = (API.state && API.state.people) || {}, me = WHO.name;
+    $$('#cards .idc').forEach((c, i) => { const p = CONFIG.people[i], s = ppl[p.name] || {}, g = s.games || {};
+      c.classList.toggle('me', p.name === me); const f = $('.idc__f', c), tag = $('.idc__me', c);
+      if (p.name === me && !tag) f.insertAdjacentHTML('afterbegin', '<span class="idc__me">To Ty!</span>'); if (p.name !== me && tag) tag.remove();
+      $('ul', c).className = 'live-k';
+      $('ul', c).innerHTML = [['Status', p.confirmed ? 'potwierdzony' : 'na ławce'], ['Na stronie', s.in ? 'zameldowany(-a) ✓' : 'jeszcze nie'], ['Przysięga', s.oath ? 'złożona ✓' : 'oczekuje'],
+        ['Głos na', s.vote || '—'], ['Zgłosił(a)', s.props && s.props.length ? s.props.join(', ') : '—'],
+        ['Piosenki', s.songs ? s.songs + (s.last ? ' · „' + cut(s.last, 18) + '”' : '') : '0'],
+        ['Polanie', fmtG(g.polanie)], ['Podwódne', fmtG(g.karafka)], ['Kary odbyte', '0 (na razie)']]
+        .map(([k, v]) => `<li><span>${k}</span><b title="${String(v).replace(/"/g,'&quot;')}">${String(v).replace(/&/g,'&amp;').replace(/</g,'&lt;')}</b></li>`).join('');
+      let nm = $('.idc__notme', c); if (p.name === me && !nm) { $('.idc__b ul', c).insertAdjacentHTML('afterend', '<button type="button" class="idc__notme">To nie ja — zmień</button>'); nm = $('.idc__notme', c);
+        nm.onclick = e => { e.stopPropagation(); WHO.open(); }; } if (p.name !== me && nm) nm.remove(); });
+    $$('#chips span').forEach((ch, i) => ch.classList.toggle('in', !!(ppl[CONFIG.people[i].name] || {}).in)); };
+  API.on(kart); WHO.on(kart);
   carouselDots($('#cards'), $('#cards-dots'), 'przesuń →');
 })();
 
@@ -2935,29 +3051,38 @@ const GFX = {}; // rysunki współdzielone przez gry i okładki w Game Store
 })();
 /* =========================================================
    SZAFA GRAJĄCA — wyszukiwarka YouTube + dodawanie do playlisty Wódzireja
-   (przez skrypt Google: GET ?yt=search / ?yt=list, POST typ 'song')
+   (przez skrypt Google: GET ?yt=search / ?yt=list, POST typ 'song'); zamawia osoba z legitymacji (WHO)
+   na stronie: 5 ostatnio dodanych + „Wszystkie piosenki”; podstrona wodystopad.pl/szafa (= /?szafa): pełna lista
    ========================================================= */
 (() => { const url = CONFIG.api, root = $('#szafa'); if (!root) return;
+  const page = document.documentElement.classList.contains('sz-page'), LAST = 5;
   const esc = s => String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   const WARM = 'Szafa jeszcze się rozgrzewa — Wódzirej podłącza kable. Spróbuj za chwilę.';
-  let who = store.get('sz-who', ''), songs = null, have = new Set(), results = [], visible = false, lastLoad = 0;
+  let songs = null, have = new Set(), results = [], visible = page, lastLoad = 0;
   $('#sz-open').href = CONFIG.playlist;
+  if (page) { document.title = 'Szafa grająca · Wódystopad';
+    $('.nav__logo').href = '/'; $$('#menu a[href^="#"]').forEach(a => a.href = '/' + a.getAttribute('href'));
+    $('#sz-lt').textContent = 'Na playliście'; }
   const msg = (t, bad) => { const m = $('#sz-msg'); m.textContent = t || ''; m.classList.toggle('bad', !!bad); };
   const live = (st) => { const el = $('#sz-live'); el.classList.toggle('off', st === 'off');
     el.innerHTML = st === 'on' ? '<i></i>NA ŻYWO · TO SAMO WIDZI TELEWIZOR' : st === 'off' ? '<i></i>BRAK POŁĄCZENIA Z SZAFĄ' : st === 'warm' ? '<i></i>SZAFA SIĘ ROZGRZEWA' : '<i></i>ŁĄCZĘ Z SZAFĄ…'; };
   const get = async q => (await fetch(url + (url.includes('?') ? '&' : '?') + q, {cache:'no-store'})).json();
 
-  // kto zamawia — imiona z legitymacji, zapamiętane w telefonie
-  const chips = () => { $('#sz-who').innerHTML = CONFIG.people.map(p => `<button type="button" role="radio" aria-checked="${p.name === who}" data-n="${esc(p.name)}">${esc(p.name)}</button>`).join('');
-    $$('#sz-who button').forEach(b => b.onclick = () => { who = b.dataset.n; store.set('sz-who', who); chips(); }); };
-  chips();
+  // kto zamawia — legitymacja wybrana przy wejściu
+  WHO.on(n => { $('#sz-me').textContent = n || '—'; });
+  $('#sz-change').onclick = () => WHO.open();
 
-  // playlista
-  const renderPl = (fresh) => { const ol = $('#sz-pl'); $('#sz-count').textContent = songs ? songs.length : '—';
-    if (songs && !songs.length) { ol.innerHTML = '<li class="sz__empty" style="display:block;border:0">Pusto. Komisja czeka na pierwszy przebój.</li>'; return; }
-    const atEnd = ol.scrollHeight - ol.scrollTop - ol.clientHeight < 40;
-    ol.innerHTML = (songs || []).map(s => `<li${fresh && fresh.has(s.id) ? ' class="new"' : ''}>${s.img ? `<img src="${esc(s.img)}" alt="" loading="lazy" referrerpolicy="no-referrer">` : '<i class="sz__noimg"></i>'}<div><div class="sz__t">${esc(s.t)}</div><div class="sz__m">${s.k ? 'zamówił(a): <b>' + esc(s.k) + '</b>' : esc(s.ch || 'od Wódzireja')}</div></div></li>`).join('');
-    if (fresh && fresh.size && atEnd) ol.scrollTop = ol.scrollHeight; };
+  // playlista: na stronie 5 ostatnio dodanych (najnowsze u góry), na podstronie wszystkie w kolejności grania
+  const item = (s, no, fresh) => `<li${fresh && fresh.has(s.id) ? ' class="new"' : ''}><span class="sz__no">${no}</span>${s.img ? `<img src="${esc(s.img)}" alt="" loading="lazy" referrerpolicy="no-referrer">` : '<i class="sz__noimg"></i>'}<div><div class="sz__t">${esc(s.t)}</div><div class="sz__m">${s.k ? 'zamówił(a): <b>' + esc(s.k) + '</b>' : esc(s.ch || 'od Wódzireja')}</div></div></li>`;
+  const renderPl = (fresh) => { const ol = $('#sz-pl'), n = songs ? songs.length : 0; $('#sz-count').textContent = songs ? n : '—';
+    $('#sz-all').textContent = `Wszystkie piosenki (${n}) →`;
+    if (songs && !n) { ol.innerHTML = '<li class="sz__empty">Pusto. Komisja czeka na pierwszy przebój.</li>'; return; }
+    const pos = new Map((songs || []).map((s, i) => [s.id, i + 1]));
+    if (page) { const atEnd = ol.getBoundingClientRect().bottom - innerHeight < 120;
+      ol.innerHTML = (songs || []).map((s, i) => item(s, i + 1, fresh)).join('');
+      if (fresh && fresh.size && atEnd) ol.lastElementChild.scrollIntoView({block:'nearest', behavior:'smooth'}); return; }
+    const recent = (songs || []).map((s, i) => [s, i]).sort((a, b) => (b[0].at || 0) - (a[0].at || 0) || b[1] - a[1]).slice(0, LAST).map(x => x[0]);
+    ol.innerHTML = recent.map(s => item(s, '#' + pos.get(s.id), fresh)).join(''); };
   const loadPl = async () => { if (!url) { live('off'); return; } lastLoad = Date.now();
     try { const s = await get('yt=list');
       if (s.ok && Array.isArray(s.songs)) { const prev = songs ? new Set(songs.map(x => x.id)) : null; songs = s.songs; have = new Set(songs.map(x => x.id));
@@ -2982,8 +3107,8 @@ const GFX = {}; // rysunki współdzielone przez gry i okładki w Game Store
     catch (err) { msg(err && err.message && err.message !== 'Failed to fetch' ? err.message : 'Brak połączenia z szafą. Spróbuj jeszcze raz.', true); } };
 
   // dodanie do playlisty
-  const add = async b => { const v = b.dataset.v;
-    if (!who) { msg('Najpierw kliknij wyżej, kto zamawia.', true); const w = $('#sz-who'); w.classList.remove('need'); void w.offsetWidth; w.classList.add('need'); w.scrollIntoView({block:'center', behavior:'smooth'}); return; }
+  const add = async b => { const v = b.dataset.v, who = WHO.name;
+    if (!who) { WHO.open(); return; }
     b.dataset.busy = 1; b.disabled = true; b.textContent = 'Dodaję…';
     try { const r = await fetch(url, {method:'POST', body: JSON.stringify({who: API.me, events: [{type:'song', d:{v, k: who}}]})}); const s = await r.json(); const st = s.song && s.song.st;
       if (st === 'added') { have.add(v); toast('Dorzucone. Wódzirej przyjął zamówienie.'); msg('„' + (s.song.t || 'Piosenka') + '” jest na playliście.'); loadPl(); }
@@ -2994,8 +3119,8 @@ const GFX = {}; // rysunki współdzielone przez gry i okładki w Game Store
     delete b.dataset.busy; markRes(); };
 
   // odświeżanie playlisty tylko, gdy sekcja jest na ekranie (oszczędza limit YouTube)
-  live('wait');
-  new IntersectionObserver(es => es.forEach(e => { visible = e.isIntersecting; if (visible && Date.now() - lastLoad > 15000) loadPl(); }), {rootMargin:'300px 0px'}).observe(root);
+  live('wait'); if (page) loadPl();
+  new IntersectionObserver(es => es.forEach(e => { visible = page || e.isIntersecting; if (visible && Date.now() - lastLoad > 15000) loadPl(); }), {rootMargin:'300px 0px'}).observe(root);
   setInterval(() => { if (visible && !document.hidden) loadPl(); }, 30000);
   document.addEventListener('visibilitychange', () => { if (!document.hidden && visible && Date.now() - lastLoad > 15000) loadPl(); });
 })();
