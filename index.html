@@ -890,6 +890,73 @@ mark{background:none;color:var(--mag);font-weight:700}
   .gra__stage .pol__ok canvas{width:52px;height:52px;border-radius:10px}
   .pol__ok figcaption{font-size:9px}
 }
+/* ---------- 12 szafa grająca (playlista YouTube) ---------- */
+.sz__head{position:relative}
+.sz__title{color:var(--ink);--mis:#fff;padding-top:.14em}
+.sz__the{display:block;width:max-content;font:400 .4em/1.25 var(--f-sticker);text-transform:none;letter-spacing:0;color:var(--lime);-webkit-text-stroke:.05em var(--ink);paint-order:stroke fill;text-shadow:.06em .06em 0 var(--ink);transform:rotate(-4deg);margin:.02em 0 0 .1em}
+.sz__head .stamp{position:absolute;right:0;top:24px;color:var(--blue);--rot:8deg}
+.sz__lead{font-size:21px;margin-top:20px;max-width:40em}
+.sz__fine{font:700 12px/1.45 var(--f-type);letter-spacing:.04em;margin-top:10px;max-width:46em;opacity:.75}
+.sz__grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:28px;margin-top:44px;align-items:start}
+.sz__panel{border:3px solid var(--ink);border-radius:22px;box-shadow:8px 8px 0 var(--ink);padding:24px;min-width:0}
+.sz__find{background:var(--paper);color:var(--ink)}
+.sz__list{background:var(--ink);color:var(--white)}
+.sz__k{font:700 12px var(--f-type);letter-spacing:.1em;color:var(--mag)}
+.sz__who{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 18px}
+.sz__who button{all:unset;cursor:pointer;font:700 12px var(--f-type);letter-spacing:.05em;text-transform:uppercase;border:2px solid var(--ink);border-radius:999px;padding:7px 12px;background:#fff;transition:background .15s,transform .1s}
+.sz__who button:hover{background:var(--lime)}
+.sz__who button:active{transform:translateY(1px)}
+.sz__who button:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.sz__who button[aria-checked="true"]{background:var(--ink);color:var(--lime)}
+.sz__who.need{animation:szshake .4s}
+@keyframes szshake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.sz__form{display:flex;gap:10px}
+.sz__form input{flex:1;min-width:0;border:2px solid var(--ink);border-radius:999px;padding:13px 18px;font:16px var(--f-type);background:#fff;color:var(--ink)}
+.sz__form input:focus{outline:3px solid var(--blue);outline-offset:1px}
+.sz__form .btn-pill{box-shadow:4px 4px 0 var(--pink)}
+.sz__msg{font:700 13px/1.4 var(--f-type);margin:12px 0 0;min-height:1.4em;opacity:.8}
+.sz__msg.bad{color:var(--mag);opacity:1}
+.sz__res{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-direction:column;gap:10px}
+.sz__res li{display:grid;grid-template-columns:120px minmax(0,1fr) auto;gap:14px;align-items:center;background:#fff;border:2px solid var(--ink);border-radius:14px;padding:8px 10px 8px 8px}
+.sz__res img,.sz__pl img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:8px;background:#ddd}
+.sz__noimg{display:block;aspect-ratio:16/9;border-radius:8px;background:repeating-linear-gradient(45deg,var(--pink) 0 6px,var(--mag) 6px 12px)}
+.sz__t{font-weight:700;font-size:15px;line-height:1.25;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.sz__m{font:700 11px var(--f-type);letter-spacing:.04em;opacity:.65;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sz__add{all:unset;cursor:pointer;font:700 12px var(--f-type);letter-spacing:.06em;text-transform:uppercase;background:var(--lime);border:2px solid var(--ink);border-radius:999px;padding:9px 14px;box-shadow:3px 3px 0 var(--ink);white-space:nowrap;transition:transform .1s,box-shadow .1s}
+.sz__add:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink)}
+.sz__add:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.sz__add:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.sz__add[disabled]{cursor:default;transform:none;box-shadow:none}
+.sz__add.done{background:var(--ink);color:var(--lime)}
+.sz__lhead{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.sz__lhead h3{font:400 34px/1 var(--f-display);text-transform:uppercase;letter-spacing:.01em}
+.sz__lhead h3 em{font-style:normal;color:var(--lime)}
+.sz__open{font:700 12px var(--f-type);letter-spacing:.06em;text-transform:uppercase;color:var(--lime)}
+.sz__pl{list-style:none;margin:16px 0 0;padding:0 4px 0 0;max-height:560px;overflow:auto;display:flex;flex-direction:column;gap:8px;counter-reset:sz;scrollbar-color:var(--pink) transparent}
+.sz__pl li{display:grid;grid-template-columns:26px 80px minmax(0,1fr);gap:12px;align-items:center;counter-increment:sz;padding:6px 0;border-bottom:1px dashed rgba(255,255,255,.18)}
+.sz__pl li::before{content:counter(sz);font:400 20px var(--f-display);color:var(--pink);text-align:right}
+.sz__pl li.new{animation:sznew 1.6s}
+@keyframes sznew{0%{background:rgba(217,255,61,.35)}100%{background:transparent}}
+.sz__pl .sz__t{font-size:14px}
+.sz__pl .sz__m b{color:var(--lime);font-weight:700}
+.sz__empty{font:700 13px/1.5 var(--f-type);opacity:.7;margin-top:14px}
+.sz__list .live{margin-top:8px}
+@media (max-width:1180px){ .sz__grid{grid-template-columns:minmax(0,1fr)} }
+@media (max-width:1100px) and (min-width:761px){ .nav__links{gap:10px} .nav__links a{font-size:11px;letter-spacing:.03em;white-space:nowrap} } /* 10 linków w menu (z „Muzyką”) — bez łamania w 2 linie */
+@media (max-width:760px){
+  .sz__lead{font-size:14px} .sz__fine{font-size:11px}
+  .sz__head .stamp{position:relative;inset:auto;display:flex;width:max-content;margin:16px 0 0 auto}
+  .sz__grid{margin-top:28px;gap:22px}
+  .sz__panel{padding:16px;border-radius:18px;box-shadow:6px 6px 0 var(--ink);margin-right:6px}
+  .sz__who button{font-size:11px;padding:6px 10px}
+  .sz__form .btn-pill{padding:12px 16px;font-size:12px}
+  .sz__res li{grid-template-columns:84px minmax(0,1fr);gap:10px}
+  .sz__res .sz__add{grid-column:2;justify-self:start;padding:7px 12px;font-size:11px}
+  .sz__t{font-size:13px}
+  .sz__lhead h3{font-size:28px}
+  .sz__pl{max-height:460px}
+  .sz__pl li{grid-template-columns:20px 64px minmax(0,1fr);gap:9px}
+}
 </style>
 </head>
 <body>
@@ -952,6 +1019,7 @@ mark{background:none;color:var(--mag);font-weight:700}
     <li><a href="#promile">Promil-meter</a></li>
     <li><a href="#program">Program</a></li>
     <li><a href="#gra">Gry</a></li>
+    <li><a href="#szafa">Muzyka</a></li>
   </ul>
   <a class="btn-pill btn-pink" href="#przysiega">Złóż przysięgę →</a>
   <button class="btn-pill btn-pink nav__menu" id="menu-open" aria-expanded="false" aria-controls="menu">MENU
@@ -1356,8 +1424,39 @@ mark{background:none;color:var(--mag);font-weight:700}
   </div>
 </section>
 
-<!-- ================== 12 STOPKA ================== -->
-<footer class="s bg-ink foot" data-prev="#2B2BFF">
+<!-- ================== 12 SZAFA GRAJĄCA (playlista YouTube) ================== -->
+<section class="s bg-pink szafa" id="szafa" data-page="11" data-prev="#2B2BFF">
+  <div class="halftone" style="color:var(--ink);opacity:.14;left:0;bottom:0;width:560px;height:460px;--hx:0%;--hy:100%" aria-hidden="true"></div>
+  <div class="container">
+    <div class="sz__head">
+      <p class="eyebrow">Rozdział VI · Formularz M-1 · zamówienia muzyczne u Wódzireja</p>
+      <h2 class="h-title sz__title">Szafa<br>grająca <span class="sz__the">na życzenie</span></h2>
+      <div class="stamp" data-stamp><span><b>GRAMY</b><small>zamówienie przyjęte</small></span></div>
+      <p class="sz__lead">Wyszukaj piosenkę i kliknij „Dodaj” — leci prosto na playlistę <b>Wódystopad 2026</b> na YouTube, którą Wódzirej puści na telewizorze. Kolejność: kto pierwszy, ten lepszy.</p>
+      <p class="sz__fine">Disco polo dozwolone. Za trzecie z rzędu „Przez twe oczy zielone” komisja może utrącić rączki. Limit: 6 piosenek na 15 minut z jednego telefonu.</p>
+    </div>
+    <div class="sz__grid">
+      <div class="sz__panel sz__find">
+        <span class="sz__k">KTO ZAMAWIA?</span>
+        <div class="sz__who" id="sz-who" role="radiogroup" aria-label="Kto zamawia"></div>
+        <form class="sz__form" id="sz-form" role="search">
+          <input id="sz-q" type="search" placeholder="Tytuł, wykonawca albo link z YouTube" aria-label="Tytuł, wykonawca albo link z YouTube" autocomplete="off" enterkeyhint="search" maxlength="200">
+          <button class="btn-pill btn-ink" type="submit">Szukaj</button>
+        </form>
+        <p class="sz__msg" id="sz-msg" aria-live="polite">Wpisz, co ma polecieć. Możesz też wkleić link z YouTube.</p>
+        <ol class="sz__res" id="sz-res"></ol>
+      </div>
+      <div class="sz__panel sz__list">
+        <div class="sz__lhead"><h3>Na playliście <em id="sz-count">—</em></h3><a class="sz__open" id="sz-open" href="#" target="_blank" rel="noopener">Otwórz na YouTube ↗</a></div>
+        <p class="live" id="sz-live"></p>
+        <ol class="sz__pl" id="sz-pl"></ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================== 13 STOPKA ================== -->
+<footer class="s bg-ink foot" data-prev="#FF5FD2">
   <div class="fishes" id="fishes2" aria-hidden="true"></div>
   <div class="container">
     <p class="h-title foot__big">Do zobaczenia<br>21.11</p>
@@ -1420,7 +1519,8 @@ const CONFIG = {
   sworn: 0,                 // przysięgi złożone poza stroną (dolicza się do tych ze wspólnej bazy)
   api: 'https://script.google.com/macros/s/AKfycbwAq1SyCAmhz4PwAFa4FLSI4W9bTVJWnFNb0sKJQFAwL6aTpdgrs_YyhBInjve2dvmP/exec',                  // adres /exec skryptu Google (arkusz „Wódystopad 2026 — głosy”) — wspólna baza głosów
   formEndpoint: '',         // np. 'https://formspree.io/f/xxxxxxx' — wtedy przysięgi lecą do Wódzireja mailem
-  counterAlwaysOn: false,   // true = licznik rybek działa także przed 21.11 (do testów)
+  counterAlwaysOn: false,
+  playlist: 'https://www.youtube.com/playlist?list=PLHXPoXasIR78', // Szafa grająca: playlista Wódzireja na YouTube (id także w skrypcie Google)   // true = licznik rybek działa także przed 21.11 (do testów)
 };
 
 /* =========================================================
@@ -1443,7 +1543,7 @@ $$('[data-prev]').forEach((s,i) => {
   s.insertAdjacentHTML('afterbegin', `<div class="wave" aria-hidden="true" style="--wd:${12+i*2}s"><svg viewBox="0 0 2880 36" preserveAspectRatio="none"><path d="${d}" fill="${c}"/></svg></div>`);
 });
 $$('[data-page]').forEach(s => { if(s.id==='start') return; const dark = s.classList.contains('bg-ink')||s.classList.contains('bg-blue');
-  s.insertAdjacentHTML('beforeend', `<span class="pagemark" style="color:${dark?'var(--paper)':'var(--ink)'}">Dok. nr 1/2026 · str. ${s.dataset.page}/10 · Wódystopad</span>`); });
+  s.insertAdjacentHTML('beforeend', `<span class="pagemark" style="color:${dark?'var(--paper)':'var(--ink)'}">Dok. nr 1/2026 · str. ${s.dataset.page}/11 · Wódystopad</span>`); });
 
 /* =========================================================
    BRAMKA WIEKOWA
@@ -1466,8 +1566,8 @@ $$('[data-page]').forEach(s => { if(s.id==='start') return; const dark = s.class
   addEventListener('scroll', () => { const y = scrollY, down = y > last && y > 200;
     nav.classList.toggle('hidden', down && isMobile()); sticky.classList.toggle('hide', blockers.size > 0 || y > document.body.scrollHeight - innerHeight - 260); last = y; }, {passive:true});
   const blockers = new Set(); const bio = new IntersectionObserver(es => { es.forEach(e => e.isIntersecting ? blockers.add(e.target) : blockers.delete(e.target)); sticky.classList.toggle('hide', blockers.size > 0); }, {rootMargin:'0px 0px -60px 0px'});
-  ['#reg-accept','#oath','#licznik','.panels','#gra-stage','#pol-stage','.store'].forEach(s => bio.observe($(s)));
-  const sections = [['pismo','Pismo okólne'],['regulamin','Regulamin'],['wodowicze','Legitymacje'],['zaopatrzenie','Co pijemy, ile pijemy'],['kary','Taryfikator kar'],['promile','Promil-meter'],['program','Porządek obrad'],['przysiega','Przysięga'],['gra','Wódystopad Game Store']];
+  ['#reg-accept','#oath','#licznik','.panels','#gra-stage','#pol-stage','.store','.sz__grid'].forEach(s => bio.observe($(s)));
+  const sections = [['pismo','Pismo okólne'],['regulamin','Regulamin'],['wodowicze','Legitymacje'],['zaopatrzenie','Co pijemy, ile pijemy'],['kary','Taryfikator kar'],['promile','Promil-meter'],['program','Porządek obrad'],['przysiega','Przysięga'],['gra','Wódystopad Game Store'],['szafa','Szafa grająca']];
   $('#menu-list').innerHTML = sections.map(([id,t],i)=>`<li style="--i:${i}"><a href="#${id}" data-id="${id}"><span>${pad(i+1)}</span><b>${t}</b></a></li>`).join('');
   const menu = $('#menu'), open = (v) => { menu.classList.toggle('open', v); menu.setAttribute('aria-hidden', !v); $('#menu-open').setAttribute('aria-expanded', v); document.body.classList.toggle('locked', v); };
   $('#menu-open').onclick = () => open(true); $('#menu-close').onclick = () => open(false);
@@ -2832,6 +2932,72 @@ const GFX = {}; // rysunki współdzielone przez gry i okładki w Game Store
       lines.push(`${name.padEnd(18)} ${p3(a.fps, 3)}  ${p3(a.worst, 6)}   ${p3(b2.fps, 3)}  ${p3(b2.worst, 6)}`); out.textContent = lines.concat('…').join('\n'); }
     setOld(false);
     st.textContent = ''; lines.push('KONIEC — zrób zrzut tej tabelki'); out.textContent = lines.join('\n'); })();
+})();
+/* =========================================================
+   SZAFA GRAJĄCA — wyszukiwarka YouTube + dodawanie do playlisty Wódzireja
+   (przez skrypt Google: GET ?yt=search / ?yt=list, POST typ 'song')
+   ========================================================= */
+(() => { const url = CONFIG.api, root = $('#szafa'); if (!root) return;
+  const esc = s => String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  const WARM = 'Szafa jeszcze się rozgrzewa — Wódzirej podłącza kable. Spróbuj za chwilę.';
+  let who = store.get('sz-who', ''), songs = null, have = new Set(), results = [], visible = false, lastLoad = 0;
+  $('#sz-open').href = CONFIG.playlist;
+  const msg = (t, bad) => { const m = $('#sz-msg'); m.textContent = t || ''; m.classList.toggle('bad', !!bad); };
+  const live = (st) => { const el = $('#sz-live'); el.classList.toggle('off', st === 'off');
+    el.innerHTML = st === 'on' ? '<i></i>NA ŻYWO · TO SAMO WIDZI TELEWIZOR' : st === 'off' ? '<i></i>BRAK POŁĄCZENIA Z SZAFĄ' : st === 'warm' ? '<i></i>SZAFA SIĘ ROZGRZEWA' : '<i></i>ŁĄCZĘ Z SZAFĄ…'; };
+  const get = async q => (await fetch(url + (url.includes('?') ? '&' : '?') + q, {cache:'no-store'})).json();
+
+  // kto zamawia — imiona z legitymacji, zapamiętane w telefonie
+  const chips = () => { $('#sz-who').innerHTML = CONFIG.people.map(p => `<button type="button" role="radio" aria-checked="${p.name === who}" data-n="${esc(p.name)}">${esc(p.name)}</button>`).join('');
+    $$('#sz-who button').forEach(b => b.onclick = () => { who = b.dataset.n; store.set('sz-who', who); chips(); }); };
+  chips();
+
+  // playlista
+  const renderPl = (fresh) => { const ol = $('#sz-pl'); $('#sz-count').textContent = songs ? songs.length : '—';
+    if (songs && !songs.length) { ol.innerHTML = '<li class="sz__empty" style="display:block;border:0">Pusto. Komisja czeka na pierwszy przebój.</li>'; return; }
+    const atEnd = ol.scrollHeight - ol.scrollTop - ol.clientHeight < 40;
+    ol.innerHTML = (songs || []).map(s => `<li${fresh && fresh.has(s.id) ? ' class="new"' : ''}>${s.img ? `<img src="${esc(s.img)}" alt="" loading="lazy" referrerpolicy="no-referrer">` : '<i class="sz__noimg"></i>'}<div><div class="sz__t">${esc(s.t)}</div><div class="sz__m">${s.k ? 'zamówił(a): <b>' + esc(s.k) + '</b>' : esc(s.ch || 'od Wódzireja')}</div></div></li>`).join('');
+    if (fresh && fresh.size && atEnd) ol.scrollTop = ol.scrollHeight; };
+  const loadPl = async () => { if (!url) { live('off'); return; } lastLoad = Date.now();
+    try { const s = await get('yt=list');
+      if (s.ok && Array.isArray(s.songs)) { const prev = songs ? new Set(songs.map(x => x.id)) : null; songs = s.songs; have = new Set(songs.map(x => x.id));
+        if (s.url) $('#sz-open').href = s.url;
+        live('on'); renderPl(prev ? new Set(songs.map(x => x.id).filter(id => !prev.has(id))) : null); markRes(); }
+      else live('warm'); }
+    catch (e) { live('off'); } };
+
+  // wyniki wyszukiwania
+  const markRes = () => $$('#sz-res .sz__add').forEach(b => { if (b.dataset.busy) return; const on = have.has(b.dataset.v);
+    b.classList.toggle('done', on); b.disabled = on; b.textContent = on ? '✓ Na liście' : '+ Dodaj'; });
+  const renderRes = () => { $('#sz-res').innerHTML = results.map(v => `<li>${v.img ? `<img src="${esc(v.img)}" alt="" loading="lazy" referrerpolicy="no-referrer">` : '<i class="sz__noimg"></i>'}<div><div class="sz__t">${esc(v.t)}</div><div class="sz__m">${esc(v.ch)}${v.d ? ' · ' + esc(v.d) : ''}</div></div><button type="button" class="sz__add" data-v="${esc(v.id)}">+ Dodaj</button></li>`).join('');
+    $$('#sz-res .sz__add').forEach(b => b.onclick = () => add(b)); markRes(); };
+  $('#sz-form').onsubmit = async e => { e.preventDefault(); const q = $('#sz-q').value.trim();
+    if (q.length < 2) { msg('Wpisz chociaż dwie litery. Komisja nie zgaduje.', true); return; }
+    if (!url) { msg('Szafa działa tylko na wodystopad.pl.', true); return; }
+    msg('Szukam…'); results = []; renderRes(); $('#sz-q').blur();
+    try { const s = await get('yt=search&q=' + encodeURIComponent(q));
+      if (!s.ok || !Array.isArray(s.items)) throw new Error(s.error || WARM);
+      results = s.items; renderRes();
+      msg(results.length ? (results.length === 1 && /youtu/i.test(q) ? 'Znalazłem po linku. Klikaj „Dodaj”.' : 'Wybierz i kliknij „Dodaj”.') : 'Nic nie znalazłem. Spróbuj inaczej albo wklej link.', !results.length); }
+    catch (err) { msg(err && err.message && err.message !== 'Failed to fetch' ? err.message : 'Brak połączenia z szafą. Spróbuj jeszcze raz.', true); } };
+
+  // dodanie do playlisty
+  const add = async b => { const v = b.dataset.v;
+    if (!who) { msg('Najpierw kliknij wyżej, kto zamawia.', true); const w = $('#sz-who'); w.classList.remove('need'); void w.offsetWidth; w.classList.add('need'); w.scrollIntoView({block:'center', behavior:'smooth'}); return; }
+    b.dataset.busy = 1; b.disabled = true; b.textContent = 'Dodaję…';
+    try { const r = await fetch(url, {method:'POST', body: JSON.stringify({who: API.me, events: [{type:'song', d:{v, k: who}}]})}); const s = await r.json(); const st = s.song && s.song.st;
+      if (st === 'added') { have.add(v); toast('Dorzucone. Wódzirej przyjął zamówienie.'); msg('„' + (s.song.t || 'Piosenka') + '” jest na playliście.'); loadPl(); }
+      else if (st === 'dup') { have.add(v); toast('To już jest na playliście.'); }
+      else if (st === 'limit') { toast('Limit: 6 piosenek na 15 minut. Daj pograć innym.'); msg('Limit wyczerpany. Odczekaj chwilę.', true); }
+      else throw new Error((s.song && s.song.msg) || s.error || WARM); }
+    catch (err) { msg(err && err.message && err.message !== 'Failed to fetch' ? err.message : 'Brak połączenia z szafą. Spróbuj jeszcze raz.', true); }
+    delete b.dataset.busy; markRes(); };
+
+  // odświeżanie playlisty tylko, gdy sekcja jest na ekranie (oszczędza limit YouTube)
+  live('wait');
+  new IntersectionObserver(es => es.forEach(e => { visible = e.isIntersecting; if (visible && Date.now() - lastLoad > 15000) loadPl(); }), {rootMargin:'300px 0px'}).observe(root);
+  setInterval(() => { if (visible && !document.hidden) loadPl(); }, 30000);
+  document.addEventListener('visibilitychange', () => { if (!document.hidden && visible && Date.now() - lastLoad > 15000) loadPl(); });
 })();
 (() => { const io = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle('off', !e.isIntersecting)), {rootMargin:'100px 0px'});
   $$('main > section, main > footer').forEach(s => io.observe(s)); })();

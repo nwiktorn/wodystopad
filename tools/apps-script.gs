@@ -7,9 +7,15 @@
  * Arkusz „Podsumowanie”: czytelne zestawienie, odświeżane po każdym zapisie.
  * Typ 'score' — wyniki gry „Podwódne Przygody” (3 litery, punkty, rybki, nr mapy); strona dostaje top 15 w `scores`.
  * Typ 'score-g' — wyniki pozostałych gier z Wódystopad Game Store (pole g = id gry, np. 'polanie'); strona dostaje top 15 każdej w `boards`.
+ * Typ 'song' — Szafa grająca: piosenka z YouTube dodana do playlisty Wódzireja (v = id filmu, k = kto zamawia).
+ *   Wymaga usługi zaawansowanej: Edytor → Usługi (+) → „YouTube Data API v3” (identyfikator: YouTube).
+ *   Skrypt działa jako właściciel (Wykonuj jako: Ja), więc dodaje utwory do jego playlisty. Pierwsze uruchomienie: testSzafy().
+ *   GET ?yt=search&q=… — wyniki wyszukiwania (albo jeden film, gdy q to link); GET ?yt=list — zawartość playlisty.
  */
 const LOG = 'log', SUM = 'Podsumowanie';
 const GAMES = { polanie: 'OSTATNIE POLANIE' }; // gry z biblioteki zapisywane jako 'score-g'
+const PLAYLIST = 'PLHXPoXasIR78';              // playlista „Wódystopad 2026” na YouTube Wódzireja
+const SONG_LIMIT = { n: 6, min: 15 };          // maks. 6 piosenek z jednego telefonu w 15 minut
 
 function sheet_(name) {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
@@ -27,7 +33,7 @@ function events_() {
 }
 
 function state_() {
-  const brands = {}; const votes = {}; const bottles = {}; const oaths = {}; const scores = []; const boards = {}; Object.keys(GAMES).forEach(k => boards[k] = []); let fish = 0;
+  const brands = {}; const votes = {}; const bottles = {}; const oaths = {}; const scores = []; const boards = {}; Object.keys(GAMES).forEach(k => boards[k] = []); let fish = 0; const songs = [];
   events_().forEach(e => {
     if (e.type === 'brand-add') {
       const name = String(e.d.name || '').trim().slice(0, 40); if (!name) return;
@@ -54,6 +60,8 @@ function state_() {
       boards[gid].push({ n, p: num(e.d.p, 99999), f: num(e.d.f, 999), x: num(e.d.x, 999), who: e.who, t: +new Date(e.t) || 0 });
     } else if (e.type === 'fish') {
       fish += Math.max(1, Math.min(5, parseInt(e.d.n, 10) || 1));
+    } else if (e.type === 'song') {
+      songs.push({ v: String(e.d.v || ''), k: String(e.d.k || ''), t: String(e.d.t || '') });
     }
   });
   const list = Object.keys(brands).filter(k => !brands[k].gone).map(k => ({
@@ -66,6 +74,7 @@ function state_() {
     bottles: Object.keys(bottles).map(w => Object.assign({ who: w }, bottles[w])),
     oaths: Object.keys(oaths).map(w => Object.assign({ who: w }, oaths[w])),
     fish: fish,
+    songs: songs,
     scores: scores.sort((a, b) => b.p - a.p || a.t - b.t),
     boards: Object.keys(boards).reduce((o, k) => (o[k] = boards[k].sort((a, b) => b.p - a.p || a.t - b.t), o), {})
   };
@@ -91,6 +100,8 @@ function summary_(s) {
   s.scores.slice(0, 10).forEach((x, i) => rows.push([(i + 1) + '. ' + x.n, x.p, x.f]));
   Object.keys(GAMES).forEach(k => { rows.push(['', '', ''], [GAMES[k] + ' — TOP 10', 'PUNKTY', 'KIELONKI']);
     s.boards[k].slice(0, 10).forEach((x, i) => rows.push([(i + 1) + '. ' + x.n, x.p, x.f])); });
+  rows.push(['', '', ''], ['SZAFA GRAJĄCA — ZAMÓWIENIA', 'KTO', '']);
+  s.songs.forEach((x, i) => rows.push([(i + 1) + '. ' + x.t, x.k || '—', '']));
   sh.getRange(1, 1, rows.length, 3).setValues(rows);
   sh.getRange(1, 1).setFontWeight('bold').setFontSize(14);
 }
@@ -99,7 +110,9 @@ function json_(o) {
   return ContentService.createTextOutput(JSON.stringify(o)).setMimeType(ContentService.MimeType.JSON);
 }
 
-function doGet() {
+function doGet(e) {
+  const p = (e && e.parameter) || {};
+  if (p.yt) return json_(yt_(p));
   return json_(Object.assign({ ok: true }, public_(state_())));
 }
 
@@ -113,11 +126,120 @@ function doPost(e) {
     const rows = list.filter(ev => ok.indexOf(ev.type) >= 0 && who).slice(0, 30)
       .map(ev => [new Date(), who, ev.type, JSON.stringify(ev.d || {}).slice(0, 500)]);
     if (rows.length) { const sh = sheet_(LOG); sh.getRange(sh.getLastRow() + 1, 1, rows.length, 4).setValues(rows); }
+    const songEv = list.filter(ev => ev.type === 'song')[0];   // piosenka: najpierw YouTube, wiersz w logu tylko po udanym dodaniu
+    const song = songEv && who ? addSong_(who, songEv.d || {}) : null;
     const s = state_(); summary_(s);
-    return json_(Object.assign({ ok: true, saved: rows.length }, public_(s)));
+    return json_(Object.assign({ ok: true, saved: rows.length }, song ? { song: song } : {}, public_(s)));
   } catch (err) {
     return json_({ ok: false, error: String(err) });
   } finally {
     lock.releaseLock();
   }
+}
+
+/* =========================================================
+   SZAFA GRAJĄCA — YouTube (usługa zaawansowana „YouTube”)
+   Limit YouTube: wyszukiwanie ~100 dziennie (dlatego wyniki w pamięci 6 h),
+   dodanie do playlisty 50 jednostek, lista i szczegóły filmów po 1.
+   ========================================================= */
+function ytText_(s) {
+  return String(s || '').replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
+}
+function ytDur_(iso) {
+  const m = String(iso || '').match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/); if (!m) return '';
+  const h = +m[1] || 0, mi = +m[2] || 0, s = +m[3] || 0, p = n => ('0' + n).slice(-2);
+  return h ? h + ':' + p(mi) + ':' + p(s) : mi + ':' + p(s);
+}
+function ytThumb_(sn) { const t = (sn && sn.thumbnails) || {}; return (t.medium || t.default || {}).url || ''; }
+
+/* id filmu z linku (youtube.com/watch?v=, youtu.be/, /shorts/, music.youtube.com…) */
+function ytId_(s) {
+  const m = String(s || '').match(/(?:youtu\.be\/|[?&]v=|\/shorts\/|\/embed\/|\/live\/)([A-Za-z0-9_-]{11})/);
+  return m ? m[1] : '';
+}
+
+/* szczegóły filmów: tytuł, kanał, czas, miniaturka — tylko te, które da się odtworzyć */
+function ytVideos_(ids) {
+  if (!ids.length) return [];
+  const r = YouTube.Videos.list('snippet,contentDetails,status', { id: ids.join(','), maxResults: 50 });
+  const by = {};
+  (r.items || []).forEach(v => {
+    if (v.status && v.status.privacyStatus === 'private') return;
+    by[v.id] = { id: v.id, t: ytText_(v.snippet.title), ch: ytText_(v.snippet.channelTitle), img: ytThumb_(v.snippet), d: ytDur_(v.contentDetails && v.contentDetails.duration) };
+  });
+  return ids.filter(id => by[id]).map(id => by[id]);
+}
+
+function ytSearch_(q) {
+  q = String(q || '').trim().replace(/\s+/g, ' ').slice(0, 80); if (q.length < 2) return [];
+  const key = 'yts:' + Utilities.base64EncodeWebSafe(Utilities.computeDigest(Utilities.DigestAlgorithm.MD5, q.toLowerCase(), Utilities.Charset.UTF_8));
+  const c = CacheService.getScriptCache(), hit = c.get(key); if (hit) return JSON.parse(hit);
+  const r = YouTube.Search.list('id', { q: q, type: 'video', maxResults: 8, regionCode: 'PL', relevanceLanguage: 'pl' });
+  const out = ytVideos_((r.items || []).map(i => i.id && i.id.videoId).filter(Boolean));
+  c.put(key, JSON.stringify(out), 21600);
+  return out;
+}
+
+/* zawartość playlisty w kolejności odtwarzania (w pamięci 90 s, żeby telefony nie zjadały limitu) */
+function ytList_(fresh) {
+  const c = CacheService.getScriptCache();
+  if (!fresh) { const hit = c.get('ytl'); if (hit) return JSON.parse(hit); }
+  const items = []; let tok;
+  do {
+    const r = YouTube.PlaylistItems.list('snippet,contentDetails', { playlistId: PLAYLIST, maxResults: 50, pageToken: tok });
+    (r.items || []).forEach(i => items.push({ id: i.contentDetails.videoId, t: ytText_(i.snippet.title), ch: ytText_(i.snippet.videoOwnerChannelTitle || '').replace(/ - Topic$/, ''), img: ytThumb_(i.snippet) }));
+    tok = r.nextPageToken;
+  } while (tok && items.length < 300);
+  c.put('ytl', JSON.stringify(items), 90);
+  return items;
+}
+
+function playlist_() {
+  const who = {};
+  events_().forEach(e => { if (e.type === 'song' && e.d.v && !who[e.d.v]) who[e.d.v] = String(e.d.k || '').slice(0, 30); });
+  return { songs: ytList_(false).map(s => Object.assign({ k: who[s.id] || '' }, s)), url: 'https://www.youtube.com/playlist?list=' + PLAYLIST };
+}
+
+function ytErr_(err) {
+  const m = String(err && err.message || err);
+  if (/YouTube is not defined/i.test(m)) return 'Szafa jeszcze niepodłączona — Wódzirej musi włączyć usługę YouTube w skrypcie.';
+  if (/quota/i.test(m)) return 'YouTube mówi „dość na dziś” (limit wyszukiwań). Wklej link do piosenki zamiast szukać.';
+  if (/playlist/i.test(m) && /(not ?found|forbidden|permission|insufficient)/i.test(m)) return 'YouTube nie wpuszcza do playlisty — Wódzirej musi sprawdzić uprawnienia.';
+  return 'YouTube się zaciął: ' + m.slice(0, 140);
+}
+
+function yt_(p) {
+  try {
+    if (p.yt === 'search') { const id = ytId_(p.q); return { ok: true, items: id ? ytVideos_([id]) : ytSearch_(p.q) }; }
+    if (p.yt === 'list') return Object.assign({ ok: true }, playlist_());
+    return { ok: false, error: 'Nieznane polecenie szafy.' };
+  } catch (err) {
+    return { ok: false, error: ytErr_(err) };
+  }
+}
+
+/* dodanie piosenki (wywoływane z doPost pod blokadą) */
+function addSong_(who, d) {
+  const v = String(d.v || ''), k = String(d.k || '').slice(0, 30);
+  if (!/^[A-Za-z0-9_-]{11}$/.test(v)) return { v: v, st: 'error', msg: 'To nie wygląda na film z YouTube.' };
+  try {
+    const now = Date.now();
+    const recent = events_().filter(e => e.type === 'song' && e.who === who && now - (+new Date(e.t) || 0) < SONG_LIMIT.min * 60000).length;
+    if (recent >= SONG_LIMIT.n) return { v: v, st: 'limit' };
+    if (ytList_(true).some(s => s.id === v)) return { v: v, st: 'dup' };
+    const info = ytVideos_([v])[0];
+    if (!info) return { v: v, st: 'error', msg: 'Nie ma takiego filmu (albo jest prywatny).' };
+    YouTube.PlaylistItems.insert({ snippet: { playlistId: PLAYLIST, resourceId: { kind: 'youtube#video', videoId: v } } }, 'snippet');
+    sheet_(LOG).appendRow([new Date(), who, 'song', JSON.stringify({ v: v, k: k, t: info.t }).slice(0, 500)]);
+    CacheService.getScriptCache().remove('ytl');
+    return { v: v, st: 'added', t: info.t };
+  } catch (err) {
+    return { v: v, st: 'error', msg: ytErr_(err) };
+  }
+}
+
+/* uruchom raz w edytorze (▶ testSzafy) — Google poprosi o zgodę na YouTube; w dzienniku pojawi się zawartość playlisty */
+function testSzafy() {
+  const l = ytList_(true);
+  Logger.log('Playlista %s: %s utworów. Pierwszy: %s', PLAYLIST, l.length, l.length ? l[0].t : '—');
 }
