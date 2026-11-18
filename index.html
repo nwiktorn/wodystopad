@@ -2650,7 +2650,7 @@ const GFX = {}; // rysunki współdzielone przez gry i okładki w Game Store
   new ResizeObserver(() => { const wasReady = st === 'ready'; resize(); if (wasReady) { reset(); } }).observe(stage);
 
   /* ---------- koniec gry i rejestr ---------- */
-  const ini = $('#gra-ini'), boxes = $$('.gra__ini i'), form = $('#gra-save');
+  const ini = $('#gra-ini'), boxes = $$('#gra-save .gra__ini i'), form = $('#gra-save');
   const clean = v => v.toUpperCase().replace(/[^A-ZĄĆĘŁŃÓŚŹŻ0-9]/g, '').slice(0, 3);
   const paint = () => { const v = ini.value; boxes.forEach((b, i) => { b.textContent = v[i] || ''; b.classList.toggle('cur', document.activeElement === ini && i === Math.min(2, v.length)); }); };
   // pole bywa wypełnione literami z poprzedniego zapisu — po wejściu w pole zaznacz całość (pisanie zastępuje), a nadmiar ponad 3 litery ucinaj od początku
@@ -2668,7 +2668,7 @@ const GFX = {}; // rysunki współdzielone przez gry i okładki w Game Store
     if (!isMobile()) setTimeout(() => ini.focus({ preventScroll: true }), 60);
   }
   form.onsubmit = e => { e.preventDefault(); const n = clean(ini.value);
-    if (n.length < 1) { const w = $('.gra__ini'); w.classList.remove('shake'); void w.offsetWidth; w.classList.add('shake'); ini.focus(); return; }
+    if (n.length < 1) { const w = $('#gra-save .gra__ini'); w.classList.remove('shake'); void w.offsetWidth; w.classList.add('shake'); ini.focus(); return; }
     if (!result) return; store.set('game-ini', n);
     const entry = { n, p: result.p, f: result.f, m: result.map };
     const loc = store.get('game-scores', []); loc.push(entry); loc.sort((a, b) => b.p - a.p); store.set('game-scores', loc.slice(0, 15));
