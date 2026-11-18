@@ -1818,7 +1818,7 @@ const API = (() => { const url = CONFIG.api;
     live(); load(); flush();
     addEventListener('online', flush);
     document.addEventListener('visibilitychange', () => { if (!document.hidden) { load(); flush(); } });
-    setInterval(() => { if (!document.hidden) load(); }, 30000); }
+    setInterval(() => { if (!document.hidden) { load(); flush(); } }, 30000); } // flush: zaległe zdarzenia (np. wybór legitymacji sprzed nowego skryptu) dochodzą same
   return { on: f => { subs.push(f); if (state) f(state); }, send, me, get on_() { return !!url; }, get state() { return state; } };
 })();
 
