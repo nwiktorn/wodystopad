@@ -437,7 +437,7 @@ mark{background:none;color:var(--mag);font-weight:700}
 @keyframes idcBub{0%{transform:translateY(0);opacity:1}100%{transform:translateY(-140px);opacity:0}}
 .idc.tilt .ministamp{animation:miniSlam .45s cubic-bezier(.2,1.6,.4,1)}
 @keyframes miniSlam{0%{transform:rotate(8deg) scale(1.9);opacity:0}100%{transform:rotate(8deg) scale(1);opacity:1}}
-.idc__f,.idc__b{background:var(--c);border:3px solid var(--ink);border-radius:20px;box-shadow:7px 7px 0 var(--ink);padding:14px;display:flex;flex-direction:column;gap:10px;backface-visibility:hidden;-webkit-backface-visibility:hidden;height:100%}
+.idc__f,.idc__b{background:var(--c);border:3px solid var(--ink);border-radius:20px;box-shadow:7px 7px 0 var(--ink);padding:14px;display:flex;flex-direction:column;gap:10px;backface-visibility:visible;-webkit-backface-visibility:visible;height:100%} /* obie strony widoczne „od tyłu” — o tym, co widać, decyduje tylko przełączenie visibility (Firefox spłaszczał 3D i rewers znikał) */
 .idc__b{position:absolute;inset:0;transform:rotateY(180deg);background:var(--sheet);gap:12px;padding:22px}
 .idc:nth-child(odd){transform:rotate(-2deg)} .idc:nth-child(even){transform:rotate(1.6deg)}
 .idc__top{display:flex;justify-content:space-between;align-items:center;padding:0 4px}
