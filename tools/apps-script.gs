@@ -6,7 +6,7 @@
  * Arkusz „log”: każde zdarzenie ze strony w jednym wierszu (czas, wyborca, typ, dane JSON).
  * Arkusz „Podsumowanie”: czytelne zestawienie, odświeżane po każdym zapisie.
  * Typ 'score' — wyniki gry „Podwódne Przygody” (3 litery, punkty, rybki, nr mapy); strona dostaje top 15 w `scores`.
- * Typ 'score-g' — wyniki pozostałych gier z Wódystopad Game Store (pole g = id gry: 'polanie', 'wodzitsu'); strona dostaje top 15 każdej w `boards` (x = np. numer postaci w Wódżitsu).
+ * Typ 'score-g' — wyniki pozostałych gier z Wódystopad Game Store (pole g = id gry: 'polanie', 'wodzitsu', 'wodoki'); strona dostaje top 15 każdej w `boards` (x = np. numer postaci w Wódżitsu).
  * Typ 'song' — Szafa grająca: piosenka z YouTube dodana do playlisty Wódzireja (v = id filmu, k = kto zamawia).
  *   Wymaga usługi zaawansowanej: Edytor → Usługi (+) → „YouTube Data API v3” (identyfikator: YouTube).
  *   Skrypt działa jako właściciel (Wykonuj jako: Ja), więc dodaje utwory do jego playlisty. Pierwsze uruchomienie: testSzafy().
@@ -22,8 +22,8 @@ const ML = ['500', '700', '1000'];
 /* Butelkomat: zestaw = ile butelek każdej pojemności, klucz „500:2|700:3” (bez zer) */
 function setKey_(c) { return ML.map(m => [m, Math.max(0, Math.min(40, parseInt((c || {})[m], 10) || 0))]).filter(x => x[1]).map(x => x[0] + ':' + x[1]).join('|'); }
 function setComp_(k) { const o = {}; String(k || '').split('|').forEach(p => { const a = p.split(':'); if (ML.indexOf(a[0]) >= 0) o[a[0]] = +a[1] || 0; }); return o; }
-const GAMES = { polanie: 'OSTATNIE POLANIE', wodzitsu: 'WÓDŻITSU' }; // gry z biblioteki zapisywane jako 'score-g'
-const GAME_F = { polanie: 'KIELONKI', wodzitsu: 'WYGRANE' };     // co znaczy pole f w danej grze (kolumna w Podsumowaniu)
+const GAMES = { polanie: 'OSTATNIE POLANIE', wodzitsu: 'WÓDŻITSU', wodoki: 'WÓD.OK.I' }; // gry z biblioteki zapisywane jako 'score-g'
+const GAME_F = { polanie: 'KIELONKI', wodzitsu: 'WYGRANE', wodoki: 'KIELISZKI' };     // co znaczy pole f w danej grze (kolumna w Podsumowaniu)
 const PLAYLIST = 'PLHXPoXasIR78';              // playlista „Wódystopad 2026” na YouTube Wódzireja
 const SONG_LIMIT = { n: 6, min: 15 };          // maks. 6 piosenek z jednego telefonu w 15 minut
 

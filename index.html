@@ -921,6 +921,99 @@ mark{background:none;color:var(--mag);font-weight:700}
 .pol__ok--star canvas{box-shadow:3px 3px 0 var(--pink)}
 .gra__card .pol__no{font:700 11.5px/1.3 var(--f-type);letter-spacing:.04em}
 .pol__no b{color:var(--red);font:400 15px/1 var(--f-display);margin-right:4px}
+/* GRA 4: WÓD.Ok.I — pixel art, nocne PRL-owskie osiedle */
+@font-face{font-family:'Tiny5';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/tiny5-latin-ext-400-normal.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Tiny5';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/tiny5-latin-400-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Jersey 10';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/jersey-10-latin-ext-400-normal.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Jersey 10';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/jersey-10-latin-400-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+.gra__stage--wok{aspect-ratio:16/9;background:#060a17;--px:#dfe9f2}
+.gra__stage--wok canvas{image-rendering:pixelated;image-rendering:crisp-edges}
+.gra__stage--wok.run{cursor:pointer}
+.wok__tv{position:absolute;z-index:1;pointer-events:none;background:transparent}
+.wok__fs{all:unset;box-sizing:border-box;position:absolute;z-index:2;top:8px;left:50%;transform:translateX(-50%);width:38px;height:38px;display:grid;place-items:center;font:400 22px/1 'Jersey 10',monospace;color:#dfe9f2;background:rgba(15,24,48,.85);border:2px solid #dfe9f2;cursor:pointer}
+.wok__fs:focus-visible{outline:2px solid #FF5FD2;outline-offset:2px}
+.wok__fs span{display:none}
+.wok__fsbig{display:none}
+@keyframes wokPulse{0%,100%{box-shadow:0 0 0 0 rgba(217,255,61,.7)}50%{box-shadow:0 0 0 8px rgba(217,255,61,0)}}
+@media (max-width:760px){
+  .gra__stage--wok:not(.is-full) .wok__fs{width:auto;padding:0 12px;gap:6px;display:flex;align-items:center;background:#D9FF3D;color:#05070f;border-color:#05070f;animation:wokPulse 1.6s infinite}
+  .gra__stage--wok:not(.is-full) .wok__fs span{display:inline;font-size:18px}
+  .gra__stage--wok:not(.is-full) .wok__fsbig{all:unset;box-sizing:border-box;cursor:pointer;display:flex;flex-direction:column;gap:2px;width:100%;padding:9px 12px 8px;background:#D9FF3D;color:#05070f;border:3px solid #05070f;box-shadow:4px 4px 0 #05070f;text-align:center;animation:wokPulse 1.6s infinite}
+  .wok__fsbig b{font:400 26px/1 'Jersey 10',monospace;color:#05070f!important}
+  .wok__fsbig span{font:400 16px/1.1 'Jersey 10',monospace;letter-spacing:.02em}
+}
+.gra__stage--wok:fullscreen,.gra__stage--wok.wok-full{position:fixed;inset:0;width:100vw;height:100vh;height:100dvh;max-width:none;aspect-ratio:auto;border:0;border-radius:0;box-shadow:none;margin:0;z-index:9999}
+html.wok-lock,html.wok-lock body{overflow:hidden}
+.gra__stage--wok canvas.wok__hud{z-index:2;pointer-events:none;image-rendering:auto}
+.wok__tv iframe,#wok-yt{display:block;width:100%;height:100%;border:0;opacity:0;transition:opacity .4s}
+.wok__tv.on iframe,.wok__tv.on #wok-yt{opacity:1}
+/* karty w grze: ciemne, pikselowe, jak nocny ekran */
+.gra__stage--wok .gra__ov{z-index:3;background:rgba(6,10,23,.55);overflow:auto;align-items:safe center}
+.gra__stage--wok .gra__card{background:#0f1830;color:#dfe9f2;border:3px solid #dfe9f2;border-radius:0;box-shadow:0 0 0 3px #05070f,7px 7px 0 3px #05070f;font-family:'Jersey 10','Courier Prime',monospace;max-width:470px;gap:7px}
+.gra__stage--wok .gra__card small{font:400 19px/1.1 'Jersey 10',monospace;letter-spacing:.04em;color:#F5C542}
+.gra__stage--wok .gra__card h3{font:400 clamp(38px,4.2vw,54px)/1 'Jersey 10',monospace;text-transform:none;color:#EFE6D2}
+.gra__stage--wok .gra__card p{font:400 21px/1.12 'Jersey 10',monospace;letter-spacing:.02em;color:#c9d6e6}
+.gra__stage--wok .gra__card b{color:#fff}
+.gra__stage--wok .btn-pill{border-radius:0;font-family:'Jersey 10',monospace;font-weight:700;letter-spacing:.02em;border:3px solid #05070f;box-shadow:4px 4px 0 #05070f}
+.gra__stage--wok .btn-ink{background:#26324c;color:#dfe9f2}
+.wok__logo{font:400 clamp(52px,6vw,76px)/.95 'Jersey 10',monospace!important;color:#D9FF3D!important;text-shadow:3px 3px 0 #05070f,0 0 18px rgba(217,255,61,.35)}
+.wok__logo i{font-style:normal;color:#FF5FD2}
+.wok__songs{display:flex;flex-direction:column;gap:4px;width:100%;margin-top:2px}
+.wok__song{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:14px minmax(0,1fr) auto;align-items:center;gap:10px;background:#16223b;border:2px solid #3b4d6f;padding:5px 10px;text-align:left;color:#dfe9f2}
+.wok__song b{font:400 24px/1 'Jersey 10',monospace;color:#EFE6D2}
+.wok__song em{font:400 17px/1 'Jersey 10',monospace;letter-spacing:.03em;font-style:normal;color:#a9bfd6;text-align:right}
+.wok__song i{width:10px;height:10px;background:#3b4d6f;display:block}
+.wok__song:hover{border-color:#a9bfd6}
+.wok__song[aria-checked="true"]{background:#26324c;border-color:#D9FF3D}
+.wok__song[aria-checked="true"] i{background:#D9FF3D;box-shadow:0 0 8px #D9FF3D}
+.wok__song:focus-visible,.wok__lv button:focus-visible{outline:2px solid #FF5FD2;outline-offset:2px}
+.wok__lv{display:flex;width:100%;border:2px solid #3b4d6f;background:#16223b}
+.wok__lv button{all:unset;box-sizing:border-box;cursor:pointer;flex:1;text-align:center;padding:6px 4px 5px;font:400 22px/1 'Jersey 10',monospace;color:#dfe9f2;border-left:2px solid #3b4d6f}
+.wok__lv button:first-child{border-left:0}
+.wok__lv button small{display:block;font:400 15px/1.1 'Jersey 10',monospace!important;letter-spacing:.04em;color:#a9bfd6!important;margin-top:2px}
+.wok__lv button[aria-checked="true"]{background:#F5C542;color:#05070f}
+.wok__lv button[aria-checked="true"] small{color:#05070f!important}
+.wok__set{width:100%;font-size:12px;text-align:left}
+.wok__set summary{cursor:pointer;font:400 18px/1.2 'Jersey 10',monospace;text-align:center;color:#a9bfd6}
+.wok__set p{font-size:18px!important;margin:6px 0}
+.wok__vol{display:flex;align-items:center;gap:10px;width:100%;font:400 19px/1 'Jersey 10',monospace;color:#a9bfd6}
+.wok__vol input{flex:1;accent-color:#D9FF3D;height:22px;cursor:pointer}
+.wok__vol output{min-width:44px;text-align:right;color:#dfe9f2}
+.wok__off{display:flex;align-items:center;justify-content:center;gap:10px}
+.wok__off button{all:unset;cursor:pointer;width:30px;height:30px;border:2px solid #dfe9f2;background:#26324c;color:#dfe9f2;text-align:center;font:400 26px/28px 'Jersey 10',monospace}
+.wok__off output{font:400 26px/1 'Jersey 10',monospace;min-width:90px;text-align:center}
+.wok__grade{display:flex;align-items:center;gap:14px;width:100%;justify-content:center}
+.wok__grade b{font:400 64px/1 'Jersey 10',monospace;width:78px;height:78px;display:grid;place-items:center;border:3px solid #dfe9f2;background:#E5301F;color:#fff!important;box-shadow:4px 4px 0 #05070f;transform:rotate(-6deg)}
+.wok__grade span{display:flex;flex-direction:column;align-items:flex-start;text-align:left}
+.wok__grade em{font:400 clamp(30px,3.4vw,40px)/1 'Jersey 10',monospace;font-style:normal;color:#D9FF3D}
+.wok__grade i{font:400 18px/1.1 'Jersey 10',monospace;font-style:normal;color:#a9bfd6;margin-top:3px}
+.wok__verdict{font-size:21px!important;color:#EFE6D2!important}
+.wok__proto .gra__res div{background:#16223b;border:2px solid #3b4d6f;border-radius:0;color:#dfe9f2}
+.wok__proto .gra__res div:first-child{background:#D9FF3D;color:#05070f}
+.wok__proto .gra__res b{font-family:'Jersey 10',monospace;font-weight:400;font-size:34px;color:inherit!important}
+.wok__proto .gra__res span{font-family:'Jersey 10',monospace}
+.wok__stats{list-style:none;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:2px 16px;font:400 19px/1.15 'Jersey 10',monospace;text-align:left;border-top:2px dashed #3b4d6f;border-bottom:2px dashed #3b4d6f;padding:6px 2px}
+.wok__stats li{display:flex;justify-content:space-between;gap:8px}
+.wok__stats li span{color:#a9bfd6}
+.wok__proto .gra__save label{color:#a9bfd6;font:400 18px/1.1 'Jersey 10',monospace;letter-spacing:.03em}
+.wok__proto .gra__ini i{border-radius:0}
+.wok__again{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.wok__toki a{color:inherit}
+.gra__stage--wok .gra__card .btn-pill{font-size:22px;padding:9px 20px 8px;font-family:'Jersey 10',monospace;letter-spacing:.03em}
+.wok__proto .gra__res span{font:400 15px/1 'Jersey 10',monospace;letter-spacing:.05em}
+.wok__card{padding:14px 22px 14px!important;gap:6px!important}
+.wok__card .wok__song{padding:3px 10px}
+.wok__logo{font-size:clamp(44px,4.6vw,58px)!important}
+.wok__card .gra__note:empty{display:none}
+@media (min-width:1181px){ .store{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media (max-width:760px){
+  .gra__stage--wok{aspect-ratio:auto;height:min(150vw,600px)}
+  .wok__song{padding:4px 8px;gap:8px}
+  .wok__song b{font-size:16px}
+  .wok__grade b{font-size:42px;width:60px;height:60px}
+  .wok__stats{grid-template-columns:1fr}
+  .gra__stage--wok .gra__card p{font-size:19px}
+}
 @media (max-width:1180px){
   .store{grid-template-columns:1fr;max-width:640px}
 }
@@ -1498,8 +1591,17 @@ html:not(.sz-page) #sz-count{display:none}
     </div>
 
     <div class="store" role="tablist" aria-label="Biblioteka gier">
-      <button class="cart" type="button" role="tab" aria-selected="false" aria-controls="game-wodzitsu" data-game="wodzitsu">
+      <button class="cart" type="button" role="tab" aria-selected="false" aria-controls="game-wodoki" data-game="wodoki">
         <span class="cart__new">Nowość!</span>
+        <canvas class="cart__art" data-art="wodoki" aria-hidden="true"></canvas>
+        <span class="cart__body">
+          <span class="cart__meta">Gra nr 4<i> · rytmiczna · klawisze / dotyk</i></span>
+          <span class="cart__t" style="text-transform:none">WÓD.Ok.I</span>
+          <span class="cart__d">Pięć hitów T.Ok.I. Kieliszki jadą w rytm muzyki, Ty pijesz w punkt, a butelkę trzymasz do dna.</span>
+          <span class="cart__foot"><span class="cart__price"><s>69,99 zł</s> 0,00 zł</span><span>★★★★★ komisji</span><span class="cart__cta">Graj →</span></span>
+        </span>
+      </button>
+      <button class="cart" type="button" role="tab" aria-selected="false" aria-controls="game-wodzitsu" data-game="wodzitsu">
         <canvas class="cart__art" data-art="wodzitsu" aria-hidden="true"></canvas>
         <span class="cart__body">
           <span class="cart__meta">Gra nr 3<i> · bijatyka · klawiatura / dotyk</i></span>
@@ -1526,6 +1628,84 @@ html:not(.sz-page) #sz-count{display:none}
           <span class="cart__foot"><span class="cart__price"><s>39,99 zł</s> 0,00 zł</span><span>★★★★★ komisji</span><span class="cart__cta">Graj →</span></span>
         </span>
       </button>
+    </div>
+
+    <!-- GRA 4: WÓD.Ok.I -->
+    <div class="gra__game" id="game-wodoki" role="tabpanel" data-game="wodoki" hidden>
+      <div class="gra__grid">
+        <div class="gra__stage gra__stage--wok" id="wok-stage" tabindex="0" aria-label="Gra WÓD.Ok.I. Kieliszki spadają w rytm piosenek T.Ok.I. Klawisze A S K L albo strzałki, na telefonie stukanie w tory. Przy butelce przytrzymaj.">
+          <canvas id="wok-cv" aria-hidden="true"></canvas>
+          <div class="wok__tv" id="wok-tv" aria-hidden="true"><div id="wok-yt"></div></div>
+          <canvas class="wok__hud" id="wok-hud" aria-hidden="true"></canvas>
+          <button class="wok__fs" id="wok-fs" type="button" aria-label="Pełny ekran" title="Pełny ekran">⛶<span> PEŁNY EKRAN</span></button>
+          <div class="gra__ov wok__ov" id="wok-start">
+            <div class="gra__card wok__card">
+              <small>Wódystopad · gra nr 4 · hity T.Ok.I</small>
+              <h3 class="wok__logo">WÓD<i>.</i>Ok<i>.</i>I</h3>
+              <p>Trafiasz kieliszek w podstawkę — <b>wypijasz</b>. <b>Butelkę</b> trzymasz do dna. Seria ściąga ekipę na parkiet.</p>
+              <button class="wok__fsbig" id="wok-fsbig" type="button"><b>⛶ Włącz pełny ekran</b><span>Na telefonie gra się DUŻO lepiej — większe tory, nic nie ucieka spod palca</span></button>
+              <div class="wok__songs" id="wok-songs" role="radiogroup" aria-label="Wybór piosenki"></div>
+              <div class="wok__lv" id="wok-lv" role="radiogroup" aria-label="Poziom trudności"></div>
+              <button class="btn-pill btn-lime" id="wok-go" type="button">Na parkiet →</button>
+              <label class="wok__vol">Głośność <input type="range" min="0" max="100" step="5" data-vol aria-label="Głośność muzyki"><output data-volout>80%</output></label>
+              <details class="wok__set"><summary>Muzyka nie zgrywa się z kieliszkami?</summary>
+                <p>Słyszysz bit <b>po</b> tym, jak kieliszek dojedzie do podstawki — dodaj. Słyszysz go <b>wcześniej</b> — odejmij. Słuchawki Bluetooth zwykle potrzebują +150 ms.</p>
+                <div class="wok__off"><button type="button" data-d="-10" aria-label="Mniej o 10 ms">−</button><output id="wok-off">0 ms</output><button type="button" data-d="10" aria-label="Więcej o 10 ms">+</button></div>
+              </details>
+              <p class="gra__note" id="wok-mybest"></p>
+            </div>
+          </div>
+          <div class="gra__ov" id="wok-load" hidden>
+            <div class="gra__card gra__card--sm">
+              <small id="wok-load-s">Wódzirej wkłada kasetę</small>
+              <h3 id="wok-load-h">Chwileczkę…</h3>
+              <p id="wok-load-p">Teledysk się wczytuje. Daj głośniej, bez dźwięku nie da się pić w rytm.</p>
+              <button class="btn-pill btn-lime" id="wok-kick" type="button" hidden>▶ Puść muzykę</button>
+              <button class="btn-pill btn-ink" id="wok-back" type="button">← Wybór piosenki</button>
+            </div>
+          </div>
+          <div class="gra__ov" id="wok-pause" hidden>
+            <div class="gra__card gra__card--sm">
+              <h3>Pauza</h3>
+              <p>Kapela czeka, kieliszki też.</p>
+              <label class="wok__vol">Głośność <input type="range" min="0" max="100" step="5" data-vol aria-label="Głośność muzyki"><output data-volout>80%</output></label>
+              <button class="btn-pill btn-lime" id="wok-resume" type="button">Wracam na parkiet →</button>
+              <button class="btn-pill btn-ink" id="wok-quit" type="button">Zejdź z parkietu</button>
+            </div>
+          </div>
+          <div class="gra__ov wok__ov" id="wok-over" hidden>
+            <div class="gra__card wok__proto">
+              <small id="wok-pno">Protokół z parkietu</small>
+              <div class="wok__grade"><b id="wok-grade">A</b><span><em id="wok-title">Mistrz Kielonka</em><i id="wok-song">T.Ok.I — Disco · Setka</i></span></div>
+              <p class="wok__verdict" id="wok-verdict">—</p>
+              <div class="gra__res">
+                <div><b id="wok-pts">0</b><span>punktów</span></div>
+                <div><b id="wok-kiel">0</b><span>kieliszków</span></div>
+                <div><b id="wok-acc">0%</b><span>celność</span></div>
+              </div>
+              <ul class="wok__stats" id="wok-stats"></ul>
+              <form class="gra__save" id="wok-save" autocomplete="off">
+                <label for="wok-ini">Inicjały do rejestru — 3 litery</label>
+                <div class="gra__row">
+                  <div class="gra__ini"><input id="wok-ini" inputmode="text" autocapitalize="characters" spellcheck="false" enterkeyhint="done" aria-label="Trzy litery"><i></i><i></i><i></i></div>
+                  <button class="btn-pill btn-ink" type="submit">Zapisz →</button>
+                </div>
+              </form>
+              <p class="gra__saved" id="wok-saved" aria-live="polite"></p>
+              <div class="wok__again"><button class="btn-pill btn-pink" id="wok-again" type="button">Jeszcze raz ↻</button><button class="btn-pill btn-ink" id="wok-other" type="button">Inna piosenka</button></div>
+            </div>
+          </div>
+        </div>
+        <aside class="gra__board" aria-labelledby="wok-board-h">
+          <small class="gra__boardgame">WÓD.Ok.I</small>
+          <h3 id="wok-board-h">Rejestr rekordów</h3>
+          <p class="live" id="wok-live"></p>
+          <ol class="gra__top" id="wok-top"></ol>
+          <p class="gra__note" id="wok-board-note"></p>
+          <p class="gra__note wok__toki">Muzyka: <a href="https://tokimuzyka.com" target="_blank" rel="noopener">T.Ok.I</a>. Rozdział 2 płyty „30 PRZED 30” wychodzi 23.11.</p>
+        </aside>
+      </div>
+      <p class="gra__keys"><b>A S K L</b> albo <b>← ↓ ↑ →</b> — wypij kieliszek na swoim torze · przy butelce <b>przytrzymaj</b> do dna · <b>na telefonie włącz pełny ekran ⛶</b> i stukaj w tory · <b>P</b> pauza · <b>−</b> / <b>+</b> głośność (suwak też w menu i w pauzie)</p>
     </div>
 
     <!-- GRA 3: WÓDŻITSU -->
@@ -2240,7 +2420,7 @@ carouselDots($('#kary-track'), $('#kary-dots'), 'przesuń →');
       $('ul', c).innerHTML = [['Status', p.confirmed ? 'potwierdzony' : 'na ławce'], ['Na stronie', s.in ? 'zameldowany(-a) ✓' : 'jeszcze nie'], ['Przysięga', vow ? (fem ? 'ślubowała ✓' : 'ślubował ✓') : 'oczekuje'],
         ['Głos na', s.vote || '—'], ['Zgłosił(a)', s.props && s.props.length ? s.props.join(', ') : '—'],
         ['Piosenki', s.songs ? s.songs + (s.last ? ' · „' + cut(s.last, 18) + '”' : '') : '0'],
-        ['Wódżitsu', fmtG(g.wodzitsu)], ['Polanie', fmtG(g.polanie)], ['Podwódne', fmtG(g.karafka)], ['Kary odbyte', '0 (na razie)']]
+        ['WÓD.Ok.I', fmtG(g.wodoki)], ['Wódżitsu', fmtG(g.wodzitsu)], ['Polanie', fmtG(g.polanie)], ['Podwódne', fmtG(g.karafka)], ['Kary odbyte', '0 (na razie)']]
         .map(([k, v]) => `<li><span>${k}</span><b title="${String(v).replace(/"/g,'&quot;')}">${String(v).replace(/&/g,'&amp;').replace(/</g,'&lt;')}</b></li>`).join('');
       let nm = $('.idc__notme', c); if (p.name === me && !nm) { $('.idc__b ul', c).insertAdjacentHTML('afterend', '<button type="button" class="idc__notme">To nie ja — zmień</button>'); nm = $('.idc__notme', c);
         nm.onclick = e => { e.stopPropagation(); WHO.open(); }; } if (p.name !== me && nm) nm.remove(); });
@@ -3245,6 +3425,7 @@ const GFX = {}; // rysunki współdzielone przez gry i okładki w Game Store
     spec: (SPEC[p.name] || { k:'orb', d:'Kula wódy prosto w przeciwnika.' }), fem: !!FEM[p.name], col: SHIRT[i % SHIRT.length],
     toast: stat(p, 'TOASTY'), wyt: stat(p, 'WYTRZYMAŁOŚĆ'), spiew: stat(p, 'ŚPIEW'), img: null }));
   PEOPLE.forEach(P => { if (!P.photo) return; const im = new Image(); im.decoding = 'async'; im.onload = () => { P.img = im; art(); }; im.src = P.photo; });
+  GFX.wdz = { PEOPLE, headOf: P => headOf(P) }; // głowy Wódowiczów także dla WÓD.Ok.I
 
   /* ---------- świat i kamera ---------- */
   let W = 640, S = 1, dpr = 1, vis = false, cam = 0;
@@ -3717,6 +3898,512 @@ const GFX = {}; // rysunki współdzielone przez gry i okładki w Game Store
     inp, setHp(who, v) { (who === 'me' ? me : foe).hp = v; }, meter(v) { me.meter = v; }, special: () => special(me) };
 })();
 /* =========================================================
+   GRA 4: WÓD.Ok.I — gra rytmiczna do hitów T.Ok.I (pixel art, nocne PRL-owskie osiedle).
+   Kieliszki jadą drogą w rytm muzyki (YouTube w pikselowym Rubinie); trafienie = wypity kieliszek, butelka = przytrzymaj do dna.
+   Rytm (BPM, siatka, nuty) wyciągnięty z nagrań: tools/ nie ma kopii — dane w SONGS.
+   rekordy we wspólnej bazie (typ 'score-g', g:'wodoki', f = wypite kieliszki, x = piosenka*3 + poziom)
+   ========================================================= */
+(() => {
+  const stage = $('#wok-stage'), cv = $('#wok-cv'), g = cv.getContext('2d'), tvBox = $('#wok-tv'), hc = $('#wok-hud'), h = hc.getContext('2d');
+  const SONGS = [
+    { id:"oNMqzXVd93U", t:"Disco", bpm:110, b0:0.078, bar:3, dur:187.38,
+      e:"~1A0434140404140434083404241424140438bJS18dDK043404241404340414040424140CcJS041404041428bHKcEG0AdCI24081404043404342434143414243404041404241404140404380414243414041434043404342404140434243414040434140438340434041404041404041424343428140408140404380404340404383404342404140418bHKcEHdLN18080414340424140414040414041424043414241404142404142C041404140414082434141404140414241424341404140424140404140408c9G14042814041404140414043424340414041404241424041808c9G1404083408043",
+      m:"~1408c58322404140424060212020424122234240212021224aJM14d5AbEId5832242414042404120214020214021202140214dJM32221204c7C0428bHKcEG0AdCG122400341032221222120204322214021214221202121404120212223222142412223222140212043402120602021202021424140212043232223224342422322432221202142432322402020434140434143402021202020212020404140404021224323224362214021204120212020404322214040212021204040834021222120202041202041404bHKcEHdLN15230034140212021224342414041202120204140212021224043232223222322412221424041202120406c7C1402120212021624241404120212021404120212223404122212221222142414021204140202021224a9C140412223812221404140202120214043424340412021222120214223224340412040218d9C0414021202160212040402323",
+      h:"Y021U0216d583222322212021202122222120212021202021212221222322212020212021224aJM14d5AbEId5832223222221222122222120212020212020202122212021222322234bJM32221204c7A020212221204bHKcEG0416dCG122400340022120212020202120212021202121202120212222212021222122232221202122232223222221222122212221222120213030202120202122232221222122212223232223232223222223222322212221202021202122232322222120202120212021202122232223222322212221202021202020232221222120202021222323232021222322212221222122212221202120202023222120212221202021200221202120212021202122232222222120202021202020212221204bHKcEHdLN1523003412221222122222322222223222120202120212020202122212021202120202021222122232322212021202122232223222122212020214d7A021402120212021202122222223222121202120212021222122232221222322232322232223222322232222212221222122212021202020214d9C02120212021222120212002212021202120202120212021202122212021222322232221202122212021222323222322232223222122212021224a9C12021032221222122212021222122212221202103202020213020502150",
+      en:"01125544444444454444323355555555544444445444444422345545555655555556555555564421000000" },
+    { id:"Ttq3n-gBkQc", t:"Deszcz", bpm:105, b0:0.318, bar:1, dur:194.1,
+      e:"G340636242434143408041418dFM143638b9G18061614043636340614040416041424143408241414042Aa8G142414040614081438b7OdBI24140AcAK18dBI3416063404061824140426063414340424341434282414243414340414140434040434241636262614043414243426061634062416361824142604061434243414261604241404041606162416043626163AbEO24041408cIS140428aBKcIS14041424140424140414081404142414041424041404140414042414041404140414042834340414083404142636140428140434140414041404240404140424340434080424360624d5824241814061636263",
+      m:"E323222120432221212222222322212222232221434b58221204cGK04c7A34bAE221204120214d7A02122212222214d5Ab6Ad58021202122234b7E120214d5832223224a8Cc6A3224a6Ac5Aa5814d8C02162414dCG223224140204cBE140212c46aCIc9C12021222322212221222162212121202122232221224a6A1202021424221222223224322212121222122422122222322214221202021404c583414d6Ab58021214d6A22322212221222122212221222322212121202120212122212021632221202122214d7A243222120212021224a7A12021222120212120214d7A221422322412021224a6A2432322234bFK0212221202120022322214dIMbDG223224aCG14dIMb580212021202122212021222322212021202120212043222120212021222322212041202140212041422322212021202122232221402120214021202122212021222d4622122212021214021412221204c6A2212021222120212043224021214dBE0214021224a7A322212221222120212240214221424323222122434b6A1222120812221224063224c463",
+      h:"E3232221032143303121222222313322232221434b58221204cGK04c7A34bAD131204120214d7A02122212222214d5Ab6Ad58021202122234b7E120214d5832223224a8Cc693324a6Ac5Aa5814d8B23162414dCG2414041204cBE140212c46aCIc9C1302122332230312a462212122212223222322234b6A120202142303021222332332221212122212242313223325120332223304c583414d6Ab58021214d6A22322212221222122212221222322212121202120212122212021333322213032214d7A233302120212021224a7A12021222120212120214d7A231322322412021224a6A2432322234bFK0212221202120022322214dIMbDG223224aCG14dIMb5802120212021222120333221202120212021202140212021222130213021204120313021204142333120212021222322214021305120212223222120212233322122212021323120412221204c6A2212021222120212043224021214dBE0214021224a7A322212221222120212240214221424323222132334b6A121203a5712221225352214c463",
+      en:"2222434444544444444432323234565666554454445445544454366656666666666666666666555555300" },
+    { id:"otR0k6z-K_E", t:"Kapela", bpm:144, b0:0.266, bar:2, dur:156.16,
+      e:"S2Gd7S1u040414040434040438b9G342404142424041424343404242404243424040414040434040434240404340404243404241404042424142434243404342804140418d8G041Cd7G0418041804341404341404140404140438b8G1808c8G0818083C143C1C04041804041804280G1424340834342434140408c8G043408c7G08c7G242414140C0438340434042C081408c8Wa7e1G0O1808c8Wa7K1G0414a581G041K0G1W0K180W18041408c8K1Cd7K08140814a580CcO",
+      m:"S2A1432c7Oa7Y343G320212020202120202021202020212020202122214dBE02122232223222223224a6A3222223222122232221222322212021222122212020202120202023222120202021202020232221222120202021222322212020212021222120212221202020232222222322212021222323222323222120212223222140414041404c9C1404142414d9C0414041404142414042414322214d8C0414043414d9C0414241424a9C140818041434281438b8E0202120202a4604c6Aa7A060214d6A2212221222120612222232223232221204040214d9C043222120212020204c8C322216d8Cb8Ed6A223224120422143232322422122234b7A0414041404c9Wa9C180K14081408c7G180414d9C0Kc9Cb5808180414a68142C140G140414081W081C081C0Ec6A1404140414d9C081Cd9C0818041804b680CcP",
+      h:"K3224a6A02120212c4612021212243224a7E32323224a6A242212242222320022223232221202020212020202120202023222122214dBE02122232223222223224a6A3234b6A0202122232221222322232221202020212020202322212020202120202023222322212020202122212020202120212221202122212020202322222223222120212223232223232221202122232221202021202120212021204c9C120212021202122214d9C0212021202120212021204140212021222120212221204c8C021202120202120214d9C0212021222120424a9C1402120212021202120414342232223222323414d8C02020212020202120204c6Aa7A0212221224a6A322222122212021222122222322232322212020202120204c9C02323222120212020204c8C32221204c8Ca8Ec6A22322212221222221222323232221222122234b7A041402120414d9C0412021202120214d9C0202140412221402120414021202120212221204c7A1224122214021204c9C1402120212021204c9C1404120214041402120414021202122412021202140212041404140414021204140212041404140414041404021202120414041202140212041204c6A14041222120214d9C04120212021404c9C14041402120414041402122402120414dP",
+      en:"3333333577766677666666667666677677644444444444444444445444444444444444444444444444444444000000" },
+    { id:"UzYJibK8FKc", t:"Wspólny kurs", bpm:125, b0:0.366, bar:3, dur:194.54,
+      e:"G0C140C0C24343634261C04060M3W041C0K3834041C0A1614243408083428383814282W1O04341C0G0K1C041414041434143434182424043C08142414041406160414041404140418dMW08c8G2414042804140434142414041404182414041408c9G243414041804243636040414040428083I24360G0426343634280404340404d7C0A360C142404041C043404342804060M08180G0C0G34040438043C3G040A360C0436043406341404140814041404140434140418041404180414041404142414043414041404140414061624341404140414041404b6Cd9G0428aLW04143804061426240824043S3C2416062",
+      m:"G06261406060A12143432243432222212041602120604341816160832362A040218322212b46162436021402120A221A1412042422221404c5832322832243224a58360212241G02122432222G041204341A12061A021Gd58060414122214021222120212222232322214122412120212021436b581204c5812021202120214d582216d7A04122214dMQb580214d9C04221202120426120214d58021222342214d7A0212021224120212221202120214dAE02122232221202120216021422322212223432223222322212040416221222122226280212043606340432241204243222122222322604c580402322214d8G343224360216d6A020A04c6C32343224a4602a5A082218d580A060A02322E1404c7Ea58363A060402140432223222340602021422143402140212a46c58241202120214d582216d7A02142214d7A221402120214d5A06c7A34122214041402120214d58021222340214d7A02120212021204cAGaAE322232223226aMS322232221222160406142432240214222402122216362E3224142212021214062",
+      h:"G042223230212040206041612143232322232343222221204160212021212043222120606121222122214322232221212021404020414322212b4615153232322232221222120212222222131312221202120212223222120315d5802121302132212021224a58322232222232221503233223021222323222231322120212120202120212021203231222120612223234021225120324a5803030212021212221402122212021222323232221412221213033222343224a581204c5812021202120214d58221204c7A1202122214dMQb580214d9C02122212021202122313020214d5802122232221204c7A122212223222120212221202120214dAE0212223222120213221203120212223222122234322232223222120312031202121202120212232323332212221222331304120212043224120424322212222232230304c58023222120204c8D033222322232221202021204c69030233030204c6A32223222322212020202120303120203031222122214d58021332230212020213221302020212230303021304c7A14d580302122332223222120202120212030332223222332212030203330204322232241202b46d5822120212021204c58221204c7A1202122214d7A22122212221204c58120214d7A02120212021204120212021204c5812021222322214d7A02120212021204cAGaAE32223222322214dMQ32322232230212020304323222340212221402122222221202122213021433222236243224142212021212020313122",
+      en:"11122211221122222211121122222226666666556656665433223332223223222232333333266666666566666655332222100" },
+    { id:"BHK5btW70fU", t:"Staruszek", bpm:103, b0:0.304, bar:0, dur:184.0,
+      e:"G2814240K34243K180G3808142438283824140C2436281I08142A16341G04341424142434241424142434243424043414040414042414041404142434240438041424143404143414242414240418dIS3424042428041434241424243404283414042434083414142436062824142414041424142414040424140414241404142434041404342434240434140414042434081424143424340G18063A040414241806163428241408342414241424041424340404243ybIe0434140414243404142414041404142434241428a9G3414041404340K1404280G38bH",
+      m:"G22142222122212061C22342432283A00262216081A0026021202142632c58122422122212221G0026122618d5A002612021222382634122E10322212221212241222322234241422120212241222120212021402021202122214021222221202120214021202120212021222322232240C1400221222322432221202143424322222322232221204122214dIO02122434042212221608342410321222323402120202182410340212221222120834141032042234221224a6C142212043232221402120214223222322434140212021224122212223222340412021222140212041212223224140212041402122212240C2410322234280G1038a463A0404103802160616340026122412020204323422322232241212240412222212240212042222322waIe00243412021406c7A14241222140212061224342214d6AbAG22322212021204323222122K00221424341I103206cI",
+      h:"E223223223322322210320412223610322232221202120202021222181032223222122232221204120216002212120212021222322232322232222212242212221222120212222212222210322412221222120214d58020022141212223224021203132412243413330022322232221222120212223222122232223222120212223222322212221222120202120212221202021222221202120212021202122212021202122222322232223222331322320022122232221222120202122234223232222232223222120212223224aIM02122232223412021222322303020212223232241032122232322232221202132233041032221202121222120202120214021210320212223222322234b692310322232221202122210320212021202120210322212221222322210320212221222323222322232223222322212221202120212103202120212122232221202120212021202120212221222322216221212120022322232221222221204333223120022133322120212020212223222122210322333221222221202121323340022341223130202021222322222322232223222122232221222222212222212020212222232221632c4612121222342223322312021202020218dIe002212021202120212002214d7A0212223222322212021202122232221222322214d6AbAE0212221202122212221222120212021G1032020212122232221G002216dI",
+      en:"3424231324242422444444443434343424342433444444442424242434442211004444444413131" }
+  ];
+  const LV = [
+    { n:'Kieliszek', s:'łatwy',   k:'e', lead:2.0,  perf:.075, good:.14,  drain:4, fail:false },
+    { n:'Setka',     s:'średni',  k:'m', lead:1.65, perf:.06,  good:.12,  drain:6, fail:true },
+    { n:'Pół litra', s:'trudny',  k:'h', lead:1.35, perf:.05,  good:.105, drain:7, fail:true },
+  ];
+  const C = { ink:'#05070f', sky0:'#060a17', sky1:'#0b1428', sky2:'#11203a', sky3:'#1a2f4c', fog:'#22395a', snow:'#dfe9f2', snow2:'#a9bfd6', snowD:'#6f87a3',
+    blok:'#0c1324', blok2:'#101a30', blokE:'#18253f', win:'#f2a654', win2:'#ffcf7a', win3:'#c96f2e', winC:'#6fa3c7', winOff:'#141e33',
+    road:'#151d2e', road2:'#1b2538', roadL:'#2a3a56', lamp:'#ffd38a', lampD:'#c98b3a', pole:'#0a0f1c',
+    lime:'#D9FF3D', pink:'#FF5FD2', aqua:'#8FE8FF', gold:'#F5C542', red:'#E5301F', paper:'#EFE6D2', glass:'#cfe6f7', glassD:'#7fa6c6', vod:'#f5fbff', wood:'#5a3b22', woodL:'#7d5533', woodD:'#3a2414' };
+  const LANEC = [C.lime, C.pink, C.aqua, C.gold];
+  const KEYS = { a:0, s:1, k:2, l:3, arrowleft:0, arrowdown:1, arrowup:2, arrowright:3 };
+  const FONT = 'Tiny5, "Courier Prime", monospace', FONTB = '"Jersey 10", Tiny5, monospace';
+  const B62 = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v)), pick = a => a[Math.floor(Math.random() * a.length)], R = Math.round;
+  const fake = /wokfake/.test(location.search) || !!window.WOK_FAKE; // bez YouTube: zegar wewnętrzny + metronom (podgląd, testy)
+
+  /* ---------- stan ---------- */
+  let W = 300, H = 169, PX = 3, vis = false, st = 'ready', L = {}, HS = 3, DPR = 1, FS = 1;
+  let vol = clamp(store.get('wok-vol', 80), 0, 100), si = clamp(store.get('wok-song', 0), 0, SONGS.length - 1), lv = clamp(store.get('wok-lv', 1), 0, 2), lat = clamp(store.get('wok-off', 0), -200, 400);
+  let song = SONGS[si], notes = [], P = .5, P16 = .125, startAt = 0, endAt = 0;
+  let pts = 0, combo = 0, maxCombo = 0, mult = 1, kiel = 0, perfN = 0, goodN = 0, missN = 0, holdsOk = 0, holdsAll = 0, prom = 0, cond = 70, why = '', dead = false;
+  const held = [null, null, null, null], press = [0, 0, 0, 0], ptrLane = new Map();
+  let fx = [], texts = [], flakes = [], drops = [], crowd = [], joinMsg = null;
+
+  function decode(s) { const out = []; let i = 0, p = 0;
+    while (p < s.length) { let d; if (s[p] === '~') { d = B62.indexOf(s[p + 1]) * 62 + B62.indexOf(s[p + 2]); p += 3; } else { d = B62.indexOf(s[p]); p++; }
+      i += d; const ch = s[p++]; let lane, len = 0; if (ch >= 'a' && ch <= 'd') { lane = ch.charCodeAt(0) - 97; len = B62.indexOf(s[p++]); } else lane = +ch;
+      out.push({ t: song.b0 + i * P16, lane, len: len * P16, st: 0, tick: 0, out: 0 }); }
+    return out; }
+
+  /* ---------- zegar: czas utworu z odtwarzacza YouTube, wygładzony ---------- */
+  let loadFrom = 0, player = null, ytState = -1, ytT = -1, ytAt = 0, clk = 0, clkOn = false, apiP = null, ytErr = 0, loadT = 0;
+  function api() { if (apiP) return apiP; apiP = new Promise(res => { if (window.YT && YT.Player) return res();
+    const prev = window.onYouTubeIframeAPIReady; window.onYouTubeIframeAPIReady = () => { if (prev) prev(); res(); };
+    const s = document.createElement('script'); s.src = 'https://www.youtube.com/iframe_api'; s.async = true; document.head.appendChild(s); }); return apiP; }
+  function ensurePlayer() { if (fake) return Promise.resolve(); return api().then(() => player ? player : new Promise(res => {
+    player = new YT.Player('wok-yt', { width: '100%', height: '100%', videoId: song.id,
+      playerVars: { playsinline: 1, controls: 0, disablekb: 1, rel: 0, fs: 0, iv_load_policy: 3, modestbranding: 1, origin: location.origin },
+      events: { onReady: () => res(player), onStateChange: e => { ytState = e.data; if (e.data === 1) tvBox.classList.add('on'); if (e.data === 0 && st === 'run') finish(); },
+        onError: e => { ytErr = e.data; if (st === 'load') loadFail(); } } }); })); }
+  function now(dt) {
+    if (fake) { if (st === 'run') clk += dt; return clk; }
+    if (!player || !player.getCurrentTime) return clk;
+    const p = performance.now() / 1000;
+    if (ytState === 1) { const t = player.getCurrentTime(); if (t !== ytT) { ytT = t; ytAt = p; }
+      const est = ytT + (p - ytAt);
+      if (!clkOn) { clk = est; clkOn = true; } else { clk += dt; const e = est - clk; if (Math.abs(e) > .3) clk = est; else clk += e * .07; } }
+    return clk; }
+  const T = () => clk - lat / 1000; // czas gry = czas utworu minus opóźnienie dźwięku
+  // metronom w trybie bez YouTube: klik na każdy beat, mocniej na „raz”
+  let actx = null, lastBeat = -1;
+  function metro() { if (!fake || !actx || st !== 'run') return; const n1 = Math.floor((clk + .12 - song.b0) / P);
+    for (let n = Math.max(lastBeat + 1, Math.ceil((clk - song.b0) / P)); n <= n1; n++) { const tb = song.b0 + n * P, at = actx.currentTime + Math.max(0, tb - clk), down = ((n % 4) + 4) % 4 === song.bar;
+      const o = actx.createOscillator(), gn = actx.createGain(); o.frequency.value = down ? 1320 : 880; gn.gain.setValueAtTime((down ? .35 : .2) * vol / 100 + .0001, at); gn.gain.exponentialRampToValueAtTime(.001, at + .06);
+      o.connect(gn); gn.connect(actx.destination); o.start(at); o.stop(at + .07); lastBeat = n; } }
+
+  /* ---------- układ i tło ---------- */
+  const bgC = document.createElement('canvas'), bg = bgC.getContext('2d'), vgC = document.createElement('canvas'), vg = vgC.getContext('2d');
+  let wins = [], scene = 0;
+  function resize() { const r = stage.getBoundingClientRect(); if (!r.width || !r.height) return;
+    PX = Math.max(2, R(Math.min(r.width, r.height) / 180)); W = R(r.width / PX); H = R(r.height / PX); cv.width = W; cv.height = H; g.imageSmoothingEnabled = false;
+    DPR = Math.min(2, devicePixelRatio || 1); hc.width = R(r.width * DPR); hc.height = R(r.height * DPR); HS = hc.width / W; FS = r.width < 520 ? .7 : r.width < 800 ? .85 : 1;
+    const mob = W < H * 1.05;
+    L = { mob, cx: W >> 1, vy: R(H * (mob ? .38 : .36)), hitY: H - (mob ? R(H * .19) : 21), half: R(mob ? W * .47 : Math.min(W * .22, 74)), A: 5.2 };
+    const sw = R(W * (mob ? .4 : .25)); L.tv = { x: 5, y: 7, w: sw, h: R(sw * 9 / 16) };
+    tvBox.style.left = (L.tv.x * PX) + 'px'; tvBox.style.top = (L.tv.y * PX) + 'px'; tvBox.style.width = (L.tv.w * PX) + 'px'; tvBox.style.height = (L.tv.h * PX) + 'px';
+    buildBg(); buildVignette(); seedWeather(); }
+  const sOf = z => 1 / (1 + L.A * z);
+  const yOf = z => L.vy + (L.hitY - L.vy) * sOf(z);
+  const laneX = (lane, z) => L.cx + (lane - 1.5) * (L.half / 2) * sOf(z);
+  const zOfY = y => { const s = (y - L.vy) / (L.hitY - L.vy); return (1 / s - 1) / L.A; };
+  // prosty generator liczb z ziarnem — każda piosenka ma swoje osiedle
+  let sd = 1; const sr = () => (sd = (sd * 16807) % 2147483647) / 2147483647;
+  const dith = (c, x0, y0, w, h, col, k) => { c.fillStyle = col; for (let y = y0; y < y0 + h; y++) for (let x = x0 + ((y + (k || 0)) & 1); x < x0 + w; x += 2) c.fillRect(x, y, 1, 1); };
+  function buildBg() { if (!L.vy) return;
+    bgC.width = W; bgC.height = H; const c = bg, vy = L.vy; scene = si; sd = 977 + si * 131;
+    // niebo w pasach z ditheringiem
+    const bands = [C.sky0, C.sky1, C.sky2, C.sky3]; const bh = Math.ceil(vy / bands.length);
+    bands.forEach((col, i) => { c.fillStyle = col; c.fillRect(0, i * bh, W, bh + 1); if (i) dith(c, 0, i * bh, W, 2, bands[i - 1]); });
+    dith(c, 0, vy - 6, W, 6, C.fog);
+    for (let i = 0; i < W * vy / 900; i++) { c.fillStyle = sr() < .3 ? C.snow : C.snowD; c.fillRect(R(sr() * W), R(sr() * vy * .55), 1, 1); } // gwiazdy
+    if (si !== 1) { const mx = R(W * (.72 + sr() * .15)), my = R(vy * .22); c.fillStyle = '#e9e3c8'; c.beginPath(); c.arc(mx, my, 5, 0, 7); c.fill(); c.fillStyle = C.sky1; c.beginPath(); c.arc(mx + 3, my - 1, 4.5, 0, 7); c.fill(); }
+    // bloki na horyzoncie
+    wins = []; let x = -4;
+    while (x < W) { const bw = R(18 + sr() * 30), bhh = R(vy * (.28 + sr() * .42)), top = vy - bhh, far = sr() < .5;
+      c.fillStyle = far ? C.blok2 : C.blok; c.fillRect(x, top, bw, bhh); c.fillStyle = C.blokE; c.fillRect(x, top, bw, 1); c.fillStyle = C.snow2; c.fillRect(x + 1, top - 1, bw - 2, 1);
+      for (let wy = top + 3; wy < vy - 3; wy += 4) for (let wx = x + 2; wx < x + bw - 2; wx += 3) { const on = sr() < .22, col = on ? (sr() < .15 ? C.winC : pick([C.win, C.win2, C.win3])) : C.winOff;
+        c.fillStyle = col; c.fillRect(wx, wy, 2, 2); if (on) wins.push({ x: wx, y: wy, col, ph: sr() * 20 }); }
+      x += bw + R(sr() * 6); }
+    // ziemia: zaśnieżone pobocza
+    for (let y = vy; y < H; y++) { const k = (y - vy) / (H - vy); c.fillStyle = k < .15 ? '#141f36' : k < .45 ? '#1a2842' : '#20314f'; c.fillRect(0, y, W, 1); }
+    dith(c, 0, vy, W, 3, C.fog); for (let i = 0; i < W * (H - vy) / 60; i++) { c.fillStyle = sr() < .5 ? '#3a5378' : '#0f182b'; c.fillRect(R(sr() * W), R(vy + 2 + sr() * (H - vy)), 1, 1); }
+    // drobiazgi osiedla: drzewa, kiosk RUCH, zaparkowany maluch, płot
+    const edgeX = (z, side, off) => R(L.cx + side * (L.half * sOf(z) + off * sOf(z)));
+    const tree = (x, yb, k) => { c.fillStyle = '#0a1120'; c.fillRect(x, yb - R(22 * k), Math.max(1, R(2 * k)), R(22 * k));
+      for (let i = 0; i < 7; i++) { const yy = yb - R((8 + i * 2.2) * k), len = R((7 - i * .7) * k), dir = i % 2 ? 1 : -1; for (let j = 0; j < len; j++) { c.fillRect(x + dir * j, yy - R(j * .6), 1, 1); if (j % 3 === 2) { c.fillStyle = C.snow2; c.fillRect(x + dir * j, yy - R(j * .6) - 1, 1, 1); c.fillStyle = '#0a1120'; } } } };
+    [[.42, -1, 190], [.28, 1, 230], [1.0, -1, 110], [.75, 1, 120], [2.0, -1, 70], [1.6, 1, 80]].forEach(([z, side, off]) => { const x = edgeX(z, side, off); if (x > 2 && x < W - 2) tree(x, R(yOf(z)), sOf(z) * (L.mob ? 2.4 : 3.6)); });
+    if (!L.mob) { const z = .55, k = sOf(z) * 4.4, x = edgeX(z, -1, 100), y = R(yOf(z)); // maluch pod śniegiem
+      c.fillStyle = '#7a2b25'; c.fillRect(x - R(9 * k), y - R(4 * k), R(18 * k), R(4 * k)); c.fillRect(x - R(6 * k), y - R(7 * k), R(11 * k), R(3 * k));
+      c.fillStyle = C.snow; c.fillRect(x - R(6 * k), y - R(8 * k), R(11 * k), Math.max(1, R(1.2 * k))); c.fillRect(x - R(9 * k), y - R(5 * k), R(4 * k), 1);
+      c.fillStyle = '#9fc0de'; c.fillRect(x - R(5 * k), y - R(6.5 * k), R(4 * k), Math.max(1, R(1.5 * k))); c.fillRect(x, y - R(6.5 * k), R(4 * k), Math.max(1, R(1.5 * k)));
+      c.fillStyle = C.ink; c.fillRect(x - R(7 * k), y - 1, R(3 * k), Math.max(1, R(2 * k))); c.fillRect(x + R(4 * k), y - 1, R(3 * k), Math.max(1, R(2 * k))); }
+    if (si !== 4 && !L.mob) { const z = .4, k = sOf(z) * 3.6, x = edgeX(z, 1, 130), y = R(yOf(z)); // kiosk RUCH
+      c.fillStyle = '#1e3a5a'; c.fillRect(x - R(7 * k), y - R(12 * k), R(14 * k), R(12 * k)); c.fillStyle = C.snow; c.fillRect(x - R(8 * k), y - R(13 * k), R(16 * k), Math.max(1, R(1.3 * k)));
+      c.fillStyle = C.win2; c.fillRect(x - R(5 * k), y - R(8 * k), R(10 * k), R(4 * k)); c.fillStyle = C.red; c.fillRect(x - R(7 * k), y - R(12 * k), R(14 * k), Math.max(1, R(2 * k))); }
+    // charakterystyczny element sceny
+    if (si === 0) { // Disco — pawilon z neonem DANCING
+      const px = R(W * .6), py = vy - 1, pw = R(W * .15); c.fillStyle = '#0e1730'; c.fillRect(px - pw / 2, py - 14, pw, 14); c.fillStyle = C.snow2; c.fillRect(px - pw / 2 - 1, py - 15, pw + 2, 1);
+      c.fillStyle = C.win; for (let i = px - pw / 2 + 2; i < px + pw / 2 - 3; i += 5) c.fillRect(i, py - 8, 3, 5); }
+    if (si === 2) { // Kapela — rząd garaży, jeden otwarty
+      const gw = 12, gy = vy - 1; for (let i = 0; i < 5; i++) { const gx = R(W * .54) + i * (gw + 1); c.fillStyle = '#1b2538'; c.fillRect(gx, gy - 9, gw, 9); c.fillStyle = C.snow2; c.fillRect(gx, gy - 10, gw, 1);
+        c.fillStyle = i === 2 ? C.win : '#243149'; c.fillRect(gx + 2, gy - 7, gw - 4, 7); if (i === 2) { c.fillStyle = C.ink; c.fillRect(gx + 4, gy - 5, 2, 5); c.fillRect(gx + 7, gy - 4, 3, 4); } } }
+    if (si === 3) { // Wspólny kurs — nasyp z torami
+      c.fillStyle = '#1d2a42'; c.fillRect(0, vy - 4, W, 4); c.fillStyle = C.snowD; c.fillRect(0, vy - 5, W, 1); c.fillStyle = '#0d1424'; for (let i = 0; i < W; i += 4) c.fillRect(i, vy - 3, 2, 1); }
+    if (si === 4) { // Staruszek — ławka pod latarnią (prawa strona, bliżej)
+      const bx = R(W * .86), by = R(vy + (H - vy) * .32); c.fillStyle = C.woodD; c.fillRect(bx - 9, by - 4, 18, 2); c.fillRect(bx - 9, by - 7, 18, 1); c.fillRect(bx - 8, by - 2, 1, 3); c.fillRect(bx + 7, by - 2, 1, 3);
+      c.fillStyle = C.snow; c.fillRect(bx - 9, by - 5, 18, 1); }
+  }
+  function buildVignette() { vgC.width = W; vgC.height = H; const gr = vg.createRadialGradient(W / 2, H * .55, Math.min(W, H) * .35, W / 2, H * .55, Math.max(W, H) * .78);
+    gr.addColorStop(0, 'rgba(5,7,15,0)'); gr.addColorStop(1, 'rgba(5,7,15,.62)'); vg.fillStyle = gr; vg.fillRect(0, 0, W, H); }
+  function seedWeather() { flakes = []; const n = R(W * H / (si === 1 ? 260 : 340));
+    for (let i = 0; i < n; i++) flakes.push({ x: Math.random() * W, y: Math.random() * H, v: si === 1 ? 140 + Math.random() * 80 : 6 + Math.random() * 14, w: Math.random() * 6, big: Math.random() < .18 }); }
+
+  /* ---------- rysunki pikselowe ---------- */
+  const rect = (x, y, w, h, col) => { g.fillStyle = col; g.fillRect(R(x), R(y), Math.max(1, R(w)), Math.max(1, R(h))); };
+  function glow(x, y, r, col, a) { const gr = g.createRadialGradient(x, y, 0, x, y, r); gr.addColorStop(0, col); gr.addColorStop(1, 'rgba(0,0,0,0)');
+    g.save(); g.globalCompositeOperation = 'lighter'; g.globalAlpha = a; g.fillStyle = gr; g.fillRect(x - r, y - r, r * 2, r * 2); g.restore(); }
+  function shotPx(x, y, k, lvl, col) { // kieliszek: podstawa w (x,y), k = skala
+    const h = Math.max(3, R(13 * k)), wTop = Math.max(3, R(11 * k)), wBot = Math.max(2, R(7 * k)), base = Math.max(1, R(2 * k));
+    const y0 = R(y - h - base);
+    for (let i = 0; i < h; i++) { const w = R(wTop + (wBot - wTop) * i / (h - 1 || 1)), xx = R(x - w / 2), yy = y0 + i, liq = i >= R(h * (1 - lvl * .82));
+      rect(xx, yy, w, 1, liq ? C.vod : C.glassD); if (w > 2) { rect(xx, yy, 1, 1, C.glass); rect(xx + w - 1, yy, 1, 1, '#4f7396'); } }
+    rect(x - wTop / 2, y0, wTop, 1, col || C.glass); rect(x - (wBot + 2) / 2, y - base, wBot + 2, base, C.glass);
+    if (k > .7) rect(x - wTop / 2 + 2, y0 + 2, 1, Math.max(1, R(h * .5)), '#ffffff'); }
+  function bottlePx(x, y, k, lvl, col) { // butelka „Czysta”: podstawa w (x,y)
+    const bw = Math.max(3, R(8 * k)), bh = Math.max(4, R(15 * k)), nw = Math.max(1, R(3 * k)), nh = Math.max(2, R(7 * k)), x0 = R(x - bw / 2), yb = R(y - bh);
+    rect(x0, yb, bw, bh, '#3d5f84'); const fill = R((bh - 1) * lvl); rect(x0 + 1, y - fill, bw - 2, fill, '#bfe0f5');
+    rect(x0, yb + R(bh * .4), bw, Math.max(2, R(4 * k)), '#f4efe2'); rect(x0, yb + R(bh * .4) + Math.max(1, R(1.5 * k)), bw, Math.max(1, R(1.2 * k)), C.red);
+    rect(R(x - nw / 2), yb - nh, nw, nh, C.glassD); rect(R(x - nw / 2), yb - nh - Math.max(1, R(2 * k)), nw, Math.max(1, R(2 * k)), col || C.red);
+    rect(x0, yb, 1, bh, C.glass); }
+  // napisy rysowane na osobnej, ostrej warstwie: pozycja w pikselach gry, rozmiar w px ekranu, ciemny pikselowy obrys
+  const u = css => css * FS / PX;
+  function tx(str, x, y, size, font, col, align, a) { size *= FS; const fs = R(size * DPR), o = Math.max(2, R(size / 9)) * DPR, X = R(x * HS), Y = R(y * HS);
+    h.globalAlpha = a == null ? 1 : a; h.font = `${fs}px ${font}`; h.textAlign = align || 'left'; h.textBaseline = 'alphabetic';
+    h.fillStyle = C.ink; for (const [dx, dy] of [[-o, 0], [o, 0], [0, -o], [0, o], [-o, -o], [o, -o], [-o, o], [o, o], [o, o * 2], [0, o * 2]]) h.fillText(str, X + dx, Y + dy);
+    h.fillStyle = col; h.fillText(str, X, Y); h.globalAlpha = 1; }
+  const headCache = new Map();
+  function headPx(P, n) { const src = GFX.wdz && GFX.wdz.headOf(P); if (!src) return null; const key = P.name + n; let c = headCache.get(key);
+    if (!c) { c = document.createElement('canvas'); c.width = c.height = n; const x = c.getContext('2d'); x.imageSmoothingEnabled = true; x.drawImage(src, 0, 0, n, n);
+      // posteryzacja do palety pikseli
+      const d = x.getImageData(0, 0, n, n); for (let i = 0; i < d.data.length; i += 4) { d.data[i + 3] = d.data[i + 3] > 110 ? 255 : 0; for (let j = 0; j < 3; j++) d.data[i + j] = Math.round(d.data[i + j] / 36) * 36; }
+      x.putImageData(d, 0, 0); headCache.set(key, c); }
+    return c; }
+  function dancer(D, t) { // pikselowa postać z głową ze zdjęcia legitymacji
+    const z = D.z, s = sOf(z), k = s * (L.mob ? 1.15 : 1.35), side = D.side, y = R(yOf(z) + (L.mob ? 2 : 4) * s);
+    const edge = L.half * s + (8 + D.off) * k, x = R(L.cx + side * edge);
+    const bp = beatPh(), hop = D.on > .5 ? R(Math.abs(Math.sin(Math.PI * bp)) * 2 * k * D.on) : 0, a = D.on;
+    if (a <= .02) return; g.globalAlpha = Math.min(1, a);
+    const bw = Math.max(3, R(7 * k)), bh = Math.max(4, R(9 * k)), lg = Math.max(2, R(5 * k)), hd = Math.max(4, R(9 * k));
+    const yy = y - hop;
+    glow(x, y - 1, 10 * k, 'rgba(255,190,110,.9)', .12);
+    rect(x - bw / 2 + 1, yy - lg, Math.max(1, R(2 * k)), lg, '#151a2c'); rect(x + bw / 2 - 1 - Math.max(1, R(2 * k)), yy - lg, Math.max(1, R(2 * k)), lg, '#151a2c');
+    rect(x - bw / 2, yy - lg - bh, bw, bh, D.col); rect(x - bw / 2, yy - lg - bh, 1, bh, 'rgba(255,255,255,.25)');
+    const arm = (D.i + Math.floor((T() - song.b0) / P)) % 2 === 0, aw = Math.max(1, R(1.6 * k)), al = Math.max(2, R(6 * k));
+    if (D.on > .5 && arm) { rect(x - bw / 2 - aw, yy - lg - bh - al + 2, aw, al, D.col); rect(x + bw / 2, yy - lg - bh + 1, aw, al, D.col); }
+    else { rect(x - bw / 2 - aw, yy - lg - bh + 1, aw, al, D.col); rect(x + bw / 2, yy - lg - bh - (D.on > .5 ? al - 2 : 0), aw, al, D.col); }
+    const hc = headPx(D.P, hd); if (hc) g.drawImage(hc, R(x - hd / 2), R(yy - lg - bh - hd + 1)); else rect(x - hd / 2, yy - lg - bh - hd + 1, hd, hd, '#e9b48a');
+    if (D.me && k > .6) tx('TY', x, yy - lg - bh - hd - 2, 20, FONTB, C.lime, 'center', Math.min(1, a));
+    g.globalAlpha = 1; }
+  function tvFrame() { const v = L.tv, x = v.x, y = v.y, w = v.w, h = v.h;
+    rect(x + R(w * .3), y - 6, 1, 6, '#8a93a6'); rect(x + R(w * .3) - 3, y - 7, 1, 1, '#8a93a6'); rect(x + R(w * .3) - 2, y - 6, 1, 1, '#8a93a6'); // antena
+    rect(x + R(w * .3) + 2, y - 6, 1, 1, '#8a93a6'); rect(x + R(w * .3) + 3, y - 7, 1, 1, '#8a93a6'); rect(x + R(w * .3) + 1, y - 5, 1, 1, '#8a93a6');
+    rect(x - 4, y - 3, w + 8, h + 12, C.woodD); rect(x - 3, y - 2, w + 6, h + 10, C.wood); rect(x - 3, y - 2, w + 6, 1, C.woodL);
+    rect(x - 1, y - 1, w + 2, h + 2, C.ink); rect(x + 2, y + h + 3, 22, 2, '#e9c690');
+    rect(x + w - 10, y + h + 2, 4, 4, '#e9c690'); rect(x + w - 4, y + h + 2, 4, 4, '#e9c690'); rect(x + w - 9, y + h + 3, 2, 2, C.woodD); rect(x + w - 3, y + h + 3, 2, 2, C.woodD);
+    rect(x + 2, y + h + 10, 3, 3, C.woodD); rect(x + w - 5, y + h + 10, 3, 3, C.woodD);
+    if (!tvBox.classList.contains('on')) { for (let yy = 0; yy < h; yy++) for (let xx = 0; xx < w; xx += 2) if (Math.random() < .5) rect(x + xx + (yy & 1), y + yy, 1, 1, Math.random() < .5 ? '#2a3550' : '#141a2c'); } }
+
+  /* ---------- tor (droga z lampami) ---------- */
+  function road(t) {
+    const top = R(yOf(1.15)); const wet = si === 1;
+    for (let y = top; y < H; y++) { const s = (y - L.vy) / (L.hitY - L.vy), hw = L.half * s, x0 = R(L.cx - hw), x1 = R(L.cx + hw);
+      rect(x0 - Math.max(1, R(3 * s)), y, x1 - x0 + Math.max(2, R(6 * s)), 1, C.snow2); // zaspy przy krawędzi
+      rect(x0, y, x1 - x0, 1, (y & 1) ? C.road : C.road2);
+      for (let l = 1; l < 4; l++) rect(R(L.cx + (l - 2) * hw / 2), y, 1, 1, '#0e1422'); }
+    // linie taktów biegną w stronę gracza
+    const t0 = T(), n0 = Math.ceil((t0 - song.b0) / P);
+    for (let n = n0; ; n++) { const tb = song.b0 + n * P, z = (tb - t0) / LV[lv].lead; if (z > 1.15) break; if (z < -.05) continue;
+      const y = R(yOf(z)), hw = L.half * sOf(z), barLine = ((n % 4) + 4) % 4 === song.bar;
+      g.globalAlpha = barLine ? .55 : .22; rect(L.cx - hw, y, hw * 2, 1, barLine ? C.lamp : C.roadL); g.globalAlpha = 1; }
+    if (wet) { for (let i = 0; i < 6; i++) { const z = ((i / 6 - t0 * .25 / LV[lv].lead) % 1 + 1) % 1, y = R(yOf(z)), hw = L.half * sOf(z); g.globalAlpha = .18; rect(L.cx - hw * .7, y, hw * 1.4, 1, C.lamp); } g.globalAlpha = 1; }
+  }
+  function lamps(front) { // latarnie po obu stronach, co 2 takty — jadą razem z rytmem
+    const t0 = T(), span = P * 2, n0 = Math.floor((t0 - song.b0) / span);
+    for (let n = n0 + 7; n >= n0; n--) { const z = (song.b0 + n * span - t0) / LV[lv].lead; if (z < -.08 || z > 4.2) continue; if (front !== (z < .35)) continue;
+      const s = sOf(z), yb = yOf(z), hgt = 46 * s * (L.mob ? .9 : 1.15);
+      [-1, 1].forEach(side => { const x = R(L.cx + side * (L.half * s + 14 * s)); rect(x, yb - hgt, Math.max(1, R(1.6 * s)), hgt, C.pole);
+        rect(x - side * R(5 * s), yb - hgt, R(5 * s) + 1, Math.max(1, R(1.2 * s)), C.pole); const lx = x - side * R(5 * s);
+        rect(lx - 1, yb - hgt + 1, Math.max(2, R(3 * s)), Math.max(1, R(1.5 * s)), C.lamp);
+        glow(lx, yb - hgt + 2, 26 * s, 'rgba(255,200,120,1)', .55); glow(lx, yb, 30 * s, 'rgba(255,190,110,1)', .16); }); }
+  }
+
+  /* ---------- logika gry ---------- */
+  const beatPh = () => { const x = (T() - song.b0) / P; return x - Math.floor(x); };
+  function energy() { const i = Math.floor(((T() - song.b0) / P16 - song.bar * 4) / 16); return i < 0 ? .2 : (+(song.en[i] || 0)) / 9; }
+  function reset() {
+    song = SONGS[si]; P = 60 / song.bpm; P16 = P / 4; notes = decode(song[LV[lv].k]);
+    startAt = Math.max(0, notes[0].t - 4); const last = notes[notes.length - 1]; endAt = Math.min(song.dur - .3, last.t + last.len + 2.4);
+    pts = combo = maxCombo = kiel = perfN = goodN = missN = holdsOk = 0; holdsAll = notes.filter(n => n.len).length; mult = 1; prom = 0; cond = 70; why = ''; dead = false;
+    held.fill(null); press.fill(0); fx = []; texts = []; joinMsg = null; clk = startAt; clkOn = false; ytT = -1;
+    if (scene !== si) { buildBg(); seedWeather(); }
+    // ekipa: Ty z przodu, reszta dołącza z serią
+    const P0 = (GFX.wdz && GFX.wdz.PEOPLE) || [], me = WHO.name; const mine = P0.find(p => p.name === me);
+    const others = P0.filter(p => p !== mine).sort(() => Math.random() - .5);
+    const slots = [[-1, .02, 0], [1, .02, 0], [-1, .14, 4], [1, .16, 4], [-1, .3, 1], [1, .32, 2], [-1, .5, 3], [1, .52, 1], [-1, .72, 2], [1, .75, 3]];
+    crowd = (mine ? [mine] : []).concat(others).slice(0, slots.length).map((Pp, i) => ({ P: Pp, i, me: Pp === mine, side: slots[i][0], z: slots[i][1], off: slots[i][2], col: Pp.col || LANEC[i % 4], on: Pp === mine ? 1 : 0, want: Pp === mine ? 1 : 0 }));
+  }
+  function addText(s, lane, col, big) { texts.push({ s, x: lane == null ? L.cx : laneX(lane, 0), y: L.hitY - 18, t: 0, col, big }); }
+  function burst(lane, col, n) { const x = laneX(lane, 0), y = L.hitY - 8; for (let i = 0; i < n; i++) fx.push({ x, y, vx: (Math.random() - .5) * 60, vy: -30 - Math.random() * 60, t: 0, life: .4 + Math.random() * .3, col: Math.random() < .5 ? col : C.vod }); }
+  function hit(n, dt) {
+    const q = Math.abs(dt) <= LV[lv].perf ? 2 : 1; combo++; maxCombo = Math.max(maxCombo, combo); mult = 1 + Math.min(3, Math.floor(combo / 10));
+    pts += (q === 2 ? 10 : 6) * mult; if (q === 2) perfN++; else goodN++; kiel++; prom += .04; cond = Math.min(100, cond + (q === 2 ? 2 : 1.2));
+    addText(q === 2 ? 'IDEALNIE!' : (dt < 0 ? 'ZA WCZEŚNIE' : 'NA STYK'), n.lane, q === 2 ? C.lime : C.paper); burst(n.lane, LANEC[n.lane], q === 2 ? 10 : 6);
+    if (n.len) { n.st = 1; held[n.lane] = n; } else n.st = 2;
+    crowdUpdate(); }
+  function miss(n, msg) { n.st = 3; missN++; combo = 0; mult = 1; cond -= LV[lv].drain; addText(msg || 'ROZLANE!', n.lane, C.red);
+    if (cond <= 0) { if (LV[lv].fail) { cond = 0; dead = true; why = 'Zgon na parkiecie. Komisja wynosi Cię pod pachy.'; finish(); } else cond = 1; }
+    crowdUpdate(); }
+  function crowdUpdate() { const want = Math.min(crowd.length, (crowd[0] && crowd[0].me ? 1 : 0) + Math.floor(combo / 6));
+    crowd.forEach((D, i) => { const w = D.me || i < want ? 1 : 0; if (w && !D.want && !D.me) joinMsg = { s: `${D.P.name} dołącza na parkiet!`, t: 0 }; D.want = w; }); }
+  function pressLane(lane) { if (st !== 'run') return; press[lane] = .14; const t0 = T(), win = LV[lv].good;
+    let best = null; for (const n of notes) { if (n.st || n.lane !== lane) continue; const d = t0 - n.t; if (d < -win) break; if (Math.abs(d) <= win && (!best || Math.abs(d) < Math.abs(t0 - best.t))) best = n; }
+    if (best) hit(best, t0 - best.t); }
+  function releaseLane(lane) { const n = held[lane]; if (!n) return; held[lane] = null; const end = n.t + n.len;
+    if (T() < end - .14) { n.st = 2; n.out = 1; addText('ODSTAWIONE', lane, C.gold); combo = Math.max(0, combo - 2); } else holdDone(n); }
+  function holdDone(n) { n.st = 2; held[n.lane] = null; holdsOk++; pts += 25 * mult; prom += .2; addText('DO DNA!', n.lane, C.aqua, true); burst(n.lane, C.aqua, 14); }
+  function step(dt) {
+    const t0 = T(), win = LV[lv].good;
+    for (const n of notes) { if (n.t - t0 > 1 || st !== 'run') break; if (!n.st && t0 - n.t > win) miss(n); }
+    if (st !== 'run') return;
+    held.forEach((n, lane) => { if (!n) return; const end = n.t + n.len; while (n.tick < Math.floor((Math.min(t0, end) - n.t) / (P / 2))) { n.tick++; pts += 2 * mult; }
+      if (t0 >= end) holdDone(n); });
+    if (bot) notes.forEach(n => { if (!n.st && Math.abs(t0 - n.t) < .012) pressLane(n.lane); if (n.st === 1 && t0 >= n.t + n.len - .01) releaseLane(n.lane); });
+    if (t0 >= endAt && st === 'run') finish();
+  }
+  function common(dt) {
+    for (let i = 0; i < 4; i++) press[i] = Math.max(0, press[i] - dt);
+    fx = fx.filter(p => (p.t += dt) < p.life); fx.forEach(p => { p.x += p.vx * dt; p.y += p.vy * dt; p.vy += 160 * dt; });
+    texts = texts.filter(x => (x.t += dt) < .7);
+    crowd.forEach(D => { D.on += (D.want - D.on) * Math.min(1, dt * 3); });
+    if (joinMsg && (joinMsg.t += dt) > 1.8) joinMsg = null;
+    const rain = si === 1, wind = Math.sin(performance.now() / 3000) * (rain ? 20 : 6);
+    flakes.forEach(f => { f.y += f.v * dt; f.x += (wind + Math.sin(f.y / 9 + f.w) * (rain ? 0 : 4)) * dt; if (f.y > H) { f.y = -2; f.x = Math.random() * W; } if (f.x < 0) f.x += W; if (f.x > W) f.x -= W; });
+  }
+
+  /* ---------- rysowanie ---------- */
+  function render() {
+    const t = performance.now() / 1000, t0 = T(), en = st === 'ready' ? .4 : energy(), bp = beatPh();
+    g.globalAlpha = 1; g.drawImage(bgC, 0, 0); h.setTransform(1, 0, 0, 1, 0, 0); h.clearRect(0, 0, hc.width, hc.height);
+    // migające okna i elementy sceny
+    wins.forEach(w => { if (Math.sin(t * .3 + w.ph) > .985) rect(w.x, w.y, 2, 2, C.winOff); });
+    glow(L.cx, L.vy, Math.max(W, H) * .45, 'rgba(255,170,90,1)', .05 + en * .06 * (1 - bp));
+    if (si === 0) { const px = R(W * .6), py = L.vy - 17, on = Math.sin(t * 7) > -.85 && !(Math.sin(t * 1.3) > .97);
+      tx('DANCING', px, py, 30, FONTB, on ? C.pink : '#6a2a5a', 'center');
+      if (on) glow(px, py - 3, W * .09, 'rgba(255,95,210,1)', .25 + en * .2 * (1 - bp)); }
+    if (si === 2) glow(R(W * .54) + 2 * 13 + 6, L.vy - 4, 16, 'rgba(255,190,110,1)', .3 + .25 * (1 - bp));
+    if (si === 3) { const per = 14, ph = ((t % per) / per), tx = R(-90 + ph * (W + 180)), ty = L.vy - 5; // nocny pociąg
+      rect(tx, ty - 7, 86, 7, '#8a2f1d'); rect(tx, ty - 7, 86, 1, '#b8472c'); for (let i = 0; i < 4; i++) { rect(tx + i * 22, ty - 7, 1, 7, C.ink); for (let j = 0; j < 4; j++) rect(tx + i * 22 + 3 + j * 4, ty - 5, 2, 2, C.win2); }
+      rect(tx + 86, ty - 6, 2, 6, '#8a2f1d'); rect(tx + 87, ty - 4, 1, 1, '#fff6c8'); glow(tx + 88, ty - 4, 22, 'rgba(255,240,190,1)', .35); }
+    if (si === 4) { const bx = R(W * .86), by = R(L.vy + (H - L.vy) * .32); rect(bx + 1, by - 13, 4, 6, '#2a2f44'); rect(bx + 1, by - 17, 4, 4, '#c8b49a'); rect(bx + 1, by - 18, 4, 1, '#6a6a7a');
+      const ember = .5 + .5 * Math.sin(t * 2.2); rect(bx - 1, by - 14, 1, 1, ember > .5 ? '#ff7a2a' : '#a33d12'); glow(bx - 1, by - 14, 4, 'rgba(255,120,40,1)', .4 * ember);
+      rect(bx + 12, by - 30, 1, 28, C.pole); rect(bx + 9, by - 30, 4, 1, C.pole); rect(bx + 9, by - 29, 2, 1, C.lamp); glow(bx + 10, by - 28, 22, 'rgba(255,200,120,1)', .5); glow(bx + 4, by - 4, 18, 'rgba(255,190,110,1)', .2); }
+    if (si !== 4 && !L.mob) { const z = .4, x = R(L.cx + L.half * sOf(z) + 130 * sOf(z)), y = R(yOf(z)); glow(x, y - 8, 22, 'rgba(255,200,120,1)', .25); }
+    lamps(false);
+    road();
+    // ekipa z tyłu, potem nuty, potem przód
+    const sorted = crowd.slice().sort((a, b) => b.z - a.z);
+    sorted.filter(D => D.z >= .12).forEach(D => dancer(D, t));
+    if (st !== 'ready') {
+      const lead = LV[lv].lead;
+      for (let i = notes.length - 1; i >= 0; i--) { const n = notes[i]; if (n.t - t0 > lead * 1.12) continue; if (n.st === 3 && t0 - n.t > .25) continue; if (n.st === 2 && !n.len) continue;
+        const z = (n.t - t0) / lead, col = LANEC[n.lane];
+        if (n.len && n.st !== 3) { const zEnd = Math.min(1.12, (n.t + n.len - t0) / lead), zHead = n.st === 1 ? 0 : Math.max(0, z);
+          if (zEnd > zHead && !(n.st === 2)) { const y1 = R(yOf(zEnd)), y0 = R(yOf(zHead)); g.globalAlpha = n.st === 1 ? .85 : .55;
+            for (let y = y1; y <= y0; y++) { const s = (y - L.vy) / (L.hitY - L.vy), hw = Math.max(1, R(2.6 * s * L.half / 40)), x = R(L.cx + (n.lane - 1.5) * (L.half / 2) * s);
+              rect(x - hw, y, hw * 2, 1, col); if (hw > 1) rect(x - 1, y, 2, 1, (y % 6 < 3) ? C.vod : '#bfe0f5'); } g.globalAlpha = 1; } }
+        if (n.st === 2) continue;
+        if (n.st === 1) { const lvl = clamp(1 - (t0 - n.t) / n.len, 0, 1); bottlePx(laneX(n.lane, 0), L.hitY - 2, .85 * L.half / 36, lvl, col); glow(laneX(n.lane, 0), L.hitY - 8, 18, 'rgba(143,232,255,1)', .35); continue; }
+        if (z < -.3) continue; const s = sOf(Math.max(z, -.08)), x = laneX(n.lane, Math.max(z, -.08)), y = yOf(Math.max(z, -.08)), k = s * L.half / 36;
+        g.globalAlpha = z > 1 ? clamp((1.12 - z) / .12, 0, 1) : n.st === 3 ? .45 : 1;
+        rect(x - 6 * k, y - 1, 12 * k, Math.max(1, R(2 * k)), col); // podstawka w kolorze toru
+        if (n.len) bottlePx(x, y - 1, k * .85, 1, col); else shotPx(x, y - 1, k, 1, col);
+        g.globalAlpha = 1; }
+    }
+    // podstawki (linia trafień)
+    for (let l = 0; l < 4; l++) { const x = R(laneX(l, 0)), y = L.hitY, w = R(L.half / 2 - 4), col = LANEC[l], on = press[l] > 0 || held[l];
+      rect(x - w / 2, y - 1, w, 4, C.ink); rect(x - w / 2 + 1, y, w - 2, 2, on ? col : '#26324c'); rect(x - w / 2, y - 2, w, 1, col);
+      if (on) glow(x, y, 20, col, .35);
+      if (!L.mob && st !== 'over') tx('ASKL'[l], x, y + 4 + u(20), 20, FONTB, on ? col : 'rgba(239,230,210,.75)', 'center'); }
+    if (L.mob && st === 'run') for (let l = 0; l < 4; l++) { const x0 = R(L.cx - L.half + l * L.half / 2), on = press[l] > 0 || held[l]; g.globalAlpha = on ? .32 : .1; rect(x0 + 1, L.hitY + 4, R(L.half / 2) - 2, H - L.hitY - 6, LANEC[l]); g.globalAlpha = 1; }
+    sorted.filter(D => D.z < .12).forEach(D => dancer(D, t));
+    lamps(true);
+    // pogoda
+    const rain = si === 1;
+    flakes.forEach(f => { if (rain) { g.globalAlpha = .55; rect(f.x, f.y, 1, 3, '#8fb3d6'); } else { g.globalAlpha = f.big ? .95 : .6; rect(f.x, f.y, f.big ? 2 : 1, 1, C.snow); } }); g.globalAlpha = 1;
+    // efekty
+    fx.forEach(p => { g.globalAlpha = 1 - p.t / p.life; rect(p.x, p.y, 1, 1, p.col); }); g.globalAlpha = 1;
+    texts.forEach(x => tx(x.s, x.x, R(x.y - x.t * 16), x.big ? 50 : 36, FONTB, x.col, 'center', 1 - x.t / .7));
+    if (joinMsg) tx(joinMsg.s, L.cx, L.vy - 3, 36, FONTB, C.gold, 'center', Math.min(1, (1.8 - joinMsg.t) * 3));
+    g.drawImage(vgC, 0, 0);
+    tvFrame();
+    if (fake) { const v = L.tv; tx('PODGLĄD', v.x + v.w / 2, v.y + v.h / 2 - 1, 24, FONTB, C.gold, 'center'); tx('teledysk tylko na wodystopad.pl', v.x + v.w / 2, v.y + v.h / 2 + u(18), 16, FONTB, C.snow2, 'center'); }
+    if (st !== 'ready') hud(t0);
+  }
+  function hud(t0) {
+    const x = W - 6; let y = 4 + u(20);
+    tx('PUNKTY' + (mult > 1 ? ' ×' + mult : ''), x, y, 20, FONTB, C.snow2, 'right'); y += u(50) * .9;
+    tx(pad(pts, 5), x, y, 50, FONTB, C.paper, 'right'); y += u(20) + 3;
+    tx(`${kiel} kiel. · ${prom.toFixed(1).replace('.', ',')}‰`, x, y, 20, FONTB, C.snow2, 'right'); y += 4;
+    const bw = L.mob ? R(W * .3) : R(W * .18); rect(x - bw - 1, y - 1, bw + 2, 5, C.ink); rect(x - bw, y, R(bw * cond / 100), 3, cond > 35 ? C.lime : cond > 15 ? C.gold : C.red); y += 4 + u(20);
+    tx('KONDYCJA', x, y, 20, FONTB, C.snow2, 'right'); y += u(50) + 2;
+    if (combo >= 10 && st === 'run') { tx(combo + '×', x, y, 50, FONTB, mult >= 4 ? C.lime : C.gold, 'right'); tx(`SERIA · MNOŻNIK ×${mult}`, x, y + u(20) + 1, 20, FONTB, C.snow2, 'right'); }
+    const tx0 = L.tv.x, ty = L.tv.y + L.tv.h + 13 + u(36) * .8; tx(`T.Ok.I — ${song.t}`, tx0, ty, 36, FONTB, C.paper);
+    const pw = L.tv.w, pr = clamp((t0 - startAt) / (endAt - startAt), 0, 1); rect(tx0, ty + 3, pw, 2, '#26324c'); rect(tx0, ty + 3, R(pw * pr), 2, C.gold);
+    tx(LV[lv].n.toUpperCase(), tx0, ty + 6 + u(20), 20, FONTB, C.snow2);
+  }
+
+  /* ---------- pętla ---------- */
+  let raf = 0, last = 0, bot = false;
+  function frame(ms) { raf = requestAnimationFrame(frame); const t = ms / 1000, dt = Math.min(.05, last ? t - last : 0); last = t;
+    if (st === 'run' || st === 'load') now(dt);
+    else if (st === 'ready') { clk += dt; if (clk > song.dur) clk = 0; } // przed grą: droga i latarnie płyną same
+    if (st === 'load' && (fake || (ytState === 1 && clkOn && clk > loadFrom - .6 && clk < loadFrom + 4))) { st = 'run'; show(null); stage.classList.add('run'); }
+    if (st === 'load' && !fake && performance.now() - loadT > 3500 && ytState !== 1 && ytState !== 3) $('#wok-kick').hidden = false;
+    if (st === 'run') { step(dt); metro(); }
+    common(dt); render(); }
+  const play = () => { if (!raf && vis) { last = 0; raf = requestAnimationFrame(frame); } };
+  const stop = () => { cancelAnimationFrame(raf); raf = 0; };
+
+  /* ---------- ekrany ---------- */
+  const ov = { start: $('#wok-start'), load: $('#wok-load'), pause: $('#wok-pause'), over: $('#wok-over') };
+  const show = k => Object.keys(ov).forEach(x => ov[x].hidden = x !== k);
+  function fmtT(s) { return `${Math.floor(s / 60)}:${pad(Math.round(s % 60))}`; }
+  function menu() {
+    $('#wok-songs').innerHTML = SONGS.map((s, i) => `<button type="button" class="wok__song" role="radio" aria-checked="${i === si}" data-i="${i}"><i></i><b>${s.t}</b><em>${s.bpm} BPM · ${fmtT(s.dur)}${best(i) ? '<br>rekord ' + best(i) : ''}</em></button>`).join('');
+    $('#wok-lv').innerHTML = LV.map((l, i) => `<button type="button" role="radio" aria-checked="${i === lv}" data-i="${i}">${l.n}<small>${l.s}</small></button>`).join('');
+    $('#wok-off').textContent = (lat > 0 ? '+' : '') + lat + ' ms'; }
+  const best = i => (store.get('wok-best', {})[i] || 0);
+  $('#wok-songs').addEventListener('click', e => { const b = e.target.closest('[data-i]'); if (!b) return; si = +b.dataset.i; store.set('wok-song', si); menu(); reset(); if (player && player.cueVideoById && !fake) player.cueVideoById({ videoId: song.id, startSeconds: startAt }); });
+  $('#wok-lv').addEventListener('click', e => { const b = e.target.closest('[data-i]'); if (!b) return; lv = +b.dataset.i; store.set('wok-lv', lv); menu(); });
+  const applyVol = () => { $$('#wok-stage [data-vol]').forEach(r => r.value = vol); $$('#wok-stage [data-volout]').forEach(o => o.textContent = vol + '%');
+    if (player && player.setVolume) { player.setVolume(vol); if (vol) player.unMute(); else player.mute(); } };
+  $$('#wok-stage [data-vol]').forEach(r => r.addEventListener('input', () => { vol = +r.value; store.set('wok-vol', vol); applyVol(); }));
+  applyVol();
+  $$('.wok__off button').forEach(b => b.onclick = () => { lat = clamp(lat + +b.dataset.d, -200, 400); store.set('wok-off', lat); menu(); });
+  function start() { if (isMobile() && !isFull()) fsBtn.click(); // telefon: od razu pełny ekran
+    reset(); st = 'load'; loadFrom = startAt; loadT = performance.now(); ytErr = 0; $('#wok-kick').hidden = true;
+    $('#wok-load-h').textContent = 'Chwileczkę…'; $('#wok-load-p').textContent = 'Teledysk się wczytuje. Daj głośniej, bez dźwięku nie da się pić w rytm.'; $('#wok-load-s').textContent = `T.Ok.I — ${song.t}`;
+    show('load'); stage.focus({ preventScroll: true }); play();
+    if (fake) { try { actx = actx || new (window.AudioContext || window.webkitAudioContext)(); actx.resume(); } catch (_) {} lastBeat = -1; return; } ytState = -1;
+    if (player && player.loadVideoById) { player.loadVideoById({ videoId: song.id, startSeconds: startAt }); applyVol(); }
+    else ensurePlayer().then(p => { if (st !== 'load') return; p.loadVideoById({ videoId: song.id, startSeconds: startAt }); applyVol(); }); }
+  function loadFail() { $('#wok-load-h').textContent = 'Kaseta się wciągnęła'; $('#wok-load-p').textContent = `YouTube nie chce puścić teledysku (kod ${ytErr}). Spróbuj inną piosenkę albo odśwież stronę.`; }
+  function pause() { if (st !== 'run' && st !== 'load') return; st = 'pause'; stage.classList.remove('run'); held.fill(null); if (player && player.pauseVideo) player.pauseVideo(); show('pause'); }
+  function resume() { if (st !== 'pause') return; st = 'load'; loadFrom = clk; loadT = performance.now(); clkOn = false; show('load'); $('#wok-load-h').textContent = 'Wracamy…';
+    if (fake) return; if (player && player.playVideo) player.playVideo(); }
+  function quit() { st = 'ready'; stage.classList.remove('run'); if (player && player.pauseVideo) player.pauseVideo(); show('start'); menu(); }
+  // pełny ekran (telefon): prawdziwy fullscreen albo „udawany” (iPhone nie pozwala na fullscreen elementu)
+  const fsBtn = $('#wok-fs'), isFull = () => document.fullscreenElement === stage || document.webkitFullscreenElement === stage || stage.classList.contains('wok-full');
+  function fsUpd() { const on = isFull(); stage.classList.toggle('is-full', on); fsBtn.innerHTML = on ? '✕' : '⛶<span> PEŁNY EKRAN</span>'; fsBtn.setAttribute('aria-label', on ? 'Zamknij pełny ekran' : 'Pełny ekran'); setTimeout(resize, 60); }
+  function pseudoFull(on) { stage.classList.toggle('wok-full', on); document.documentElement.classList.toggle('wok-lock', on); fsUpd(); }
+  fsBtn.onclick = e => { e.stopPropagation();
+    if (isFull()) { if (document.fullscreenElement) document.exitFullscreen().catch(() => {}); else if (document.webkitFullscreenElement) document.webkitExitFullscreen(); pseudoFull(false); return; }
+    const req = stage.requestFullscreen ? stage.requestFullscreen({ navigationUI: 'hide' }) : stage.webkitRequestFullscreen ? (stage.webkitRequestFullscreen(), Promise.resolve()) : Promise.reject();
+    Promise.resolve(req).then(fsUpd).catch(() => pseudoFull(true)); };
+  $('#wok-fsbig').onclick = e => { e.stopPropagation(); if (!isFull()) fsBtn.click(); };
+  document.addEventListener('fullscreenchange', fsUpd); document.addEventListener('webkitfullscreenchange', fsUpd);
+  $('#wok-go').onclick = start; $('#wok-again').onclick = start; $('#wok-other').onclick = quit; $('#wok-back').onclick = quit; $('#wok-quit').onclick = quit; $('#wok-resume').onclick = resume;
+  $('#wok-kick').onclick = () => { if (player && player.playVideo) { player.playVideo(); applyVol(); } $('#wok-kick').hidden = true; };
+
+  /* ---------- sterowanie ---------- */
+  function laneAt(e) { const r = cv.getBoundingClientRect(), x = (e.clientX - r.left) / r.width * W; return clamp(Math.floor((x - (L.cx - L.half)) / (L.half / 2)), 0, 3); }
+  stage.addEventListener('pointerdown', e => { if (e.target.closest('button, input, form, details, .gra__card')) return;
+    if (st === 'run') { e.preventDefault(); const l = laneAt(e); ptrLane.set(e.pointerId, l); pressLane(l); try { stage.setPointerCapture(e.pointerId); } catch (_) {} }
+    else if (st === 'pause') resume(); });
+  const up = e => { if (!ptrLane.has(e.pointerId)) return; const l = ptrLane.get(e.pointerId); ptrLane.delete(e.pointerId); if (![...ptrLane.values()].includes(l)) releaseLane(l); };
+  stage.addEventListener('pointerup', up); stage.addEventListener('pointercancel', up);
+  const down = new Set();
+  addEventListener('keydown', e => { if (!vis || e.target.closest && e.target.closest('input, textarea')) return; const k = e.key.toLowerCase();
+    if (st === 'run' && (k === 'escape' || k === 'p')) { pause(); return; }
+    if ((k === '-' || k === '+' || k === '=') && (st === 'run' || st === 'pause')) { vol = clamp(vol + (k === '-' ? -10 : 10), 0, 100); store.set('wok-vol', vol); applyVol(); toast('Głośność: ' + vol + '%'); return; }
+    if (k in KEYS && st === 'run') { e.preventDefault(); if (e.repeat || down.has(k)) return; down.add(k); pressLane(KEYS[k]); return; }
+    if (document.activeElement === stage && (k === ' ' || k === 'enter')) { e.preventDefault(); if (st === 'ready') start(); else if (st === 'pause') resume(); } });
+  addEventListener('keyup', e => { const k = e.key.toLowerCase(); if (!(k in KEYS)) return; down.delete(k); const l = KEYS[k]; if (![...down].some(x => KEYS[x] === l)) releaseLane(l); });
+  document.addEventListener('visibilitychange', () => { if (document.hidden) pause(); });
+  addEventListener('blur', () => { if (st === 'run') pause(); });
+  new IntersectionObserver(es => { vis = es[0].isIntersecting; if (vis) { resize(); play(); if (!fake) ensurePlayer().then(p => { if (st === 'ready' && p.cueVideoById) p.cueVideoById({ videoId: song.id, startSeconds: startAt }); }); }
+    else { pause(); stop(); } }, { rootMargin: '80px 0px' }).observe(stage);
+  new ResizeObserver(() => resize()).observe(stage);
+
+  /* ---------- protokół z parkietu i rejestr ---------- */
+  const GRADES = [
+    [.95, 'S', 'Wódzirej Parkietu', ['Komisja wstała z krzeseł. Ani kropla nie poszła na obrus.', 'Takiej celności nie widziano od czasów pierwszej Wyborczej Nocy Komisji.', 'Wódzirej osobiście podpisał protokół. Dwa razy.']],
+    [.85, 'A', 'Mistrz Kielonka', ['Prawie bez strat. Komisja odnotowuje drobne rozlanie, ale przymyka oko.', 'Parkiet należy do Ciebie. Ekipa tańczy, kieliszki puste.', 'Wynik wzorowy. Wpis do akt z wyróżnieniem.']],
+    [.7, 'B', 'Solidny Zawódnik', ['Solidnie, choć obrus pamięta kilka wpadek.', 'Rytm złapany, kieliszki w większości opróżnione. Do poprawki tylko mała seria.', 'Komisja ocenia pozytywnie. Z zastrzeżeniem w rubryce „rozlane”.']],
+    [.5, 'C', 'Tańczy sam', ['Ekipa przyglądała się z boku. Następnym razem dołączy.', 'Połowa kieliszków trafiła do Ciebie, reszta na dywan.', 'Komisja zaleca rozgrzewkę i jeszcze jedno podejście.']],
+    [0, 'D', 'Pod stołem', ['Kieliszki jechały, Ty patrzyłeś w teledysk. Rozumiemy, ale nie usprawiedliwiamy.', 'Protokół sporządzono na stojąco, bo Ty już nie stałeś.', 'Dywan do prania. Wódzirej kręci głową.']],
+  ];
+  const SONGLINE = ['Na dancingu za oknem dalej gra muzyka.', 'Deszcz zmył ślady. Prawie wszystkie.', 'Kapela gra dalej, nawet jeśli Ty skończyłeś.', 'Ostatni kurs odjechał. Następny po nowej kolejce.', 'Staruszek z ławki kiwa głową z uznaniem.'];
+  const ini = $('#wok-ini'), boxes = $$('#wok-save .gra__ini i'), form = $('#wok-save');
+  const clean = v => v.toUpperCase().replace(/[^A-ZĄĆĘŁŃÓŚŹŻ0-9]/g, '').slice(0, 3);
+  const paint = () => { const v = ini.value; boxes.forEach((b, i) => { b.textContent = v[i] || ''; b.classList.toggle('cur', document.activeElement === ini && i === Math.min(2, v.length)); }); };
+  ini.addEventListener('input', () => { const v = ini.value.toUpperCase().replace(/[^A-ZĄĆĘŁŃÓŚŹŻ0-9]/g, ''); ini.value = v.length > 3 ? v.slice(-3) : v; paint(); });
+  const selAll = () => setTimeout(() => { if (document.activeElement === ini) ini.select(); }, 0);
+  ini.addEventListener('focus', () => { paint(); selAll(); }); ini.addEventListener('pointerup', e => { if (ini.selectionStart === ini.selectionEnd && ini.value.length >= 3) { e.preventDefault(); ini.select(); } }); ini.addEventListener('blur', paint);
+  let result = null, justSaved = null;
+  function finish() { if (st !== 'run' && st !== 'load') return; st = 'over'; stage.classList.remove('run'); held.fill(null); if (player && player.pauseVideo) player.pauseVideo();
+    const total = notes.length, acc = total ? (perfN + goodN * .7) / total : 0, gr = dead ? null : GRADES.find(x => acc >= x[0]);
+    result = { p: pts, f: kiel, x: si * 3 + lv };
+    $('#wok-pno').textContent = `Protokół z parkietu nr ${100 + Math.floor(Math.random() * 900)}/2026`;
+    $('#wok-grade').textContent = dead ? '✝' : gr[1]; $('#wok-title').textContent = dead ? 'Zgon na parkiecie' : gr[2]; $('#wok-song').textContent = `T.Ok.I — ${song.t} · ${LV[lv].n}`;
+    $('#wok-verdict').textContent = (dead ? why : pick(gr[3])) + ' ' + (dead ? '' : SONGLINE[si]);
+    $('#wok-pts').textContent = pts; $('#wok-kiel').textContent = `${kiel}/${total}`; $('#wok-acc').textContent = Math.round(acc * 100) + '%';
+    $('#wok-stats').innerHTML = [['Idealnie', perfN], ['Na styk', goodN], ['Rozlane', missN], ['Butelki do dna', `${holdsOk}/${holdsAll}`], ['Najdłuższa seria', maxCombo], ['Promile', prom.toFixed(1).replace('.', ',') + '‰']]
+      .map(([k, v]) => `<li><span>${k}</span><b>${v}</b></li>`).join('');
+    $('#wok-saved').textContent = ''; form.classList.remove('done'); ini.value = store.get('game-ini', ''); paint();
+    const bs = store.get('wok-best', {}); if (pts > (bs[si] || 0)) { if (bs[si]) $('#wok-saved').textContent = 'Nowy rekord osobisty w tej piosence!'; bs[si] = pts; store.set('wok-best', bs); }
+    show('over'); myBest(); if (!isMobile()) setTimeout(() => ini.focus({ preventScroll: true }), 60); }
+  const shared = () => !!(API.state && API.state.boards && API.state.boards.wodoki);
+  const boardList = () => shared() ? API.state.boards.wodoki : store.get('wok-scores', []).map(s => Object.assign({ who: API.me }, s));
+  form.onsubmit = e => { e.preventDefault(); const n = clean(ini.value);
+    if (n.length < 1) { const w = $('#wok-save .gra__ini'); w.classList.remove('shake'); void w.offsetWidth; w.classList.add('shake'); ini.focus(); return; }
+    if (!result) return; store.set('game-ini', n);
+    const entry = { n, p: result.p, f: result.f, x: result.x };
+    const loc = store.get('wok-scores', []); loc.push(entry); loc.sort((a, b) => b.p - a.p); store.set('wok-scores', loc.slice(0, 15));
+    API.send({ type: 'score-g', d: Object.assign({ g: 'wodoki' }, entry) });
+    if (shared()) API.state.boards.wodoki = API.state.boards.wodoki.concat([Object.assign({ who: API.me, fresh: 1 }, entry)]).sort((a, b) => b.p - a.p);
+    const list = boardList(), pos = list.findIndex(s => s.n === n && s.p === entry.p && (s.who === API.me || !s.who)) + 1;
+    form.classList.add('done'); justSaved = entry; board();
+    $('#wok-saved').textContent = `Wpisano do rejestru: ${n}, ${entry.p} pkt` + (pos ? ` — miejsce ${pos}.` : '.');
+    result = null; ini.blur(); };
+  const tag = x => { const s = SONGS[Math.floor((x || 0) / 3)], l = LV[(x || 0) % 3]; return s ? `${s.t} · ${l.n}` : ''; };
+  function board() {
+    const list = boardList().slice(0, 10), sh = shared();
+    $('#wok-top').innerHTML = list.length ? list.map(s => `<li class="${s.who === API.me ? 'me' : ''}${s === justSaved || s.fresh ? ' new' : ''}"><b>${String(s.n).replace(/[<>&"]/g, '')}</b><em>${tag(s.x)}</em><strong>${s.p}</strong></li>`).join('')
+      : '<li class="empty">Rejestr pusty. Pierwszy wpis należy do Ciebie.</li>';
+    list.forEach(s => delete s.fresh);
+    $('#wok-live').innerHTML = sh ? '<i></i>NA ŻYWO · REKORDY CAŁEJ EKIPY' : CONFIG.api ? '<i></i>ŁĄCZĘ Z KOMISJĄ…' : '';
+    $('#wok-board-note').textContent = sh ? 'Jeden wpis = jedna piosenka. Każda piosenka i poziom w jednym rejestrze.' : 'Na razie rekordy z tego urządzenia.';
+  }
+  function myBest() { const b = Math.max(0, ...Object.values(store.get('wok-best', {}))); $('#wok-mybest').textContent = b ? `Twój najlepszy wynik: ${b} pkt` : ''; menu(); }
+  API.on(board); board(); myBest();
+
+  /* ---------- okładka w Game Store (pixel art 40×40) ---------- */
+  function art() { const c0 = $('.cart__art[data-art="wodoki"]'); if (!c0) return; const N = 40, c = document.createElement('canvas'); c.width = c.height = N;
+    const x = c.getContext('2d'), r = (a, b, w, h, col) => { x.fillStyle = col; x.fillRect(a, b, w, h); };
+    r(0, 0, N, 14, C.sky1); r(0, 14, N, 6, C.sky3); r(0, 20, N, 20, '#3a4f6e');
+    [[1, 9, 7], [9, 6, 9], [19, 11, 6], [26, 5, 8], [35, 9, 6]].forEach(([a, h, w]) => { r(a, 20 - h, w, h, C.blok); for (let yy = 22 - h; yy < 19; yy += 3) for (let xx = a + 1; xx < a + w - 1; xx += 2) if ((xx * 7 + yy * 3) % 5 === 0) r(xx, yy, 1, 1, C.win); });
+    for (let y = 20; y < N; y++) { const s = (y - 18) / 22, hw = 18 * s; r(Math.round(20 - hw) - 1, y, Math.round(hw * 2) + 2, 1, C.snow2); r(Math.round(20 - hw), y, Math.round(hw * 2), 1, (y & 1) ? C.road : C.road2); }
+    const sh = (a, b, col) => { r(a - 2, b - 5, 5, 1, col); r(a - 2, b - 4, 5, 2, C.vod); r(a - 1, b - 2, 3, 1, C.glassD); r(a - 2, b, 5, 1, C.glass); };
+    sh(13, 30, C.lime); sh(24, 25, C.pink); sh(27, 35, C.aqua);
+    r(8, 37, 6, 2, C.lime); r(16, 37, 6, 2, C.pink); r(24, 37, 6, 2, C.aqua); r(32, 37, 6, 2, C.gold);
+    for (let i = 0; i < 26; i++) r((i * 17) % N, (i * 11) % 30, 1, 1, C.snow);
+    const Z = 6; c0.width = c0.height = N * Z; const o = c0.getContext('2d'); o.imageSmoothingEnabled = false; o.drawImage(c, 0, 0, N * Z, N * Z);
+    o.fillStyle = C.ink; o.fillRect(10, 12, N * Z - 20, 58); o.font = `52px ${FONTB}`; o.textAlign = 'center'; o.textBaseline = 'middle'; o.fillStyle = C.lime; o.fillText('WÓD.Ok.I', N * Z / 2, 43); }
+  (document.fonts ? Promise.all([document.fonts.load(`10px ${FONTB}`, 'WÓD.Ok.I'), document.fonts.load(`8px ${FONT}`, 'ŁÓŻ')]).catch(() => {}) : Promise.resolve()).then(() => { art(); resize(); });
+  art(); reset(); menu(); resize();
+  if (/gradebug/.test(location.search)) window.__wok = { get s() { return { st, si, lv, pts, combo, kiel, perfN, goodN, missN, holdsOk, holdsAll, cond, clk, W, H, PX, n: notes.length, crowdOn: crowd.filter(D => D.want).length }; },
+    bot(on) { bot = on; }, press: pressLane, release: releaseLane, seek(t) { notes.forEach(n => { if (n.t < t - .2 && !n.st) n.st = 2; }); clk = t; }, song: i => { si = i; reset(); buildBg(); }, SONGS };
+})();
+
+/* =========================================================
    WÓDYSTOPAD GAME STORE — wybór gry (jedna widoczna naraz) i okładki rysowane kodem gier
    ========================================================= */
 (() => {
@@ -3727,10 +4414,11 @@ const GFX = {}; // rysunki współdzielone przez gry i okładki w Game Store
     store.set('game-pick', id);
     if (scroll) { const el = $('#game-' + id); const top = el.getBoundingClientRect().top + scrollY - (isMobile() ? 70 : 110); scrollTo({ top, behavior: reduced ? 'auto' : 'smooth' }); }
   }
-  carts.forEach(c => c.addEventListener("click", () => choose(c.dataset.game, false))); // bez przewijania — gra jest tuż pod kartami
-  const saved = store.get('game-pick', 'wodzitsu'); choose(games.some(gm => gm.dataset.game === saved) ? saved : 'polanie', false);
+  carts.forEach(c => c.addEventListener("click", () => { choose(c.dataset.game, false); // na komputerze bez przewijania — gra jest tuż pod kartami
+    if (isMobile()) { const stg = $('#game-' + c.dataset.game + ' .gra__stage'); if (stg) requestAnimationFrame(() => stg.scrollIntoView({ block: 'center', behavior: reduced ? 'auto' : 'smooth' })); } })); // telefon: gra na środek ekranu
+  const saved = store.get('game-pick', 'wodoki'); choose(games.some(gm => gm.dataset.game === saved) ? saved : 'wodoki', false);
   // okładki
-  function art() { $$('.cart__art').forEach(cv => { if (cv.dataset.art === 'wodzitsu') return; // okładkę Wódżitsu rysuje moduł gry
+  function art() { $$('.cart__art').forEach(cv => { if (cv.dataset.art === 'wodzitsu' || cv.dataset.art === 'wodoki') return; // okładki Wódżitsu i WÓD.Ok.I rysują moduły gier
     const r = cv.getBoundingClientRect(); if (!r.width) return;
     const d = Math.min(2, devicePixelRatio || 1); cv.width = Math.round(r.width * d); cv.height = Math.round(r.height * d);
     const c = cv.getContext('2d'), s = cv.width / 150; c.setTransform(s, 0, 0, s, 0, 0);
