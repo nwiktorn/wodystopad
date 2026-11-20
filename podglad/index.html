@@ -932,7 +932,7 @@ mark{background:none;color:var(--mag);font-weight:700}
 .wok__tv{position:absolute;z-index:1;pointer-events:none;background:transparent}
 .gra__stage--wok canvas.wok__hud{z-index:2;pointer-events:none;image-rendering:auto}
 .wok__tv iframe,#wok-yt{display:block;width:100%;height:100%;border:0;opacity:0;transition:opacity .4s}
-.wok__tv.on iframe{opacity:1}
+.wok__tv.on iframe,.wok__tv.on #wok-yt{opacity:1}
 /* karty w grze: ciemne, pikselowe, jak nocny ekran */
 .gra__stage--wok .gra__ov{z-index:3;background:rgba(6,10,23,.55);overflow:auto;align-items:safe center}
 .gra__stage--wok .gra__card{background:#0f1830;color:#dfe9f2;border:3px solid #dfe9f2;border-radius:0;box-shadow:0 0 0 3px #05070f,7px 7px 0 3px #05070f;font-family:'Jersey 10','Courier Prime',monospace;max-width:470px;gap:7px}
@@ -962,6 +962,9 @@ mark{background:none;color:var(--mag);font-weight:700}
 .wok__set{width:100%;font-size:12px;text-align:left}
 .wok__set summary{cursor:pointer;font:400 18px/1.2 'Jersey 10',monospace;text-align:center;color:#a9bfd6}
 .wok__set p{font-size:18px!important;margin:6px 0}
+.wok__vol{display:flex;align-items:center;gap:10px;width:100%;font:400 19px/1 'Jersey 10',monospace;color:#a9bfd6}
+.wok__vol input{flex:1;accent-color:#D9FF3D;height:22px;cursor:pointer}
+.wok__vol output{min-width:44px;text-align:right;color:#dfe9f2}
 .wok__off{display:flex;align-items:center;justify-content:center;gap:10px}
 .wok__off button{all:unset;cursor:pointer;width:30px;height:30px;border:2px solid #dfe9f2;background:#26324c;color:#dfe9f2;text-align:center;font:400 26px/28px 'Jersey 10',monospace}
 .wok__off output{font:400 26px/1 'Jersey 10',monospace;min-width:90px;text-align:center}
@@ -986,7 +989,8 @@ mark{background:none;color:var(--mag);font-weight:700}
 .wok__proto .gra__res span{font:400 15px/1 'Jersey 10',monospace;letter-spacing:.05em}
 .wok__card{padding:14px 22px 14px!important;gap:6px!important}
 .wok__card .wok__song{padding:3px 10px}
-.wok__logo{font-size:clamp(46px,5vw,64px)!important}
+.wok__logo{font-size:clamp(44px,4.6vw,58px)!important}
+.wok__card .gra__note:empty{display:none}
 @media (min-width:1181px){ .store{grid-template-columns:repeat(2,minmax(0,1fr))} }
 @media (max-width:760px){
   .gra__stage--wok{aspect-ratio:auto;height:min(150vw,600px)}
@@ -1196,7 +1200,7 @@ html:not(.sz-page) #sz-count{display:none}
 }
 </style>
 <meta name="robots" content="noindex,nofollow">
-<script>window.WOK_FAKE = false; try { localStorage.setItem('wodypv:adult', 'true'); localStorage.setItem('wodypv:rules-ok', 'true'); localStorage.setItem('wodypv:game-pick', '"wodoki"'); } catch (e) {}</script>
+<script>try { localStorage.setItem('wodypv:adult', 'true'); localStorage.setItem('wodypv:rules-ok', 'true'); localStorage.setItem('wodypv:game-pick', '"wodoki"'); } catch (e) {}</script>
 <style>main>section:not(#gra),main>footer,#nav,#gate,.sticky{display:none!important}#gra{padding-top:70px!important}
 .pv{position:sticky;top:0;z-index:50;background:#0B0B1E;color:#D9FF3D;font:400 15px/1.35 'Courier Prime',monospace;padding:10px 16px;text-align:center;border-bottom:3px solid #D9FF3D}.pv b{color:#fff}</style>
 </head>
@@ -1620,7 +1624,7 @@ html:not(.sz-page) #sz-count{display:none}
     <!-- GRA 4: WÓD.Ok.I -->
     <div class="gra__game" id="game-wodoki" role="tabpanel" data-game="wodoki" hidden>
       <div class="gra__grid">
-        <div class="gra__stage gra__stage--wok" id="wok-stage" tabindex="0" aria-label="Gra WÓD.Ok.I. Kieliszki spadają w rytm piosenek T.Ok.I. Klawisze D F J K albo strzałki, na telefonie stukanie w tory. Przy butelce przytrzymaj.">
+        <div class="gra__stage gra__stage--wok" id="wok-stage" tabindex="0" aria-label="Gra WÓD.Ok.I. Kieliszki spadają w rytm piosenek T.Ok.I. Klawisze A S K L albo strzałki, na telefonie stukanie w tory. Przy butelce przytrzymaj.">
           <canvas id="wok-cv" aria-hidden="true"></canvas>
           <div class="wok__tv" id="wok-tv" aria-hidden="true"><div id="wok-yt"></div></div>
           <canvas class="wok__hud" id="wok-hud" aria-hidden="true"></canvas>
@@ -1628,10 +1632,11 @@ html:not(.sz-page) #sz-count{display:none}
             <div class="gra__card wok__card">
               <small>Wódystopad · gra nr 4 · hity T.Ok.I</small>
               <h3 class="wok__logo">WÓD<i>.</i>Ok<i>.</i>I</h3>
-              <p>Kieliszki lecą w rytm muzyki. Trafiasz, kiedy dojadą do podstawki, czyli <b>wypijasz</b>. Przy <b>butelce</b> trzymasz do dna. Dobra seria ściąga ekipę na parkiet.</p>
+              <p>Trafiasz kieliszek w podstawkę — <b>wypijasz</b>. <b>Butelkę</b> trzymasz do dna. Seria ściąga ekipę na parkiet.</p>
               <div class="wok__songs" id="wok-songs" role="radiogroup" aria-label="Wybór piosenki"></div>
               <div class="wok__lv" id="wok-lv" role="radiogroup" aria-label="Poziom trudności"></div>
               <button class="btn-pill btn-lime" id="wok-go" type="button">Na parkiet →</button>
+              <label class="wok__vol">Głośność <input type="range" min="0" max="100" step="5" data-vol aria-label="Głośność muzyki"><output data-volout>80%</output></label>
               <details class="wok__set"><summary>Muzyka nie zgrywa się z kieliszkami?</summary>
                 <p>Słyszysz bit <b>po</b> tym, jak kieliszek dojedzie do podstawki — dodaj. Słyszysz go <b>wcześniej</b> — odejmij. Słuchawki Bluetooth zwykle potrzebują +150 ms.</p>
                 <div class="wok__off"><button type="button" data-d="-10" aria-label="Mniej o 10 ms">−</button><output id="wok-off">0 ms</output><button type="button" data-d="10" aria-label="Więcej o 10 ms">+</button></div>
@@ -1652,6 +1657,7 @@ html:not(.sz-page) #sz-count{display:none}
             <div class="gra__card gra__card--sm">
               <h3>Pauza</h3>
               <p>Kapela czeka, kieliszki też.</p>
+              <label class="wok__vol">Głośność <input type="range" min="0" max="100" step="5" data-vol aria-label="Głośność muzyki"><output data-volout>80%</output></label>
               <button class="btn-pill btn-lime" id="wok-resume" type="button">Wracam na parkiet →</button>
               <button class="btn-pill btn-ink" id="wok-quit" type="button">Zejdź z parkietu</button>
             </div>
@@ -1688,7 +1694,7 @@ html:not(.sz-page) #sz-count{display:none}
           <p class="gra__note wok__toki">Muzyka: <a href="https://tokimuzyka.com" target="_blank" rel="noopener">T.Ok.I</a>. Rozdział 2 płyty „30 PRZED 30” wychodzi 23.11.</p>
         </aside>
       </div>
-      <p class="gra__keys"><b>D F J K</b> albo <b>← ↓ ↑ →</b> — wypij kieliszek na swoim torze · przy butelce <b>przytrzymaj</b> do dna · na telefonie stukaj w tory · <b>P</b> pauza · muzyka leci z YouTube, więc daj głośniej</p>
+      <p class="gra__keys"><b>A S K L</b> albo <b>← ↓ ↑ →</b> — wypij kieliszek na swoim torze · przy butelce <b>przytrzymaj</b> do dna · na telefonie stukaj w tory · <b>P</b> pauza · <b>−</b> / <b>+</b> głośność (suwak też w menu i w pauzie)</p>
     </div>
 
     <!-- GRA 3: WÓDŻITSU -->
@@ -3925,7 +3931,7 @@ const GFX = {}; // rysunki współdzielone przez gry i okładki w Game Store
     road:'#151d2e', road2:'#1b2538', roadL:'#2a3a56', lamp:'#ffd38a', lampD:'#c98b3a', pole:'#0a0f1c',
     lime:'#D9FF3D', pink:'#FF5FD2', aqua:'#8FE8FF', gold:'#F5C542', red:'#E5301F', paper:'#EFE6D2', glass:'#cfe6f7', glassD:'#7fa6c6', vod:'#f5fbff', wood:'#5a3b22', woodL:'#7d5533', woodD:'#3a2414' };
   const LANEC = [C.lime, C.pink, C.aqua, C.gold];
-  const KEYS = { d:0, f:1, j:2, k:3, arrowleft:0, arrowdown:1, arrowup:2, arrowright:3 };
+  const KEYS = { a:0, s:1, k:2, l:3, arrowleft:0, arrowdown:1, arrowup:2, arrowright:3 };
   const FONT = 'Tiny5, "Courier Prime", monospace', FONTB = '"Jersey 10", Tiny5, monospace';
   const B62 = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
   const clamp = (v, a, b) => Math.max(a, Math.min(b, v)), pick = a => a[Math.floor(Math.random() * a.length)], R = Math.round;
@@ -3933,7 +3939,7 @@ const GFX = {}; // rysunki współdzielone przez gry i okładki w Game Store
 
   /* ---------- stan ---------- */
   let W = 300, H = 169, PX = 3, vis = false, st = 'ready', L = {}, HS = 3, DPR = 1, FS = 1;
-  let si = clamp(store.get('wok-song', 0), 0, SONGS.length - 1), lv = clamp(store.get('wok-lv', 1), 0, 2), lat = clamp(store.get('wok-off', 0), -200, 400);
+  let vol = clamp(store.get('wok-vol', 80), 0, 100), si = clamp(store.get('wok-song', 0), 0, SONGS.length - 1), lv = clamp(store.get('wok-lv', 1), 0, 2), lat = clamp(store.get('wok-off', 0), -200, 400);
   let song = SONGS[si], notes = [], P = .5, P16 = .125, startAt = 0, endAt = 0;
   let pts = 0, combo = 0, maxCombo = 0, mult = 1, kiel = 0, perfN = 0, goodN = 0, missN = 0, holdsOk = 0, holdsAll = 0, prom = 0, cond = 70, why = '', dead = false;
   const held = [null, null, null, null], press = [0, 0, 0, 0], ptrLane = new Map();
@@ -3968,7 +3974,7 @@ const GFX = {}; // rysunki współdzielone przez gry i okładki w Game Store
   let actx = null, lastBeat = -1;
   function metro() { if (!fake || !actx || st !== 'run') return; const n1 = Math.floor((clk + .12 - song.b0) / P);
     for (let n = Math.max(lastBeat + 1, Math.ceil((clk - song.b0) / P)); n <= n1; n++) { const tb = song.b0 + n * P, at = actx.currentTime + Math.max(0, tb - clk), down = ((n % 4) + 4) % 4 === song.bar;
-      const o = actx.createOscillator(), gn = actx.createGain(); o.frequency.value = down ? 1320 : 880; gn.gain.setValueAtTime(down ? .35 : .2, at); gn.gain.exponentialRampToValueAtTime(.001, at + .06);
+      const o = actx.createOscillator(), gn = actx.createGain(); o.frequency.value = down ? 1320 : 880; gn.gain.setValueAtTime((down ? .35 : .2) * vol / 100 + .0001, at); gn.gain.exponentialRampToValueAtTime(.001, at + .06);
       o.connect(gn); gn.connect(actx.destination); o.start(at); o.stop(at + .07); lastBeat = n; } }
 
   /* ---------- układ i tło ---------- */
@@ -4213,7 +4219,7 @@ const GFX = {}; // rysunki współdzielone przez gry i okładki w Game Store
     for (let l = 0; l < 4; l++) { const x = R(laneX(l, 0)), y = L.hitY, w = R(L.half / 2 - 4), col = LANEC[l], on = press[l] > 0 || held[l];
       rect(x - w / 2, y - 1, w, 4, C.ink); rect(x - w / 2 + 1, y, w - 2, 2, on ? col : '#26324c'); rect(x - w / 2, y - 2, w, 1, col);
       if (on) glow(x, y, 20, col, .35);
-      if (!L.mob && st !== 'over') tx('DFJK'[l], x, y + 4 + u(20), 20, FONTB, on ? col : 'rgba(239,230,210,.75)', 'center'); }
+      if (!L.mob && st !== 'over') tx('ASKL'[l], x, y + 4 + u(20), 20, FONTB, on ? col : 'rgba(239,230,210,.75)', 'center'); }
     sorted.filter(D => D.z < .12).forEach(D => dancer(D, t));
     lamps(true);
     // pogoda
@@ -4264,20 +4270,24 @@ const GFX = {}; // rysunki współdzielone przez gry i okładki w Game Store
   const best = i => (store.get('wok-best', {})[i] || 0);
   $('#wok-songs').addEventListener('click', e => { const b = e.target.closest('[data-i]'); if (!b) return; si = +b.dataset.i; store.set('wok-song', si); menu(); reset(); if (player && player.cueVideoById && !fake) player.cueVideoById({ videoId: song.id, startSeconds: startAt }); });
   $('#wok-lv').addEventListener('click', e => { const b = e.target.closest('[data-i]'); if (!b) return; lv = +b.dataset.i; store.set('wok-lv', lv); menu(); });
+  const applyVol = () => { $$('#wok-stage [data-vol]').forEach(r => r.value = vol); $$('#wok-stage [data-volout]').forEach(o => o.textContent = vol + '%');
+    if (player && player.setVolume) { player.setVolume(vol); if (vol) player.unMute(); else player.mute(); } };
+  $$('#wok-stage [data-vol]').forEach(r => r.addEventListener('input', () => { vol = +r.value; store.set('wok-vol', vol); applyVol(); }));
+  applyVol();
   $$('.wok__off button').forEach(b => b.onclick = () => { lat = clamp(lat + +b.dataset.d, -200, 400); store.set('wok-off', lat); menu(); });
   function start() { reset(); st = 'load'; loadFrom = startAt; loadT = performance.now(); ytErr = 0; $('#wok-kick').hidden = true;
     $('#wok-load-h').textContent = 'Chwileczkę…'; $('#wok-load-p').textContent = 'Teledysk się wczytuje. Daj głośniej, bez dźwięku nie da się pić w rytm.'; $('#wok-load-s').textContent = `T.Ok.I — ${song.t}`;
     show('load'); stage.focus({ preventScroll: true }); play();
     if (fake) { try { actx = actx || new (window.AudioContext || window.webkitAudioContext)(); actx.resume(); } catch (_) {} lastBeat = -1; return; } ytState = -1;
-    if (player && player.loadVideoById) { player.loadVideoById({ videoId: song.id, startSeconds: startAt }); player.unMute(); player.setVolume(100); }
-    else ensurePlayer().then(p => { if (st !== 'load') return; p.loadVideoById({ videoId: song.id, startSeconds: startAt }); p.unMute(); p.setVolume(100); }); }
+    if (player && player.loadVideoById) { player.loadVideoById({ videoId: song.id, startSeconds: startAt }); applyVol(); }
+    else ensurePlayer().then(p => { if (st !== 'load') return; p.loadVideoById({ videoId: song.id, startSeconds: startAt }); applyVol(); }); }
   function loadFail() { $('#wok-load-h').textContent = 'Kaseta się wciągnęła'; $('#wok-load-p').textContent = `YouTube nie chce puścić teledysku (kod ${ytErr}). Spróbuj inną piosenkę albo odśwież stronę.`; }
   function pause() { if (st !== 'run' && st !== 'load') return; st = 'pause'; stage.classList.remove('run'); held.fill(null); if (player && player.pauseVideo) player.pauseVideo(); show('pause'); }
   function resume() { if (st !== 'pause') return; st = 'load'; loadFrom = clk; loadT = performance.now(); clkOn = false; show('load'); $('#wok-load-h').textContent = 'Wracamy…';
     if (fake) return; if (player && player.playVideo) player.playVideo(); }
   function quit() { st = 'ready'; stage.classList.remove('run'); if (player && player.pauseVideo) player.pauseVideo(); show('start'); menu(); }
   $('#wok-go').onclick = start; $('#wok-again').onclick = start; $('#wok-other').onclick = quit; $('#wok-back').onclick = quit; $('#wok-quit').onclick = quit; $('#wok-resume').onclick = resume;
-  $('#wok-kick').onclick = () => { if (player && player.playVideo) { player.playVideo(); player.unMute(); } $('#wok-kick').hidden = true; };
+  $('#wok-kick').onclick = () => { if (player && player.playVideo) { player.playVideo(); applyVol(); } $('#wok-kick').hidden = true; };
 
   /* ---------- sterowanie ---------- */
   function laneAt(e) { const r = cv.getBoundingClientRect(), x = (e.clientX - r.left) / r.width * W; return clamp(Math.floor((x - (L.cx - L.half)) / (L.half / 2)), 0, 3); }
@@ -4289,6 +4299,7 @@ const GFX = {}; // rysunki współdzielone przez gry i okładki w Game Store
   const down = new Set();
   addEventListener('keydown', e => { if (!vis || e.target.closest && e.target.closest('input, textarea')) return; const k = e.key.toLowerCase();
     if (st === 'run' && (k === 'escape' || k === 'p')) { pause(); return; }
+    if ((k === '-' || k === '+' || k === '=') && (st === 'run' || st === 'pause')) { vol = clamp(vol + (k === '-' ? -10 : 10), 0, 100); store.set('wok-vol', vol); applyVol(); toast('Głośność: ' + vol + '%'); return; }
     if (k in KEYS && st === 'run') { e.preventDefault(); if (e.repeat || down.has(k)) return; down.add(k); pressLane(KEYS[k]); return; }
     if (document.activeElement === stage && (k === ' ' || k === 'enter')) { e.preventDefault(); if (st === 'ready') start(); else if (st === 'pause') resume(); } });
   addEventListener('keyup', e => { const k = e.key.toLowerCase(); if (!(k in KEYS)) return; down.delete(k); const l = KEYS[k]; if (![...down].some(x => KEYS[x] === l)) releaseLane(l); });
