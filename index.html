@@ -4006,54 +4006,8 @@ const GFX = {}; // rysunki współdzielone przez gry i okładki w Game Store
   // prosty generator liczb z ziarnem — każda piosenka ma swoje osiedle
   let sd = 1; const sr = () => (sd = (sd * 16807) % 2147483647) / 2147483647;
   const dith = (c, x0, y0, w, h, col, k) => { c.fillStyle = col; for (let y = y0; y < y0 + h; y++) for (let x = x0 + ((y + (k || 0)) & 1); x < x0 + w; x += 2) c.fillRect(x, y, 1, 1); };
-  function buildBg() { if (!L.vy) return;
-    bgC.width = W; bgC.height = H; const c = bg, vy = L.vy; scene = si; sd = 977 + si * 131;
-    // niebo w pasach z ditheringiem
-    const bands = [C.sky0, C.sky1, C.sky2, C.sky3]; const bh = Math.ceil(vy / bands.length);
-    bands.forEach((col, i) => { c.fillStyle = col; c.fillRect(0, i * bh, W, bh + 1); if (i) dith(c, 0, i * bh, W, 2, bands[i - 1]); });
-    dith(c, 0, vy - 6, W, 6, C.fog);
-    for (let i = 0; i < W * vy / 900; i++) { c.fillStyle = sr() < .3 ? C.snow : C.snowD; c.fillRect(R(sr() * W), R(sr() * vy * .55), 1, 1); } // gwiazdy
-    if (si !== 1) { const mx = R(W * (.72 + sr() * .15)), my = R(vy * .22); c.fillStyle = '#e9e3c8'; c.beginPath(); c.arc(mx, my, 5, 0, 7); c.fill(); c.fillStyle = C.sky1; c.beginPath(); c.arc(mx + 3, my - 1, 4.5, 0, 7); c.fill(); }
-    // bloki na horyzoncie
-    wins = []; let x = -4;
-    while (x < W) { const bw = R(18 + sr() * 30), bhh = R(vy * (.28 + sr() * .42)), top = vy - bhh, far = sr() < .5;
-      c.fillStyle = far ? C.blok2 : C.blok; c.fillRect(x, top, bw, bhh); c.fillStyle = C.blokE; c.fillRect(x, top, bw, 1); c.fillStyle = C.snow2; c.fillRect(x + 1, top - 1, bw - 2, 1);
-      for (let wy = top + 3; wy < vy - 3; wy += 4) for (let wx = x + 2; wx < x + bw - 2; wx += 3) { const on = sr() < .22, col = on ? (sr() < .15 ? C.winC : pick([C.win, C.win2, C.win3])) : C.winOff;
-        c.fillStyle = col; c.fillRect(wx, wy, 2, 2); if (on) wins.push({ x: wx, y: wy, col, ph: sr() * 20 }); }
-      x += bw + R(sr() * 6); }
-    // ziemia: zaśnieżone pobocza
-    for (let y = vy; y < H; y++) { const k = (y - vy) / (H - vy); c.fillStyle = k < .15 ? '#141f36' : k < .45 ? '#1a2842' : '#20314f'; c.fillRect(0, y, W, 1); }
-    dith(c, 0, vy, W, 3, C.fog); for (let i = 0; i < W * (H - vy) / 60; i++) { c.fillStyle = sr() < .5 ? '#3a5378' : '#0f182b'; c.fillRect(R(sr() * W), R(vy + 2 + sr() * (H - vy)), 1, 1); }
-    // drobiazgi osiedla: drzewa, kiosk RUCH, zaparkowany maluch, płot
-    const edgeX = (z, side, off) => R(L.cx + side * (L.half * sOf(z) + off * sOf(z)));
-    const tree = (x, yb, k) => { c.fillStyle = '#0a1120'; c.fillRect(x, yb - R(22 * k), Math.max(1, R(2 * k)), R(22 * k));
-      for (let i = 0; i < 7; i++) { const yy = yb - R((8 + i * 2.2) * k), len = R((7 - i * .7) * k), dir = i % 2 ? 1 : -1; for (let j = 0; j < len; j++) { c.fillRect(x + dir * j, yy - R(j * .6), 1, 1); if (j % 3 === 2) { c.fillStyle = C.snow2; c.fillRect(x + dir * j, yy - R(j * .6) - 1, 1, 1); c.fillStyle = '#0a1120'; } } } };
-    [[.42, -1, 190], [.28, 1, 230], [1.0, -1, 110], [.75, 1, 120], [2.0, -1, 70], [1.6, 1, 80]].forEach(([z, side, off]) => { const x = edgeX(z, side, off); if (x > 2 && x < W - 2) tree(x, R(yOf(z)), sOf(z) * (L.mob ? 2.4 : 3.6)); });
-    if (!L.mob) { const z = .55, k = sOf(z) * 4.4, x = edgeX(z, -1, 100), y = R(yOf(z)); // maluch pod śniegiem
-      c.fillStyle = '#7a2b25'; c.fillRect(x - R(9 * k), y - R(4 * k), R(18 * k), R(4 * k)); c.fillRect(x - R(6 * k), y - R(7 * k), R(11 * k), R(3 * k));
-      c.fillStyle = C.snow; c.fillRect(x - R(6 * k), y - R(8 * k), R(11 * k), Math.max(1, R(1.2 * k))); c.fillRect(x - R(9 * k), y - R(5 * k), R(4 * k), 1);
-      c.fillStyle = '#9fc0de'; c.fillRect(x - R(5 * k), y - R(6.5 * k), R(4 * k), Math.max(1, R(1.5 * k))); c.fillRect(x, y - R(6.5 * k), R(4 * k), Math.max(1, R(1.5 * k)));
-      c.fillStyle = C.ink; c.fillRect(x - R(7 * k), y - 1, R(3 * k), Math.max(1, R(2 * k))); c.fillRect(x + R(4 * k), y - 1, R(3 * k), Math.max(1, R(2 * k))); }
-    if (si !== 4 && !L.mob) { const z = .4, k = sOf(z) * 3.6, x = edgeX(z, 1, 130), y = R(yOf(z)); // kiosk RUCH
-      c.fillStyle = '#1e3a5a'; c.fillRect(x - R(7 * k), y - R(12 * k), R(14 * k), R(12 * k)); c.fillStyle = C.snow; c.fillRect(x - R(8 * k), y - R(13 * k), R(16 * k), Math.max(1, R(1.3 * k)));
-      c.fillStyle = C.win2; c.fillRect(x - R(5 * k), y - R(8 * k), R(10 * k), R(4 * k)); c.fillStyle = C.red; c.fillRect(x - R(7 * k), y - R(12 * k), R(14 * k), Math.max(1, R(2 * k))); }
-    // charakterystyczny element sceny
-    if (si === 0) { // Disco — pawilon z neonem DANCING
-      const px = R(W * .6), py = vy - 1, pw = R(W * .15); c.fillStyle = '#0e1730'; c.fillRect(px - pw / 2, py - 14, pw, 14); c.fillStyle = C.snow2; c.fillRect(px - pw / 2 - 1, py - 15, pw + 2, 1);
-      c.fillStyle = C.win; for (let i = px - pw / 2 + 2; i < px + pw / 2 - 3; i += 5) c.fillRect(i, py - 8, 3, 5); }
-    if (si === 2) { // Kapela — rząd garaży, jeden otwarty
-      const gw = 12, gy = vy - 1; for (let i = 0; i < 5; i++) { const gx = R(W * .54) + i * (gw + 1); c.fillStyle = '#1b2538'; c.fillRect(gx, gy - 9, gw, 9); c.fillStyle = C.snow2; c.fillRect(gx, gy - 10, gw, 1);
-        c.fillStyle = i === 2 ? C.win : '#243149'; c.fillRect(gx + 2, gy - 7, gw - 4, 7); if (i === 2) { c.fillStyle = C.ink; c.fillRect(gx + 4, gy - 5, 2, 5); c.fillRect(gx + 7, gy - 4, 3, 4); } } }
-    if (si === 3) { // Wspólny kurs — nasyp z torami
-      c.fillStyle = '#1d2a42'; c.fillRect(0, vy - 4, W, 4); c.fillStyle = C.snowD; c.fillRect(0, vy - 5, W, 1); c.fillStyle = '#0d1424'; for (let i = 0; i < W; i += 4) c.fillRect(i, vy - 3, 2, 1); }
-    if (si === 4) { // Staruszek — ławka pod latarnią (prawa strona, bliżej)
-      const bx = R(W * .86), by = R(vy + (H - vy) * .32); c.fillStyle = C.woodD; c.fillRect(bx - 9, by - 4, 18, 2); c.fillRect(bx - 9, by - 7, 18, 1); c.fillRect(bx - 8, by - 2, 1, 3); c.fillRect(bx + 7, by - 2, 1, 3);
-      c.fillStyle = C.snow; c.fillRect(bx - 9, by - 5, 18, 1); }
-  }
   function buildVignette() { vgC.width = W; vgC.height = H; const gr = vg.createRadialGradient(W / 2, H * .55, Math.min(W, H) * .35, W / 2, H * .55, Math.max(W, H) * .78);
     gr.addColorStop(0, 'rgba(5,7,15,0)'); gr.addColorStop(1, 'rgba(5,7,15,.62)'); vg.fillStyle = gr; vg.fillRect(0, 0, W, H); }
-  function seedWeather() { flakes = []; const n = R(W * H / (si === 1 ? 260 : 340));
-    for (let i = 0; i < n; i++) flakes.push({ x: Math.random() * W, y: Math.random() * H, v: si === 1 ? 140 + Math.random() * 80 : 6 + Math.random() * 14, w: Math.random() * 6, big: Math.random() < .18 }); }
 
   /* ---------- rysunki pikselowe ---------- */
   const rect = (x, y, w, h, col) => { g.fillStyle = col; g.fillRect(R(x), R(y), Math.max(1, R(w)), Math.max(1, R(h))); };
@@ -4111,27 +4065,211 @@ const GFX = {}; // rysunki współdzielone przez gry i okładki w Game Store
     if (!tvBox.classList.contains('on')) { for (let yy = 0; yy < h; yy++) for (let xx = 0; xx < w; xx += 2) if (Math.random() < .5) rect(x + xx + (yy & 1), y + yy, 1, 1, Math.random() < .5 ? '#2a3550' : '#141a2c'); } }
 
   /* ---------- tor (droga z lampami) ---------- */
-  function road(t) {
-    const top = R(yOf(1.15)); const wet = si === 1;
-    for (let y = top; y < H; y++) { const s = (y - L.vy) / (L.hitY - L.vy), hw = L.half * s, x0 = R(L.cx - hw), x1 = R(L.cx + hw);
-      rect(x0 - Math.max(1, R(3 * s)), y, x1 - x0 + Math.max(2, R(6 * s)), 1, C.snow2); // zaspy przy krawędzi
-      rect(x0, y, x1 - x0, 1, (y & 1) ? C.road : C.road2);
-      for (let l = 1; l < 4; l++) rect(R(L.cx + (l - 2) * hw / 2), y, 1, 1, '#0e1422'); }
-    // linie taktów biegną w stronę gracza
-    const t0 = T(), n0 = Math.ceil((t0 - song.b0) / P);
-    for (let n = n0; ; n++) { const tb = song.b0 + n * P, z = (tb - t0) / LV[lv].lead; if (z > 1.15) break; if (z < -.05) continue;
-      const y = R(yOf(z)), hw = L.half * sOf(z), barLine = ((n % 4) + 4) % 4 === song.bar;
-      g.globalAlpha = barLine ? .55 : .22; rect(L.cx - hw, y, hw * 2, 1, barLine ? C.lamp : C.roadL); g.globalAlpha = 1; }
-    if (wet) { for (let i = 0; i < 6; i++) { const z = ((i / 6 - t0 * .25 / LV[lv].lead) % 1 + 1) % 1, y = R(yOf(z)), hw = L.half * sOf(z); g.globalAlpha = .18; rect(L.cx - hw * .7, y, hw * 1.4, 1, C.lamp); } g.globalAlpha = 1; }
+  // ---------- 5 lokacji: każda piosenka ma swoje miejsce, pogodę, nawierzchnię toru i latarnie ----------
+  const SCN = [
+    { n:'dancing',   sky:['#07061a','#120b2c','#1f1042','#2f1655'], fog:'#3a1f5c', gr:['#120d22','#181229','#1e1732'], wx:'snow',   moon:1, stars:1 },
+    { n:'kamienice', sky:['#05080e','#0a0f17','#0f1621','#151e2c'], fog:'#1d2938', gr:['#0b1018','#0e141d','#111924'], wx:'rain',   moon:0, stars:0 },
+    { n:'festiwal',  sky:['#040817','#081530','#0d2247','#15315c'], fog:'#1b3a52', gr:['#0b1a14','#0f2219','#132a1e'], wx:'flies',  moon:0, stars:2 },
+    { n:'stacja',    sky:['#060a17','#0b1428','#11203a','#1a2f4c'], fog:'#22395a', gr:['#141f36','#1a2842','#20314f'], wx:'snow',   moon:1, stars:1 },
+    { n:'park',      sky:['#0b0918','#1a1430','#2b1c3c','#462845'], fog:'#5a3346', gr:['#120f16','#17131c','#1d1822'], wx:'leaves', moon:1, stars:1 },
+  ];
+  let SD = {}; // pozycje elementów sceny do animacji
+  const edgeX = (z, side, off) => R(L.cx + side * (L.half * sOf(z) + off * sOf(z)));
+  const hsh = (a, b) => { let x = (a * 374761393 + b * 668265263) >>> 0; x = (x ^ (x >>> 13)) * 1274126177 >>> 0; return (x >>> 8) / 16777216; };
+  function skyline(c, vy, lo, hi, cols, lit) { let x = -4;
+    while (x < W) { const bw = R(16 + sr() * 26), bhh = R(vy * (lo + sr() * (hi - lo))), top = vy - bhh; c.fillStyle = pick(cols); c.fillRect(x, top, bw, bhh);
+      for (let wy = top + 3; wy < vy - 3; wy += 4) for (let wx = x + 2; wx < x + bw - 2; wx += 3) { const on = sr() < lit, col = on ? pick([C.win, C.win2, C.win3]) : null;
+        if (on) { c.fillStyle = col; c.fillRect(wx, wy, 2, 2); wins.push({ x: wx, y: wy, w: 2, h: 2, col, ph: sr() * 20 }); } }
+      x += bw + R(sr() * 5); } }
+  function bareTree(c, x, yb, k, snow) { c.fillStyle = '#0a1120'; c.fillRect(x, yb - R(22 * k), Math.max(1, R(2 * k)), R(22 * k));
+    for (let i = 0; i < 7; i++) { const yy = yb - R((8 + i * 2.2) * k), len = R((7 - i * .7) * k), dir = i % 2 ? 1 : -1;
+      for (let j = 0; j < len; j++) { c.fillStyle = '#0a1120'; c.fillRect(x + dir * j, yy - R(j * .6), 1, 1); if (snow && j % 3 === 2) { c.fillStyle = C.snow2; c.fillRect(x + dir * j, yy - R(j * .6) - 1, 1, 1); } } } }
+  function leafyTree(c, x, yb, k) { const r = Math.max(3, R(9 * k)), tr = Math.max(1, R(2 * k)); c.fillStyle = '#1a1210'; c.fillRect(x - (tr >> 1), yb - R(14 * k), tr, R(14 * k));
+    for (let i = 0; i < r * r * 2.2; i++) { const a = sr() * 6.283, d = Math.sqrt(sr()) * r, px = R(x + Math.cos(a) * d * 1.1), py = R(yb - R(14 * k) - r * .6 + Math.sin(a) * d * .85);
+      c.fillStyle = pick(['#5a2414', '#7a3418', '#9a4a1c', '#3a1a12', '#b8662a', '#2a1410']); c.fillRect(px, py, 1, 1); } }
+  function car(c, z, side, off, col) { const k = sOf(z) * (L.mob ? 3.2 : 4.4), x = edgeX(z, side, off), y = R(yOf(z)); if (x < -20 || x > W + 20) return;
+    c.fillStyle = col; c.fillRect(x - R(9 * k), y - R(4 * k), R(18 * k), R(4 * k)); c.fillRect(x - R(6 * k), y - R(7 * k), R(11 * k), R(3 * k));
+    c.fillStyle = C.snow2; c.fillRect(x - R(6 * k), y - R(8 * k), R(11 * k), Math.max(1, R(1.1 * k)));
+    c.fillStyle = '#9fc0de'; c.fillRect(x - R(5 * k), y - R(6.5 * k), R(4 * k), Math.max(1, R(1.5 * k))); c.fillRect(x, y - R(6.5 * k), R(4 * k), Math.max(1, R(1.5 * k)));
+    c.fillStyle = C.ink; c.fillRect(x - R(7 * k), y - 1, R(3 * k), Math.max(1, R(2 * k))); c.fillRect(x + R(4 * k), y - 1, R(3 * k), Math.max(1, R(2 * k))); }
+  function tent(c, z, side, off, col) { const k = sOf(z) * (L.mob ? 3 : 4), x = edgeX(z, side, off), y = R(yOf(z)), w = R(10 * k), h = R(7 * k); if (x < -20 || x > W + 20) return;
+    for (let i = 0; i < h; i++) { const ww = R(w * (i + 1) / h); c.fillStyle = col; c.fillRect(x - ww, y - h + i, ww * 2, 1); c.fillStyle = 'rgba(0,0,0,.35)'; c.fillRect(x, y - h + i, ww, 1); }
+    c.fillStyle = '#05070f'; c.fillRect(x - 1, y - R(h * .5), 2, R(h * .5)); }
+  const BACK = [
+    (c, vy) => { // DISCO — modernistyczny pawilon „DANCING” na parkingu
+      skyline(c, vy, .15, .32, ['#0d0a1f', '#100c25'], .1);
+      const x0 = R(W * .22), x1 = R(W * .78), top = vy - R(vy * .3), wy = top + R((vy - top) * .32), wh = R((vy - top) * .5);
+      c.fillStyle = '#16102c'; c.fillRect(x0, top, x1 - x0, vy - top); c.fillStyle = '#2a1f4a'; c.fillRect(x0 - 4, top - 2, x1 - x0 + 8, 2); c.fillStyle = C.snow2; c.fillRect(x0 - 4, top - 3, x1 - x0 + 8, 1);
+      c.fillStyle = '#0c0818'; c.fillRect(R((x0 + x1) / 2) - 4, vy - 7, 8, 7);
+      SD = { x0, x1, top, wy, wh };
+      car(c, .45, -1, 70, '#7a2b25'); car(c, .75, 1, 60, '#2b5a7a'); car(c, .28, 1, 150, '#c9a640'); car(c, 1.3, -1, 40, '#3a6a3a'); },
+    (c, vy) => { // DESZCZ — ulica starych kamienic w ulewie
+      let x = -2; const signs = [];
+      while (x < W) { const bw = R(24 + sr() * 18), floors = 3 + (sr() * 2 | 0), fh = Math.max(5, R(vy * .085)), hh = floors * fh + 4, top = vy - hh;
+        c.fillStyle = pick(['#141b26', '#18202d', '#1b1622', '#1a1d22']); c.fillRect(x, top, bw, hh);
+        c.fillStyle = '#0a0d14'; for (let i = 0; i < 5; i++) c.fillRect(x + i, top - 5 + i, bw - 2 * i, 1); c.fillStyle = '#2a3242'; c.fillRect(x, top, bw, 1);
+        for (let f = 0; f < floors; f++) { const wy = top + 3 + f * fh; c.fillStyle = '#232b3a'; c.fillRect(x, wy + fh - 2, bw, 1);
+          for (let wx = x + 3; wx < x + bw - 4; wx += 6) { const on = sr() < .3, cl = on ? pick([C.win, C.win2, '#e8b070']) : '#0b0f17', wh = Math.max(3, fh - 4);
+            c.fillStyle = cl; c.fillRect(wx, wy, 3, wh); if (on) { wins.push({ x: wx, y: wy, w: 3, h: wh, col: cl, ph: sr() * 20 });
+              for (let ry = 0; ry < 10; ry++) { c.fillStyle = 'rgba(232,176,112,' + (.16 - ry * .015).toFixed(3) + ')'; c.fillRect(wx, vy + 1 + ry * 2, 3, 1); } } } } // odbicia na mokrej ulicy
+        c.fillStyle = '#07090f'; c.fillRect(x + R(bw / 2) - 3, vy - 6, 6, 6);
+        if (sr() < .35) signs.push({ x: x + R(bw / 2), y: top + fh * floors - 2 });
+        x += bw; }
+      SD = { signs: signs.slice(0, 2) }; },
+    (c, vy) => { // KAPELA — letni festiwal „WÓDOCIN”: scena, tłum, namioty, ognisko
+      const sx0 = R(W * .3), sx1 = R(W * .7), st0 = vy - R(vy * .45);
+      c.fillStyle = '#0b0f1c'; c.fillRect(sx0 + 2, st0 + 2, sx1 - sx0 - 4, vy - st0 - 6);
+      c.fillStyle = '#2b3446'; c.fillRect(sx0, st0, 2, vy - st0); c.fillRect(sx1 - 2, st0, 2, vy - st0); c.fillRect(sx0, st0, sx1 - sx0, 2);
+      for (let xx = sx0 + 1; xx < sx1; xx += 3) { c.fillRect(xx, st0 + 2, 1, 1); c.fillRect(xx + 1, st0 + 3, 1, 1); }
+      c.fillStyle = '#1b2230'; c.fillRect(sx0 - 4, vy - 6, sx1 - sx0 + 8, 6);
+      c.fillStyle = '#05070f'; c.fillRect(sx0 - 10, vy - 20, 7, 14); c.fillRect(sx1 + 3, vy - 20, 7, 14); c.fillStyle = '#1c2233'; c.fillRect(sx0 - 9, vy - 17, 5, 3); c.fillRect(sx1 + 4, vy - 17, 5, 3);
+      tent(c, .5, -1, 90, '#2f6a3a'); tent(c, .8, 1, 95, '#7a3a2a'); tent(c, .32, 1, 160, '#2a4a7a'); tent(c, 1.2, -1, 55, '#6a5a2a'); tent(c, 1.6, 1, 40, '#5a2a5a');
+      SD = { sx0, sx1, st0, fire: L.mob ? null : { x: edgeX(.6, -1, 150), y: R(yOf(.6)) } };
+      if (SD.fire) { c.fillStyle = '#3a2414'; c.fillRect(SD.fire.x - 4, SD.fire.y - 1, 8, 2); } },
+    (c, vy) => { // WSPÓLNY KURS — nocna stacja kolejowa zimą
+      skyline(c, vy, .14, .3, [C.blok2, C.blok], .12);
+      const bx0 = R(W * .56), bx1 = R(W * .92), top = vy - R(vy * .3);
+      c.fillStyle = '#1b2235'; c.fillRect(bx0, top, bx1 - bx0, vy - top); c.fillStyle = '#0e1424'; for (let i = 0; i < 6; i++) c.fillRect(bx0 - 2 + i, top - 6 + i, bx1 - bx0 + 4 - 2 * i, 1);
+      c.fillStyle = C.snow2; c.fillRect(bx0 + 4, top - 7, bx1 - bx0 - 8, 1);
+      for (let wx = bx0 + 4; wx < bx1 - 6; wx += 8) { c.fillStyle = C.win2; c.fillRect(wx, top + 7, 4, 7); c.fillStyle = C.win; c.fillRect(wx + 1, top + 6, 2, 1); wins.push({ x: wx, y: top + 7, w: 4, h: 7, col: C.win2, ph: sr() * 20 }); }
+      const ck = { x: R((bx0 + bx1) / 2), y: top - 1 }; c.fillStyle = '#e9e3c8'; c.beginPath(); c.arc(ck.x, ck.y - 6, 3, 0, 7); c.fill();
+      c.fillStyle = '#1d2a42'; c.fillRect(0, vy - 4, W, 4); c.fillStyle = C.snowD; c.fillRect(0, vy - 5, W, 1); c.fillStyle = '#0d1424'; for (let i = 0; i < W; i += 4) c.fillRect(i, vy - 3, 2, 1);
+      [[.42, -1, 170], [.9, -1, 90], [1.7, 1, 70], [.3, 1, 220]].forEach(([z, side, off]) => { const x = edgeX(z, side, off); if (x > 2 && x < W - 2) bareTree(c, x, R(yOf(z)), sOf(z) * (L.mob ? 2.4 : 3.6), 1); });
+      SD = { bx0, bx1, top, ck, sig: { x: R(W * .08), y: vy - 14 } }; },
+    (c, vy) => { // STARUSZEK — jesienny park, staw, ławka
+      skyline(c, vy, .1, .22, ['#2a1f36', '#30233c'], .06);
+      for (let i = 0; i < 4; i++) dith(c, 0, vy - 3 - i * 2, W, 1, '#7a3a3a', i);
+      [[.5, -1, 150], [.3, 1, 210], [1.1, -1, 80], [.8, 1, 95], [2.2, -1, 50], [1.8, 1, 55], [3.2, -1, 35], [3, 1, 35]].forEach(([z, side, off]) => { const x = edgeX(z, side, off); if (x > -10 && x < W + 10) leafyTree(c, x, R(yOf(z)), sOf(z) * (L.mob ? 2.6 : 3.8)); });
+      if (!L.mob) { const px = R(W * .16), py = R(L.vy + (H - L.vy) * .22), pw = R(W * .13), ph = 6; // staw
+        for (let y = 0; y < ph; y++) { const ww = R(pw * Math.sqrt(1 - Math.pow((y - ph / 2) / (ph / 2), 2))); c.fillStyle = y % 2 ? '#141a33' : '#18203d'; c.fillRect(px - ww, py + y, ww * 2, 1); }
+        SD.pond = { x: px, y: py, w: pw }; } else SD.pond = null;
+      for (let i = 0; i < W * (H - vy) / 110; i++) { c.fillStyle = pick(['#7a3418', '#9a4a1c', '#b8662a', '#5a2414']); c.fillRect(R(sr() * W), R(vy + 3 + sr() * (H - vy)), 1, 1); }
+      const bx = R(W * .86), by = R(vy + (H - vy) * .32); c.fillStyle = C.woodD; c.fillRect(bx - 9, by - 4, 18, 2); c.fillRect(bx - 9, by - 7, 18, 1); c.fillRect(bx - 8, by - 2, 1, 3); c.fillRect(bx + 7, by - 2, 1, 3);
+      SD.bench = { x: bx, y: by }; },
+  ];
+  function buildBg() { if (!L.vy) return;
+    bgC.width = W; bgC.height = H; const c = bg, vy = L.vy, S = SCN[si]; scene = si; sd = 977 + si * 131; wins = []; SD = {};
+    const bh = Math.ceil(vy / 4); S.sky.forEach((col, i) => { c.fillStyle = col; c.fillRect(0, i * bh, W, bh + 1); if (i) dith(c, 0, i * bh, W, 2, S.sky[i - 1]); });
+    dith(c, 0, vy - 6, W, 6, S.fog);
+    if (S.stars) for (let i = 0; i < W * vy / (S.stars === 2 ? 450 : 900); i++) { c.fillStyle = sr() < .3 ? C.snow : C.snowD; c.fillRect(R(sr() * W), R(sr() * vy * .6), 1, 1); }
+    if (S.stars === 2) for (let i = 0; i < W * 1.5; i++) { const x = sr() * W, y = vy * (.04 + .32 * (x / W)) + (sr() - .5) * 12; c.fillStyle = sr() < .5 ? '#22406c' : '#34578a'; c.fillRect(R(x), R(y), 1, 1); } // Droga Mleczna
+    if (S.moon) { const mx = R(W * (.8 + sr() * .08)), my = R(vy * .2); c.fillStyle = '#e9e3c8'; c.beginPath(); c.arc(mx, my, 5, 0, 7); c.fill(); c.fillStyle = S.sky[1]; c.beginPath(); c.arc(mx + 3, my - 1, 4.5, 0, 7); c.fill(); }
+    if (si === 1) for (let i = 0; i < 7; i++) { const cx = sr() * W, cy = sr() * vy * .45, cw = 30 + sr() * 50; dith(c, R(cx - cw / 2), R(cy), R(cw), 3, '#1a2433', i); } // chmury
+    for (let y = vy; y < H; y++) { const k = (y - vy) / (H - vy); c.fillStyle = S.gr[k < .15 ? 0 : k < .45 ? 1 : 2]; c.fillRect(0, y, W, 1); }
+    dith(c, 0, vy, W, 3, S.fog);
+    if (si === 3) for (let i = 0; i < W * (H - vy) / 60; i++) { c.fillStyle = sr() < .5 ? '#3a5378' : '#0f182b'; c.fillRect(R(sr() * W), R(vy + 2 + sr() * (H - vy)), 1, 1); }
+    if (si === 0) for (let i = 0; i < W * (H - vy) / 80; i++) { c.fillStyle = sr() < .5 ? '#2c2440' : '#0c0918'; c.fillRect(R(sr() * W), R(vy + 2 + sr() * (H - vy)), 1, 1); }
+    if (si === 2) for (let i = 0; i < W * (H - vy) / 25; i++) { c.fillStyle = sr() < .5 ? '#1c3a24' : '#08140e'; c.fillRect(R(sr() * W), R(vy + 2 + sr() * (H - vy)), 1, 2); } // trawa
+    BACK[si](c, vy);
   }
-  function lamps(front) { // latarnie po obu stronach, co 2 takty — jadą razem z rytmem
-    const t0 = T(), span = P * 2, n0 = Math.floor((t0 - song.b0) / span);
+  function seedWeather() { flakes = []; const wx = SCN[si].wx, n = R(W * H / (wx === 'rain' ? 240 : wx === 'leaves' ? 1400 : wx === 'flies' ? 2600 : 340));
+    for (let i = 0; i < n; i++) flakes.push({ x: Math.random() * W, y: Math.random() * H, v: wx === 'rain' ? 150 + Math.random() * 80 : wx === 'leaves' ? 10 + Math.random() * 12 : wx === 'flies' ? 0 : 6 + Math.random() * 14,
+      w: Math.random() * 6, big: Math.random() < .18, col: pick(['#b8662a', '#9a4a1c', '#d08a2a', '#7a3418', '#c9a640']), ph: Math.random() * 6.28 }); }
+  let flash = 0, lastBar = -1;
+  function weatherStep(dt) { const wx = SCN[si].wx, tt = performance.now() / 1000, wind = Math.sin(tt / 3) * (wx === 'rain' ? 20 : 6);
+    flakes.forEach(f => { if (wx === 'flies') { f.x += Math.sin(tt * .7 + f.ph) * 6 * dt; f.y += Math.cos(tt * .5 + f.w) * 4 * dt; if (f.y < L.vy) f.y = L.vy + 2; if (f.y > H) f.y = L.vy + 2; }
+      else { f.y += f.v * dt; f.x += (wind + (wx === 'rain' ? 0 : Math.sin(f.y / 9 + f.w) * (wx === 'leaves' ? 10 : 4))) * dt; if (f.y > H) { f.y = -2; f.x = Math.random() * W; } }
+      if (f.x < 0) f.x += W; if (f.x > W) f.x -= W; });
+    flash = Math.max(0, flash - dt * 2.5);
+    if (si === 1 && st === 'run') { const b = Math.floor(((T() - song.b0) / P16 - song.bar * 4) / 16); if (b !== lastBar) { lastBar = b; if (b > 0 && b % 8 === 0 && energy() > .5) flash = 1; } } }
+  function weatherDraw() { const wx = SCN[si].wx, tt = performance.now() / 1000, en = st === 'ready' ? .3 : energy();
+    flakes.forEach(f => {
+      if (wx === 'rain') { g.globalAlpha = .55; rect(f.x, f.y, 1, 3, '#8fb3d6'); }
+      else if (wx === 'leaves') { g.globalAlpha = .9; const sw = Math.sin(tt * 2 + f.ph) > 0; rect(f.x, f.y, sw ? 2 : 1, sw ? 1 : 2, f.col); }
+      else if (wx === 'flies') { const b = .5 + .5 * Math.sin(tt * 3 + f.ph * 3); g.globalAlpha = b; rect(f.x, f.y, 1, 1, '#e8ff7a'); if (b > .8) glow(f.x, f.y, 4, 'rgba(220,255,120,1)', .25); }
+      else { g.globalAlpha = f.big ? .95 : .6; rect(f.x, f.y, f.big ? 2 : 1, 1, si === 0 && en > .55 && f.big ? LANEC[(f.ph * 10 | 0) % 4] : C.snow); } });
+    g.globalAlpha = 1;
+    if (flash > 0) { g.globalAlpha = flash * .28; rect(0, 0, W, H, '#dfe9ff'); g.globalAlpha = 1; } }
+
+  // elementy sceny w ruchu (rysowane co klatkę za drogą)
+  function sceneBack(t, en, bp) {
+    wins.forEach(w => { if (Math.sin(t * .3 + w.ph) > .985) rect(w.x, w.y, w.w || 2, w.h || 2, C.winOff); });
+    const pulse = 1 - bp;
+    if (si === 0) { const { x0, x1, top, wy, wh } = SD; if (!wh) return; // dancing: okna z tańczącymi, kula disco, neon
+      const hue = [C.pink, C.aqua, C.lime, C.gold][Math.floor((T() - song.b0) / P) & 3];
+      g.globalAlpha = .55 + .35 * pulse * en; rect(x0 + 3, wy, x1 - x0 - 6, wh, '#3a1450'); g.globalAlpha = .25 + .3 * pulse * en; rect(x0 + 3, wy, x1 - x0 - 6, wh, hue); g.globalAlpha = 1;
+      for (let i = 0; i < 14; i++) { const sx = x0 + 3 + ((i * 37 + t * 9) % (x1 - x0 - 8)), sy = wy + ((i * 13) % Math.max(1, wh - 1)); rect(sx, sy, 1, 1, '#fff'); } // kropki z kuli
+      for (let i = 0; i < (x1 - x0) / 7; i++) { const fx = x0 + 6 + i * 7, hop = (i + Math.floor((T() - song.b0) / P)) % 2 ? 1 : 0; rect(fx, wy + wh - 5 - hop, 2, 5, '#0c0818'); rect(fx, wy + wh - 7 - hop, 2, 2, '#0c0818'); }
+      for (let xx = x0 + 3; xx < x1 - 3; xx += 12) rect(xx, wy, 1, wh, '#0c0818');
+      const on = Math.sin(t * 7) > -.85 && !(Math.sin(t * 1.3) > .97); tx('DANCING', (x0 + x1) / 2, top - 4, 30, FONTB, on ? C.pink : '#6a2a5a', 'center');
+      if (on) glow((x0 + x1) / 2, top - 8, W * .12, 'rgba(255,95,210,1)', .2 + en * .25 * pulse);
+      for (let xx = x0 - 3; xx < x1 + 4; xx += 3) rect(xx, top - 2, 1, 1, ((xx / 3 | 0) + Math.floor(t * 4)) % 3 ? '#4a3a6a' : C.gold); }
+    if (si === 1) { (SD.signs || []).forEach((sg, i) => { const on = Math.sin(t * 5 + i * 3) > -.9; tx(i ? 'BAR MLECZNY' : 'APTEKA', sg.x, sg.y, 16, FONTB, on ? (i ? C.red : '#5aff8a') : '#1f3a2a', 'center'); if (on) glow(sg.x, sg.y - 2, 14, i ? 'rgba(229,48,31,1)' : 'rgba(90,255,138,1)', .25); }); }
+    if (si === 2) { const { sx0, sx1, st0 } = SD; if (!sx1) return; // festiwal: reflektory, zespół, tłum, ognisko
+      const beat = Math.floor((T() - song.b0) / P), lights = 5;
+      g.save(); g.globalCompositeOperation = 'lighter';
+      for (let i = 0; i < lights; i++) { const lx = sx0 + 4 + i * (sx1 - sx0 - 8) / (lights - 1), ang = Math.sin(t * .9 + i * 1.7) * .6 + (i - 2) * .12, len = L.vy * 1.1, col = LANEC[(i + beat) & 3];
+        g.globalAlpha = (.06 + .14 * en * pulse); g.fillStyle = col; g.beginPath(); g.moveTo(lx, st0 + 2); g.lineTo(lx + Math.sin(ang - .08) * len, st0 + 2 - Math.cos(ang - .08) * len); g.lineTo(lx + Math.sin(ang + .08) * len, st0 + 2 - Math.cos(ang + .08) * len); g.closePath(); g.fill(); }
+      g.restore(); g.globalAlpha = 1;
+      g.globalAlpha = .5 + .5 * en * pulse; rect(sx0 + 2, st0 + 3, sx1 - sx0 - 4, 3, LANEC[beat & 3]); g.globalAlpha = 1;
+      const fl = L.vy - 6, b2 = beat & 1; rect(sx0 + 8, fl - 9 + b2, 2, 9, '#05070f'); rect(sx0 + 7, fl - 11 + b2, 4, 3, '#05070f'); rect(sx0 + 10, fl - 6 + b2, 5, 1, '#05070f'); // gitarzysta
+      const mx = R((sx0 + sx1) / 2); rect(mx, fl - 10 + (1 - b2), 2, 10, '#05070f'); rect(mx - 1, fl - 12 + (1 - b2), 4, 3, '#05070f'); rect(mx + 3, fl - 12, 1, 12, '#3a3f50'); // wokalista
+      rect(sx1 - 16, fl - 6, 8, 6, '#2a3040'); rect(sx1 - 13, fl - 10 + b2, 3, 4, '#05070f'); // perkusja
+      tx('WÓDOCIN ’26', mx, st0 - 3, 20, FONTB, C.red, 'center');
+      for (let x = Math.max(0, sx0 - 30); x < Math.min(W, sx1 + 30); x += 3) { const hop = hsh(x, beat) < .5 * en + .2 ? 1 : 0; rect(x, L.vy - 1 - hop, 2, 2 + hop, '#04060c'); } // tłum
+      if (SD.fire) { const f = SD.fire, fl2 = .6 + .4 * Math.sin(t * 13) * Math.sin(t * 7.3); glow(f.x, f.y - 3, 26, 'rgba(255,140,40,1)', .35 * fl2); rect(f.x - 2, f.y - 4, 4, 3, '#ff8a2a'); rect(f.x - 1, f.y - 6 - (fl2 > .7 ? 1 : 0), 2, 2, '#ffd36a'); } }
+    if (si === 3) { const per = 14, ph = ((t % per) / per), px = R(-90 + ph * (W + 180)), py = L.vy - 5; // pociąg, semafor, zegar
+      rect(px, py - 7, 86, 7, '#8a2f1d'); rect(px, py - 7, 86, 1, '#b8472c'); for (let i = 0; i < 4; i++) { rect(px + i * 22, py - 7, 1, 7, C.ink); for (let j = 0; j < 4; j++) rect(px + i * 22 + 3 + j * 4, py - 5, 2, 2, C.win2); }
+      rect(px + 86, py - 6, 2, 6, '#8a2f1d'); rect(px + 87, py - 4, 1, 1, '#fff6c8'); glow(px + 88, py - 4, 22, 'rgba(255,240,190,1)', .35);
+      if (SD.sig) { const s = SD.sig, red = Math.sin(t * .5) > 0; rect(s.x, s.y, 1, 14, C.pole); rect(s.x - 1, s.y - 4, 3, 5, '#0a0f1c'); rect(s.x, s.y - 3, 1, 1, red ? C.red : '#3aff8a'); glow(s.x, s.y - 3, 7, red ? 'rgba(229,48,31,1)' : 'rgba(58,255,138,1)', .4); }
+      if (SD.ck) { const { x, y } = SD.ck, a = t * .1; rect(x + R(Math.sin(a) * 2), y - 6 - R(Math.cos(a) * 2), 1, 1, C.ink); rect(x, y - 6, 1, 1, C.ink); tx('WÓDYSTOPAD GŁÓWNY', (SD.bx0 + SD.bx1) / 2, SD.top + 5, 14, FONTB, C.paper, 'center'); } }
+    if (si === 4) { const b = SD.bench; if (b) { const bx = b.x, by = b.y; rect(bx + 1, by - 13, 4, 6, '#2a2f44'); rect(bx + 1, by - 17, 4, 4, '#c8b49a'); rect(bx + 1, by - 18, 4, 1, '#6a6a7a');
+        const ember = .5 + .5 * Math.sin(t * 2.2); rect(bx - 1, by - 14, 1, 1, ember > .5 ? '#ff7a2a' : '#a33d12'); glow(bx - 1, by - 14, 4, 'rgba(255,120,40,1)', .4 * ember);
+        rect(bx + 12, by - 30, 1, 28, C.pole); rect(bx + 10, by - 32, 5, 3, '#fff4d6'); glow(bx + 12, by - 31, 22, 'rgba(255,220,150,1)', .5); glow(bx + 4, by - 4, 18, 'rgba(255,190,110,1)', .2); }
+      if (SD.pond) { const p = SD.pond; for (let i = 0; i < 3; i++) rect(p.x - 3 + R(Math.sin(t * 1.5 + i) * 2), p.y + 2 + i, 6 - i * 2, 1, '#e9e3c8'); } }
+    glow(L.cx, L.vy, Math.max(W, H) * .45, si === 2 ? 'rgba(120,160,255,1)' : 'rgba(255,170,90,1)', .05 + en * .06 * pulse);
+  }
+
+  /* ---------- tor: każda lokacja ma swoją nawierzchnię ---------- */
+  function road() {
+    const t0 = T(), lead = LV[lv].lead, top = R(yOf(1.15)), en = st === 'ready' ? .3 : energy(), beat = Math.floor((t0 - song.b0) / P), pulse = 1 - beatPh();
+    for (let y = top; y < H; y++) { const s = (y - L.vy) / (L.hitY - L.vy), hw = L.half * s, x0 = R(L.cx - hw), x1 = R(L.cx + hw), z = zOfY(y + .5), d = t0 + z * lead, ew = Math.max(1, R(3 * s));
+      if (si === 0) { // parkiet z podświetlanymi płytkami
+        rect(x0 - ew, y, x1 - x0 + ew * 2, 1, '#2a1f4a'); const row = Math.floor(d / (P / 2));
+        for (let l = 0; l < 4; l++) { const a = R(L.cx + (l - 2) * hw / 2), b = R(L.cx + (l - 1) * hw / 2), lit = hsh(row, l + 7) < .12 + en * .25;
+          rect(a, y, b - a, 1, lit ? LANEC[(row + l) & 3] : ((row + l) & 1) ? '#1a1030' : '#221640'); if (lit) { g.globalAlpha = .55 * (1 - pulse * .5); rect(a, y, b - a, 1, '#0c0818'); g.globalAlpha = 1; } }
+        if ((d / (P / 2)) % 1 < .08) rect(x0, y, x1 - x0, 1, '#0c0818'); }
+      else if (si === 1) { // mokry bruk
+        rect(x0 - ew, y, x1 - x0 + ew * 2, 1, '#2a3242'); const u = d * 7, row = Math.floor(u), f = u - row;
+        rect(x0, y, x1 - x0, 1, f < .18 ? '#070a10' : (row & 1) ? '#121822' : '#161d29');
+        if (f >= .18) { const bw = Math.max(2, hw / 4); for (let k = -5; k <= 5; k++) { const xx = R(L.cx + (k + (row & 1) * .5) * bw); if (xx > x0 && xx < x1) rect(xx, y, 1, 1, '#070a10'); } } }
+      else if (si === 2) { // kładka z desek
+        rect(x0 - ew, y, x1 - x0 + ew * 2, 1, '#1c2a1c'); const u = d * 5, f = u - Math.floor(u);
+        rect(x0, y, x1 - x0, 1, f < .14 ? '#1a1008' : (Math.floor(u) & 1) ? '#5a3d22' : '#4e3520'); if (f > .5 && f < .56) rect(x0 + 2, y, x1 - x0 - 4, 1, '#6a4a2a'); }
+      else if (si === 3) { // tory: tłuczeń, podkłady, szyny
+        rect(x0 - ew, y, x1 - x0 + ew * 2, 1, C.snow2); const u = d * 4, f = u - Math.floor(u);
+        rect(x0, y, x1 - x0, 1, f < .38 ? '#3b2a20' : ((y + Math.floor(u)) & 1) ? '#2a2c34' : '#24262e');
+        for (let l = 0; l <= 4; l++) { const xx = R(L.cx + (l - 2) * hw / 2); rect(xx - (s > .6 ? 1 : 0), y, s > .6 ? 2 : 1, 1, '#8a93a6'); } }
+      else { // trylinka w parku
+        rect(x0 - ew, y, x1 - x0 + ew * 2, 1, '#2a1f24'); const u = d * 6, row = Math.floor(u), f = u - row;
+        rect(x0, y, x1 - x0, 1, f < .14 ? '#1c181f' : '#3a3540');
+        if (f > .4 && f < .6) { const bw = Math.max(3, hw / 3); for (let k = -4; k <= 4; k++) { const xx = R(L.cx + (k + (row & 1) * .5) * bw); if (xx > x0 + 1 && xx < x1 - 1) rect(xx, y, Math.max(1, R(s * 1.5)), 1, '#2c3a1e'); } } }
+      if (si !== 3) for (let l = 1; l < 4; l++) rect(R(L.cx + (l - 2) * hw / 2), y, 1, 1, si === 0 ? '#0c0818' : '#0e1422'); }
+    // linie taktów
+    const n0 = Math.ceil((t0 - song.b0) / P);
+    for (let n = n0; ; n++) { const tb = song.b0 + n * P, z = (tb - t0) / lead; if (z > 1.15) break; if (z < -.05) continue;
+      const y = R(yOf(z)), hw = L.half * sOf(z), barLine = ((n % 4) + 4) % 4 === song.bar;
+      g.globalAlpha = barLine ? .5 : .18; rect(L.cx - hw, y, hw * 2, 1, barLine ? C.lamp : C.roadL); g.globalAlpha = 1; }
+    if (si === 1) { for (let i = 0; i < 6; i++) { const z = ((i / 6 - t0 * .25 / lead) % 1 + 1) % 1, y = R(yOf(z)), hw = L.half * sOf(z); g.globalAlpha = .16; rect(L.cx - hw * .7, y, hw * 1.4, 1, C.lamp); } g.globalAlpha = 1; }
+  }
+  function lamps(front) { // latarnie po obu stronach, co 2 takty — jadą razem z rytmem; wygląd zależy od lokacji
+    const t0 = T(), span = P * 2, n0 = Math.floor((t0 - song.b0) / span), tt = performance.now() / 1000;
     for (let n = n0 + 7; n >= n0; n--) { const z = (song.b0 + n * span - t0) / LV[lv].lead; if (z < -.08 || z > 4.2) continue; if (front !== (z < .35)) continue;
-      const s = sOf(z), yb = yOf(z), hgt = 46 * s * (L.mob ? .9 : 1.15);
-      [-1, 1].forEach(side => { const x = R(L.cx + side * (L.half * s + 14 * s)); rect(x, yb - hgt, Math.max(1, R(1.6 * s)), hgt, C.pole);
-        rect(x - side * R(5 * s), yb - hgt, R(5 * s) + 1, Math.max(1, R(1.2 * s)), C.pole); const lx = x - side * R(5 * s);
-        rect(lx - 1, yb - hgt + 1, Math.max(2, R(3 * s)), Math.max(1, R(1.5 * s)), C.lamp);
-        glow(lx, yb - hgt + 2, 26 * s, 'rgba(255,200,120,1)', .55); glow(lx, yb, 30 * s, 'rgba(255,190,110,1)', .16); }); }
+      const s = sOf(z), yb = yOf(z), mk = L.mob ? .9 : 1.15, pw = Math.max(1, R(1.6 * s));
+      if (si === 3) { const hgt = 58 * s * mk, xl = R(L.cx - (L.half * s + 12 * s)), xr = R(L.cx + (L.half * s + 12 * s)); // słupy trakcji z drutem nad torem
+        rect(xl, yb - hgt, pw, hgt, '#3a4256'); rect(xr, yb - hgt, pw, hgt, '#3a4256'); rect(xl, yb - hgt, xr - xl, Math.max(1, R(1.2 * s)), '#3a4256');
+        rect(xl, yb - hgt * .86, xr - xl, 1, '#5a6276'); rect(R(L.cx) - 1, yb - hgt * .86, 2, Math.max(1, R(2 * s)), '#8a93a6');
+        glow(xl, yb - hgt * .5, 16 * s, 'rgba(255,220,160,1)', .25); rect(xl + pw, yb - hgt * .5, Math.max(2, R(2 * s)), Math.max(1, R(s)), C.lamp); continue; }
+      [-1, 1].forEach(side => { const x = R(L.cx + side * (L.half * s + 14 * s));
+        if (si === 0) { const hgt = 40 * s * mk; rect(x, yb - hgt, pw, hgt, '#2a1f4a'); // słupki z kolorowymi żarówkami
+          for (let b = 0; b < 3; b++) { const col = LANEC[(b + n + (side > 0 ? 2 : 0)) & 3], by = yb - hgt - b * Math.max(2, R(4 * s)); rect(x - 1, by, Math.max(2, R(2.5 * s)), Math.max(2, R(2.5 * s)), col); glow(x, by + 1, 10 * s, col, .4); } }
+        else if (si === 1) { const hgt = 44 * s * mk; rect(x, yb - hgt, pw, hgt, C.pole); const lx = x - side * R(4 * s); rect(lx - side * R(1 * s), yb - hgt, R(5 * s) + 1, Math.max(1, R(1.2 * s)), C.pole); // latarnia uliczna
+          rect(lx - R(1.5 * s), yb - hgt + 1, Math.max(3, R(3.5 * s)), Math.max(2, R(3 * s)), '#ffd38a'); glow(lx, yb - hgt + 3, 26 * s, 'rgba(255,200,120,1)', .5);
+          g.globalAlpha = .12; rect(lx - R(2 * s), yb, Math.max(2, R(4 * s)), R(26 * s), '#ffd38a'); g.globalAlpha = 1; }
+        else if (si === 2) { const hgt = 20 * s * mk, fl = .6 + .4 * Math.sin(tt * 11 + n * 2 + side) * Math.sin(tt * 6.3 + n); rect(x, yb - hgt, pw, hgt, '#3a2414'); // pochodnie
+          rect(x - 1, yb - hgt - Math.max(2, R(3 * s)), Math.max(2, R(2.5 * s)), Math.max(2, R(3 * s)), fl > .6 ? '#ffd36a' : '#ff8a2a'); glow(x, yb - hgt - 2, 22 * s, 'rgba(255,140,40,1)', .45 * fl); }
+        else { const hgt = 30 * s * mk; rect(x, yb - hgt, pw, hgt, '#1a1418'); rect(x - Math.max(1, R(1.5 * s)), yb - hgt - Math.max(3, R(4 * s)), Math.max(3, R(4 * s)), Math.max(3, R(4 * s)), '#fff4d6'); // parkowa kula
+          glow(x + 1, yb - hgt - 2, 24 * s, 'rgba(255,220,150,1)', .5); glow(x, yb, 22 * s, 'rgba(255,200,130,1)', .14); } }); }
   }
 
   /* ---------- logika gry ---------- */
@@ -4183,28 +4321,14 @@ const GFX = {}; // rysunki współdzielone przez gry i okładki w Game Store
     texts = texts.filter(x => (x.t += dt) < .7);
     crowd.forEach(D => { D.on += (D.want - D.on) * Math.min(1, dt * 3); });
     if (joinMsg && (joinMsg.t += dt) > 1.8) joinMsg = null;
-    const rain = si === 1, wind = Math.sin(performance.now() / 3000) * (rain ? 20 : 6);
-    flakes.forEach(f => { f.y += f.v * dt; f.x += (wind + Math.sin(f.y / 9 + f.w) * (rain ? 0 : 4)) * dt; if (f.y > H) { f.y = -2; f.x = Math.random() * W; } if (f.x < 0) f.x += W; if (f.x > W) f.x -= W; });
+    weatherStep(dt);
   }
 
   /* ---------- rysowanie ---------- */
   function render() {
     const t = performance.now() / 1000, t0 = T(), en = st === 'ready' ? .4 : energy(), bp = beatPh();
     g.globalAlpha = 1; g.drawImage(bgC, 0, 0); h.setTransform(1, 0, 0, 1, 0, 0); h.clearRect(0, 0, hc.width, hc.height);
-    // migające okna i elementy sceny
-    wins.forEach(w => { if (Math.sin(t * .3 + w.ph) > .985) rect(w.x, w.y, 2, 2, C.winOff); });
-    glow(L.cx, L.vy, Math.max(W, H) * .45, 'rgba(255,170,90,1)', .05 + en * .06 * (1 - bp));
-    if (si === 0) { const px = R(W * .6), py = L.vy - 17, on = Math.sin(t * 7) > -.85 && !(Math.sin(t * 1.3) > .97);
-      tx('DANCING', px, py, 30, FONTB, on ? C.pink : '#6a2a5a', 'center');
-      if (on) glow(px, py - 3, W * .09, 'rgba(255,95,210,1)', .25 + en * .2 * (1 - bp)); }
-    if (si === 2) glow(R(W * .54) + 2 * 13 + 6, L.vy - 4, 16, 'rgba(255,190,110,1)', .3 + .25 * (1 - bp));
-    if (si === 3) { const per = 14, ph = ((t % per) / per), tx = R(-90 + ph * (W + 180)), ty = L.vy - 5; // nocny pociąg
-      rect(tx, ty - 7, 86, 7, '#8a2f1d'); rect(tx, ty - 7, 86, 1, '#b8472c'); for (let i = 0; i < 4; i++) { rect(tx + i * 22, ty - 7, 1, 7, C.ink); for (let j = 0; j < 4; j++) rect(tx + i * 22 + 3 + j * 4, ty - 5, 2, 2, C.win2); }
-      rect(tx + 86, ty - 6, 2, 6, '#8a2f1d'); rect(tx + 87, ty - 4, 1, 1, '#fff6c8'); glow(tx + 88, ty - 4, 22, 'rgba(255,240,190,1)', .35); }
-    if (si === 4) { const bx = R(W * .86), by = R(L.vy + (H - L.vy) * .32); rect(bx + 1, by - 13, 4, 6, '#2a2f44'); rect(bx + 1, by - 17, 4, 4, '#c8b49a'); rect(bx + 1, by - 18, 4, 1, '#6a6a7a');
-      const ember = .5 + .5 * Math.sin(t * 2.2); rect(bx - 1, by - 14, 1, 1, ember > .5 ? '#ff7a2a' : '#a33d12'); glow(bx - 1, by - 14, 4, 'rgba(255,120,40,1)', .4 * ember);
-      rect(bx + 12, by - 30, 1, 28, C.pole); rect(bx + 9, by - 30, 4, 1, C.pole); rect(bx + 9, by - 29, 2, 1, C.lamp); glow(bx + 10, by - 28, 22, 'rgba(255,200,120,1)', .5); glow(bx + 4, by - 4, 18, 'rgba(255,190,110,1)', .2); }
-    if (si !== 4 && !L.mob) { const z = .4, x = R(L.cx + L.half * sOf(z) + 130 * sOf(z)), y = R(yOf(z)); glow(x, y - 8, 22, 'rgba(255,200,120,1)', .25); }
+    sceneBack(t, en, bp);
     lamps(false);
     road();
     // ekipa z tyłu, potem nuty, potem przód
@@ -4235,8 +4359,7 @@ const GFX = {}; // rysunki współdzielone przez gry i okładki w Game Store
     sorted.filter(D => D.z < .12).forEach(D => dancer(D, t));
     lamps(true);
     // pogoda
-    const rain = si === 1;
-    flakes.forEach(f => { if (rain) { g.globalAlpha = .55; rect(f.x, f.y, 1, 3, '#8fb3d6'); } else { g.globalAlpha = f.big ? .95 : .6; rect(f.x, f.y, f.big ? 2 : 1, 1, C.snow); } }); g.globalAlpha = 1;
+    weatherDraw();
     // efekty
     fx.forEach(p => { g.globalAlpha = 1 - p.t / p.life; rect(p.x, p.y, 1, 1, p.col); }); g.globalAlpha = 1;
     texts.forEach(x => tx(x.s, x.x, R(x.y - x.t * 16), x.big ? 50 : 36, FONTB, x.col, 'center', 1 - x.t / .7));
