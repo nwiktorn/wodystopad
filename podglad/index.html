@@ -930,8 +930,18 @@ mark{background:none;color:var(--mag);font-weight:700}
 .gra__stage--wok canvas{image-rendering:pixelated;image-rendering:crisp-edges}
 .gra__stage--wok.run{cursor:pointer}
 .wok__tv{position:absolute;z-index:1;pointer-events:none;background:transparent}
-.wok__fs{all:unset;box-sizing:border-box;position:absolute;z-index:4;top:8px;left:50%;transform:translateX(-50%);width:38px;height:38px;display:grid;place-items:center;font:400 22px/1 'Jersey 10',monospace;color:#dfe9f2;background:rgba(15,24,48,.85);border:2px solid #dfe9f2;cursor:pointer}
+.wok__fs{all:unset;box-sizing:border-box;position:absolute;z-index:2;top:8px;left:50%;transform:translateX(-50%);width:38px;height:38px;display:grid;place-items:center;font:400 22px/1 'Jersey 10',monospace;color:#dfe9f2;background:rgba(15,24,48,.85);border:2px solid #dfe9f2;cursor:pointer}
 .wok__fs:focus-visible{outline:2px solid #FF5FD2;outline-offset:2px}
+.wok__fs span{display:none}
+.wok__fsbig{display:none}
+@keyframes wokPulse{0%,100%{box-shadow:0 0 0 0 rgba(217,255,61,.7)}50%{box-shadow:0 0 0 8px rgba(217,255,61,0)}}
+@media (max-width:760px){
+  .gra__stage--wok:not(.is-full) .wok__fs{width:auto;padding:0 12px;gap:6px;display:flex;align-items:center;background:#D9FF3D;color:#05070f;border-color:#05070f;animation:wokPulse 1.6s infinite}
+  .gra__stage--wok:not(.is-full) .wok__fs span{display:inline;font-size:18px}
+  .gra__stage--wok:not(.is-full) .wok__fsbig{all:unset;box-sizing:border-box;cursor:pointer;display:flex;flex-direction:column;gap:2px;width:100%;padding:9px 12px 8px;background:#D9FF3D;color:#05070f;border:3px solid #05070f;box-shadow:4px 4px 0 #05070f;text-align:center;animation:wokPulse 1.6s infinite}
+  .wok__fsbig b{font:400 26px/1 'Jersey 10',monospace;color:#05070f!important}
+  .wok__fsbig span{font:400 16px/1.1 'Jersey 10',monospace;letter-spacing:.02em}
+}
 .gra__stage--wok:fullscreen,.gra__stage--wok.wok-full{position:fixed;inset:0;width:100vw;height:100vh;height:100dvh;max-width:none;aspect-ratio:auto;border:0;border-radius:0;box-shadow:none;margin:0;z-index:9999}
 html.wok-lock,html.wok-lock body{overflow:hidden}
 .gra__stage--wok canvas.wok__hud{z-index:2;pointer-events:none;image-rendering:auto}
@@ -1632,12 +1642,13 @@ html:not(.sz-page) #sz-count{display:none}
           <canvas id="wok-cv" aria-hidden="true"></canvas>
           <div class="wok__tv" id="wok-tv" aria-hidden="true"><div id="wok-yt"></div></div>
           <canvas class="wok__hud" id="wok-hud" aria-hidden="true"></canvas>
-          <button class="wok__fs" id="wok-fs" type="button" aria-label="Pełny ekran" title="Pełny ekran">⛶</button>
+          <button class="wok__fs" id="wok-fs" type="button" aria-label="Pełny ekran" title="Pełny ekran">⛶<span> PEŁNY EKRAN</span></button>
           <div class="gra__ov wok__ov" id="wok-start">
             <div class="gra__card wok__card">
               <small>Wódystopad · gra nr 4 · hity T.Ok.I</small>
               <h3 class="wok__logo">WÓD<i>.</i>Ok<i>.</i>I</h3>
               <p>Trafiasz kieliszek w podstawkę — <b>wypijasz</b>. <b>Butelkę</b> trzymasz do dna. Seria ściąga ekipę na parkiet.</p>
+              <button class="wok__fsbig" id="wok-fsbig" type="button"><b>⛶ Włącz pełny ekran</b><span>Na telefonie gra się DUŻO lepiej — większe tory, nic nie ucieka spod palca</span></button>
               <div class="wok__songs" id="wok-songs" role="radiogroup" aria-label="Wybór piosenki"></div>
               <div class="wok__lv" id="wok-lv" role="radiogroup" aria-label="Poziom trudności"></div>
               <button class="btn-pill btn-lime" id="wok-go" type="button">Na parkiet →</button>
@@ -1699,7 +1710,7 @@ html:not(.sz-page) #sz-count{display:none}
           <p class="gra__note wok__toki">Muzyka: <a href="https://tokimuzyka.com" target="_blank" rel="noopener">T.Ok.I</a>. Rozdział 2 płyty „30 PRZED 30” wychodzi 23.11.</p>
         </aside>
       </div>
-      <p class="gra__keys"><b>A S K L</b> albo <b>← ↓ ↑ →</b> — wypij kieliszek na swoim torze · przy butelce <b>przytrzymaj</b> do dna · na telefonie stukaj w tory · <b>P</b> pauza · <b>−</b> / <b>+</b> głośność (suwak też w menu i w pauzie)</p>
+      <p class="gra__keys"><b>A S K L</b> albo <b>← ↓ ↑ →</b> — wypij kieliszek na swoim torze · przy butelce <b>przytrzymaj</b> do dna · <b>na telefonie włącz pełny ekran ⛶</b> i stukaj w tory · <b>P</b> pauza · <b>−</b> / <b>+</b> głośność (suwak też w menu i w pauzie)</p>
     </div>
 
     <!-- GRA 3: WÓDŻITSU -->
@@ -4295,12 +4306,13 @@ const GFX = {}; // rysunki współdzielone przez gry i okładki w Game Store
   function quit() { st = 'ready'; stage.classList.remove('run'); if (player && player.pauseVideo) player.pauseVideo(); show('start'); menu(); }
   // pełny ekran (telefon): prawdziwy fullscreen albo „udawany” (iPhone nie pozwala na fullscreen elementu)
   const fsBtn = $('#wok-fs'), isFull = () => document.fullscreenElement === stage || document.webkitFullscreenElement === stage || stage.classList.contains('wok-full');
-  function fsUpd() { const on = isFull(); fsBtn.textContent = on ? '✕' : '⛶'; fsBtn.setAttribute('aria-label', on ? 'Zamknij pełny ekran' : 'Pełny ekran'); setTimeout(resize, 60); }
+  function fsUpd() { const on = isFull(); stage.classList.toggle('is-full', on); fsBtn.innerHTML = on ? '✕' : '⛶<span> PEŁNY EKRAN</span>'; fsBtn.setAttribute('aria-label', on ? 'Zamknij pełny ekran' : 'Pełny ekran'); setTimeout(resize, 60); }
   function pseudoFull(on) { stage.classList.toggle('wok-full', on); document.documentElement.classList.toggle('wok-lock', on); fsUpd(); }
   fsBtn.onclick = e => { e.stopPropagation();
     if (isFull()) { if (document.fullscreenElement) document.exitFullscreen().catch(() => {}); else if (document.webkitFullscreenElement) document.webkitExitFullscreen(); pseudoFull(false); return; }
     const req = stage.requestFullscreen ? stage.requestFullscreen({ navigationUI: 'hide' }) : stage.webkitRequestFullscreen ? (stage.webkitRequestFullscreen(), Promise.resolve()) : Promise.reject();
     Promise.resolve(req).then(fsUpd).catch(() => pseudoFull(true)); };
+  $('#wok-fsbig').onclick = e => { e.stopPropagation(); if (!isFull()) fsBtn.click(); };
   document.addEventListener('fullscreenchange', fsUpd); document.addEventListener('webkitfullscreenchange', fsUpd);
   $('#wok-go').onclick = start; $('#wok-again').onclick = start; $('#wok-other').onclick = quit; $('#wok-back').onclick = quit; $('#wok-quit').onclick = quit; $('#wok-resume').onclick = resume;
   $('#wok-kick').onclick = () => { if (player && player.playVideo) { player.playVideo(); applyVol(); } $('#wok-kick').hidden = true; };
@@ -4407,7 +4419,8 @@ const GFX = {}; // rysunki współdzielone przez gry i okładki w Game Store
     store.set('game-pick', id);
     if (scroll) { const el = $('#game-' + id); const top = el.getBoundingClientRect().top + scrollY - (isMobile() ? 70 : 110); scrollTo({ top, behavior: reduced ? 'auto' : 'smooth' }); }
   }
-  carts.forEach(c => c.addEventListener("click", () => choose(c.dataset.game, false))); // bez przewijania — gra jest tuż pod kartami
+  carts.forEach(c => c.addEventListener("click", () => { choose(c.dataset.game, false); // na komputerze bez przewijania — gra jest tuż pod kartami
+    if (isMobile()) { const stg = $('#game-' + c.dataset.game + ' .gra__stage'); if (stg) requestAnimationFrame(() => stg.scrollIntoView({ block: 'center', behavior: reduced ? 'auto' : 'smooth' })); } })); // telefon: gra na środek ekranu
   const saved = store.get('game-pick', 'wodoki'); choose(games.some(gm => gm.dataset.game === saved) ? saved : 'wodoki', false);
   // okładki
   function art() { $$('.cart__art').forEach(cv => { if (cv.dataset.art === 'wodzitsu' || cv.dataset.art === 'wodoki') return; // okładki Wódżitsu i WÓD.Ok.I rysują moduły gier
