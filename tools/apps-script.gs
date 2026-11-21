@@ -136,8 +136,12 @@ function state_() {
 function public_(s) {
   return { brands: s.brands, sets: s.sets, people: s.people, bottles: s.bottles, sworn: s.oaths.map(o => o.who), fish: s.fish,
     scores: s.scores.slice(0, 15).map(x => ({ n: x.n, p: x.p, f: x.f, who: x.who })), games: s.scores.length,
-    boards: Object.keys(s.boards).reduce((o, k) => (o[k] = s.boards[k].slice(0, 15).map(x => ({ n: x.n, p: x.p, f: x.f, x: x.x, who: x.who })), o), {}) };
+    boards: Object.keys(s.boards).reduce((o, k) => (o[k] = (k === 'wodoki' ? perSong_(s.boards[k], 10) : s.boards[k].slice(0, 15)).map(x => ({ n: x.n, p: x.p, f: x.f, x: x.x, who: x.who })), o), {}) };
 }
+// WÓD.Ok.I: osobny ranking każdej piosenki (x = piosenka*3 + poziom) — po `top` z każdej, posortowane po punktach
+const WOK_SONGS = ['Disco', 'Deszcz', 'Kapela', 'Wspólny kurs', 'Staruszek'], WOK_LV = ['Kieliszek', 'Setka', 'Pół litra'];
+function perSong_(list, top) { const by = {}; list.forEach(x => { const g = Math.floor((x.x || 0) / 3); (by[g] = by[g] || []).push(x); });
+  return Object.keys(by).reduce((a, g) => a.concat(by[g].slice(0, top)), []).sort((a, b) => b.p - a.p || a.t - b.t); }
 
 function summary_(s) {
   const sh = sheet_(SUM); sh.clear();
@@ -151,7 +155,9 @@ function summary_(s) {
   rows.push(['', '', ''], ['RYBKI (21.11)', s.fish, '']);
   rows.push(['', '', ''], ['PODWÓDNE PRZYGODY — TOP 10', 'PUNKTY', 'RYBKI']);
   s.scores.slice(0, 10).forEach((x, i) => rows.push([(i + 1) + '. ' + x.n, x.p, x.f]));
-  Object.keys(GAMES).forEach(k => { rows.push(['', '', ''], [GAMES[k] + ' — TOP 10', 'PUNKTY', GAME_F[k] || 'WYNIK']);
+  Object.keys(GAMES).forEach(k => { rows.push(['', '', ''], [GAMES[k] + (k === 'wodoki' ? ' — TOP 5 KAŻDEJ PIOSENKI' : ' — TOP 10'), 'PUNKTY', GAME_F[k] || 'WYNIK']);
+    if (k === 'wodoki') { WOK_SONGS.forEach((nm, si) => { const l = s.boards[k].filter(x => Math.floor((x.x || 0) / 3) === si); if (!l.length) return;
+        rows.push(['  ' + nm + ' — TOP 5', '', '']); l.slice(0, 5).forEach((x, i) => rows.push(['  ' + (i + 1) + '. ' + x.n + ' (' + WOK_LV[(x.x || 0) % 3] + ')', x.p, x.f])); }); return; }
     s.boards[k].slice(0, 10).forEach((x, i) => rows.push([(i + 1) + '. ' + x.n, x.p, x.f])); });
   rows.push(['', '', ''], ['SZAFA GRAJĄCA — ZAMÓWIENIA', 'KTO', '']);
   s.songs.forEach((x, i) => rows.push([(i + 1) + '. ' + x.t, x.k || '—', '']));

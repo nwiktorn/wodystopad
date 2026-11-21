@@ -932,6 +932,18 @@ mark{background:none;color:var(--mag);font-weight:700}
 .gra__stage.g-full,.gra__stage.g-fs:fullscreen{position:fixed;inset:0;width:100vw;height:100vh;height:100dvh;max-width:none;aspect-ratio:auto;border:0;border-radius:0;box-shadow:none;margin:0;z-index:9999}
 .gra__stage--wdz.g-full .wdz__screen,.gra__stage--wdz.g-fs:fullscreen .wdz__screen{flex:1 1 auto;aspect-ratio:auto;min-height:0}
 html.g-lock,html.g-lock body{overflow:hidden}
+/* opcja „pełny ekran” w menu każdej gry (start + pauza) — widoczna, nie tylko ikonka w rogu */
+.gra__card .g-fsopt{flex-direction:column;gap:3px;background:#fff;border-style:dashed;white-space:normal;text-align:center;font-size:13px!important;padding:9px 18px!important}
+.gra__card .g-fsopt b{font:inherit}
+.gra__card .g-fsopt span{display:none;font:600 11px/1.2 var(--f-type);letter-spacing:.02em;text-transform:none;opacity:.8}
+.gra__stage.is-full .gra__card .g-fsopt{border-style:solid;opacity:.85}
+.gra__stage--wok .gra__card .g-fsopt{background:#26324c;color:#dfe9f2;border-color:#dfe9f2;font-size:21px!important;padding:6px 16px 5px!important}
+.gra__stage--wok .gra__card .g-fsopt span{font:400 16px/1.1 'Jersey 10',monospace}
+@media (max-width:760px){
+  .gra__stage:not(.is-full) .gra__card .g-fsopt{width:100%;background:#D9FF3D;color:#05070f;border:3px solid #05070f;box-shadow:4px 4px 0 #05070f;animation:wokPulse 1.6s infinite}
+  .gra__stage:not(.is-full) .gra__card .g-fsopt span{display:block}
+  .gra__stage--wok:not(.is-full) .gra__card .g-fsopt{font-size:24px!important}
+}
 @media (max-width:760px){
   .gra__stage:not(.is-full) .gra__fs{background:#D9FF3D;animation:wokPulse 1.6s infinite}
   .gra__stage:not(.is-full) .gra__fs span{display:inline}
@@ -943,14 +955,10 @@ html.g-lock,html.g-lock body{overflow:hidden}
 .wok__fs{all:unset;box-sizing:border-box;position:absolute;z-index:2;top:8px;left:50%;transform:translateX(-50%);width:38px;height:38px;display:grid;place-items:center;font:400 22px/1 'Jersey 10',monospace;color:#dfe9f2;background:rgba(15,24,48,.85);border:2px solid #dfe9f2;cursor:pointer}
 .wok__fs:focus-visible{outline:2px solid #FF5FD2;outline-offset:2px}
 .wok__fs span{display:none}
-.wok__fsbig{display:none}
 @keyframes wokPulse{0%,100%{box-shadow:0 0 0 0 rgba(217,255,61,.7)}50%{box-shadow:0 0 0 8px rgba(217,255,61,0)}}
 @media (max-width:760px){
   .gra__stage--wok:not(.is-full) .wok__fs{width:auto;padding:0 12px;gap:6px;display:flex;align-items:center;background:#D9FF3D;color:#05070f;border-color:#05070f;animation:wokPulse 1.6s infinite}
   .gra__stage--wok:not(.is-full) .wok__fs span{display:inline;font-size:18px}
-  .gra__stage--wok:not(.is-full) .wok__fsbig{all:unset;box-sizing:border-box;cursor:pointer;display:flex;flex-direction:column;gap:2px;width:100%;padding:9px 12px 8px;background:#D9FF3D;color:#05070f;border:3px solid #05070f;box-shadow:4px 4px 0 #05070f;text-align:center;animation:wokPulse 1.6s infinite}
-  .wok__fsbig b{font:400 26px/1 'Jersey 10',monospace;color:#05070f!important}
-  .wok__fsbig span{font:400 16px/1.1 'Jersey 10',monospace;letter-spacing:.02em}
 }
 .gra__stage--wok:fullscreen,.gra__stage--wok.wok-full{position:fixed;inset:0;width:100vw;height:100vh;height:100dvh;max-width:none;aspect-ratio:auto;border:0;border-radius:0;box-shadow:none;margin:0;z-index:9999}
 html.wok-lock,html.wok-lock body{overflow:hidden}
@@ -1009,6 +1017,12 @@ html.wok-lock,html.wok-lock body{overflow:hidden}
 .wok__proto .gra__ini i{border-radius:0}
 .wok__again{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
 .wok__toki a{color:inherit}
+.wok__bsongs{display:flex;flex-wrap:wrap;gap:4px;margin:6px 0 8px}
+.wok__bsongs button{all:unset;box-sizing:border-box;cursor:pointer;padding:4px 8px 3px;border:2px solid var(--ink);border-radius:999px;background:#fff;font:700 10.5px/1.1 var(--f-type);letter-spacing:.04em;text-transform:uppercase;color:var(--ink)}
+.wok__bsongs button i{font-style:normal;opacity:.55;margin-left:3px}
+.wok__bsongs button[aria-selected="true"]{background:var(--ink);color:var(--lime)}
+.wok__bsongs button[aria-selected="true"] i{opacity:.8}
+.wok__bsongs button:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
 .gra__stage--wok .gra__card .btn-pill{font-size:22px;padding:9px 20px 8px;font-family:'Jersey 10',monospace;letter-spacing:.03em}
 .wok__proto .gra__res span{font:400 15px/1 'Jersey 10',monospace;letter-spacing:.05em}
 .wok__card{padding:14px 22px 14px!important;gap:6px!important}
@@ -1653,7 +1667,7 @@ html:not(.sz-page) #sz-count{display:none}
               <small>Wódystopad · gra nr 4 · hity T.Ok.I</small>
               <h3 class="wok__logo">WÓD<i>.</i>Ok<i>.</i>I</h3>
               <p>Trafiasz kieliszek w podstawkę — <b>wypijasz</b>. <b>Butelkę</b> trzymasz do dna. Seria ściąga ekipę na parkiet.</p>
-              <button class="wok__fsbig" id="wok-fsbig" type="button"><b>⛶ Włącz pełny ekran</b><span>Na telefonie gra się DUŻO lepiej — większe tory, nic nie ucieka spod palca</span></button>
+              <button class="btn-pill g-fsopt" type="button" data-fsopt></button>
               <div class="wok__songs" id="wok-songs" role="radiogroup" aria-label="Wybór piosenki"></div>
               <div class="wok__lv" id="wok-lv" role="radiogroup" aria-label="Poziom trudności"></div>
               <button class="btn-pill btn-lime" id="wok-go" type="button">Na parkiet →</button>
@@ -1680,6 +1694,7 @@ html:not(.sz-page) #sz-count{display:none}
               <p>Kapela czeka, kieliszki też.</p>
               <label class="wok__vol">Głośność <input type="range" min="0" max="100" step="5" data-vol aria-label="Głośność muzyki"><output data-volout>80%</output></label>
               <button class="btn-pill btn-lime" id="wok-resume" type="button">Wracam na parkiet →</button>
+              <button class="btn-pill g-fsopt" type="button" data-fsopt></button>
               <button class="btn-pill btn-ink" id="wok-quit" type="button">Zejdź z parkietu</button>
             </div>
           </div>
@@ -1708,7 +1723,7 @@ html:not(.sz-page) #sz-count{display:none}
         </div>
         <aside class="gra__board" aria-labelledby="wok-board-h">
           <small class="gra__boardgame">WÓD.Ok.I</small>
-          <h3 id="wok-board-h">Rejestr rekordów</h3>
+          <h3 id="wok-board-h">Rejestr rekordów</h3><div class="wok__bsongs" id="wok-bsongs" role="tablist" aria-label="Ranking piosenki"></div>
           <p class="live" id="wok-live"></p>
           <ol class="gra__top" id="wok-top"></ol>
           <p class="gra__note" id="wok-board-note"></p>
@@ -4415,7 +4430,7 @@ const GFX = {}; // rysunki współdzielone przez gry i okładki w Game Store
     $('#wok-lv').innerHTML = LV.map((l, i) => `<button type="button" role="radio" aria-checked="${i === lv}" data-i="${i}">${l.n}<small>${l.s}</small></button>`).join('');
     $('#wok-off').textContent = (lat > 0 ? '+' : '') + lat + ' ms'; }
   const best = i => (store.get('wok-best', {})[i] || 0);
-  $('#wok-songs').addEventListener('click', e => { const b = e.target.closest('[data-i]'); if (!b) return; si = +b.dataset.i; store.set('wok-song', si); menu(); reset(); if (player && player.cueVideoById && !fake) player.cueVideoById({ videoId: song.id, startSeconds: startAt }); });
+  $('#wok-songs').addEventListener('click', e => { const b = e.target.closest('[data-i]'); if (!b) return; si = +b.dataset.i; store.set('wok-song', si); menu(); reset(); board(si); if (player && player.cueVideoById && !fake) player.cueVideoById({ videoId: song.id, startSeconds: startAt }); });
   $('#wok-lv').addEventListener('click', e => { const b = e.target.closest('[data-i]'); if (!b) return; lv = +b.dataset.i; store.set('wok-lv', lv); menu(); });
   const applyVol = () => { $$('#wok-stage [data-vol]').forEach(r => r.value = vol); $$('#wok-stage [data-volout]').forEach(o => o.textContent = vol + '%');
     if (player && player.setVolume) { player.setVolume(vol); if (vol) player.unMute(); else player.mute(); } };
@@ -4442,7 +4457,6 @@ const GFX = {}; // rysunki współdzielone przez gry i okładki w Game Store
     if (isFull()) { if (document.fullscreenElement) document.exitFullscreen().catch(() => {}); else if (document.webkitFullscreenElement) document.webkitExitFullscreen(); pseudoFull(false); return; }
     const req = stage.requestFullscreen ? stage.requestFullscreen({ navigationUI: 'hide' }) : stage.webkitRequestFullscreen ? (stage.webkitRequestFullscreen(), Promise.resolve()) : Promise.reject();
     Promise.resolve(req).then(fsUpd).catch(() => pseudoFull(true)); };
-  $('#wok-fsbig').onclick = e => { e.stopPropagation(); if (!isFull()) fsBtn.click(); };
   document.addEventListener('fullscreenchange', fsUpd); document.addEventListener('webkitfullscreenchange', fsUpd);
   $('#wok-go').onclick = start; $('#wok-again').onclick = start; $('#wok-other').onclick = quit; $('#wok-back').onclick = quit; $('#wok-quit').onclick = quit; $('#wok-resume').onclick = resume;
   $('#wok-kick').onclick = () => { if (player && player.playVideo) { player.playVideo(); applyVol(); } $('#wok-kick').hidden = true; };
@@ -4494,8 +4508,9 @@ const GFX = {}; // rysunki współdzielone przez gry i okładki w Game Store
       .map(([k, v]) => `<li><span>${k}</span><b>${v}</b></li>`).join('');
     $('#wok-saved').textContent = ''; form.classList.remove('done'); ini.value = store.get('game-ini', ''); paint();
     const bs = store.get('wok-best', {}); if (pts > (bs[si] || 0)) { if (bs[si]) $('#wok-saved').textContent = 'Nowy rekord osobisty w tej piosence!'; bs[si] = pts; store.set('wok-best', bs); }
-    show('over'); myBest(); if (!isMobile()) setTimeout(() => ini.focus({ preventScroll: true }), 60); }
+    show('over'); myBest(); board(si); if (!isMobile()) setTimeout(() => ini.focus({ preventScroll: true }), 60); }
   const shared = () => !!(API.state && API.state.boards && API.state.boards.wodoki);
+  let bSong = si; const SHORT = ['Disco', 'Deszcz', 'Kapela', 'W. kurs', 'Staruszek'], songOf = x => Math.floor((x || 0) / 3);
   const boardList = () => shared() ? API.state.boards.wodoki : store.get('wok-scores', []).map(s => Object.assign({ who: API.me }, s));
   form.onsubmit = e => { e.preventDefault(); const n = clean(ini.value);
     if (n.length < 1) { const w = $('#wok-save .gra__ini'); w.classList.remove('shake'); void w.offsetWidth; w.classList.add('shake'); ini.focus(); return; }
@@ -4504,21 +4519,25 @@ const GFX = {}; // rysunki współdzielone przez gry i okładki w Game Store
     const loc = store.get('wok-scores', []); loc.push(entry); loc.sort((a, b) => b.p - a.p); store.set('wok-scores', loc.slice(0, 15));
     API.send({ type: 'score-g', d: Object.assign({ g: 'wodoki' }, entry) });
     if (shared()) API.state.boards.wodoki = API.state.boards.wodoki.concat([Object.assign({ who: API.me, fresh: 1 }, entry)]).sort((a, b) => b.p - a.p);
-    const list = boardList(), pos = list.findIndex(s => s.n === n && s.p === entry.p && (s.who === API.me || !s.who)) + 1;
-    form.classList.add('done'); justSaved = entry; board();
-    $('#wok-saved').textContent = `Wpisano do rejestru: ${n}, ${entry.p} pkt` + (pos ? ` — miejsce ${pos}.` : '.');
+    const list = boardList().filter(s => songOf(s.x) === songOf(entry.x)), pos = list.findIndex(s => s.n === n && s.p === entry.p && (s.who === API.me || !s.who)) + 1;
+    form.classList.add('done'); justSaved = entry; board(songOf(entry.x));
+    $('#wok-saved').textContent = `Wpisano do rankingu „${SONGS[songOf(entry.x)].t}”: ${n}, ${entry.p} pkt` + (pos ? ` — miejsce ${pos}.` : '.');
     result = null; ini.blur(); };
-  const tag = x => { const s = SONGS[Math.floor((x || 0) / 3)], l = LV[(x || 0) % 3]; return s ? `${s.t} · ${l.n}` : ''; };
-  function board() {
-    const list = boardList().slice(0, 10), sh = shared();
-    $('#wok-top').innerHTML = list.length ? list.map(s => `<li class="${s.who === API.me ? 'me' : ''}${s === justSaved || s.fresh ? ' new' : ''}"><b>${String(s.n).replace(/[<>&"]/g, '')}</b><em>${tag(s.x)}</em><strong>${s.p}</strong></li>`).join('')
-      : '<li class="empty">Rejestr pusty. Pierwszy wpis należy do Ciebie.</li>';
+  // osobny ranking dla każdej piosenki (x = piosenka*3 + poziom); pigułki nad listą przełączają piosenkę
+  function board(to) {
+    if (typeof to === 'number') bSong = to;
+    const all = boardList(), sh = shared(), cnt = SONGS.map((_, i) => all.filter(s => songOf(s.x) === i).length);
+    $('#wok-bsongs').innerHTML = SONGS.map((_, i) => `<button type="button" role="tab" data-i="${i}" aria-selected="${i === bSong}">${SHORT[i]}<i>${cnt[i] || ''}</i></button>`).join('');
+    const list = all.filter(s => songOf(s.x) === bSong).slice(0, 10);
+    $('#wok-top').innerHTML = list.length ? list.map(s => `<li class="${s.who === API.me ? 'me' : ''}${s === justSaved || s.fresh ? ' new' : ''}"><b>${String(s.n).replace(/[<>&"]/g, '')}</b><em>${LV[(s.x || 0) % 3].n}</em><strong>${s.p}</strong></li>`).join('')
+      : `<li class="empty">Nikt jeszcze nie pił do „${SONGS[bSong].t}”. Pierwszy wpis należy do Ciebie.</li>`;
     list.forEach(s => delete s.fresh);
     $('#wok-live').innerHTML = sh ? '<i></i>NA ŻYWO · REKORDY CAŁEJ EKIPY' : CONFIG.api ? '<i></i>ŁĄCZĘ Z KOMISJĄ…' : '';
-    $('#wok-board-note').textContent = sh ? 'Jeden wpis = jedna piosenka. Każda piosenka i poziom w jednym rejestrze.' : 'Na razie rekordy z tego urządzenia.';
+    $('#wok-board-note').textContent = sh ? `Ranking piosenki „${SONGS[bSong].t}” — wszystkie poziomy razem, poziom przy wyniku.` : 'Na razie rekordy z tego urządzenia.';
   }
+  $('#wok-bsongs').addEventListener('click', e => { const b = e.target.closest('[data-i]'); if (b) board(+b.dataset.i); });
   function myBest() { const b = Math.max(0, ...Object.values(store.get('wok-best', {}))); $('#wok-mybest').textContent = b ? `Twój najlepszy wynik: ${b} pkt` : ''; menu(); }
-  API.on(board); board(); myBest();
+  API.on(() => board()); board(); myBest();
 
   /* ---------- okładka w Game Store (pixel art 40×40) ---------- */
   function art() { const c0 = $('.cart__art[data-art="wodoki"]'); if (!c0) return; const N = 40, c = document.createElement('canvas'); c.width = c.height = N;
@@ -4539,7 +4558,8 @@ const GFX = {}; // rysunki współdzielone przez gry i okładki w Game Store
 })();
 
 /* =========================================================
-   PEŁNY EKRAN dla gier 1–3 (Podwódne Przygody, Ostatnie Polanie, Wódżitsu) — WÓD.Ok.I ma własny.
+   PEŁNY EKRAN dla gier 1–3 (Podwódne Przygody, Ostatnie Polanie, Wódżitsu) — WÓD.Ok.I ma własny przełącznik;
+   do tego opcja „Graj na pełnym ekranie” w menu startowym i w pauzie wszystkich 4 gier.
    Prawdziwy fullscreen, a gdy przeglądarka nie pozwala (iPhone) — „udawany” (klasa g-full).
    ========================================================= */
 (() => {
@@ -4556,7 +4576,18 @@ const GFX = {}; // rysunki współdzielone przez gry i okładki w Game Store
       const req = stage.requestFullscreen ? stage.requestFullscreen({ navigationUI: 'hide' }) : stage.webkitRequestFullscreen ? (stage.webkitRequestFullscreen(), Promise.resolve()) : Promise.reject();
       Promise.resolve(req).then(upd).catch(() => pseudo(true)); stage.focus({ preventScroll: true }); });
     addEventListener('keydown', e => { if (e.key === 'Escape' && stage.classList.contains('g-full')) pseudo(false); });
-    document.addEventListener('fullscreenchange', upd); document.addEventListener('webkitfullscreenchange', upd); upd(); });
+    document.addEventListener('fullscreenchange', upd); document.addEventListener('webkitfullscreenchange', upd); upd();
+    // ta sama opcja w menu startowym i w pauzie, zaraz pod głównym przyciskiem
+    $$('.gra__ov[id$="-start"] .gra__card, .gra__ov[id$="-pause"] .gra__card', stage).forEach(card => { const m = document.createElement('button');
+      m.type = 'button'; m.className = 'btn-pill g-fsopt'; m.dataset.fsopt = ''; const go = card.querySelector('.btn-lime'); go ? go.after(m) : card.appendChild(m); });
+    menuFs(stage, () => b.click()); });
+  const st = $('#wok-stage'); if (st) menuFs(st, () => $('#wok-fs').click());
+  function menuFs(stage, toggle) { const btns = $$('[data-fsopt]', stage); if (!btns.length) return;
+    const upd = () => { const on = stage.classList.contains('is-full');
+      btns.forEach(m => { m.innerHTML = on ? '<b>✕ Wyjdź z pełnego ekranu</b>' : '<b>⛶ Graj na pełnym ekranie</b><span>Na telefonie gra się dużo lepiej — większy obraz, nic nie ucieka spod palca</span>'; }); };
+    btns.forEach(m => { ['pointerdown', 'mousedown', 'touchstart'].forEach(ev => m.addEventListener(ev, e => e.stopPropagation(), { passive: true }));
+      m.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); toggle(); }); });
+    new MutationObserver(upd).observe(stage, { attributes: true, attributeFilter: ['class'] }); upd(); }
 })();
 
 /* =========================================================
