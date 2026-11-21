@@ -4226,8 +4226,10 @@ const GFX = {}; // rysunki współdzielone przez gry i okładki w Game Store
     for (let y = top; y < H; y++) { const s = (y - L.vy) / (L.hitY - L.vy), hw = L.half * s, x0 = R(L.cx - hw), x1 = R(L.cx + hw), z = zOfY(y + .5), d = t0 + z * lead, ew = Math.max(1, R(3 * s));
       if (si === 0) { // parkiet z podświetlanymi płytkami
         rect(x0 - ew, y, x1 - x0 + ew * 2, 1, '#2a1f4a'); const row = Math.floor(d / (P / 2));
-        for (let l = 0; l < 4; l++) { const a = R(L.cx + (l - 2) * hw / 2), b = R(L.cx + (l - 1) * hw / 2), lit = hsh(row, l + 7) < .12 + en * .25;
-          rect(a, y, b - a, 1, lit ? LANEC[(row + l) & 3] : ((row + l) & 1) ? '#1a1030' : '#221640'); if (lit) { g.globalAlpha = .55 * (1 - pulse * .5); rect(a, y, b - a, 1, '#0c0818'); g.globalAlpha = 1; } }
+        // płytki świecą rzadko i słabo, jednym fioletem (nie kolorami torów), a przy linii trafień gasną — żeby nie zagłuszać kieliszków
+        for (let l = 0; l < 4; l++) { const a = R(L.cx + (l - 2) * hw / 2), b = R(L.cx + (l - 1) * hw / 2), lit = hsh(row, l + 7) < .05 + en * .08;
+          rect(a, y, b - a, 1, ((row + l) & 1) ? '#1a1030' : '#1f1438');
+          if (lit) { g.globalAlpha = (.1 + .1 * pulse) * Math.min(1, Math.max(0, (z - .15) * 2.5)); rect(a + 1, y, b - a - 2, 1, '#9a5ad0'); g.globalAlpha = 1; } }
         if ((d / (P / 2)) % 1 < .08) rect(x0, y, x1 - x0, 1, '#0c0818'); }
       else if (si === 1) { // mokry bruk
         rect(x0 - ew, y, x1 - x0 + ew * 2, 1, '#2a3242'); const u = d * 7, row = Math.floor(u), f = u - row;
